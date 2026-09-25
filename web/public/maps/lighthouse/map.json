@@ -1,0 +1,61 @@
+{
+  "displayName": "Lighthouse (TarkovData)",
+  "internalNames": [
+    "Lighthouse"
+  ],
+  "coordinateRotation": 180,
+  "defaultLevel": 0,
+  "bounds": {
+    "min": {
+      "x": -545,
+      "z": -998
+    },
+    "max": {
+      "x": 512,
+      "z": 721
+    }
+  },
+  "layers": [
+    {
+      "name": "Ground Floor",
+      "level": 0,
+      "svg": "Lighthouse.svg",
+      "viewBox": {
+        "width": 1059.38,
+        "height": 1722.95
+      },
+      "imageBounds": {
+        "min": {
+          "x": -545,
+          "z": -998
+        },
+        "max": {
+          "x": 512,
+          "z": 721
+        }
+      },
+      "gameBounds": [
+        {
+          "min": {
+            "x": -545,
+            "y": -100,
+            "z": -998
+          },
+          "max": {
+            "x": 512,
+            "y": 100,
+            "z": 721
+          }
+        }
+      ]
+    }
+  ],
+  "attribution": {
+    "author": "Shebuka",
+    "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+    "modifiedBy": null,
+    "license": "CC BY-NC-SA 4.0",
+    "licenseFile": "Shebuka-LICENSE.md"
+  },
+  "source": "DynamicMaps (MIT, acidphantasm) Lighthouse_TarkovData @ 4944764"
+}

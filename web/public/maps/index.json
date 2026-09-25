@@ -1,0 +1,73 @@
+{
+  "source": "DynamicMaps @ 4944764",
+  "maps": [
+    {
+      "key": "bigmap",
+      "internalNames": [
+        "bigmap"
+      ]
+    },
+    {
+      "key": "factory4_day",
+      "internalNames": [
+        "factory4_day",
+        "factory4_night"
+      ]
+    },
+    {
+      "key": "sandbox",
+      "internalNames": [
+        "Sandbox",
+        "Sandbox_high"
+      ]
+    },
+    {
+      "key": "interchange",
+      "internalNames": [
+        "Interchange"
+      ]
+    },
+    {
+      "key": "laboratory",
+      "internalNames": [
+        "laboratory"
+      ]
+    },
+    {
+      "key": "labyrinth",
+      "internalNames": [
+        "Labyrinth"
+      ]
+    },
+    {
+      "key": "lighthouse",
+      "internalNames": [
+        "Lighthouse"
+      ]
+    },
+    {
+      "key": "rezervbase",
+      "internalNames": [
+        "RezervBase"
+      ]
+    },
+    {
+      "key": "shoreline",
+      "internalNames": [
+        "Shoreline"
+      ]
+    },
+    {
+      "key": "tarkovstreets",
+      "internalNames": [
+        "TarkovStreets"
+      ]
+    },
+    {
+      "key": "woods",
+      "internalNames": [
+        "Woods"
+      ]
+    }
+  ]
+}
