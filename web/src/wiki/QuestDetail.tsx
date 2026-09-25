@@ -12,11 +12,12 @@ interface QuestDetailProps {
   lookup: NameLookup
   onOpenDescription(questId: string): void
   onOpenPrep(questId: string): void
+  onOpenMap(questId: string): void
   onJump(questId: string): void
 }
 
 /** (d) 펼친 행. 2열 [목표·시작 조건] [보상] + 전폭 푸터 [연계]. 설명 본문은 여기 없음 — 팝업 (§1.2 d, e). */
-export function QuestDetail({ quest, catalog, lookup, onOpenDescription, onOpenPrep, onJump }: QuestDetailProps) {
+export function QuestDetail({ quest, catalog, lookup, onOpenDescription, onOpenPrep, onOpenMap, onJump }: QuestDetailProps) {
   const t = useT()
   const meta = [
     lookup.traderName(quest.traderId),
@@ -26,6 +27,7 @@ export function QuestDetail({ quest, catalog, lookup, onOpenDescription, onOpenP
   ].filter(Boolean).join(' · ')
   const hasDescription = quest.description.trim() !== ''
   const prepN = prepCount(quest)
+  const hasLocations = quest.objectives.some((o) => (o.locations ?? []).length > 0)
   const hasRelated = quest.prerequisites.length > 0 || quest.unlocks.length > 0
 
   return (
@@ -48,6 +50,15 @@ export function QuestDetail({ quest, catalog, lookup, onOpenDescription, onOpenP
           onClick={() => onOpenPrep(quest.id)}
         >
           {t('prep.button')}
+        </button>
+        <button
+          type="button"
+          className="qc-btn"
+          disabled={!hasLocations}
+          title={hasLocations ? undefined : t('map.none')}
+          onClick={() => onOpenMap(quest.id)}
+        >
+          {t('map.button')}
         </button>
         <span className="qc-detail__meta">{meta}</span>
       </div>
@@ -91,7 +102,7 @@ function ExtraRewards({ titleKey, rewards, lookup, onJump }: ExtraRewardsProps) 
   )
 }
 
-type RelatedProps = Omit<QuestDetailProps, 'onOpenDescription' | 'onOpenPrep'>
+type RelatedProps = Omit<QuestDetailProps, 'onOpenDescription' | 'onOpenPrep' | 'onOpenMap'>
 
 /** 연계는 제목 없이 구분선 아래 [선행] [후속] 두 열로만 (§1.2 d) */
 function RelatedQuests({ quest, catalog, lookup, onJump }: RelatedProps) {
