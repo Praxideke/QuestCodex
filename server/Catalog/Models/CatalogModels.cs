@@ -15,6 +15,8 @@ public static class WarningCodes
     public const string VanillaSnapshotMismatch = "vanillaSnapshotMismatch";
     public const string ModQuestScanFailed = "modQuestScanFailed";
     public const string ModQuestIdCollision = "modQuestIdCollision";
+    public const string QuestZoneSnapshotMissing = "questZoneSnapshotMissing";
+    public const string QuestZoneNotFound = "questZoneNotFound";
 }
 
 public sealed record CatalogWarning(string? QuestId, string Code, string Detail);
@@ -22,7 +24,20 @@ public sealed record CatalogWarning(string? QuestId, string Code, string Detail)
 public sealed record CatalogTrader(string Id, string Name, string? AvatarUrl, bool IsVanilla);
 
 public sealed record Objective(
-    string ConditionId, string ConditionType, string Text, double? TargetCount, string? TargetName, ObjectivePrep? Prep = null);
+    string ConditionId, string ConditionType, string Text, double? TargetCount, string? TargetName, ObjectivePrep? Prep = null)
+{
+    /// <summary>
+    /// 목표 위치(맵별 Unity 좌표). 좌표를 알 수 없는 조건이면 빈 목록. 레코드 동등성이 목록을 참조로 비교하므로
+    /// 빈 값은 항상 공유 인스턴스(Array.Empty)를 쓴다 — LocationResolver 도 같은 인스턴스를 돌려준다.
+    /// </summary>
+    public IReadOnlyList<ObjectiveLocation> Locations { get; init; } = Array.Empty<ObjectiveLocation>();
+}
+
+/// <summary>Unity 월드 좌표 그대로. Y = 높이. SVG 투영은 브라우저가 한다.</summary>
+public sealed record MapPoint(double X, double Y, double Z);
+
+/// <summary>Map = SPT locations 폴더 키(소문자, 예: bigmap, sandbox_high).</summary>
+public sealed record ObjectiveLocation(string Map, IReadOnlyList<MapPoint> Points);
 
 public sealed record QuestRewards(
     IReadOnlyList<CatalogReward> Started,

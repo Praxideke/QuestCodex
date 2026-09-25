@@ -1,4 +1,5 @@
 using QuestCodex.Catalog;
+using QuestCodex.Catalog.Locations;
 using QuestCodex.Catalog.Models;
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
@@ -298,6 +299,45 @@ public class CatalogBuilderTests
         Assert.Equal("0.2.0", cat.ModVersion);
         Assert.Equal(Now, cat.GeneratedAt);
         Assert.Contains("weapon", cat.RewardIndex.Keys);
+    }
+
+    [Fact]
+    public void Objectives_carry_locations_filtered_by_quest_map()
+    {
+        var customs = new MapPoint(-334.93, 2.22, -163.46);
+        var reserve = new MapPoint(-334.93, -101.46, -163.46);
+        var q = Quest(Id(1), finish:
+        [
+            new QuestCondition { Id = Id(11), ConditionType = "PlaceBeacon", DynamicLocale = false, ZoneId = "fuel4" },
+            new QuestCondition { Id = Id(12), ConditionType = "HandoverItem", DynamicLocale = false },
+        ]);
+        q.Location = "56f40101d2720b2a4d8b45d6";
+        var zones = new PointTableBuilder().Add("bigmap", "fuel4", customs).Add("rezervbase", "fuel4", reserve).Build();
+
+        var cat = CatalogBuilder.Build(Input([q]) with
+        {
+            QuestZones = zones,
+            LocationKeys = new Dictionary<string, string> { ["56f40101d2720b2a4d8b45d6"] = "bigmap" },
+        }, Now);
+
+        var objectives = cat.Quests[Id(1)].Objectives;
+        var location = Assert.Single(objectives[0].Locations);
+        Assert.Equal("bigmap", location.Map);
+        Assert.Equal([customs], location.Points);
+        Assert.Empty(objectives[1].Locations);
+        Assert.DoesNotContain(cat.Warnings, w => w.Code == WarningCodes.QuestZoneNotFound);
+    }
+
+    [Fact]
+    public void Missing_zone_snapshot_warns_once_and_zone_lookups_still_warn()
+    {
+        var q = Quest(Id(1), finish: [new QuestCondition { Id = Id(11), ConditionType = "PlaceBeacon", DynamicLocale = false, ZoneId = "fuel4" }]);
+
+        var cat = CatalogBuilder.Build(Input([q]) with { QuestZoneSnapshotMissing = true }, Now);
+
+        Assert.Single(cat.Warnings, w => w.Code == WarningCodes.QuestZoneSnapshotMissing && w.QuestId is null);
+        Assert.Single(cat.Warnings, w => w.Code == WarningCodes.QuestZoneNotFound && w.QuestId == Id(1).ToString());
+        Assert.Empty(cat.Quests[Id(1)].Objectives[0].Locations);
     }
 
     [Fact]

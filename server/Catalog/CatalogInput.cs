@@ -1,5 +1,6 @@
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
+using PointTable = System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IReadOnlyList<QuestCodex.Catalog.Models.MapPoint>>>;
 
 namespace QuestCodex.Catalog;
 
@@ -23,4 +24,11 @@ public sealed record CatalogInput(
     /// "/files/…" 아바타 URL 을 SPT 이미지 라우터가 실제로 서빙할 수 있는지. null 이면 검사하지 않는다.
     /// 서빙 불가한 URL 을 그대로 내보내면 프론트가 매번 404 를 때려 서버 로그에 에러가 쌓인다.
     /// </summary>
-    Func<string, bool>? AvatarIsServable = null);
+    Func<string, bool>? AvatarIsServable = null,
+    /// <summary>map → zoneId → 점. 동봉 스냅샷과 모드 CustomQuestZones 를 합친 것. null 이면 존 좌표 없음.</summary>
+    PointTable? QuestZones = null,
+    /// <summary>map → 아이템 tpl → looseLoot spawnpointsForced 위치.</summary>
+    PointTable? QuestItemSpawns = null,
+    /// <summary>로케이션 _Id(MongoId) → map 키(locations 폴더 이름). quest.location 이 ID 일 때 쓴다.</summary>
+    IReadOnlyDictionary<string, string>? LocationKeys = null,
+    bool QuestZoneSnapshotMissing = false);

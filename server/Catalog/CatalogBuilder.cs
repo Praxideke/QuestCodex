@@ -1,3 +1,4 @@
+using QuestCodex.Catalog.Locations;
 using QuestCodex.Catalog.Models;
 using QuestCodex.Catalog.Prep;
 using QuestCodex.Catalog.Requirements;
@@ -32,6 +33,9 @@ public static class CatalogBuilder
         var categorizer = new ItemCategorizer(input.Items);
         var rewardParser = new RewardParser(categorizer, locale, input.Items);
         var prepParser = new PrepParser(locale, rewardParser.NameOf);
+        var empty = new PointTableBuilder().Build();
+        var locationResolver = new LocationResolver(
+            input.QuestZones ?? empty, input.QuestItemSpawns ?? empty, input.LocationKeys ?? new Dictionary<string, string>(), input.Items);
 
         if (input.VanillaQuestIds is null)
         {
@@ -40,6 +44,11 @@ public static class CatalogBuilder
         else if (input.VanillaSnapshotSptVersion is not null && input.VanillaSnapshotSptVersion != input.SptVersion)
         {
             warnings.Add(new CatalogWarning(null, WarningCodes.VanillaSnapshotMismatch, $"snapshot {input.VanillaSnapshotSptVersion} vs server {input.SptVersion}"));
+        }
+
+        if (input.QuestZoneSnapshotMissing)
+        {
+            warnings.Add(new CatalogWarning(null, WarningCodes.QuestZoneSnapshotMissing, "Data/quest-zones.json not loaded; only mod zones and quest items have locations"));
         }
 
         warnings.AddRange(input.ModQuestScanWarnings ?? []);
@@ -56,7 +65,7 @@ public static class CatalogBuilder
             var questId = kv.Key.ToString();
             try
             {
-                quests[questId] = BuildQuest(questId, kv.Value, input, locale, rewardParser, prepParser, traders, warnings);
+                quests[questId] = BuildQuest(questId, kv.Value, input, locale, rewardParser, prepParser, locationResolver, traders, warnings);
             }
             catch (Exception ex)
             {
@@ -96,6 +105,7 @@ public static class CatalogBuilder
         LocaleResolver locale,
         RewardParser rewardParser,
         PrepParser prepParser,
+        LocationResolver locationResolver,
         SortedDictionary<string, CatalogTrader> traders,
         List<CatalogWarning> warnings)
     {
@@ -124,8 +134,13 @@ public static class CatalogBuilder
         var prerequisites = requirements.OfType<QuestRequirement>().Select(r => r.QuestId).Distinct().ToList();
         var minLevel = requirements.OfType<LevelRequirement>().Select(r => (int?)Math.Round(r.Value)).Min();
 
+        var questMap = locationResolver.QuestMap(quest.Location);
         var objectives = (quest.Conditions.AvailableForFinish ?? [])
-            .Select(c => BuildObjective(c, locale, warnings, questId) with { Prep = prepParser.Parse(c) })
+            .Select(c => BuildObjective(c, locale, warnings, questId) with
+            {
+                Prep = prepParser.Parse(c),
+                Locations = locationResolver.Resolve(c, questMap, warnings, questId),
+            })
             .ToList();
 
         var rewards = new QuestRewards(
