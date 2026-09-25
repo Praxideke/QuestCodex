@@ -14,7 +14,9 @@ const wanted = new Map()
 const want = (zoneId, quest) => {
   if (!zoneId) return
   if (!wanted.has(zoneId)) wanted.set(zoneId, new Set())
-  wanted.get(zoneId).add(locale[`${quest._id} name`] ?? quest._id)
+  // 퀘스트 맵을 함께 적어 둔다 — 갱신할 때 어느 맵에 다시 들어가야 하는지 바로 보이게
+  const map = locale[`${quest.location} Name`] ?? quest.location
+  wanted.get(zoneId).add(`${locale[`${quest._id} name`] ?? quest._id} [${map}]`)
 }
 for (const quest of Object.values(quests)) {
   for (const c of quest.conditions?.AvailableForFinish ?? []) {
