@@ -1,0 +1,2406 @@
+{
+  "Location": "Lighthouse",
+  "DumpedAtUtc": "2026-09-25T05:13:03.4570019Z",
+  "Zones": [
+    {
+      "Id": "em_quest5_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 138.0736,
+        "Y": 3.61389923,
+        "Z": -195.50531
+      },
+      "Bounds": {
+        "Min": {
+          "X": 136.675339,
+          "Y": 3.10470867,
+          "Z": -196.210312
+        },
+        "Max": {
+          "X": 139.471848,
+          "Y": 4.12309,
+          "Z": -194.800308
+        }
+      }
+    },
+    {
+      "Id": "em_quest5_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 133.032608,
+        "Y": 3.32189941,
+        "Z": -187.18335
+      },
+      "Bounds": {
+        "Min": {
+          "X": 131.425522,
+          "Y": 2.72624588,
+          "Z": -188.690475
+        },
+        "Max": {
+          "X": 134.6397,
+          "Y": 3.917553,
+          "Z": -185.676224
+        }
+      }
+    },
+    {
+      "Id": "em_quest5_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 148.0836,
+        "Y": 3.71089935,
+        "Z": -133.3443
+      },
+      "Bounds": {
+        "Min": {
+          "X": 147.445236,
+          "Y": 3.21497583,
+          "Z": -134.0493
+        },
+        "Max": {
+          "X": 148.72197,
+          "Y": 4.206823,
+          "Z": -132.6393
+        }
+      }
+    },
+    {
+      "Id": "em_quest5_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 139.77562,
+        "Y": 3.4448967,
+        "Z": -130.80835
+      },
+      "Bounds": {
+        "Min": {
+          "X": 138.3532,
+          "Y": 2.85715055,
+          "Z": -132.113342
+        },
+        "Max": {
+          "X": 141.198044,
+          "Y": 4.032643,
+          "Z": -129.503357
+        }
+      }
+    },
+    {
+      "Id": "em_quest5_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 145.318985,
+        "Y": 3.80389786,
+        "Z": -138.524353
+      },
+      "Bounds": {
+        "Min": {
+          "X": 143.920731,
+          "Y": 3.2947073,
+          "Z": -139.229355
+        },
+        "Max": {
+          "X": 146.717239,
+          "Y": 4.31308842,
+          "Z": -137.819351
+        }
+      }
+    },
+    {
+      "Id": "em_quest5_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 138.7246,
+        "Y": 3.61189651,
+        "Z": -192.570313
+      },
+      "Bounds": {
+        "Min": {
+          "X": 138.086227,
+          "Y": 3.115973,
+          "Z": -193.275314
+        },
+        "Max": {
+          "X": 139.362961,
+          "Y": 4.10782,
+          "Z": -191.865311
+        }
+      }
+    },
+    {
+      "Id": "em_quest5_2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 93.43562,
+        "Y": 1.4408989,
+        "Z": 460.737671
+      },
+      "Bounds": {
+        "Min": {
+          "X": 92.22736,
+          "Y": 0.8838607,
+          "Z": 459.663422
+        },
+        "Max": {
+          "X": 94.64388,
+          "Y": 1.99793708,
+          "Z": 461.81192
+        }
+      }
+    },
+    {
+      "Id": "em_quest5_2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 86.14061,
+        "Y": 1.48589706,
+        "Z": 459.6847
+      },
+      "Bounds": {
+        "Min": {
+          "X": 85.17924,
+          "Y": 0.967057168,
+          "Z": 457.800781
+        },
+        "Max": {
+          "X": 87.10198,
+          "Y": 2.004737,
+          "Z": 461.5686
+        }
+      }
+    },
+    {
+      "Id": "Final_flare_btr",
+      "Type": "FlareShootDetectorZone",
+      "Active": true,
+      "Position": {
+        "X": 164.6226,
+        "Y": 2.34489822,
+        "Z": -160.06
+      },
+      "Bounds": {
+        "Min": {
+          "X": 124.604111,
+          "Y": -0.155101776,
+          "Z": -189.611984
+        },
+        "Max": {
+          "X": 173.21489,
+          "Y": 4.844898,
+          "Z": -119.791885
+        }
+      }
+    },
+    {
+      "Id": "Final_flare_btr_2",
+      "Type": "FlareShootDetectorZone",
+      "Active": true,
+      "Position": {
+        "X": -22.5973969,
+        "Y": 13.6848984,
+        "Z": -829.7793
+      },
+      "Bounds": {
+        "Min": {
+          "X": -38.8500671,
+          "Y": 8.393211,
+          "Z": -930.951843
+        },
+        "Max": {
+          "X": 27.3533783,
+          "Y": 16.1848984,
+          "Z": -813.67804
+        }
+      }
+    },
+    {
+      "Id": "Halloween_zone_for_antivirus(lighthouse)",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -207.467392,
+        "Y": -14.7551,
+        "Z": -348.1093
+      },
+      "Bounds": {
+        "Min": {
+          "X": -413.587341,
+          "Y": -28.4654121,
+          "Z": -424.6057
+        },
+        "Max": {
+          "X": -102.006836,
+          "Y": -0.130565643,
+          "Z": -219.36261
+        }
+      }
+    },
+    {
+      "Id": "kill_in_forest_lighthouse",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -197.8674,
+        "Y": 8.064898,
+        "Z": -366.809326
+      },
+      "Bounds": {
+        "Min": {
+          "X": -316.538757,
+          "Y": -16.9351082,
+          "Z": -435.086
+        },
+        "Max": {
+          "X": -79.1960449,
+          "Y": 33.0649033,
+          "Z": -298.532654
+        }
+      }
+    },
+    {
+      "Id": "kill_in_forest_lighthouse",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -100.167389,
+        "Y": 8.064898,
+        "Z": 339.0907
+      },
+      "Bounds": {
+        "Min": {
+          "X": -183.3239,
+          "Y": -69.08512,
+          "Z": 158.761658
+        },
+        "Max": {
+          "X": -17.01088,
+          "Y": 85.21491,
+          "Z": 519.419739
+        }
+      }
+    },
+    {
+      "Id": "kill_in_forest_lighthouse",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -331.567383,
+        "Y": 8.064898,
+        "Z": -588.1093
+      },
+      "Bounds": {
+        "Min": {
+          "X": -462.640381,
+          "Y": -66.93512,
+          "Z": -768.559448
+        },
+        "Max": {
+          "X": -200.494385,
+          "Y": 83.06491,
+          "Z": -407.65918
+        }
+      }
+    },
+    {
+      "Id": "kill_in_forest_lighthouse",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 133.73262,
+        "Y": 8.064898,
+        "Z": -681.1093
+      },
+      "Bounds": {
+        "Min": {
+          "X": 75.03818,
+          "Y": -16.9351082,
+          "Z": -932.702
+        },
+        "Max": {
+          "X": 192.427063,
+          "Y": 33.0649033,
+          "Z": -429.5166
+        }
+      }
+    },
+    {
+      "Id": "kill_in_forest_lighthouse",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 79.83261,
+        "Y": 8.064898,
+        "Z": 68.6906738
+      },
+      "Bounds": {
+        "Min": {
+          "X": 16.7757111,
+          "Y": -16.9351082,
+          "Z": -307.825958
+        },
+        "Max": {
+          "X": 142.889511,
+          "Y": 33.0649033,
+          "Z": 445.2073
+        }
+      }
+    },
+    {
+      "Id": "Marafon_kill_village_lighthouse",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -72.8853149,
+        "Y": 5.777012,
+        "Z": -286.249237
+      },
+      "Bounds": {
+        "Min": {
+          "X": -354.8738,
+          "Y": -4.29182053,
+          "Z": -415.923767
+        },
+        "Max": {
+          "X": 15.3936462,
+          "Y": 26.5781746,
+          "Z": -146.773865
+        }
+      }
+    },
+    {
+      "Id": "Mark_transits_lighthouse",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -338.6,
+        "Y": 17.5,
+        "Z": -168.900024
+      },
+      "Bounds": {
+        "Min": {
+          "X": -399.3111,
+          "Y": 3.78969,
+          "Z": -206.2646
+        },
+        "Max": {
+          "X": -277.382263,
+          "Y": 31.28969,
+          "Z": -124.797165
+        }
+      }
+    },
+    {
+      "Id": "meh_42_radio_area_mark_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -94.61739,
+        "Y": 1.94389725,
+        "Z": -550.689331
+      },
+      "Bounds": {
+        "Min": {
+          "X": -96.8183,
+          "Y": 0.9420228,
+          "Z": -553.1617
+        },
+        "Max": {
+          "X": -92.41649,
+          "Y": 2.94577169,
+          "Z": -548.217
+        }
+      }
+    },
+    {
+      "Id": "meh_42_radio_area_mark_2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -116.486389,
+        "Y": 40.3649,
+        "Z": 88.86865
+      },
+      "Bounds": {
+        "Min": {
+          "X": -118.529686,
+          "Y": 39.8649,
+          "Z": 87.57105
+        },
+        "Max": {
+          "X": -114.443092,
+          "Y": 40.8649,
+          "Z": 90.16625
+        }
+      }
+    },
+    {
+      "Id": "meh_42_radio_area_mark_3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 71.11261,
+        "Y": 10.1648979,
+        "Z": 392.52063
+      },
+      "Bounds": {
+        "Min": {
+          "X": 61.2331924,
+          "Y": 8.390053,
+          "Z": 382.705048
+        },
+        "Max": {
+          "X": 80.99203,
+          "Y": 11.939743,
+          "Z": 402.3362
+        }
+      }
+    },
+    {
+      "Id": "meh_42_radio_area_mark_4",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 127.572617,
+        "Y": 6.994898,
+        "Z": 293.000732
+      },
+      "Bounds": {
+        "Min": {
+          "X": 125.465393,
+          "Y": 5.91447067,
+          "Z": 291.595734
+        },
+        "Max": {
+          "X": 129.67984,
+          "Y": 8.075325,
+          "Z": 294.405731
+        }
+      }
+    },
+    {
+      "Id": "meh_44_eastLight_kill",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -29.5673981,
+        "Y": 23.3448982,
+        "Z": 112.690674
+      },
+      "Bounds": {
+        "Min": {
+          "X": -230.993515,
+          "Y": -3.068596,
+          "Z": -387.878174
+        },
+        "Max": {
+          "X": 171.858719,
+          "Y": 49.7583923,
+          "Z": 613.2595
+        }
+      }
+    },
+    {
+      "Id": "meh_48_transponder_area_check_1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 119.3026,
+        "Y": 2.1548996,
+        "Z": 520.7606
+      },
+      "Bounds": {
+        "Min": {
+          "X": 106.875092,
+          "Y": -3.70110035,
+          "Z": 507.953125
+        },
+        "Max": {
+          "X": 131.7301,
+          "Y": 8.0109,
+          "Z": 533.5681
+        }
+      }
+    },
+    {
+      "Id": "meh_50_visit_area_check_1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 442.2326,
+        "Y": 24.1148987,
+        "Z": 460.690674
+      },
+      "Bounds": {
+        "Min": {
+          "X": 429.8051,
+          "Y": 18.2589,
+          "Z": 447.883179
+        },
+        "Max": {
+          "X": 454.6601,
+          "Y": 29.9708977,
+          "Z": 473.498169
+        }
+      }
+    },
+    {
+      "Id": "meh_53_wificamera_area_mark_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -12.217392,
+        "Y": 7.324898,
+        "Z": -306.1393
+      },
+      "Bounds": {
+        "Min": {
+          "X": -17.0263672,
+          "Y": 6.05989742,
+          "Z": -310.4899
+        },
+        "Max": {
+          "X": -7.408417,
+          "Y": 8.589898,
+          "Z": -301.788727
+        }
+      }
+    },
+    {
+      "Id": "meh_53_wificamera_area_mark_2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -195.2824,
+        "Y": 6.1548996,
+        "Z": -431.1913
+      },
+      "Bounds": {
+        "Min": {
+          "X": -197.547577,
+          "Y": 4.88989973,
+          "Z": -432.401276
+        },
+        "Max": {
+          "X": -193.017212,
+          "Y": 7.41989946,
+          "Z": -429.981354
+        }
+      }
+    },
+    {
+      "Id": "meh_53_wificamera_area_mark_3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 83.14261,
+        "Y": 6.1548996,
+        "Z": -557.7993
+      },
+      "Bounds": {
+        "Min": {
+          "X": 80.22838,
+          "Y": 4.88989925,
+          "Z": -560.7676
+        },
+        "Max": {
+          "X": 86.05684,
+          "Y": 7.4199,
+          "Z": -554.831055
+        }
+      }
+    },
+    {
+      "Id": "meh_53_wificamera_area_mark_4",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -77.32939,
+        "Y": 12.0148983,
+        "Z": -790.0833
+      },
+      "Bounds": {
+        "Min": {
+          "X": -79.16257,
+          "Y": 10.749898,
+          "Z": -791.287659
+        },
+        "Max": {
+          "X": -75.4962158,
+          "Y": 13.2798986,
+          "Z": -788.878967
+        }
+      }
+    },
+    {
+      "Id": "new_year_2024_market_lighthouse",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -43.24739,
+        "Y": 8.064898,
+        "Z": -268.059326
+      },
+      "Bounds": {
+        "Min": {
+          "X": -55.577076,
+          "Y": 5.56489754,
+          "Z": -288.7586
+        },
+        "Max": {
+          "X": -30.9177055,
+          "Y": 10.5648975,
+          "Z": -247.360046
+        }
+      }
+    },
+    {
+      "Id": "Path_mountains_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -143.55304,
+        "Y": 29.8679886,
+        "Z": -6.61932373
+      },
+      "Bounds": {
+        "Min": {
+          "X": -145.94,
+          "Y": 27.6994019,
+          "Z": -14.7255268
+        },
+        "Max": {
+          "X": -140.7909,
+          "Y": 32.5287857,
+          "Z": -1.91607475
+        }
+      }
+    },
+    {
+      "Id": "Path_mountains_2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -167.8174,
+        "Y": 30.8948975,
+        "Z": -52.0292969
+      },
+      "Bounds": {
+        "Min": {
+          "X": -181.209137,
+          "Y": 26.7993164,
+          "Z": -65.377
+        },
+        "Max": {
+          "X": -160.758514,
+          "Y": 35.50158,
+          "Z": -44.09053
+        }
+      }
+    },
+    {
+      "Id": "Path_mountains_3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -181.27739,
+        "Y": 34.9349,
+        "Z": -119.039307
+      },
+      "Bounds": {
+        "Min": {
+          "X": -183.732483,
+          "Y": 34.6006355,
+          "Z": -119.460953
+        },
+        "Max": {
+          "X": -178.476654,
+          "Y": 38.6158333,
+          "Z": -111.889267
+        }
+      }
+    },
+    {
+      "Id": "Path_mountains_4",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -185.20697,
+        "Y": 23.3648987,
+        "Z": -177.929321
+      },
+      "Bounds": {
+        "Min": {
+          "X": -185.6048,
+          "Y": 22.2986469,
+          "Z": -180.1596
+        },
+        "Max": {
+          "X": -179.573608,
+          "Y": 25.3120022,
+          "Z": -174.698425
+        }
+      }
+    },
+    {
+      "Id": "place_flyers4",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -94.50939,
+        "Y": 0.6609001,
+        "Z": -555.3173
+      },
+      "Bounds": {
+        "Min": {
+          "X": -96.28923,
+          "Y": -0.394938231,
+          "Z": -556.722351
+        },
+        "Max": {
+          "X": -92.72955,
+          "Y": 1.71673846,
+          "Z": -553.9123
+        }
+      }
+    },
+    {
+      "Id": "place_flyers4",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -85.47239,
+        "Y": 0.585899353,
+        "Z": -562.1013
+      },
+      "Bounds": {
+        "Min": {
+          "X": -87.57553,
+          "Y": -0.4942218,
+          "Z": -564.271851
+        },
+        "Max": {
+          "X": -83.36925,
+          "Y": 1.66602051,
+          "Z": -559.9308
+        }
+      }
+    },
+    {
+      "Id": "place_flyers4",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -114.647392,
+        "Y": 0.5548973,
+        "Z": -549.1693
+      },
+      "Bounds": {
+        "Min": {
+          "X": -116.750534,
+          "Y": -0.525223851,
+          "Z": -551.339844
+        },
+        "Max": {
+          "X": -112.54425,
+          "Y": 1.63501847,
+          "Z": -546.9988
+        }
+      }
+    },
+    {
+      "Id": "q_ny_find_christmas_tree_light",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 114.322617,
+        "Y": 2.81489944,
+        "Z": 268.110718
+      },
+      "Bounds": {
+        "Min": {
+          "X": 106.331741,
+          "Y": 0.314899445,
+          "Z": 260.119843
+        },
+        "Max": {
+          "X": 122.313492,
+          "Y": 5.31489944,
+          "Z": 276.1016
+        }
+      }
+    },
+    {
+      "Id": "q_ny_hide_christmas_tree_light",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 114.642593,
+        "Y": 2.81489944,
+        "Z": 268.110718
+      },
+      "Bounds": {
+        "Min": {
+          "X": 111.978966,
+          "Y": 0.314899445,
+          "Z": 265.447083
+        },
+        "Max": {
+          "X": 117.306221,
+          "Y": 5.31489944,
+          "Z": 270.774353
+        }
+      }
+    },
+    {
+      "Id": "q_ny_kill_christmas_guys_light",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 114.759995,
+        "Y": 5.1548996,
+        "Z": 267.61
+      },
+      "Bounds": {
+        "Min": {
+          "X": 94.93382,
+          "Y": 0.1548996,
+          "Z": 247.783813
+        },
+        "Max": {
+          "X": 134.586166,
+          "Y": 10.1549,
+          "Z": 287.436157
+        }
+      }
+    },
+    {
+      "Id": "qlight_br_secure_road",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 0.0326080322,
+        "Y": 7.844898,
+        "Z": 47.6906738
+      },
+      "Bounds": {
+        "Min": {
+          "X": -50.9660149,
+          "Y": 2.84489727,
+          "Z": -302.450684
+        },
+        "Max": {
+          "X": 51.03123,
+          "Y": 12.8448992,
+          "Z": 397.832031
+        }
+      }
+    },
+    {
+      "Id": "qlight_extension_bariga1_exploration1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 353.1126,
+        "Y": 17.0239,
+        "Z": 547.821655
+      },
+      "Bounds": {
+        "Min": {
+          "X": 351.657623,
+          "Y": 15.4038982,
+          "Z": 544.7167
+        },
+        "Max": {
+          "X": 354.5676,
+          "Y": 18.6439,
+          "Z": 550.926636
+        }
+      }
+    },
+    {
+      "Id": "qlight_extension_mechanik1_exploration1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 32.5486145,
+        "Y": 6.414898,
+        "Z": -640.290344
+      },
+      "Bounds": {
+        "Min": {
+          "X": 29.7010651,
+          "Y": 4.894798,
+          "Z": -643.369141
+        },
+        "Max": {
+          "X": 35.3961639,
+          "Y": 7.934998,
+          "Z": -637.211548
+        }
+      }
+    },
+    {
+      "Id": "qlight_extension_mechanik1_hide1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 32.5486145,
+        "Y": 6.414898,
+        "Z": -640.290344
+      },
+      "Bounds": {
+        "Min": {
+          "X": 29.7010651,
+          "Y": 4.894798,
+          "Z": -643.369141
+        },
+        "Max": {
+          "X": 35.3961639,
+          "Y": 7.934998,
+          "Z": -637.211548
+        }
+      }
+    },
+    {
+      "Id": "qlight_extension_medic1_exploration1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -119.217392,
+        "Y": 13.0148983,
+        "Z": -841.129333
+      },
+      "Bounds": {
+        "Min": {
+          "X": -125.38739,
+          "Y": 10.0148983,
+          "Z": -846.129333
+        },
+        "Max": {
+          "X": -113.047394,
+          "Y": 16.0148983,
+          "Z": -836.129333
+        }
+      }
+    },
+    {
+      "Id": "qlight_extension_medic1_hide1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -119.217392,
+        "Y": 13.0148983,
+        "Z": -841.129333
+      },
+      "Bounds": {
+        "Min": {
+          "X": -125.467392,
+          "Y": 10.0148983,
+          "Z": -846.129333
+        },
+        "Max": {
+          "X": -112.967392,
+          "Y": 16.0148983,
+          "Z": -836.129333
+        }
+      }
+    },
+    {
+      "Id": "qlight_extension_prapor1_ags_exploration4",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 43.69261,
+        "Y": 10.9548988,
+        "Z": -448.549316
+      },
+      "Bounds": {
+        "Min": {
+          "X": 41.8426132,
+          "Y": 9.554899,
+          "Z": -450.064331
+        },
+        "Max": {
+          "X": 45.54261,
+          "Y": 12.3548985,
+          "Z": -447.0343
+        }
+      }
+    },
+    {
+      "Id": "qlight_extension_prapor1_ags_exploration7",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -64.88739,
+        "Y": 15.0748978,
+        "Z": -729.6093
+      },
+      "Bounds": {
+        "Min": {
+          "X": -66.73739,
+          "Y": 13.6748981,
+          "Z": -731.1243
+        },
+        "Max": {
+          "X": -63.03739,
+          "Y": 16.4748974,
+          "Z": -728.0943
+        }
+      }
+    },
+    {
+      "Id": "qlight_extension_prapor1_exploration1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 53.232605,
+        "Y": 15.3948975,
+        "Z": -623.5593
+      },
+      "Bounds": {
+        "Min": {
+          "X": 49.7826042,
+          "Y": 13.2948971,
+          "Z": -658.4093
+        },
+        "Max": {
+          "X": 56.6826057,
+          "Y": 17.4948978,
+          "Z": -588.709351
+        }
+      }
+    },
+    {
+      "Id": "qlight_extension_prapor1_exploration2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -97.73739,
+        "Y": 15.3948975,
+        "Z": -753.8093
+      },
+      "Bounds": {
+        "Min": {
+          "X": -132.5874,
+          "Y": 13.2948971,
+          "Z": -757.3093
+        },
+        "Max": {
+          "X": -62.8873749,
+          "Y": 17.4948978,
+          "Z": -750.3093
+        }
+      }
+    },
+    {
+      "Id": "qlight_extension_prapor1_exploration3",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -196.6474,
+        "Y": 15.3948975,
+        "Z": -666.8093
+      },
+      "Bounds": {
+        "Min": {
+          "X": -200.1474,
+          "Y": 13.2948971,
+          "Z": -701.6593
+        },
+        "Max": {
+          "X": -193.1474,
+          "Y": 17.4948978,
+          "Z": -631.959351
+        }
+      }
+    },
+    {
+      "Id": "qlight_extension_prapor1_utes_exploration10",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -186.747391,
+        "Y": 15.3378983,
+        "Z": -643.4723
+      },
+      "Bounds": {
+        "Min": {
+          "X": -188.747391,
+          "Y": 13.8378983,
+          "Z": -645.4723
+        },
+        "Max": {
+          "X": -184.747391,
+          "Y": 16.8378983,
+          "Z": -641.4723
+        }
+      }
+    },
+    {
+      "Id": "qlight_extension_prapor1_utes_exploration11",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -68.9773941,
+        "Y": 15.4248981,
+        "Z": -752.939331
+      },
+      "Bounds": {
+        "Min": {
+          "X": -70.9773941,
+          "Y": 13.9248981,
+          "Z": -754.939331
+        },
+        "Max": {
+          "X": -66.9773941,
+          "Y": 16.9248981,
+          "Z": -750.939331
+        }
+      }
+    },
+    {
+      "Id": "qlight_extension_prapor1_utes_exploration5",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -7.937393,
+        "Y": 8.604898,
+        "Z": -449.96933
+      },
+      "Bounds": {
+        "Min": {
+          "X": -9.787394,
+          "Y": 7.204899,
+          "Z": -451.484344
+        },
+        "Max": {
+          "X": -6.087393,
+          "Y": 10.0048981,
+          "Z": -448.4543
+        }
+      }
+    },
+    {
+      "Id": "qlight_extension_prapor1_utes_exploration6",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 29.7626038,
+        "Y": 15.2848988,
+        "Z": -591.3493
+      },
+      "Bounds": {
+        "Min": {
+          "X": 27.9126034,
+          "Y": 13.8848991,
+          "Z": -592.8643
+        },
+        "Max": {
+          "X": 31.6126041,
+          "Y": 16.6848984,
+          "Z": -589.8343
+        }
+      }
+    },
+    {
+      "Id": "qlight_extension_prapor1_utes_exploration8",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -130.3274,
+        "Y": 15.3378983,
+        "Z": -730.509338
+      },
+      "Bounds": {
+        "Min": {
+          "X": -132.1774,
+          "Y": 13.9378986,
+          "Z": -732.024353
+        },
+        "Max": {
+          "X": -128.477386,
+          "Y": 16.7378979,
+          "Z": -728.9943
+        }
+      }
+    },
+    {
+      "Id": "qlight_extension_prapor1_utes_exploration9",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 37.6526031,
+        "Y": 15.2848988,
+        "Z": -652.7653
+      },
+      "Bounds": {
+        "Min": {
+          "X": 35.8026047,
+          "Y": 13.8848991,
+          "Z": -654.280334
+        },
+        "Max": {
+          "X": 39.5026,
+          "Y": 16.6848984,
+          "Z": -651.2503
+        }
+      }
+    },
+    {
+      "Id": "qlight_find_crushed_heli",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -126.697388,
+        "Y": 22.4348984,
+        "Z": 301.52063
+      },
+      "Bounds": {
+        "Min": {
+          "X": -136.725891,
+          "Y": 20.4348984,
+          "Z": 291.492126
+        },
+        "Max": {
+          "X": -116.668884,
+          "Y": 24.4348984,
+          "Z": 311.549133
+        }
+      }
+    },
+    {
+      "Id": "qlight_find_light_merchant",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 423.332581,
+        "Y": 22.6448975,
+        "Z": 476.890625
+      },
+      "Bounds": {
+        "Min": {
+          "X": 383.451477,
+          "Y": 3.9448967,
+          "Z": 436.037964
+        },
+        "Max": {
+          "X": 463.213684,
+          "Y": 41.3449,
+          "Z": 517.7433
+        }
+      }
+    },
+    {
+      "Id": "qlight_find_scav_group1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -70.35739,
+        "Y": 26.779995,
+        "Z": 132.230652
+      },
+      "Bounds": {
+        "Min": {
+          "X": -78.97991,
+          "Y": 23.779995,
+          "Z": 127.806091
+        },
+        "Max": {
+          "X": -61.73487,
+          "Y": 29.779995,
+          "Z": 136.655212
+        }
+      }
+    },
+    {
+      "Id": "qlight_fuel_blood",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -116.5974,
+        "Y": 11.6748981,
+        "Z": -921.8493
+      },
+      "Bounds": {
+        "Min": {
+          "X": -131.549789,
+          "Y": 9.174898,
+          "Z": -928.863159
+        },
+        "Max": {
+          "X": -101.645004,
+          "Y": 14.1748981,
+          "Z": -914.835449
+        }
+      }
+    },
+    {
+      "Id": "qlight_fuel_blood_bezovoz1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -73.70739,
+        "Y": 11.6148987,
+        "Z": -875.5493
+      },
+      "Bounds": {
+        "Min": {
+          "X": -77.00876,
+          "Y": 10.1148987,
+          "Z": -882.59845
+        },
+        "Max": {
+          "X": -70.40602,
+          "Y": 13.1148987,
+          "Z": -868.5002
+        }
+      }
+    },
+    {
+      "Id": "qlight_fuel_blood_bezovoz2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -158.4574,
+        "Y": 6.044899,
+        "Z": -608.019348
+      },
+      "Bounds": {
+        "Min": {
+          "X": -159.967148,
+          "Y": 4.544899,
+          "Z": -614.921448
+        },
+        "Max": {
+          "X": -156.947647,
+          "Y": 7.544899,
+          "Z": -601.117249
+        }
+      }
+    },
+    {
+      "Id": "qlight_fuel_blood_bezovoz3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 29.0826111,
+        "Y": 5.99489975,
+        "Z": -423.3593
+      },
+      "Bounds": {
+        "Min": {
+          "X": 22.39949,
+          "Y": 4.494899,
+          "Z": -428.2076
+        },
+        "Max": {
+          "X": 35.76573,
+          "Y": 7.4949007,
+          "Z": -418.511017
+        }
+      }
+    },
+    {
+      "Id": "qlight_hunt_fr_find",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -246.5874,
+        "Y": 0.9148979,
+        "Z": -328.259338
+      },
+      "Bounds": {
+        "Min": {
+          "X": -249.091675,
+          "Y": -0.08510232,
+          "Z": -329.766479
+        },
+        "Max": {
+          "X": -244.08313,
+          "Y": 1.91489816,
+          "Z": -326.7522
+        }
+      }
+    },
+    {
+      "Id": "qlight_mark_vech1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 13.1366119,
+        "Y": 2.78689957,
+        "Z": -503.2343
+      },
+      "Bounds": {
+        "Min": {
+          "X": 11.2810278,
+          "Y": 1.28689957,
+          "Z": -506.395233
+        },
+        "Max": {
+          "X": 14.9921961,
+          "Y": 4.28689957,
+          "Z": -500.0734
+        }
+      }
+    },
+    {
+      "Id": "qlight_mark_vech2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -65.23739,
+        "Y": 3.35789871,
+        "Z": -691.4793
+      },
+      "Bounds": {
+        "Min": {
+          "X": -68.36949,
+          "Y": 1.85789824,
+          "Z": -693.265
+        },
+        "Max": {
+          "X": -62.1052856,
+          "Y": 4.857899,
+          "Z": -689.6936
+        }
+      }
+    },
+    {
+      "Id": "qlight_mark_vech3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 66.08261,
+        "Y": 2.76489639,
+        "Z": 516.5807
+      },
+      "Bounds": {
+        "Min": {
+          "X": 62.13437,
+          "Y": 1.26489627,
+          "Z": 513.592
+        },
+        "Max": {
+          "X": 70.03085,
+          "Y": 4.26489639,
+          "Z": 519.5694
+        }
+      }
+    },
+    {
+      "Id": "qlight_mark_vech4",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -41.467392,
+        "Y": 10.1948986,
+        "Z": 16.4906616
+      },
+      "Bounds": {
+        "Min": {
+          "X": -44.20662,
+          "Y": 8.694899,
+          "Z": 12.6292267
+        },
+        "Max": {
+          "X": -38.7281647,
+          "Y": 11.6948986,
+          "Z": 20.3520966
+        }
+      }
+    },
+    {
+      "Id": "qlight_pc1_ucot_kill",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -108.867393,
+        "Y": 22.2448978,
+        "Z": -2.30932617
+      },
+      "Bounds": {
+        "Min": {
+          "X": -193.894226,
+          "Y": -2.755104,
+          "Z": -183.807053
+        },
+        "Max": {
+          "X": -23.8405457,
+          "Y": 47.2449036,
+          "Z": 179.1884
+        }
+      }
+    },
+    {
+      "Id": "qlight_pr1_heli1_find",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -95.9473953,
+        "Y": 2.4048996,
+        "Z": -553.3493
+      },
+      "Bounds": {
+        "Min": {
+          "X": -113.052124,
+          "Y": -0.595101357,
+          "Z": -572.5979
+        },
+        "Max": {
+          "X": -78.84267,
+          "Y": 5.40490055,
+          "Z": -534.1007
+        }
+      }
+    },
+    {
+      "Id": "qlight_pr1_heli1_mark",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -96.48739,
+        "Y": 2.374897,
+        "Z": -552.589355
+      },
+      "Bounds": {
+        "Min": {
+          "X": -102.552292,
+          "Y": 0.05489731,
+          "Z": -560.4984
+        },
+        "Max": {
+          "X": -90.4224854,
+          "Y": 4.6948967,
+          "Z": -544.6803
+        }
+      }
+    },
+    {
+      "Id": "qlight_pr1_heli2_kill",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -51.16739,
+        "Y": 14.544899,
+        "Z": -573.209351
+      },
+      "Bounds": {
+        "Min": {
+          "X": -165.5983,
+          "Y": 2.39489746,
+          "Z": -724.6841
+        },
+        "Max": {
+          "X": 63.26352,
+          "Y": 26.6949,
+          "Z": -421.734619
+        }
+      }
+    },
+    {
+      "Id": "qlight16_peace_terra",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 136.8986,
+        "Y": 0.790897369,
+        "Z": 47.88867
+      },
+      "Bounds": {
+        "Min": {
+          "X": 136.044678,
+          "Y": 0.290897369,
+          "Z": 47.21144
+        },
+        "Max": {
+          "X": 137.752533,
+          "Y": 1.29089737,
+          "Z": 48.5659027
+        }
+      }
+    },
+    {
+      "Id": "quest_terminal_cottage",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -111.47139,
+        "Y": 21.6388988,
+        "Z": -13.3423462
+      },
+      "Bounds": {
+        "Min": {
+          "X": -111.482964,
+          "Y": 20.8888969,
+          "Z": -14.8787718
+        },
+        "Max": {
+          "X": -110.250893,
+          "Y": 23.05618,
+          "Z": -13.733777
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_place_c22_harley_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -140.796387,
+        "Y": 40.3058968,
+        "Z": 107.966675
+      },
+      "Bounds": {
+        "Min": {
+          "X": -142.128937,
+          "Y": 39.5558968,
+          "Z": 106.4863
+        },
+        "Max": {
+          "X": -139.463837,
+          "Y": 41.0558968,
+          "Z": 109.447052
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_place_c22_harley_2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -116.554321,
+        "Y": 18.5808983,
+        "Z": -19.4499512
+      },
+      "Bounds": {
+        "Min": {
+          "X": -117.580986,
+          "Y": 17.8308983,
+          "Z": -21.027935
+        },
+        "Max": {
+          "X": -115.527657,
+          "Y": 19.3308983,
+          "Z": -17.8719673
+        }
+      }
+    },
+    {
+      "Id": "w_race_cam1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 35.2566071,
+        "Y": 5.263897,
+        "Z": -558.832336
+      },
+      "Bounds": {
+        "Min": {
+          "X": 33.6360054,
+          "Y": 4.22001839,
+          "Z": -559.9562
+        },
+        "Max": {
+          "X": 36.87721,
+          "Y": 6.3077755,
+          "Z": -557.7085
+        }
+      }
+    },
+    {
+      "Id": "w_race_cam1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 34.1446075,
+        "Y": 4.58789825,
+        "Z": -582.212341
+      },
+      "Bounds": {
+        "Min": {
+          "X": 33.2472839,
+          "Y": 3.5983448,
+          "Z": -583.6174
+        },
+        "Max": {
+          "X": 35.04193,
+          "Y": 5.57745171,
+          "Z": -580.8073
+        }
+      }
+    },
+    {
+      "Id": "w_race_cam1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 38.2026062,
+        "Y": 5.3349,
+        "Z": -669.4993
+      },
+      "Bounds": {
+        "Min": {
+          "X": 36.565403,
+          "Y": 4.289775,
+          "Z": -670.664734
+        },
+        "Max": {
+          "X": 39.83981,
+          "Y": 6.380025,
+          "Z": -668.3339
+        }
+      }
+    },
+    {
+      "Id": "w_race_cam1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 40.6746063,
+        "Y": 5.4249,
+        "Z": -566.8103
+      },
+      "Bounds": {
+        "Min": {
+          "X": 39.45579,
+          "Y": 4.41119957,
+          "Z": -567.9732
+        },
+        "Max": {
+          "X": 41.89342,
+          "Y": 6.43860054,
+          "Z": -565.6474
+        }
+      }
+    },
+    {
+      "Id": "w_race_cam2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -144.7034,
+        "Y": 5.00189972,
+        "Z": -757.6273
+      },
+      "Bounds": {
+        "Min": {
+          "X": -145.755264,
+          "Y": 4.000738,
+          "Z": -759.1179
+        },
+        "Max": {
+          "X": -143.651535,
+          "Y": 6.00306129,
+          "Z": -756.1367
+        }
+      }
+    },
+    {
+      "Id": "w_race_cam2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -136.7974,
+        "Y": 5.22489929,
+        "Z": -757.7793
+      },
+      "Bounds": {
+        "Min": {
+          "X": -138.478287,
+          "Y": 4.17649269,
+          "Z": -759.3047
+        },
+        "Max": {
+          "X": -135.1165,
+          "Y": 6.273306,
+          "Z": -756.2539
+        }
+      }
+    },
+    {
+      "Id": "w_race_cam2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -135.010391,
+        "Y": 5.419899,
+        "Z": -737.0763
+      },
+      "Bounds": {
+        "Min": {
+          "X": -136.151642,
+          "Y": 4.4120245,
+          "Z": -738.113037
+        },
+        "Max": {
+          "X": -133.869141,
+          "Y": 6.42777348,
+          "Z": -736.039551
+        }
+      }
+    },
+    {
+      "Id": "w_race_cam2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -46.55539,
+        "Y": 5.43689728,
+        "Z": -747.722351
+      },
+      "Bounds": {
+        "Min": {
+          "X": -48.1114273,
+          "Y": 4.397868,
+          "Z": -749.3484
+        },
+        "Max": {
+          "X": -44.99935,
+          "Y": 6.4759264,
+          "Z": -746.0963
+        }
+      }
+    },
+    {
+      "Id": "w_race_cam2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -60.6273956,
+        "Y": 5.0849,
+        "Z": -748.209351
+      },
+      "Bounds": {
+        "Min": {
+          "X": -61.5371857,
+          "Y": 4.09441,
+          "Z": -749.6217
+        },
+        "Max": {
+          "X": -59.7176056,
+          "Y": 6.07539,
+          "Z": -746.797
+        }
+      }
+    },
+    {
+      "Id": "w_race_cam3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -180.4074,
+        "Y": 5.1948967,
+        "Z": -630.7793
+      },
+      "Bounds": {
+        "Min": {
+          "X": -182.1995,
+          "Y": 4.13813734,
+          "Z": -631.743958
+        },
+        "Max": {
+          "X": -178.6153,
+          "Y": 6.251656,
+          "Z": -629.814636
+        }
+      }
+    },
+    {
+      "Id": "w_race_cam3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -177.8454,
+        "Y": 5.221897,
+        "Z": -704.3413
+      },
+      "Bounds": {
+        "Min": {
+          "X": -178.814224,
+          "Y": 4.22697353,
+          "Z": -705.0205
+        },
+        "Max": {
+          "X": -176.876572,
+          "Y": 6.21682072,
+          "Z": -703.6621
+        }
+      }
+    },
+    {
+      "Id": "w_race_cam3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -181.4654,
+        "Y": 5.10989761,
+        "Z": -617.019348
+      },
+      "Bounds": {
+        "Min": {
+          "X": -182.4387,
+          "Y": 4.11463642,
+          "Z": -617.806763
+        },
+        "Max": {
+          "X": -180.492081,
+          "Y": 6.105159,
+          "Z": -616.231934
+        }
+      }
+    },
+    {
+      "Id": "w_race_cam3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -176.639389,
+        "Y": 5.412899,
+        "Z": -717.5913
+      },
+      "Bounds": {
+        "Min": {
+          "X": -177.77565,
+          "Y": 4.4054,
+          "Z": -718.57135
+        },
+        "Max": {
+          "X": -175.503128,
+          "Y": 6.420398,
+          "Z": -716.611267
+        }
+      }
+    },
+    {
+      "Id": "w_race_cam3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -186.6834,
+        "Y": 5.30989838,
+        "Z": -705.6583
+      },
+      "Bounds": {
+        "Min": {
+          "X": -187.824646,
+          "Y": 4.302024,
+          "Z": -706.695068
+        },
+        "Max": {
+          "X": -185.542145,
+          "Y": 6.317773,
+          "Z": -704.6216
+        }
+      }
+    },
+    {
+      "Id": "w_race_cam3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -184.643387,
+        "Y": 4.87189865,
+        "Z": -615.5453
+      },
+      "Bounds": {
+        "Min": {
+          "X": -185.6167,
+          "Y": 3.87663746,
+          "Z": -616.3327
+        },
+        "Max": {
+          "X": -183.670074,
+          "Y": 5.86716,
+          "Z": -614.7579
+        }
+      }
+    },
+    {
+      "Id": "zone_ball",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 117.081985,
+        "Y": 0.8717003,
+        "Z": -154.473389
+      },
+      "Bounds": {
+        "Min": {
+          "X": 116.684158,
+          "Y": 0.5374372,
+          "Z": -154.895
+        },
+        "Max": {
+          "X": 117.596146,
+          "Y": 1.36696649,
+          "Z": -154.080826
+        }
+      }
+    },
+    {
+      "Id": "zone_bonfire",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 97.62605,
+        "Y": 3.65999985,
+        "Z": -165.789978
+      },
+      "Bounds": {
+        "Min": {
+          "X": 96.6108856,
+          "Y": 3.325736,
+          "Z": -166.704651
+        },
+        "Max": {
+          "X": 98.55223,
+          "Y": 4.53222,
+          "Z": -164.583435
+        }
+      }
+    },
+    {
+      "Id": "zone_rick_and_morty",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 97.11299,
+        "Y": 24.225,
+        "Z": 115.724731
+      },
+      "Bounds": {
+        "Min": {
+          "X": 96.36508,
+          "Y": 23.7672424,
+          "Z": 115.155861
+        },
+        "Max": {
+          "X": 97.66058,
+          "Y": 25.0038033,
+          "Z": 116.325218
+        }
+      }
+    },
+    {
+      "Id": "zone_welcome_silient_hill",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 36.0599976,
+        "Y": 7.38999939,
+        "Z": -261.599976
+      },
+      "Bounds": {
+        "Min": {
+          "X": 33.6329536,
+          "Y": 6.58138466,
+          "Z": -264.206268
+        },
+        "Max": {
+          "X": 37.49055,
+          "Y": 10.0765133,
+          "Z": -258.8372
+        }
+      }
+    }
+  ],
+  "Doors": [
+    {
+      "Id": "trunk_Lighthouse_Roads_00045",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": -1.45558357,
+        "Y": 7.943999,
+        "Z": -172.401077
+      }
+    },
+    {
+      "Id": "trunk_Lighthouse_SwampVillage_00014",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": -189.270111,
+        "Y": 6.59927845,
+        "Z": -436.0199
+      }
+    },
+    {
+      "Id": "trunk_Lighthouse_Roads_00041",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 15.5395164,
+        "Y": 6.06201363,
+        "Z": 96.42709
+      }
+    },
+    {
+      "Id": "trunk_Lighthouse_Roads_00022",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": -88.0648041,
+        "Y": 6.581003,
+        "Z": -444.045349
+      }
+    },
+    {
+      "Id": "trunk_Lighthouse_SwampVillage_00002",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": -89.34777,
+        "Y": 7.3562994,
+        "Z": -282.132172
+      }
+    },
+    {
+      "Id": "trunk_Lighthouse_island_00002",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 206.066315,
+        "Y": 3.78110743,
+        "Z": 521.8363
+      }
+    },
+    {
+      "Id": "trunk_Lighthouse_Roads_00053",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 19.1901875,
+        "Y": 7.981001,
+        "Z": -76.0157242
+      }
+    },
+    {
+      "Id": "trunk_Lighthouse_Roads_00002",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 6.94354963,
+        "Y": 7.85299969,
+        "Z": -259.427948
+      }
+    },
+    {
+      "Id": "trunk_Lighthouse_Logistics_Terminal_00000",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 37.3760452,
+        "Y": 12.5040016,
+        "Z": -887.032959
+      }
+    },
+    {
+      "Id": "door_Lighthouse_Bus_Stop_00003",
+      "KeyId": "61a64428a8c6aa1b795f0ba1",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -58.58714,
+        "Y": 6.55418,
+        "Z": -292.997253
+      }
+    },
+    {
+      "Id": "door_Lighthouse_SwampVillage_00040",
+      "KeyId": "61a6444b8c141d68246e2d2f",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -147.040451,
+        "Y": 12.6704216,
+        "Z": -243.324341
+      }
+    },
+    {
+      "Id": "door_Lighthouse_SummerHotel_00003",
+      "KeyId": "61a6446f4b5f8b70f451b166",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -124.792175,
+        "Y": 19.29507,
+        "Z": -130.470322
+      }
+    },
+    {
+      "Id": "door_Lighthouse_WaterStation_00021",
+      "KeyId": "61a64492ba05ef10d62adcc1",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 47.375824,
+        "Y": 5.68040466,
+        "Z": -553.3833
+      }
+    },
+    {
+      "Id": "trunk_Lighthouse_WaterStation_00014",
+      "KeyId": "61aa5aed32a4743c3453d319",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 83.79875,
+        "Y": 6.61100054,
+        "Z": -553.2562
+      }
+    },
+    {
+      "Id": "_00000",
+      "KeyId": "61aa5b518f5e7a39b41416e2",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 91.1099854,
+        "Y": 8.382998,
+        "Z": -130.918991
+      }
+    },
+    {
+      "Id": "trunk_Lighthouse_SummerHotel_00008",
+      "KeyId": "61aa5b7db225ac1ead7957c1",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": -81.35248,
+        "Y": 22.326931,
+        "Z": -90.72273
+      }
+    },
+    {
+      "Id": "trunk_Lighthouse_SummerHotel_00007",
+      "KeyId": "61aa5ba8018e9821b7368da9",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": -81.349,
+        "Y": 22.329998,
+        "Z": -57.3692856
+      }
+    },
+    {
+      "Id": "door_Lighthouse_WaterStation_00020",
+      "KeyId": "61aa81fcb225ac1ead7957c3",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -168.674438,
+        "Y": 5.80596256,
+        "Z": -497.2994
+      }
+    },
+    {
+      "Id": "door_Lighthouse_Small_RLS_base_00011",
+      "KeyId": "62987c658081af308d7558c6",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 355.204041,
+        "Y": 16.5450039,
+        "Z": 549.387268
+      }
+    },
+    {
+      "Id": "door_Lighthouse_Complex_00000",
+      "KeyId": "62987cb98081af308d7558c8",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 333.799683,
+        "Y": 6.0705,
+        "Z": 519.116943
+      }
+    },
+    {
+      "Id": "door_Lighthouse_Water_filter_facility_01_00009",
+      "KeyId": "62987da96188c076bc0d8c51",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 32.8992271,
+        "Y": 5.93999767,
+        "Z": -636.186
+      }
+    },
+    {
+      "Id": "door_Lighthouse_Complex_00009",
+      "KeyId": "62987dfc402c7f69bf010923",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 328.6408,
+        "Y": 6.041643,
+        "Z": 487.2441
+      }
+    },
+    {
+      "Id": "door_Lighthouse_Water_filter_facility_02_00009",
+      "KeyId": "62987e26a77ec735f90a2995",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -120.901733,
+        "Y": 5.93898,
+        "Z": -736.4641
+      }
+    },
+    {
+      "Id": "door_Lighthouse_Water_filter_facility_03_00005",
+      "KeyId": "62a9cb937377a65d7b070cef",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -176.519272,
+        "Y": 5.939992,
+        "Z": -654.164063
+      }
+    },
+    {
+      "Id": "door_Lighthouse_SummerHotel_00025",
+      "KeyId": "66265d7be65f224b2e17c6aa",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -110.222015,
+        "Y": 21.9626656,
+        "Z": -14.4071732
+      }
+    },
+    {
+      "Id": "door_Lighthouse_SwampVillage_00032",
+      "KeyId": "664d3de85f2355673b09aed5",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -75.38922,
+        "Y": 10.1256714,
+        "Z": -290.638458
+      }
+    }
+  ]
+}

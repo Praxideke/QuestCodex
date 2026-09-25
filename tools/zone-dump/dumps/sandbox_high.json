@@ -1,0 +1,646 @@
+{
+  "Location": "Sandbox_high",
+  "DumpedAtUtc": "2026-09-25T04:49:32.7201119Z",
+  "Zones": [
+    {
+      "Id": "",
+      "Type": "FlareShootDetectorZone",
+      "Active": true,
+      "Position": {
+        "X": 215.695,
+        "Y": 18.0620556,
+        "Z": 30.0934219
+      },
+      "Bounds": {
+        "Min": {
+          "X": 203.365875,
+          "Y": 15.94603,
+          "Z": 24.24398
+        },
+        "Max": {
+          "X": 228.024139,
+          "Y": 20.1780815,
+          "Z": 35.9428635
+        }
+      }
+    },
+    {
+      "Id": "event_labyrinth_01_mech_place_01",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 55.26,
+        "Y": 23.79,
+        "Z": 252.75
+      },
+      "Bounds": {
+        "Min": {
+          "X": 85.587,
+          "Y": 20.29,
+          "Z": 221.356354
+        },
+        "Max": {
+          "X": 92.7970047,
+          "Y": 27.29,
+          "Z": 228.356354
+        }
+      }
+    },
+    {
+      "Id": "event_labyrinth_02_mech_place_01",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -15.4,
+        "Y": 23.79,
+        "Z": 68.9
+      },
+      "Bounds": {
+        "Min": {
+          "X": -5.9304924,
+          "Y": 18.76,
+          "Z": -12.6236572
+        },
+        "Max": {
+          "X": 42.9945068,
+          "Y": 28.8200016,
+          "Z": 94.63635
+        }
+      }
+    },
+    {
+      "Id": "event_labyrinth_04_mech_place_01",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 79.5,
+        "Y": 16.347,
+        "Z": 99.308
+      },
+      "Bounds": {
+        "Min": {
+          "X": 78.25,
+          "Y": 15.347,
+          "Z": 94.308
+        },
+        "Max": {
+          "X": 80.75,
+          "Y": 17.347,
+          "Z": 104.308
+        }
+      }
+    },
+    {
+      "Id": "event_labyrinth_04_thepar",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 45.53,
+        "Y": 16.23,
+        "Z": 130.67
+      },
+      "Bounds": {
+        "Min": {
+          "X": 78.43201,
+          "Y": 14.73,
+          "Z": 95.07
+        },
+        "Max": {
+          "X": 80.4920044,
+          "Y": 17.73,
+          "Z": 106.07
+        }
+      }
+    },
+    {
+      "Id": "Mark_transits_sandbox",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 222.829117,
+        "Y": 15.993,
+        "Z": 65.72
+      },
+      "Bounds": {
+        "Min": {
+          "X": 232.715149,
+          "Y": 16.74401,
+          "Z": 54.89514
+        },
+        "Max": {
+          "X": 235.911865,
+          "Y": 17.993,
+          "Z": 81.75641
+        }
+      }
+    },
+    {
+      "Id": "nt2024_5_throtil_epicentr",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 107.46,
+        "Y": 29.09,
+        "Z": 148.06
+      },
+      "Bounds": {
+        "Min": {
+          "X": 98.96,
+          "Y": 28.34,
+          "Z": 138.61
+        },
+        "Max": {
+          "X": 115.96,
+          "Y": 29.84,
+          "Z": 157.51
+        }
+      }
+    },
+    {
+      "Id": "Prospect_mira",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 172.43,
+        "Y": 17.31,
+        "Z": 64.7
+      },
+      "Bounds": {
+        "Min": {
+          "X": 177.806015,
+          "Y": 15.8099995,
+          "Z": -50.6733246
+        },
+        "Max": {
+          "X": 232.94136,
+          "Y": 18.81,
+          "Z": 124.286011
+        }
+      }
+    },
+    {
+      "Id": "quest_terminal_camera_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -35.01,
+        "Y": 26.234,
+        "Z": -17.424
+      },
+      "Bounds": {
+        "Min": {
+          "X": -28.9888268,
+          "Y": 24.1312618,
+          "Z": -25.67025
+        },
+        "Max": {
+          "X": -28.37437,
+          "Y": 25.7716236,
+          "Z": -24.0215111
+        }
+      }
+    },
+    {
+      "Id": "quest_terminal_camera_2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -35.426,
+        "Y": 28.599,
+        "Z": 18.857
+      },
+      "Bounds": {
+        "Min": {
+          "X": -35.9259949,
+          "Y": 28.099,
+          "Z": 18.2566013
+        },
+        "Max": {
+          "X": -35.3581238,
+          "Y": 29.4929256,
+          "Z": 19.4981136
+        }
+      }
+    },
+    {
+      "Id": "quest_terminal_camera_3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -16.4086,
+        "Y": 30.97,
+        "Z": 71.983
+      },
+      "Bounds": {
+        "Min": {
+          "X": -18.2720718,
+          "Y": 29.6669483,
+          "Z": 71.35016
+        },
+        "Max": {
+          "X": -15.9332123,
+          "Y": 31.47,
+          "Z": 72.5573
+        }
+      }
+    },
+    {
+      "Id": "quest_terminal_camera_4",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -4.807,
+        "Y": 30.943,
+        "Z": 57.66
+      },
+      "Bounds": {
+        "Min": {
+          "X": -5.393467,
+          "Y": 29.6461945,
+          "Z": 57.0735321
+        },
+        "Max": {
+          "X": -4.22053337,
+          "Y": 31.443,
+          "Z": 58.2464676
+        }
+      }
+    },
+    {
+      "Id": "quest_terminal_kill_zone",
+      "Type": "QuestTrigger",
+      "Active": true,
+      "Position": {
+        "X": -13.48,
+        "Y": 31.01,
+        "Z": 28.27
+      },
+      "Bounds": {
+        "Min": {
+          "X": -64.37314,
+          "Y": 21.0938416,
+          "Z": -63.65706
+        },
+        "Max": {
+          "X": 49.6844025,
+          "Y": 37.89729,
+          "Z": 104.704575
+        }
+      }
+    },
+    {
+      "Id": "Sandbox_1_MedicalArea_exploration",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 156.2,
+        "Y": 25.52,
+        "Z": -83.59
+      },
+      "Bounds": {
+        "Min": {
+          "X": 143.45,
+          "Y": 22.52,
+          "Z": -90.6899948
+        },
+        "Max": {
+          "X": 168.95,
+          "Y": 28.52,
+          "Z": -76.49
+        }
+      }
+    },
+    {
+      "Id": "Sandbox_2_AGS_exploration",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 101.043,
+        "Y": 34.16,
+        "Z": 276.36
+      },
+      "Bounds": {
+        "Min": {
+          "X": 97.268,
+          "Y": 32.66,
+          "Z": 273.06
+        },
+        "Max": {
+          "X": 104.818,
+          "Y": 35.66,
+          "Z": 279.659973
+        }
+      }
+    },
+    {
+      "Id": "Sandbox_2_Kord_exploration",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 56.603,
+        "Y": 32.336,
+        "Z": 130.605
+      },
+      "Bounds": {
+        "Min": {
+          "X": 53.103,
+          "Y": 30.8359985,
+          "Z": 127.104996
+        },
+        "Max": {
+          "X": 60.103,
+          "Y": 33.836,
+          "Z": 134.105
+        }
+      }
+    },
+    {
+      "Id": "Sandbox_3_Vino_exploration",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 117.06,
+        "Y": 24.228,
+        "Z": 26.86
+      },
+      "Bounds": {
+        "Min": {
+          "X": 105.56,
+          "Y": 22.728,
+          "Z": 20.21
+        },
+        "Max": {
+          "X": 128.56,
+          "Y": 25.728,
+          "Z": 33.5100021
+        }
+      }
+    },
+    {
+      "Id": "Sandbox_3_Vino_exploration",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 117.06,
+        "Y": 24.228,
+        "Z": 26.86
+      },
+      "Bounds": {
+        "Min": {
+          "X": 105.56,
+          "Y": 22.728,
+          "Z": 20.21
+        },
+        "Max": {
+          "X": 128.56,
+          "Y": 25.728,
+          "Z": 33.5100021
+        }
+      }
+    },
+    {
+      "Id": "Sandbox_5_DeadGroup_exploration",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -21.01,
+        "Y": 24.228,
+        "Z": -25.1
+      },
+      "Bounds": {
+        "Min": {
+          "X": -29.01,
+          "Y": 22.728,
+          "Z": -29.1
+        },
+        "Max": {
+          "X": -13.01,
+          "Y": 25.728,
+          "Z": -21.1
+        }
+      }
+    },
+    {
+      "Id": "Sandbox_5_Laborant_exploration",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -60.45,
+        "Y": 25.62,
+        "Z": 27.42
+      },
+      "Bounds": {
+        "Min": {
+          "X": -62.95,
+          "Y": 24.12,
+          "Z": 23.92
+        },
+        "Max": {
+          "X": -57.95,
+          "Y": 27.12,
+          "Z": 30.92
+        }
+      }
+    },
+    {
+      "Id": "Sandbox_5_Office_exploration",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -13.48,
+        "Y": 31.01,
+        "Z": 51.33
+      },
+      "Bounds": {
+        "Min": {
+          "X": -20.2799988,
+          "Y": 29.5100021,
+          "Z": 44.68
+        },
+        "Max": {
+          "X": -6.68,
+          "Y": 32.5100021,
+          "Z": 57.9800034
+        }
+      }
+    },
+    {
+      "Id": "Sandbox_mine_quest",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 60.3543625,
+        "Y": 23.7417164,
+        "Z": 170.889557
+      },
+      "Bounds": {
+        "Min": {
+          "X": 58.3362656,
+          "Y": 23.3464737,
+          "Z": 171.047287
+        },
+        "Max": {
+          "X": 60.5935135,
+          "Y": 25.2417145,
+          "Z": 174.6516
+        }
+      }
+    },
+    {
+      "Id": "Transits_to_streets",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 222.829117,
+        "Y": 15.993,
+        "Z": 65.72
+      },
+      "Bounds": {
+        "Min": {
+          "X": 221.23378,
+          "Y": 15.993,
+          "Z": 48.7362366
+        },
+        "Max": {
+          "X": 233.673813,
+          "Y": 17.993,
+          "Z": 84.25726
+        }
+      }
+    },
+    {
+      "Id": "zone_computer",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 118.714516,
+        "Y": 24.2415,
+        "Z": 190.304688
+      },
+      "Bounds": {
+        "Min": {
+          "X": 118.107521,
+          "Y": 23.907238,
+          "Z": 190.071381
+        },
+        "Max": {
+          "X": 119.302773,
+          "Y": 25.11372,
+          "Z": 191.092987
+        }
+      }
+    },
+    {
+      "Id": "zone_nakatoimi",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 4.628006,
+        "Y": 23.95,
+        "Z": 337.2477
+      },
+      "Bounds": {
+        "Min": {
+          "X": 2.1446538,
+          "Y": 23.6157379,
+          "Z": 334.632324
+        },
+        "Max": {
+          "X": 5.828925,
+          "Y": 24.9342,
+          "Z": 338.036
+        }
+      }
+    },
+    {
+      "Id": "zone_six_chair",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 41.1,
+        "Y": 31.411,
+        "Z": 140.81
+      },
+      "Bounds": {
+        "Min": {
+          "X": 39.1079178,
+          "Y": 31.0767365,
+          "Z": 138.404724
+        },
+        "Max": {
+          "X": 41.6882553,
+          "Y": 32.28322,
+          "Z": 142.961487
+        }
+      }
+    }
+  ],
+  "Doors": [
+    {
+      "Id": "trunk_Sandbox_bottom_area_00017",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 80.0330048,
+        "Y": 15.737,
+        "Z": 147.796
+      }
+    },
+    {
+      "Id": "trunk_Sandbox_roads_00032",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 264.952,
+        "Y": 17.95282,
+        "Z": 56.1417046
+      }
+    },
+    {
+      "Id": "door_Sandbox_Area_01_indoor_00008",
+      "KeyId": "6581998038c79576a2569e11",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 58.2430344,
+        "Y": 24.5026741,
+        "Z": 172.438
+      }
+    },
+    {
+      "Id": "door_Sandbox_bottom_area_00004",
+      "KeyId": "658199972dc4e60f6d556a2f",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 107.046982,
+        "Y": 13.4994726,
+        "Z": 50.6362534
+      }
+    },
+    {
+      "Id": "door_Sandbox_Area_03_indoor_00000",
+      "KeyId": "658199a0490414548c0fa83b",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 120.074966,
+        "Y": 25.4368019,
+        "Z": 149.382675
+      }
+    },
+    {
+      "Id": "door_Sandbox_Area_05_indoor_00002",
+      "KeyId": "658199aa38c79576a2569e13",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -17.9758759,
+        "Y": 30.7062054,
+        "Z": 58.55322
+      }
+    }
+  ]
+}
