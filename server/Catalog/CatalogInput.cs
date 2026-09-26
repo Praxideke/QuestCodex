@@ -31,4 +31,6 @@ public sealed record CatalogInput(
     PointTable? QuestItemSpawns = null,
     /// <summary>로케이션 _Id(MongoId) → map 키(locations 폴더 이름). quest.location 이 ID 일 때 쓴다.</summary>
     IReadOnlyDictionary<string, string>? LocationKeys = null,
-    bool QuestZoneSnapshotMissing = false);
+    bool QuestZoneSnapshotMissing = false,
+    /// <summary>map → 스냅샷의 잠긴 문. 빌더가 열쇠 이름을 붙여 Catalog.LockedDoors 로 낸다.</summary>
+    IReadOnlyDictionary<string, IReadOnlyList<Models.SnapshotDoor>>? LockedDoors = null);

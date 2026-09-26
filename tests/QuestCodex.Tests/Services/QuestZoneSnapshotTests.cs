@@ -15,9 +15,10 @@ public class QuestZoneSnapshotTests
                 "rezervbase": { "fuel4": [{ "x": -334.93, "y": -101.46, "z": -163.46 }] } } }
             """;
 
-        var (collectedWith, zones) = QuestZoneSnapshot.Parse(json);
+        var (collectedWith, zones, doors) = QuestZoneSnapshot.Parse(json);
 
         Assert.Equal("EFT 0.16.9.40743", collectedWith);
+        Assert.Empty(doors); // doors 가 없는 구버전 스냅샷도 읽힌다
         Assert.Equal([new MapPoint(-334.93, 2.22, -163.46)], zones["bigmap"]["fuel4"]);
         Assert.Equal(2, zones["bigmap"]["two"].Count);
         Assert.Equal(-101.46, zones["rezervbase"]["fuel4"][0].Y);
@@ -33,10 +34,29 @@ public class QuestZoneSnapshotTests
         var path = Path.Combine(AppContext.BaseDirectory, "Data", "quest-zones.json");
         Assert.True(File.Exists(path), $"missing {path}");
 
-        var (_, zones) = QuestZoneSnapshot.Parse(File.ReadAllText(path));
+        var (_, zones, doors) = QuestZoneSnapshot.Parse(File.ReadAllText(path));
 
         Assert.True(zones.Count >= 12, $"only {zones.Count} maps");
         Assert.All(zones.Keys, map => Assert.Equal(map.ToLowerInvariant(), map));
         foreach (var fuel in new[] { "fuel1", "fuel2", "fuel3", "fuel4" }) Assert.True(zones["bigmap"].ContainsKey(fuel), fuel);
+        Assert.Equal(33, doors["bigmap"].Count);
+        Assert.All(doors.Values.SelectMany(d => d), d => Assert.Contains(d.Type, new[] { "Door", "KeycardDoor" }));
+    }
+
+    [Fact]
+    public void Parse_reads_locked_doors_per_map()
+    {
+        const string json = """
+            { "zones": {},
+              "doors": { "laboratory": [
+                { "key": "5c1d0efb86f7744baf2e7b7b", "type": "KeycardDoor", "x": -120.5, "y": 0.1, "z": -330.2 },
+                { "key": "5c1e2a1e86f77431ea0ea84c", "type": "Door", "x": 1, "y": 2, "z": 3 } ] } }
+            """;
+
+        var (_, _, doors) = QuestZoneSnapshot.Parse(json);
+
+        var labs = doors["laboratory"];
+        Assert.Equal(2, labs.Count);
+        Assert.Equal(new SnapshotDoor("5c1d0efb86f7744baf2e7b7b", "KeycardDoor", new MapPoint(-120.5, 0.1, -330.2)), labs[0]);
     }
 }

@@ -39,6 +39,15 @@ public sealed record MapPoint(double X, double Y, double Z);
 /// <summary>Map = SPT locations 폴더 키(소문자, 예: bigmap, sandbox_high).</summary>
 public sealed record ObjectiveLocation(string Map, IReadOnlyList<MapPoint> Points);
 
+/// <summary>스냅샷의 잠긴 문 한 개. Type = 덤프의 컴포넌트 이름("Door" | "KeycardDoor").</summary>
+public sealed record SnapshotDoor(string KeyTpl, string Type, MapPoint Position);
+
+/// <summary>
+/// 카탈로그에 싣는 잠긴 문. Kind = "door" | "keycard". KeyTpl 은 지금 화면에서 쓰지 않고, 나중에 프로필 인벤토리와
+/// 대조해 보유 열쇠를 표시할 때의 키다(06 스펙 §4.3).
+/// </summary>
+public sealed record LockedDoor(string KeyTpl, string KeyName, string Kind, MapPoint Position);
+
 public sealed record QuestRewards(
     IReadOnlyList<CatalogReward> Started,
     IReadOnlyList<CatalogReward> Success,
@@ -77,4 +86,6 @@ public sealed record Catalog(
     SortedDictionary<string, CatalogTrader> Traders,
     SortedDictionary<string, CatalogQuest> Quests,
     SortedDictionary<string, List<string>> RewardIndex,
-    IReadOnlyList<CatalogWarning> Warnings);
+    IReadOnlyList<CatalogWarning> Warnings,
+    /// <summary>map 키 → 잠긴 문. 퀘스트와 무관하게 맵마다 한 번만 싣는다(위치정보 팝업의 잠긴 문 토글).</summary>
+    SortedDictionary<string, List<LockedDoor>> LockedDoors);

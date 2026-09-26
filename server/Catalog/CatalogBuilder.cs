@@ -77,7 +77,24 @@ public static class CatalogBuilder
 
         var rewardIndex = BuildRewardIndex(quests);
 
-        return new Models.Catalog(input.SptVersion, input.ModVersion, now, input.Lang, traders, quests, rewardIndex, warnings);
+        var lockedDoors = BuildLockedDoors(input.LockedDoors, rewardParser.NameOf);
+
+        return new Models.Catalog(input.SptVersion, input.ModVersion, now, input.Lang, traders, quests, rewardIndex, warnings, lockedDoors);
+    }
+
+    /// <summary>스냅샷 문에 열쇠 이름을 붙인다. 이름은 보상 아이템과 같은 규칙(로케일 → 템플릿 이름 → tpl).</summary>
+    private static SortedDictionary<string, List<LockedDoor>> BuildLockedDoors(
+        IReadOnlyDictionary<string, IReadOnlyList<SnapshotDoor>>? doors, Func<string, string> nameOf)
+    {
+        var result = new SortedDictionary<string, List<LockedDoor>>(StringComparer.Ordinal);
+        foreach (var (map, list) in doors ?? new Dictionary<string, IReadOnlyList<SnapshotDoor>>())
+        {
+            result[map] = list
+                .Select(d => new LockedDoor(d.KeyTpl, nameOf(d.KeyTpl), d.Type == "KeycardDoor" ? "keycard" : "door", d.Position))
+                .ToList();
+        }
+
+        return result;
     }
 
     private static CatalogTrader BuildTrader(MongoId id, TraderBase tb, LocaleResolver locale, Func<string, bool>? avatarIsServable)

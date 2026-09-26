@@ -14,12 +14,16 @@ namespace QuestCodex.Services;
 [Injectable(InjectionType.Singleton)]
 public class QuestZoneSnapshot
 {
-    private readonly Lazy<(string CollectedWith, PointTable Zones)?> _data = new(LoadFromModFolder);
+    private readonly Lazy<Snapshot?> _data = new(LoadFromModFolder);
 
     public string? CollectedWith => _data.Value?.CollectedWith;
     public PointTable? Zones => _data.Value?.Zones;
+    /// <summary>map → 잠긴 문(Door·KeycardDoor). 스냅샷이 없으면 null, doors 절이 없는 구버전 스냅샷이면 빈 사전.</summary>
+    public IReadOnlyDictionary<string, IReadOnlyList<SnapshotDoor>>? Doors => _data.Value?.Doors;
 
-    public static (string CollectedWith, PointTable Zones) Parse(string json)
+    public sealed record Snapshot(string CollectedWith, PointTable Zones, IReadOnlyDictionary<string, IReadOnlyList<SnapshotDoor>> Doors);
+
+    public static Snapshot Parse(string json)
     {
         using var doc = JsonDocument.Parse(json);
         var collectedWith = doc.RootElement.TryGetProperty("collectedWith", out var c) ? c.GetString() ?? "" : "";
@@ -36,10 +40,24 @@ public class QuestZoneSnapshot
             }
         }
 
-        return (collectedWith, builder.Build());
+        var doors = new Dictionary<string, IReadOnlyList<SnapshotDoor>>(StringComparer.Ordinal);
+        if (doc.RootElement.TryGetProperty("doors", out var doorMaps))
+        {
+            foreach (var map in doorMaps.EnumerateObject())
+            {
+                doors[map.Name.ToLowerInvariant()] = map.Value.EnumerateArray()
+                    .Select(d => new SnapshotDoor(
+                        d.GetProperty("key").GetString() ?? throw new InvalidOperationException("door key is null"),
+                        d.GetProperty("type").GetString() ?? throw new InvalidOperationException("door type is null"),
+                        new MapPoint(d.GetProperty("x").GetDouble(), d.GetProperty("y").GetDouble(), d.GetProperty("z").GetDouble())))
+                    .ToList();
+            }
+        }
+
+        return new Snapshot(collectedWith, builder.Build(), doors);
     }
 
-    public static (string CollectedWith, PointTable Zones)? LoadFromModFolder()
+    public static Snapshot? LoadFromModFolder()
     {
         var modDir = Path.GetDirectoryName(typeof(QuestZoneSnapshot).Assembly.Location);
         if (modDir is null) return null;

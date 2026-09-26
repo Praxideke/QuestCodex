@@ -97,7 +97,8 @@ public class CatalogService(
             QuestZones: locations.Zones,
             QuestItemSpawns: locations.QuestItemSpawns,
             LocationKeys: locations.LocationKeys,
-            QuestZoneSnapshotMissing: locations.SnapshotMissing);
+            QuestZoneSnapshotMissing: locations.SnapshotMissing,
+            LockedDoors: questZoneSnapshot.Doors);
 
         var catalog = CatalogBuilder.Build(input, started);
 

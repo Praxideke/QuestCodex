@@ -341,6 +341,39 @@ public class CatalogBuilderTests
     }
 
     [Fact]
+    public void Locked_doors_carry_localized_key_names_and_kind()
+    {
+        var key = Id(710);
+        var keycard = Id(711);
+        var unnamed = Id(712);
+        var doors = new Dictionary<string, IReadOnlyList<SnapshotDoor>>
+        {
+            ["laboratory"] =
+            [
+                new(keycard.ToString(), "KeycardDoor", new MapPoint(1, 2, 3)),
+                new(key.ToString(), "Door", new MapPoint(4, 5, 6)),
+            ],
+            ["bigmap"] = [new(unnamed.ToString(), "Door", new MapPoint(7, 8, 9))],
+        };
+        var locale = new Dictionary<string, string> { [$"{key} Name"] = "기숙사 314호 열쇠", [$"{keycard} Name"] = "빨간 키카드" };
+
+        var cat = CatalogBuilder.Build(Input([], locale: locale) with { LockedDoors = doors }, Now);
+
+        Assert.Equal(["bigmap", "laboratory"], cat.LockedDoors.Keys);
+        Assert.Equal(
+            [
+                new LockedDoor(keycard.ToString(), "빨간 키카드", "keycard", new MapPoint(1, 2, 3)),
+                new LockedDoor(key.ToString(), "기숙사 314호 열쇠", "door", new MapPoint(4, 5, 6)),
+            ],
+            cat.LockedDoors["laboratory"]);
+        Assert.Equal(unnamed.ToString(), cat.LockedDoors["bigmap"][0].KeyName); // 이름이 어디에도 없으면 tpl 그대로
+    }
+
+    [Fact]
+    public void Locked_doors_are_empty_without_input()
+        => Assert.Empty(CatalogBuilder.Build(Input([]), Now).LockedDoors);
+
+    [Fact]
     public void Null_input_throws()
         => Assert.Throws<ArgumentNullException>(() => CatalogBuilder.Build(null!, Now));
 }

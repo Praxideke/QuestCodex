@@ -103,7 +103,7 @@ public class VanillaSmokeTests
         var snapshot = QuestZoneSnapshot.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Data", "quest-zones.json")));
         var input = new CatalogInput("en", "4.1.5", "test", quests, new Dictionary<MongoId, TraderBase>(), items, en, en,
             new HashSet<MongoId>(), new HashSet<MongoId>(), null, null,
-            QuestZones: snapshot.Zones, QuestItemSpawns: LooseLootSpawns.Forced(loots), LocationKeys: keys);
+            QuestZones: snapshot.Zones, QuestItemSpawns: LooseLootSpawns.Forced(loots), LocationKeys: keys, LockedDoors: snapshot.Doors);
 
         var catalog = CatalogBuilder.Build(input, DateTimeOffset.UtcNow);
 
@@ -136,6 +136,12 @@ public class VanillaSmokeTests
             "event_labyrinth_11_lightkeep_place_03",
         ];
         Assert.Equal(remaining.ToHashSet(), notFound);
+
+        // 잠긴 문(06 스펙): 모든 문의 열쇠가 실제 아이템 이름으로 풀린다(tpl 그대로 남은 것 0개)
+        var doors = catalog.LockedDoors.Values.SelectMany(d => d).ToList();
+        Assert.Equal(33, catalog.LockedDoors["bigmap"].Count);
+        Assert.All(doors, d => Assert.NotEqual(d.KeyTpl, d.KeyName));
+        Assert.Contains(catalog.LockedDoors["laboratory"], d => d.Kind == "keycard");
     }
 
     private static T Deserialize<T>(string path)
