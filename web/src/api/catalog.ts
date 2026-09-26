@@ -65,6 +65,14 @@ export interface ObjectiveLocation {
   points: MapPoint[]
 }
 
+/** 열쇠가 필요한 문. keyTpl 은 지금 쓰지 않고, 보유 열쇠 표시(06 스펙 §4.3)를 붙일 때의 대조 키다. */
+export interface LockedDoor {
+  keyTpl: string
+  keyName: string
+  kind: 'door' | 'keycard'
+  position: MapPoint
+}
+
 export interface Objective {
   conditionId: string
   conditionType: string
@@ -131,6 +139,9 @@ export interface Catalog {
   quests: Record<string, CatalogQuest>
   rewardIndex: Record<string, string[]>
   warnings: CatalogWarning[]
+  /** 서버 맵 키 → 잠긴 문. 필드가 생기기 전 서버(구버전 DLL)는 보내지 않는다. */
+  lockedDoors?: Record<string, LockedDoor[]>
+
 }
 
 /** 서버 에러 본문의 error 코드(unknownLang 등), 본문이 없으면 http<status>, 네트워크 실패면 network. */

@@ -116,4 +116,12 @@ for (const folder of fs.readdirSync(mapsDir).sort()) {
 }
 
 fs.writeFileSync(path.join(outDir, 'index.json'), JSON.stringify({ source: `DynamicMaps @ ${commit}`, maps: index }, null, 2) + '\n')
+
+// Marker icons (locked doors). game-icons.net originals (CC BY 3.0) that DynamicMaps scaled and outlined;
+// copied unmodified together with DynamicMaps' credits file.
+const markersDir = path.join(repo, 'Plugin/Resources/Markers')
+const iconsDir = path.join(outDir, 'icons')
+fs.mkdirSync(iconsDir, { recursive: true })
+for (const file of ['door_with_lock.png', 'door_with_key.png', 'marker_credits.txt']) fs.copyFileSync(path.join(markersDir, file), path.join(iconsDir, file))
+console.log(`copied marker icons to ${iconsDir}`)
 console.log(`wrote ${index.length} maps to ${outDir}`)

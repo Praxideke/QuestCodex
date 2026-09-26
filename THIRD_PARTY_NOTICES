@@ -74,6 +74,21 @@ Redistributed in wwwroot/maps/<map>/*.svg
 
 
 -------------------------------------------------------------------------------
+Redistributed in wwwroot/maps/icons/door_with_lock.png, door_with_key.png
+-------------------------------------------------------------------------------
+
+  Door marker icons   CC BY 3.0   https://creativecommons.org/licenses/by/3.0/
+
+  "Locked door", "Door" and "Key lock" by Delapouite, game-icons.net
+  (https://game-icons.net/1x1/delapouite/locked-door.html,
+   https://game-icons.net/1x1/delapouite/door.html,
+   https://game-icons.net/1x1/delapouite/key-lock.html)
+  SPT-DynamicMaps scaled them down to 60x60, added a black outline and combined
+  some of them; QuestCodex ships those PNGs unmodified (colored at display time),
+  together with DynamicMaps' marker_credits.txt in the same folder.
+
+
+-------------------------------------------------------------------------------
 Redistributed in wwwroot/maps/<map>/map.json and wwwroot/assets/main-*.js
 -------------------------------------------------------------------------------
 

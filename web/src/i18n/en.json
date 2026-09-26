@@ -129,5 +129,9 @@
   "map.name.rezervbase": "Reserve",
   "map.name.shoreline": "Shoreline",
   "map.name.tarkovstreets": "Streets of Tarkov",
-  "map.name.woods": "Woods"
+  "map.name.woods": "Woods",
+  "map.doors": "Locked doors",
+  "map.doorsNone": "No locked door data for this map",
+  "map.keycard": "Keycard",
+  "map.floorHasMarkers": "Has objectives"
 }

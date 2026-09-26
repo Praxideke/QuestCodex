@@ -1,4 +1,4 @@
-import type { MapPoint, Objective } from '../api/catalog'
+import type { LockedDoor, MapPoint, Objective } from '../api/catalog'
 
 // 위치정보 팝업의 계산부. React 없이 테스트된다(mapProjection.test.ts).
 // 맵 정의(public/maps/<key>/map.json)는 tools/maps/build-maps.js 가 DynamicMaps 의 jsonc 에서 만든 것이고,
@@ -149,7 +149,29 @@ export function numberedObjectives(objectives: Objective[]): { n: number; object
   return objectives.filter((o) => (o.locations ?? []).length > 0).map((objective, i) => ({ n: i + 1, objective }))
 }
 
-/** 층 버튼의 개수 표시: level → 그 층에 찍힐 마커 수 */
+/**
+ * 탭(맵 폴더 키)에 그릴 잠긴 문. 그 맵 정의의 internalNames 에 해당하는 서버 맵 키의 문을 모두 모은다.
+ * 짝 맵(공장 주간·야간 등)은 같은 문이 같은 좌표로 두 번 오므로 열쇠 + 좌표가 같으면 한 번만.
+ */
+export function doorsForTab(doors: Record<string, LockedDoor[]> | undefined, index: MapIndex, key: string): LockedDoor[] {
+  const out: LockedDoor[] = []
+  for (const [map, list] of Object.entries(doors ?? {})) {
+    if (mapKeyFor(index, map) !== key) continue
+    for (const d of list) {
+      const p = d.position
+      const dup = out.some((o) => o.keyTpl === d.keyTpl && o.position.x === p.x && o.position.y === p.y && o.position.z === p.z)
+      if (!dup) out.push(d)
+    }
+  }
+  return out
+}
+
+/** 층 버튼의 알림 점: 현재 층이 아니면서 퀘스트 마커가 있는 층 */
+export function floorsWithOtherMarkers(counts: Map<number, number>, level: number): Set<number> {
+  return new Set([...counts].filter(([l, n]) => l !== level && n > 0).map(([l]) => l))
+}
+
+/** 층 버튼의 알림 점 판정용: level → 그 층에 찍힐 퀘스트 마커 수 */
 export function markerCountsByLevel(def: MapDef, markers: Marker[]): Map<number, number> {
   const counts = new Map<number, number>()
   for (const m of markers) {

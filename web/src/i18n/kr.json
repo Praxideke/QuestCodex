@@ -129,5 +129,9 @@
   "map.name.rezervbase": "리저브",
   "map.name.shoreline": "해안가",
   "map.name.tarkovstreets": "타르코프 시내",
-  "map.name.woods": "삼림"
+  "map.name.woods": "삼림",
+  "map.doors": "잠긴 문",
+  "map.doorsNone": "이 지도에는 잠긴 문 정보가 없습니다",
+  "map.keycard": "키카드",
+  "map.floorHasMarkers": "목표 있음"
 }

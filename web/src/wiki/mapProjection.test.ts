@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import type { Objective, ObjectiveLocation } from '../api/catalog'
+import type { LockedDoor, Objective, ObjectiveLocation } from '../api/catalog'
 import customsJson from '../../public/maps/bigmap/map.json'
 import indexJson from '../../public/maps/index.json'
-import { buildTabs, fitView, layerFor, layerStyle, markerCountsByLevel, project, zoomAt, type MapDef, type MapIndex } from './mapProjection'
+import { buildTabs, doorsForTab, fitView, floorsWithOtherMarkers, layerFor, layerStyle, markerCountsByLevel, project, zoomAt, type MapDef, type MapIndex } from './mapProjection'
 
 const customs = customsJson as MapDef
 const index = indexJson as MapIndex
@@ -96,6 +96,34 @@ describe('buildTabs', () => {
 
   it('맵 정의가 없는 맵 키는 탭을 만들지 않는다', () => {
     expect(buildTabs([obj('a', [at('terminal', [1, 0, 1])])], index)).toEqual([])
+  })
+})
+
+describe('doorsForTab', () => {
+  const door = (keyTpl: string, x: number, kind: LockedDoor['kind'] = 'door'): LockedDoor =>
+    ({ keyTpl, keyName: keyTpl, kind, position: { x, y: 0, z: 0 } })
+
+  it('탭의 맵 정의에 속한 서버 맵 키의 문을 모으고, 짝 맵의 같은 문은 한 번만', () => {
+    const doors = {
+      factory4_day: [door('a', 1), door('k', 2, 'keycard')],
+      factory4_night: [door('a', 1), door('b', 3)],
+      bigmap: [door('c', 4)],
+    }
+    expect(doorsForTab(doors, index, 'factory4_day').map((d) => d.keyTpl)).toEqual(['a', 'k', 'b'])
+  })
+
+  it('맵 키는 대소문자를 무시하고, 문 정보가 없으면 빈 배열', () => {
+    expect(doorsForTab({ sandbox_high: [door('a', 1)] }, index, 'sandbox')).toHaveLength(1)
+    expect(doorsForTab(undefined, index, 'bigmap')).toEqual([])
+    expect(doorsForTab({}, index, 'labyrinth')).toEqual([])
+  })
+})
+
+describe('floorsWithOtherMarkers', () => {
+  it('현재 층이 아닌, 마커가 있는 층만', () => {
+    const counts = new Map([[0, 3], [-1, 1]])
+    expect([...floorsWithOtherMarkers(counts, 0)]).toEqual([-1])
+    expect([...floorsWithOtherMarkers(counts, 1)].sort()).toEqual([-1, 0])
   })
 })
 

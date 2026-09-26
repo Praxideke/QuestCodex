@@ -1,24 +1,25 @@
-import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react'
-import type { CatalogQuest } from '../api/catalog'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import type { CatalogQuest, LockedDoor } from '../api/catalog'
 import { useT } from '../i18n/I18nContext'
 import type { T, UiKey } from '../i18n/index'
 import { formatObjective, lineText } from './format'
-import { loadMapDef, loadMapIndex, mapAssetUrl } from './mapAssets'
-import {
-  buildTabs, fitView, layerFor, layerStyle, markerCountsByLevel, numberedObjectives, project, zoomAt,
-  type MapDef, type MapIndex, type MapTab, type Marker, type View,
-} from './mapProjection'
+import { MapCanvas } from './MapCanvas'
+import { loadMapDef, loadMapIndex } from './mapAssets'
+import { buildTabs, doorsForTab, fitView, layerFor, numberedObjectives, type MapDef, type MapIndex, type View } from './mapProjection'
 import { useDialogFrame } from './useDialogFrame'
+import { useLoaded, usePersistedFlag } from './useMapState'
 
 interface QuestMapDialogProps {
   /** null 이면 닫힘. QuestPrepDialog 와 같은 showModal()/close() 토글. */
   quest: CatalogQuest | null
   traderName: string
+  /** catalog.lockedDoors — 서버 맵 키 → 잠긴 문. 구버전 서버면 undefined. */
+  lockedDoors: Record<string, LockedDoor[]> | undefined
   onClose(): void
 }
 
-/** 위치정보 팝업. 맵 탭 → [지도(층 버튼·마커) | 목표 목록], 아래에 지도 출처. */
-export function QuestMapDialog({ quest, traderName, onClose }: QuestMapDialogProps) {
+/** 위치정보 팝업. 맵 탭(+ 잠긴 문 토글) → [지도(층 버튼·마커) | 목표 목록], 아래에 지도 출처. */
+export function QuestMapDialog({ quest, traderName, lockedDoors, onClose }: QuestMapDialogProps) {
   const t = useT()
   const ref = useRef<HTMLDialogElement>(null)
   const frame = useDialogFrame(ref, 'map', quest !== null, onClose)
@@ -44,14 +45,20 @@ export function QuestMapDialog({ quest, traderName, onClose }: QuestMapDialogPro
       {quest && (index.failed
         ? <p className="qc-map__msg qc-warn">{t('map.loadError')}</p>
         : index.data
-          // key: 다른 퀘스트로 다시 열면 탭·층·확대 상태를 초기화한다
-          ? <MapBody key={quest.id} quest={quest} index={index.data} />
+          // key: 다른 퀘스트로 다시 열면 탭·층·확대 상태를 초기화한다(잠긴 문 토글은 저장값이라 유지)
+          ? <MapBody key={quest.id} quest={quest} index={index.data} lockedDoors={lockedDoors} />
           : <p className="qc-map__msg">{t('map.loading')}</p>)}
     </dialog>
   )
 }
 
-function MapBody({ quest, index }: { quest: CatalogQuest; index: MapIndex }) {
+interface MapBodyProps {
+  quest: CatalogQuest
+  index: MapIndex
+  lockedDoors: Record<string, LockedDoor[]> | undefined
+}
+
+function MapBody({ quest, index, lockedDoors }: MapBodyProps) {
   const t = useT()
   const tabs = useMemo(() => buildTabs(quest.objectives, index), [quest, index])
   const numbered = useMemo(() => numberedObjectives(quest.objectives), [quest])
@@ -59,12 +66,16 @@ function MapBody({ quest, index }: { quest: CatalogQuest; index: MapIndex }) {
   const [chosenLevel, setChosenLevel] = useState<number | null>(null)
   const [view, setView] = useState<View>(fitView)
   const [hot, setHot] = useState<number | null>(null)
+  const [showDoors, setShowDoors] = usePersistedFlag('qc.map.showDoors', true)
   const tab = tabs.find((x) => x.key === tabKey) ?? null
   const def = useLoaded(tabKey ? () => loadMapDef(tabKey) : null, [tabKey])
+  const tabDoors = useMemo(() => (tabKey ? doorsForTab(lockedDoors, index, tabKey) : []), [lockedDoors, index, tabKey])
 
   // 처음 열 때·탭을 바꿀 때는 첫 마커가 있는 층을 보여 준다
   const level = chosenLevel ?? (def.data && tab && tab.markers.length > 0 ? layerFor(def.data, tab.markers[0].point).level : 0)
-  const markersHere = def.data && tab ? tab.markers.filter((m) => layerFor(def.data!, m.point).level === level) : []
+  const map = def.data
+  const markersHere = map && tab ? tab.markers.filter((m) => layerFor(map, m.point).level === level) : []
+  const doorsHere = map && showDoors ? tabDoors.filter((d) => layerFor(map, d.position).level === level) : []
 
   function selectTab(key: string) {
     setTabKey(key)
@@ -86,6 +97,16 @@ function MapBody({ quest, index }: { quest: CatalogQuest; index: MapIndex }) {
               {mapName(x.key, t)}
             </button>
           ))}
+          <button
+            type="button"
+            className={showDoors && tabDoors.length > 0 ? 'qc-map__toggle is-on' : 'qc-map__toggle'}
+            aria-pressed={showDoors}
+            disabled={tabDoors.length === 0}
+            title={tabDoors.length === 0 ? t('map.doorsNone') : undefined}
+            onClick={() => setShowDoors(!showDoors)}
+          >
+            {t('map.doors')}
+          </button>
         </div>
       )}
       <div className="qc-map__body">
@@ -95,7 +116,7 @@ function MapBody({ quest, index }: { quest: CatalogQuest; index: MapIndex }) {
           {tab && !def.failed && !def.data && <p className="qc-map__msg">{t('map.loading')}</p>}
           {tab && def.data && (
             <MapCanvas
-              mapKey={tab.key} def={def.data} tab={tab} level={level} markers={markersHere}
+              mapKey={tab.key} def={def.data} tab={tab} level={level} markers={markersHere} doors={doorsHere}
               view={view} onView={setView} onLevel={(l) => { setChosenLevel(l); setHot(null) }}
               hot={hot} onHot={setHot}
             />
@@ -127,135 +148,10 @@ function MapBody({ quest, index }: { quest: CatalogQuest; index: MapIndex }) {
   )
 }
 
-interface MapCanvasProps {
-  mapKey: string
-  def: MapDef
-  tab: MapTab
-  level: number
-  markers: Marker[]
-  view: View
-  onView(update: (v: View) => View): void
-  onLevel(level: number): void
-  hot: number | null
-  onHot(n: number | null): void
-}
-
 /**
- * 층 SVG 를 겹친 캔버스를 뷰포트 안에 "contain" 으로 맞추고, CSS transform 으로 확대·이동한다.
- * 마커는 캔버스 안에 % 로 두고 1/배율로 되돌려 크기가 화면 기준으로 일정하다.
- */
-function MapCanvas({ mapKey, def, tab, level, markers, view, onView, onLevel, hot, onHot }: MapCanvasProps) {
-  const t = useT()
-  const viewportRef = useRef<HTMLDivElement>(null)
-  const canvasRef = useRef<HTMLDivElement>(null)
-  const drag = useRef<{ id: number; x0: number; y0: number; v: View } | null>(null)
-  const base = def.layers.find((l) => l.level === def.defaultLevel) ?? def.layers[0]
-  const counts = useMemo(() => markerCountsByLevel(def, tab.markers), [def, tab])
-  const floors = [...def.layers].sort((a, b) => b.level - a.level)
-
-  // React 의 onWheel 은 passive 라 preventDefault 로 페이지 스크롤을 막을 수 없다 — 네이티브로 붙인다.
-  useEffect(() => {
-    const vp = viewportRef.current
-    if (!vp) return
-    const onWheel = (e: WheelEvent) => {
-      const canvas = canvasRef.current
-      if (!canvas) return
-      e.preventDefault()
-      const r = vp.getBoundingClientRect()
-      // 캔버스의 변환 전 원점(offsetLeft/Top) 기준 좌표. transform 은 offset 에 영향을 주지 않는다.
-      const cx = e.clientX - r.left - canvas.offsetLeft
-      const cy = e.clientY - r.top - canvas.offsetTop
-      onView((v) => zoomAt(v, e.deltaY < 0 ? 1.25 : 0.8, cx, cy))
-    }
-    vp.addEventListener('wheel', onWheel, { passive: false })
-    return () => vp.removeEventListener('wheel', onWheel)
-  }, [onView])
-
-  function onPointerDown(e: ReactPointerEvent<HTMLDivElement>) {
-    if (e.button !== 0 || (e.target as HTMLElement).closest('button')) return
-    e.currentTarget.setPointerCapture(e.pointerId)
-    drag.current = { id: e.pointerId, x0: e.clientX, y0: e.clientY, v: view }
-  }
-  function onPointerMove(e: ReactPointerEvent<HTMLDivElement>) {
-    const d = drag.current
-    if (!d || d.id !== e.pointerId) return
-    onView(() => ({ ...d.v, x: d.v.x + e.clientX - d.x0, y: d.v.y + e.clientY - d.y0 }))
-  }
-  const endDrag = () => { drag.current = null }
-
-  return (
-    <div
-      ref={viewportRef}
-      className="qc-map__viewport"
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={endDrag}
-      onPointerCancel={endDrag}
-      onDoubleClick={(e) => { if (!(e.target as HTMLElement).closest('button')) onView(fitView) }}
-    >
-      <div
-        ref={canvasRef}
-        className="qc-map__canvas"
-        style={{
-          ['--ar' as string]: base.viewBox.width / base.viewBox.height,
-          transform: `translate(${view.x}px, ${view.y}px) scale(${view.scale})`,
-        }}
-      >
-        {def.layers.map((layer) => {
-          const s = layerStyle(layer.level, level, def.defaultLevel)
-          if (!s.visible) return null
-          return (
-            <img
-              key={layer.svg} className="qc-map__layer" src={mapAssetUrl(mapKey, layer.svg)} alt="" draggable={false}
-              style={{ filter: s.brightness < 1 ? `brightness(${s.brightness})` : undefined, opacity: s.opacity }}
-            />
-          )
-        })}
-        {markers.map((m, i) => {
-          const layer = layerFor(def, m.point)
-          const p = project(def, layer, m.point)
-          return (
-            <span
-              key={i}
-              className={hot === m.n ? 'qc-map__marker is-hot' : 'qc-map__marker'}
-              style={{
-                left: `${(p.x / layer.viewBox.width) * 100}%`,
-                top: `${(p.y / layer.viewBox.height) * 100}%`,
-                transform: `translate(-50%, -50%) scale(${1 / view.scale})`,
-              }}
-              onMouseEnter={() => onHot(m.n)}
-              onMouseLeave={() => onHot(null)}
-            >
-              {m.n}
-            </span>
-          )
-        })}
-      </div>
-      {floors.length > 1 && (
-        <div className="qc-map__floors" role="group" aria-label={t('map.floors')}>
-          {floors.map((f) => {
-            const n = counts.get(f.level) ?? 0
-            return (
-              <button
-                key={f.level} type="button"
-                className={f.level === level ? 'qc-map__floor is-on' : 'qc-map__floor'}
-                aria-pressed={f.level === level}
-                onClick={() => onLevel(f.level)}
-              >
-                {floorName(f.level, t)}
-                {n > 0 && <span className="qc-map__count">{n}</span>}
-              </button>
-            )
-          })}
-        </div>
-      )}
-    </div>
-  )
-}
-
-/**
- * 지도 출처(스펙 §5): 원저작자, 수정자, 라이선스, 보정 데이터(DynamicMaps, MIT). 원본 라이선스 파일(.md)은 맵 폴더에
+ * 지도 출처(05 스펙 §5): 원저작자, 수정자, 라이선스, 보정 데이터(DynamicMaps, MIT). 원본 라이선스 파일(.md)은 맵 폴더에
  * 동봉하지만 링크는 CC 원문으로 건다 — 정적 파일 서버가 모르는 확장자(.md)는 서빙하지 않을 수 있다.
+ * 잠긴 문 아이콘(CC BY 3.0)의 출처는 여기 넣지 않는다 — THIRD_PARTY_NOTICES 와 maps/icons/marker_credits.txt(06 스펙 §5).
  */
 const CC_BY_NC_SA = 'https://creativecommons.org/licenses/by-nc-sa/4.0/'
 
@@ -280,26 +176,4 @@ const MAP_NAMES = new Set([
 /** 탭 이름. 번역이 없는 새 맵 폴더면 폴더 키 그대로. */
 function mapName(key: string, t: T): string {
   return MAP_NAMES.has(key) ? t(`map.name.${key}` as UiKey) : key
-}
-
-function floorName(level: number, t: T): string {
-  if (level < 0) return t('map.floor.underground')
-  if (level === 0) return t('map.floor.ground')
-  return t('map.floor.upper', { n: level + 1 })
-}
-
-/** 비동기 로드 한 건. load 가 null 이면 아무것도 하지 않는다. deps 가 바뀌면 이전 결과를 버린다. */
-function useLoaded<V>(load: (() => Promise<V>) | null, deps: unknown[]): { data: V | null; failed: boolean } {
-  const [state, setState] = useState<{ data: V | null; failed: boolean }>({ data: null, failed: false })
-  useEffect(() => {
-    if (!load) return
-    let alive = true
-    setState({ data: null, failed: false })
-    load().then(
-      (data) => { if (alive) setState({ data, failed: false }) },
-      () => { if (alive) setState({ data: null, failed: true }) },
-    )
-    return () => { alive = false }
-  }, deps)
-  return state
 }
