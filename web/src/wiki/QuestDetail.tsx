@@ -1,7 +1,8 @@
 import type { Catalog, CatalogQuest, Reward } from '../api/catalog'
 import { useT } from '../i18n/I18nContext'
 import type { UiKey } from '../i18n/index'
-import type { NameLookup } from './derive'
+import { BranchWarning } from './BranchWarning'
+import type { BranchInfo, NameLookup } from './derive'
 import { formatObjective, formatRequirement, formatReward, shortId } from './format'
 import { LineList } from './LineList'
 import { prepCount } from './prep'
@@ -10,13 +11,15 @@ interface QuestDetailProps {
   quest: CatalogQuest
   catalog: Catalog
   lookup: NameLookup
+  /** 택일 분기 정보. 분기가 없는 퀘스트는 undefined */
+  branch?: BranchInfo
   onOpenDescription(questId: string): void
   onOpenPrep(questId: string): void
   onJump(questId: string): void
 }
 
 /** (d) 펼친 행. 2열 [목표·시작 조건] [보상] + 전폭 푸터 [연계]. 설명 본문은 여기 없음 — 팝업 (§1.2 d, e). */
-export function QuestDetail({ quest, catalog, lookup, onOpenDescription, onOpenPrep, onJump }: QuestDetailProps) {
+export function QuestDetail({ quest, catalog, lookup, branch, onOpenDescription, onOpenPrep, onJump }: QuestDetailProps) {
   const t = useT()
   const meta = [
     lookup.traderName(quest.traderId),
@@ -51,6 +54,7 @@ export function QuestDetail({ quest, catalog, lookup, onOpenDescription, onOpenP
         </button>
         <span className="qc-detail__meta">{meta}</span>
       </div>
+      {branch && <BranchWarning branch={branch} catalog={catalog} lookup={lookup} onJump={onJump} />}
       <div className="qc-detail__grid">
         <section>
           <h4 className="qc-detail__h">{t('detail.objectives')}</h4>
@@ -91,7 +95,7 @@ function ExtraRewards({ titleKey, rewards, lookup, onJump }: ExtraRewardsProps) 
   )
 }
 
-type RelatedProps = Omit<QuestDetailProps, 'onOpenDescription' | 'onOpenPrep'>
+type RelatedProps = Omit<QuestDetailProps, 'onOpenDescription' | 'onOpenPrep' | 'branch'>
 
 /** 연계는 제목 없이 구분선 아래 [선행] [후속] 두 열로만 (§1.2 d) */
 function RelatedQuests({ quest, catalog, lookup, onJump }: RelatedProps) {

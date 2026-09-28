@@ -26,7 +26,8 @@ public static class Fixtures
         List<QuestCondition>? start = null,
         List<QuestCondition>? finish = null,
         Dictionary<string, List<Reward>>? rewards = null,
-        string image = "") => new()
+        string image = "",
+        List<QuestCondition>? fail = null) => new()
     {
         Id = id,
         TraderId = trader ?? Prapor,
@@ -38,7 +39,7 @@ public static class Fixtures
         Type = QuestTypeEnum.Completion,
         Restartable = false,
         CanShowNotificationsInGame = true,
-        Conditions = new QuestConditionTypes { AvailableForStart = start ?? [], AvailableForFinish = finish ?? [] },
+        Conditions = new QuestConditionTypes { AvailableForStart = start ?? [], AvailableForFinish = finish ?? [], Fail = fail ?? [] },
         Rewards = rewards ?? new() { ["Started"] = [], ["Success"] = [], ["Fail"] = [] },
     };
 

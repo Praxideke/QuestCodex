@@ -30,7 +30,7 @@ const obj = (id: string, p: ObjectivePrep | null): Objective =>
 function quest(objectives: Objective[], location: string | null = null): CatalogQuest {
   return {
     id: 'q', name: 'q', description: '', traderId: 't', side: 'Pmc', factionOnly: null, isVanilla: true, modName: null,
-    imageUrl: null, minLevel: null, location, requirements: [], prerequisites: [], unlocks: [], objectives,
+    imageUrl: null, minLevel: null, location, requirements: [], prerequisites: [], unlocks: [], failsWhen: [], objectives,
     rewards: { started: [], success: [], fail: [] }, tags: [],
   }
 }

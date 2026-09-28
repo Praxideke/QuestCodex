@@ -74,6 +74,12 @@ export type Reward =
   | { kind: 'achievement'; achievementId: string }
   | { kind: 'other'; rewardType: string }
 
+/** 대상 퀘스트가 statuses 중 하나가 되면 이 퀘스트는 실패한다 (conditions.Fail 의 Quest 조건 = 배타 분기) */
+export interface FailTrigger {
+  questId: string
+  statuses: string[]
+}
+
 export interface QuestRewards {
   started: Reward[]
   success: Reward[]
@@ -96,6 +102,7 @@ export interface CatalogQuest {
   requirements: Requirement[]
   prerequisites: string[]
   unlocks: string[]
+  failsWhen: FailTrigger[]
   objectives: Objective[]
   rewards: QuestRewards
   tags: string[]               // "isolated" | "traderInternal"

@@ -202,6 +202,29 @@ public class CatalogBuilderTests
     }
 
     [Fact]
+    public void Fail_quest_conditions_become_fails_when_merged_per_target()
+    {
+        // 1 은 2 또는 3 이 완료되면 실패. SPT 데이터처럼 같은 대상이 두 번 들어 있어도 한 항목으로 합친다.
+        // Quest 가 아닌 Fail 조건(CounterCreator 등)은 무시한다.
+        var q1 = Quest(Id(1), fail:
+        [
+            QuestCond(Id(101), Id(2), QuestStatusEnum.Success),
+            QuestCond(Id(102), Id(3), QuestStatusEnum.Success),
+            QuestCond(Id(103), Id(3), QuestStatusEnum.Success),
+            FinishCond(Id(104)),
+        ]);
+        var q2 = Quest(Id(2), fail: [QuestCond(Id(201), Id(1), QuestStatusEnum.Success)]);
+
+        var cat = CatalogBuilder.Build(Input([q1, q2, Quest(Id(3))]), Now);
+
+        var fails = cat.Quests[Id(1)].FailsWhen;
+        Assert.Equal([Id(2).ToString(), Id(3).ToString()], fails.Select(f => f.QuestId));
+        Assert.All(fails, f => Assert.Equal(["Success"], f.Statuses));
+        Assert.Equal([Id(1).ToString()], cat.Quests[Id(2)].FailsWhen.Select(f => f.QuestId));
+        Assert.Empty(cat.Quests[Id(3)].FailsWhen);
+    }
+
+    [Fact]
     public void Objectives_use_condition_locale()
     {
         var q = Quest(Id(1), finish: [FinishCond(Id(201), "HandoverItem", value: 3), FinishCond(Id(202), "CounterCreator")]);

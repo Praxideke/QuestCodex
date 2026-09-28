@@ -4,6 +4,7 @@ using QuestCodex.Catalog.Requirements;
 using QuestCodex.Catalog.Rewards;
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
+using SPTarkov.Server.Core.Models.Enums;
 
 namespace QuestCodex.Catalog;
 
@@ -148,6 +149,7 @@ public static class CatalogBuilder
             Location = ResolveLocation(quest.Location, locale),
             Requirements = requirements,
             Prerequisites = prerequisites,
+            FailsWhen = ParseFailTriggers(quest),
             Objectives = objectives,
             Rewards = rewards,
         };
@@ -168,6 +170,22 @@ public static class CatalogBuilder
         var targetName = tpl is null ? null : locale.TryResolve($"{tpl} Name");
         return new Objective(condId, c.ConditionType, "", c.Value, targetName);
     }
+
+    /// <summary>
+    /// conditions.Fail 중 Quest 조건만. SPT 데이터에 같은 대상이 중복으로 들어 있는 경우가 있어(Ref 분기) 대상별로 상태를 합친다.
+    /// 나머지 Fail 조건(CounterCreator 등)은 레이드 중 실패 조건이라 분기 정보가 아니다.
+    /// </summary>
+    private static List<FailTrigger> ParseFailTriggers(Quest quest)
+        => (quest.Conditions.Fail ?? [])
+            .Where(c => c.ConditionType == "Quest")
+            .Select(c => (Target: RequirementParser.TargetOf(c), Statuses: c.Status is { Count: > 0 }
+                ? c.Status.Select(s => s.ToString())
+                : [QuestStatusEnum.Success.ToString()]))
+            .Where(x => x.Target is not null)
+            .GroupBy(x => x.Target!, StringComparer.Ordinal)
+            .OrderBy(g => g.Key, StringComparer.Ordinal)
+            .Select(g => new FailTrigger(g.Key, g.SelectMany(x => x.Statuses).Distinct().ToList()))
+            .ToList();
 
     /// <summary>quest.location 은 맵 MongoId(로케일 "<id> Name") 또는 "any"/"marathon" 같은 비지도 값이다.</summary>
     private static string? ResolveLocation(string? location, LocaleResolver locale)

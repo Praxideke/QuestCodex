@@ -17,9 +17,11 @@ interface QuestRowProps {
   detail?: ReactNode
   /** 모드 태그 색 번호 (derive.assignModColors). 출처 미상이면 undefined → 기본 --mod 색. */
   modColor?: number
+  /** 택일 분기가 걸린 퀘스트면 true — 이름 옆에 분기 태그 */
+  branch?: boolean
 }
 
-export function QuestRow({ quest, traderName, expanded, onToggle, detail, modColor }: QuestRowProps) {
+export function QuestRow({ quest, traderName, expanded, onToggle, detail, modColor, branch }: QuestRowProps) {
   const t = useT()
   const prereq = quest.prerequisites.length
   return (
@@ -33,6 +35,7 @@ export function QuestRow({ quest, traderName, expanded, onToggle, detail, modCol
               {quest.modName ?? t('tag.mod')}
             </span>
           )}
+          {branch && <span className="qc-tag qc-tag--branch" title={t('tag.branchTitle')}>{t('tag.branch')}</span>}
         </span>
         <span className="qc-row__trader">{traderName}</span>
         <span className="qc-row__num">{quest.minLevel ?? '—'}</span>

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { Catalog } from '../api/catalog'
 import { hashFor, replaceHash, type Route } from '../shell/router'
-import { assignModColors, chainRank, countByTrader, DEFAULT_CHIPS, DEFAULT_SORT, filterQuests, makeLookup, orderTraders, sortQuests, toggleMember, type ChipKey, type Chips, type SortKey } from './derive'
+import { assignModColors, branchIndex, chainRank, countByTrader, DEFAULT_CHIPS, DEFAULT_SORT, filterQuests, makeLookup, orderTraders, sortQuests, toggleMember, type ChipKey, type Chips, type SortKey } from './derive'
 import { TraderStrip } from './TraderStrip'
 import { FilterBar } from './FilterBar'
 import { QuestDetail } from './QuestDetail'
@@ -39,6 +39,9 @@ export function WikiPage({ catalog, route }: WikiPageProps) {
   const modColors = useMemo(() => assignModColors(quests), [quests])
   /** 연계순의 순위. `modColors` 와 같은 이유로 필터가 아니라 카탈로그 전체로 — 필터를 바꾸면 순서가 흔들린다. */
   const chainOrder = useMemo(() => chainRank(quests), [quests])
+  /** 택일 분기. 역인덱스·연쇄 계산이라 카탈로그 전체로 한 번만 */
+  const branches = useMemo(() => branchIndex(quests), [quests])
+  const branchIds = useMemo(() => new Set(branches.keys()), [branches])
   const visible = useMemo(
     () => sortQuests(filterQuests(quests, { traders, chips, query }), sort, chainOrder),
     [quests, traders, chips, query, sort, chainOrder],
@@ -94,8 +97,9 @@ export function WikiPage({ catalog, route }: WikiPageProps) {
         expanded={expanded}
         onToggle={toggleExpanded}
         modColors={modColors}
+        branchIds={branchIds}
         renderDetail={(q) => (
-          <QuestDetail quest={q} catalog={catalog} lookup={lookup} onOpenDescription={setDialogId} onOpenPrep={setPrepId} onJump={jumpTo} />
+          <QuestDetail quest={q} catalog={catalog} lookup={lookup} branch={branches.get(q.id)} onOpenDescription={setDialogId} onOpenPrep={setPrepId} onJump={jumpTo} />
         )}
       />
       <QuestDescriptionDialog

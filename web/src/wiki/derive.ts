@@ -152,6 +152,85 @@ export function assignModColors(quests: CatalogQuest[]): Record<string, number> 
   return out
 }
 
+// ---- 배타 분기 (conditions.Fail 의 Quest 조건) ----
+export interface BranchInfo {
+  /** 이 퀘스트를 완료하면 실패하는 퀘스트 */
+  failsOnComplete: string[]
+  /** 완료하면 이 퀘스트를 실패시키는 퀘스트 중 failsOnComplete 에 없는 것 — 한쪽 방향 분기 */
+  failedBy: string[]
+  /** failsOnComplete 를 완료로만 요구해서 함께 막히는 후속 (연쇄) */
+  blocked: string[]
+  /** failsOnComplete 의 실패를 요구해서 대신 열리는 퀘스트 */
+  opened: string[]
+}
+
+const needsSuccessOnly = (s: string[]) => s.includes('Success') && !s.includes('Fail')
+const needsFailOnly = (s: string[]) => s.includes('Fail') && !s.includes('Success')
+
+/**
+ * 분기가 걸린 퀘스트만 담은 `questId → BranchInfo`. **카탈로그 전체**로 한 번 계산한다.
+ *
+ * `failsWhen` 은 "저게 완료되면 내가 실패" 방향이라, 역인덱스를 만들어 "내가 완료되면 저게 실패" 를 얻는다.
+ * 막히는 후속은 실패한 퀘스트를 `Success` 로만 요구하는 퀘스트를 연쇄로 따라간다 — `Success/Fail` 둘 다 받거나
+ * `Started` 만 요구하면 실패해도 열리므로 제외한다. 대신 열리는 퀘스트는 직접 실패한 것 기준 한 단계만 본다.
+ */
+export function branchIndex(quests: CatalogQuest[]): ReadonlyMap<string, BranchInfo> {
+  const byId = new Map(quests.map((q) => [q.id, q]))
+  const byName = (a: string, b: string) => (byId.get(a)?.name ?? a).localeCompare(byId.get(b)?.name ?? b)
+
+  const failsOnComplete = new Map<string, Set<string>>()
+  for (const q of quests) {
+    for (const f of q.failsWhen) {
+      if (!f.statuses.includes('Success')) continue
+      if (!failsOnComplete.has(f.questId)) failsOnComplete.set(f.questId, new Set())
+      failsOnComplete.get(f.questId)!.add(q.id)
+    }
+  }
+
+  /** 선행 questId → 그 선행을 needStatuses 로 요구하는 퀘스트들 */
+  const dependents = new Map<string, { id: string; needStatuses: string[] }[]>()
+  for (const q of quests) {
+    for (const r of q.requirements) {
+      if (r.kind !== 'quest') continue
+      if (!dependents.has(r.questId)) dependents.set(r.questId, [])
+      dependents.get(r.questId)!.push({ id: q.id, needStatuses: r.needStatuses })
+    }
+  }
+
+  const out = new Map<string, BranchInfo>()
+  const ids = new Set([...failsOnComplete.keys(), ...quests.filter((q) => q.failsWhen.length > 0).map((q) => q.id)])
+  for (const id of ids) {
+    if (!byId.has(id)) continue
+    const failed = failsOnComplete.get(id) ?? new Set<string>()
+    const failedBy = (byId.get(id)!.failsWhen)
+      .filter((f) => f.statuses.includes('Success') && !failed.has(f.questId))
+      .map((f) => f.questId)
+    if (failed.size === 0 && failedBy.length === 0) continue
+
+    const lost = new Set([id, ...failed])
+    const blocked: string[] = []
+    const queue = [...failed]
+    while (queue.length > 0) {
+      for (const d of dependents.get(queue.shift()!) ?? []) {
+        if (lost.has(d.id) || !needsSuccessOnly(d.needStatuses)) continue
+        lost.add(d.id)
+        blocked.push(d.id)
+        queue.push(d.id)
+      }
+    }
+    const opened = [...new Set([...failed].flatMap((f) =>
+      (dependents.get(f) ?? []).filter((d) => needsFailOnly(d.needStatuses) && !lost.has(d.id)).map((d) => d.id)))]
+
+    out.set(id, {
+      failsOnComplete: [...failed].sort(byName),
+      failedBy: failedBy.sort(byName),
+      blocked: blocked.sort(byName),
+      opened: opened.sort(byName),
+    })
+  }
+  return out
+}
+
 // ---- 이름 조회 (§4.3) ----
 export interface NameLookup {
   traderName(id: string): string

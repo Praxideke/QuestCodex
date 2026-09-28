@@ -202,6 +202,14 @@
 .qc-tag--mod[data-mod-color="4"] { --mod: var(--mod-4); }
 .qc-tag--mod[data-mod-color="5"] { --mod: var(--mod-5); }
 .qc-tag--mod[data-mod-color="6"] { --mod: var(--mod-6); }
+/* 택일 분기 태그. 모드 태그와 같은 틀에 색만 --warn */
+.qc-tag--branch {
+  color: var(--warn);
+  border-color: color-mix(in srgb, var(--warn) 40%, transparent);
+  background: color-mix(in srgb, var(--warn) 12%, transparent);
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
 .qc-empty { padding: 24px 16px; color: var(--fg-2); }
 
 /* ---- (d) 펼친 행 ---- */
@@ -214,6 +222,21 @@
 }
 .qc-detail__bar { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
 .qc-detail__meta { color: var(--fg-2); font-size: 12px; }
+/* 택일 분기 경고 박스 (BranchWarning). 목표·보상 2열 위 */
+.qc-branch {
+  margin: 0 0 14px;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--warn) 45%, transparent);
+  border-left-width: 3px;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--warn) 8%, transparent);
+}
+.qc-branch__title { color: var(--warn); font-weight: 600; font-size: 12px; margin-bottom: 6px; }
+.qc-branch__k { font-size: 12px; color: var(--fg-2); margin: 4px 0 2px; }
+.qc-branch__links { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding-left: 10px; margin-bottom: 4px; }
+.qc-branch__links .qc-related__who { margin-left: 8px; }
+.qc-branch .qc-extra { margin: 6px 0 0; }
+.qc-branch .qc-extra > .qc-branch__links { margin-top: 4px; }
 .qc-detail__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
 .qc-detail__h {
   margin: 0 0 6px;

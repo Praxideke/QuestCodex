@@ -24,6 +24,8 @@ public sealed record CatalogTrader(string Id, string Name, string? AvatarUrl, bo
 public sealed record Objective(
     string ConditionId, string ConditionType, string Text, double? TargetCount, string? TargetName, ObjectivePrep? Prep = null);
 
+public sealed record FailTrigger(string QuestId, IReadOnlyList<string> Statuses);
+
 public sealed record QuestRewards(
     IReadOnlyList<CatalogReward> Started,
     IReadOnlyList<CatalogReward> Success,
@@ -48,6 +50,8 @@ public sealed class CatalogQuest
     public required IReadOnlyList<string> Prerequisites { get; init; }
     /// <summary>빌더가 전체 순회 후 채운다. ID 오름차순.</summary>
     public List<string> Unlocks { get; } = [];
+    /// <summary>conditions.Fail 의 Quest 조건 — 이 퀘스트들이 Statuses 가 되면 이 퀘스트는 실패한다(배타 분기). 대상 ID 오름차순.</summary>
+    public IReadOnlyList<FailTrigger> FailsWhen { get; init; } = [];
     public required IReadOnlyList<Objective> Objectives { get; init; }
     public required QuestRewards Rewards { get; init; }
     /// <summary>"isolated" | "traderInternal". 빌더가 Unlocks 확정 후 채운다.</summary>

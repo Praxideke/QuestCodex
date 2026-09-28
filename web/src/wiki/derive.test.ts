@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import type { CatalogQuest, CatalogTrader } from '../api/catalog'
-import { assignModColors, chainRank, countByTrader, DEFAULT_CHIPS, DEFAULT_SORT, filterQuests, initials, makeLookup, MOD_COLOR_COUNT, orderTraders, sortQuests, toggleMember } from './derive'
+import { assignModColors, branchIndex, chainRank, countByTrader, DEFAULT_CHIPS, DEFAULT_SORT, filterQuests, initials, makeLookup, MOD_COLOR_COUNT, orderTraders, sortQuests, toggleMember } from './derive'
 
 function quest(p: Partial<CatalogQuest> & { id: string }): CatalogQuest {
   return {
     name: p.id, description: '', traderId: 't1', side: 'Pmc', factionOnly: null, isVanilla: true, modName: null, imageUrl: null,
-    minLevel: null, location: null, requirements: [], prerequisites: [], unlocks: [], objectives: [],
+    minLevel: null, location: null, requirements: [], prerequisites: [], unlocks: [], failsWhen: [], objectives: [],
     rewards: { started: [], success: [], fail: [] }, tags: [], ...p,
   }
 }
@@ -251,5 +251,48 @@ describe('toggleMember', () => {
     const out = toggleMember(src, 'a')
     expect(out).toEqual(new Set(['b']))
     expect(src).toEqual(new Set(['a', 'b']))
+  })
+})
+
+describe('branchIndex', () => {
+  const req = (questId: string, ...needStatuses: string[]) =>
+    ({ kind: 'quest' as const, questId, needStatuses, availableAfterSec: 0, resolved: true })
+  const fails = (...ids: string[]) => ids.map((questId) => ({ questId, statuses: ['Success'] }))
+
+  // a·b·c 3자 택일(Chemical 4 / Out of Curiosity / Big Customer 형태). s 는 x 가 완료되면 실패(한쪽 방향).
+  // d 는 b 완료를 요구, e 는 d 완료를 요구(연쇄로 막힘). f 는 b 실패를 요구(대신 열림).
+  // g 는 b 완료 또는 실패면 되므로 막히지 않는다. h 는 b 를 Started 로만 요구해 막히지 않는다.
+  const quests = [
+    quest({ id: 'a', name: 'A', failsWhen: fails('b', 'c') }),
+    quest({ id: 'b', name: 'B', failsWhen: fails('a', 'c') }),
+    quest({ id: 'c', name: 'C', failsWhen: fails('a', 'b') }),
+    quest({ id: 'd', name: 'D', requirements: [req('b', 'Success')] }),
+    quest({ id: 'e', name: 'E', requirements: [req('d', 'Success')] }),
+    quest({ id: 'f', name: 'F', requirements: [req('b', 'Fail')] }),
+    quest({ id: 'g', name: 'G', requirements: [req('b', 'Success', 'Fail')] }),
+    quest({ id: 'h', name: 'H', requirements: [req('b', 'Started')] }),
+    quest({ id: 's', name: 'S', failsWhen: fails('x') }),
+    quest({ id: 'x', name: 'X' }),
+  ]
+  const idx = branchIndex(quests)
+
+  it('완료하면 실패하는 퀘스트, 연쇄로 막히는 후속, 대신 열리는 퀘스트', () => {
+    expect(idx.get('a')).toEqual({ failsOnComplete: ['b', 'c'], failedBy: [], blocked: ['d', 'e'], opened: ['f'] })
+    expect(idx.get('b')).toEqual({ failsOnComplete: ['a', 'c'], failedBy: [], blocked: [], opened: [] })
+  })
+
+  it('한쪽 방향 분기는 양쪽 모두에 실리되 방향이 다르다', () => {
+    expect(idx.get('x')).toEqual({ failsOnComplete: ['s'], failedBy: [], blocked: [], opened: [] })
+    expect(idx.get('s')).toEqual({ failsOnComplete: [], failedBy: ['x'], blocked: [], opened: [] })
+  })
+
+  it('분기와 무관한 퀘스트는 인덱스에 없다', () => {
+    expect(idx.has('d')).toBe(false)
+    expect(idx.has('f')).toBe(false)
+  })
+
+  it('Success 가 아닌 상태로 실패하는 조건은 "완료하면 실패" 로 치지 않는다', () => {
+    const only = branchIndex([quest({ id: 'p', failsWhen: [{ questId: 'q', statuses: ['Started'] }] }), quest({ id: 'q' })])
+    expect(only.size).toBe(0)
   })
 })
