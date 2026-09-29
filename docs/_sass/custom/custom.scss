@@ -25,7 +25,7 @@ body {
 }
 
 // The theme sizes the title/nav to its own nav width and right-aligns them, so
-// fit them to the sidebar and indent the text (pills stay flush with the edge).
+// fit them to the sidebar, center the title and indent the menu text (pills stay flush with the edge).
 @media (min-width: 50rem) {
   .side-bar .site-header,
   .side-bar .site-nav,
@@ -34,7 +34,9 @@ body {
   }
 
   .site-header .site-title {
-    padding-left: 1.5rem;
+    justify-content: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .site-nav {
@@ -42,7 +44,7 @@ body {
   }
 
   .nav-list .nav-list-item .nav-list-link {
-    padding-left: 1.5rem;
+    padding-left: 2rem;
   }
 
   .nav-list .nav-list-item .nav-list {
@@ -50,7 +52,7 @@ body {
   }
 
   .nav-list .nav-list-item .nav-list .nav-list-item .nav-list-link {
-    padding-left: 2.5rem;
+    padding-left: 3rem;
   }
 }
 
