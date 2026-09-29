@@ -55,6 +55,24 @@ public class CatalogBuilderTests
         Assert.Single(cat.Warnings, w => w.Code == WarningCodes.MissingLocale && w.QuestId == Id(1).ToString());
     }
 
+    /// <summary>
+    /// 퀘스트 템플릿의 name/description 필드가 곧 로케일 키다. 바닐라는 "&lt;id&gt; name" 이라 차이가 없지만 Painter 모드는
+    /// "painter_1 name" 처럼 자기 키를 쓴다 — "&lt;id&gt; name" 만 찾으면 이름이 ID 로 나온다(실측 12개).
+    /// </summary>
+    [Fact]
+    public void Quest_text_uses_the_template_locale_key_first()
+    {
+        var q = Quest(Id(1));
+        q.Name = "painter_1 name";
+        q.Description = "painter_1 description";
+        var en = new Dictionary<string, string> { ["painter_1 name"] = "Taped Up", ["painter_1 description"] = "Find tape" };
+
+        var cq = CatalogBuilder.Build(Input([q], locale: new(), en: en), Now).Quests[Id(1)];
+
+        Assert.Equal("Taped Up", cq.Name);
+        Assert.Equal("Find tape", cq.Description);
+    }
+
     [Fact]
     public void Trader_metadata_comes_from_locale_then_base()
     {
@@ -248,6 +266,38 @@ public class CatalogBuilderTests
         Assert.Equal("", obj.Text);
         Assert.Equal("황금 아령", obj.TargetName);
         Assert.Single(cat.Warnings, w => w.Code == WarningCodes.MissingLocale && w.Detail.Contains(Id(201).ToString()));
+    }
+
+    [Fact]
+    public void Handover_items_get_top_handbook_category_in_display_order()
+    {
+        const string weapons = "5b5f78dc86f77409407a7f8e", barter = "5b47574386f77428ca22b33e", modCat = "ffffffffffffffffffffffff";
+        var (bolts, gun, modItem, orphan) = (Id(701), Id(702), Id(703), Id(704));
+        var q = Quest(Id(1), finish:
+        [
+            FinishCond(Id(201), "HandoverItem", value: 1, target: bolts), FinishCond(Id(202), "HandoverItem", value: 1, target: gun),
+            FinishCond(Id(203), "HandoverItem", value: 1, target: modItem), FinishCond(Id(204), "HandoverItem", value: 1, target: orphan),
+        ]);
+        var input = Input([q], avatarIsServable: url => url != "/files/handbook/missing.png") with
+        {
+            HandbookCategories = new Dictionary<string, HandbookCategoryInput>
+            {
+                [barter] = new(null, "/files/handbook/icon_barter.png"),
+                ["b-tools"] = new(barter, "/files/handbook/icon_barter_tools.png"),
+                [weapons] = new(null, "/files/handbook/missing.png"),
+                [modCat] = new(null, null),
+            },
+            HandbookItemParents = new Dictionary<string, string> { [bolts] = "b-tools", [gun] = weapons, [modItem] = modCat },
+        };
+
+        var cat = CatalogBuilder.Build(input, Now);
+
+        Assert.Equal(barter, cat.ItemCategoryOf[bolts]);
+        Assert.Equal(weapons, cat.ItemCategoryOf[gun]);
+        Assert.False(cat.ItemCategoryOf.ContainsKey(orphan));   // 핸드북에 없는 아이템
+        Assert.Equal(
+            [new CatalogItemCategory(weapons, null), new CatalogItemCategory(barter, "/files/handbook/icon_barter.png"), new CatalogItemCategory(modCat, null)],
+            cat.ItemCategories);
     }
 
     [Fact]

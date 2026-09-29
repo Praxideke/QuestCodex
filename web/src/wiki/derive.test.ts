@@ -195,7 +195,7 @@ describe('sortQuests — 연계순', () => {
 describe('makeLookup', () => {
   it('상인은 이름 없으면 id, 퀘스트는 없으면 undefined', () => {
     const l = makeLookup({
-      sptVersion: '', modVersion: '', generatedAt: '', lang: 'en', rewardIndex: {}, warnings: [],
+      sptVersion: '', modVersion: '', generatedAt: '', lang: 'en', rewardIndex: {}, warnings: [], itemCategories: [], itemCategoryOf: {},
       traders: { t1: trader('t1', 'Prapor', true) },
       quests: { q1: quest({ id: 'q1', name: 'Debut' }) },
     })

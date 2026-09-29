@@ -17,7 +17,7 @@ public class ProgressBuilderTests
         var q1 = Quest(Id(1), start: [LevelCond(Id(101), 5)]);
         var q2 = Quest(Id(2), start: [QuestCond(Id(102), Id(1)), TraderCond(Id(103), "TraderLoyalty", Prapor, 2)]);
         var q3 = Quest(Id(3), Therapist);
-        var q4 = Quest(Id(4), finish: [FinishCond(Id(401), value: 3), FinishCond(Id(402), "PlaceBeacon")]);
+        var q4 = Quest(Id(4), finish: [FinishCond(Id(401), value: 3), FinishCond(Id(402), "PlaceBeacon"), FinishCond(Id(403), "HandoverItem", 2, Id(7001))]);
         var q5 = Quest(Id(5), start: [FinishCond(Id(501), "Skill", value: 10)]);   // other 조건
         var input = new CatalogInput("en", "4.1.5", "0.2.0",
             new[] { q1, q2, q3, q4, q5 }.ToDictionary(q => q.Id),
@@ -120,6 +120,26 @@ public class ProgressBuilderTests
         Assert.True(ProgressBuilder.Build(Cat, pmc, "p", false).Quests[Id(4)].Objectives[Id(401)].Done);
     }
 
+    /// <summary>
+    /// 설치(PlaceBeacon)처럼 카운터가 없는 목표는 퀘스트 항목의 completedConditions 에만 완료가 기록된다
+    /// (실측 fon: 광신도 2부 표식 3개 중 2개 완료인데 TaskConditionCounters 에는 아무것도 없음).
+    /// </summary>
+    [Fact]
+    public void Completed_conditions_mark_objectives_done_without_counters()
+    {
+        var pmc = Pmc();
+        var entry = ProfileQuest(Id(4), QuestStatusEnum.Started);
+        entry.CompletedConditions = [Id(402), Id(403)];
+        pmc.Quests!.Add(entry);
+        pmc.TaskConditionCounters![Id(900)] = new TaskConditionCounter { Id = Id(403), Value = 1 };
+
+        var objs = ProgressBuilder.Build(Cat, pmc, "p", false).Quests[Id(4)].Objectives;
+
+        Assert.True(objs[Id(402)].Done);
+        Assert.Equal(new ObjectiveProgress(2, 2, true), objs[Id(403)]);   // 카운터가 목표보다 작아도 완료면 current = target
+        Assert.Equal(new ObjectiveProgress(0, 3, false), objs[Id(401)]);
+    }
+
     [Fact]
     public void Finished_quest_marks_all_objectives_done()
     {
@@ -147,6 +167,28 @@ public class ProgressBuilderTests
         Assert.Equal(1, prapor.Other);      // 4 Fail
         Assert.Equal(1, stats[Therapist].Total);
         Assert.Equal(1, stats[Therapist].Locked);
+    }
+
+    [Fact]
+    public void Inventory_counts_only_quest_item_tpls()
+    {
+        var pmc = Pmc();
+        var stash = Id(100);
+        pmc.Inventory = new BotBaseInventory
+        {
+            Stash = stash,
+            Items =
+            [
+                new Item { Id = stash, Template = Id(7100) },
+                new Item { Id = Id(1001), Template = Id(7001), ParentId = stash.ToString(), SlotId = "hideout", Upd = new Upd { SpawnedInSession = true } },
+                new Item { Id = Id(1002), Template = Id(7002), ParentId = stash.ToString(), SlotId = "hideout" },
+            ],
+        };
+
+        var inventory = ProgressBuilder.Build(Cat, pmc, "p", false).Inventory;
+
+        Assert.Equal(new ItemHolding(1, 1), Assert.Single(inventory).Value);   // 7002 는 어떤 퀘스트 목표에도 없다
+        Assert.Equal(Id(7001).ToString(), inventory.Keys.Single());
     }
 
     [Fact]

@@ -21,6 +21,9 @@ public sealed class TraderStats
     public int Other { get; set; }
 }
 
+/// <summary>퀘스트 아이템 하나의 보유 수. Fir 은 Count 중 레이드 획득(FIR) 수.</summary>
+public sealed record ItemHolding(int Count, int Fir);
+
 public sealed record ProfileProgress(
     string ProfileId,
     string Nickname,
@@ -29,6 +32,7 @@ public sealed record ProfileProgress(
     bool IsActive,
     SortedDictionary<string, QuestProgress> Quests,
     SortedDictionary<string, TraderStats> TraderStats,
+    SortedDictionary<string, ItemHolding> Inventory,
     IReadOnlyList<CatalogWarning> Warnings);
 
 public sealed record ProfileSummary(

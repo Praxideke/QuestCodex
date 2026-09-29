@@ -17,6 +17,7 @@ namespace QuestCodex.Services;
 public class CatalogService(
     TemplateTable templateTable,
     TradersTable tradersTable,
+    LocationTable locationTable,
     QuestConfig questConfig,
     LocaleService localeService,
     LocaleTable localeTable,
@@ -39,6 +40,44 @@ public class CatalogService(
         LazyThreadSafetyMode.ExecutionAndPublication);
 
     public IReadOnlySet<string> SupportedLangs => _supportedLangs.Value;
+
+    /// <summary>
+    /// 로케이션 _Id → 맵 키(LocationBase.Id 소문자 = locations 폴더 이름, 예: Sandbox_high → sandbox_high). 언어와 무관해 한 번만.
+    /// 인덱서로 넣는다: hideout·develop 처럼 _Id 가 비어 있거나 겹치는 로케이션이 있어도 예외가 나지 않게.
+    /// </summary>
+    private readonly Lazy<IReadOnlyDictionary<string, string>> _locationKeys = new(() =>
+    {
+        var keys = new Dictionary<string, string>(StringComparer.Ordinal);
+        foreach (var l in locationTable.GetDictionary().Values)
+        {
+            if (l?.Base is null || string.IsNullOrWhiteSpace(l.Base.Id)) continue;
+            keys[l.Base.IdField.ToString()] = l.Base.Id.ToLowerInvariant();
+        }
+
+        return keys;
+    }, LazyThreadSafetyMode.ExecutionAndPublication);
+
+    /// <summary>핸드북 카테고리·아이템 부모. 언어와 무관해 한 번만. 모드가 추가한 아이템도 첫 요청 시점이면 들어와 있다.</summary>
+    private readonly Lazy<(IReadOnlyDictionary<string, HandbookCategoryInput> Categories, IReadOnlyDictionary<string, string> ItemParents)> _handbook = new(() =>
+    {
+        var categories = new Dictionary<string, HandbookCategoryInput>(StringComparer.Ordinal);
+        var parents = new Dictionary<string, string>(StringComparer.Ordinal);
+        var handbook = templateTable.Handbook;
+        foreach (var c in handbook?.Categories ?? [])
+        {
+            if (c is null) continue;
+            var parent = c.ParentId?.ToString();
+            categories[c.Id.ToString()] = new HandbookCategoryInput(string.IsNullOrEmpty(parent) ? null : parent, c.Icon);
+        }
+
+        foreach (var i in handbook?.Items ?? [])
+        {
+            if (i is null) continue;
+            parents[i.Id.ToString()] = i.ParentId.ToString();
+        }
+
+        return (categories, parents);
+    }, LazyThreadSafetyMode.ExecutionAndPublication);
 
     public QuestCodex.Catalog.Models.Catalog Get(string lang)
     {
@@ -76,7 +115,10 @@ public class CatalogService(
             VanillaSnapshotSptVersion: vanilla.SptVersion,
             ModQuestOrigins: modQuestIndex.QuestOrigins,
             ModQuestScanWarnings: modQuestIndex.Warnings,
-            AvatarIsServable: IsAvatarServable);
+            AvatarIsServable: IsAvatarServable,
+            LocationKeys: _locationKeys.Value,
+            HandbookCategories: _handbook.Value.Categories,
+            HandbookItemParents: _handbook.Value.ItemParents);
 
         var catalog = CatalogBuilder.Build(input, started);
 

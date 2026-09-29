@@ -69,8 +69,64 @@ public static class CatalogBuilder
 
         var rewardIndex = BuildRewardIndex(quests);
 
-        return new Models.Catalog(input.SptVersion, input.ModVersion, now, input.Lang, traders, quests, rewardIndex, warnings);
+        var (itemCategories, itemCategoryOf) = BuildItemCategories(quests, input);
+
+        return new Models.Catalog(input.SptVersion, input.ModVersion, now, input.Lang, traders, quests, rewardIndex, warnings, itemCategories, itemCategoryOf);
     }
+
+    /// <summary>
+    /// 핸드북 최상위 카테고리의 표시 순서. 무기, 무기 부품, 탄약, 장비, 방탄판, 의료품, 식량, 물물교환, 정보, 열쇠, 지도, 특수 장비, 퀘스트 아이템, 화폐.
+    /// 여기 없는 카테고리(모드)는 뒤에 Id 순으로 붙는다.
+    /// </summary>
+    public static readonly string[] ItemCategoryOrder =
+    [
+        "5b5f78dc86f77409407a7f8e", "5b5f71a686f77447ed5636ab", "5b47574386f77428ca22b346", "5b47574386f77428ca22b33f",
+        "6564b96a189fe36f356d177c", "5b47574386f77428ca22b344", "5b47574386f77428ca22b340", "5b47574386f77428ca22b33e",
+        "5b47574386f77428ca22b341", "5b47574386f77428ca22b342", "5b47574386f77428ca22b343", "5b47574386f77428ca22b345",
+        "5b619f1a86f77450a702a6f3", "5b5f78b786f77447ed5636af",
+    ];
+
+    /// <summary>제출·설치 아이템 tpl 마다 핸드북 부모를 끝까지 따라 올라가 최상위 카테고리를 찾는다.</summary>
+    private static (IReadOnlyList<CatalogItemCategory>, SortedDictionary<string, string>) BuildItemCategories(
+        SortedDictionary<string, CatalogQuest> quests, CatalogInput input)
+    {
+        var categoryOf = new SortedDictionary<string, string>(StringComparer.Ordinal);
+        if (input.HandbookCategories is not { } cats || input.HandbookItemParents is not { } parents) return ([], categoryOf);
+
+        string? TopOf(string categoryId)
+        {
+            // 부모 고리가 꼬여 있어도 멈추도록 깊이를 제한한다.
+            for (var depth = 0; depth < 32 && cats.TryGetValue(categoryId, out var c); depth++)
+            {
+                if (string.IsNullOrEmpty(c.ParentId)) return categoryId;
+                categoryId = c.ParentId;
+            }
+
+            return null;
+        }
+
+        var tpls = quests.Values
+            .SelectMany(q => q.Objectives)
+            .SelectMany(o => o.Prep?.Item?.Items ?? [])
+            .Select(i => i.Tpl);
+        foreach (var tpl in tpls)
+        {
+            if (categoryOf.ContainsKey(tpl) || !parents.TryGetValue(tpl, out var parent)) continue;
+            if (TopOf(parent) is { } top) categoryOf[tpl] = top;
+        }
+
+        var order = ItemCategoryOrder.Select((id, i) => (id, i)).ToDictionary(x => x.id, x => x.i, StringComparer.Ordinal);
+        var list = categoryOf.Values
+            .Distinct(StringComparer.Ordinal)
+            .OrderBy(id => order.GetValueOrDefault(id, int.MaxValue))
+            .ThenBy(id => id, StringComparer.Ordinal)
+            .Select(id => new CatalogItemCategory(id, cats[id].Icon is { Length: > 0 } icon && IsIconServable(icon, input) ? icon : null))
+            .ToList();
+        return (list, categoryOf);
+    }
+
+    private static bool IsIconServable(string url, CatalogInput input) =>
+        !url.StartsWith("/files/", StringComparison.OrdinalIgnoreCase) || input.AvatarIsServable is not { } servable || servable(url);
 
     private static CatalogTrader BuildTrader(MongoId id, TraderBase tb, LocaleResolver locale, Func<string, bool>? avatarIsServable)
     {
@@ -100,8 +156,10 @@ public static class CatalogBuilder
         SortedDictionary<string, CatalogTrader> traders,
         List<CatalogWarning> warnings)
     {
-        var name = locale.Resolve($"{questId} name", questId, out var nameFellBack);
-        var description = locale.Resolve($"{questId} description", questId, out var descFellBack);
+        // 템플릿의 name/description 필드가 로케일 키다(게임 클라이언트와 같은 규칙). 바닐라는 "<id> name" 이라 같지만
+        // Painter 모드는 "painter_1 name" 처럼 자기 키를 쓴다. 로케일 어디에도 없으면 모드가 적어 둔 QuestName, 그다음 ID.
+        var name = locale.Resolve([quest.Name, $"{questId} name"], NonBlank(quest.QuestName) ?? questId, out var nameFellBack);
+        var description = locale.Resolve([quest.Description, $"{questId} description"], questId, out var descFellBack);
         if (nameFellBack || descFellBack)
         {
             warnings.Add(new CatalogWarning(questId, WarningCodes.MissingLocale, $"name/description missing in '{input.Lang}'"));
@@ -147,6 +205,7 @@ public static class CatalogBuilder
             ImageUrl = string.IsNullOrWhiteSpace(quest.Image) ? null : quest.Image,
             MinLevel = minLevel,
             Location = ResolveLocation(quest.Location, locale),
+            LocationKey = LocationKeyOf(quest.Location, input.LocationKeys),
             Requirements = requirements,
             Prerequisites = prerequisites,
             FailsWhen = ParseFailTriggers(quest),
@@ -190,6 +249,22 @@ public static class CatalogBuilder
     /// <summary>quest.location 은 맵 MongoId(로케일 "<id> Name") 또는 "any"/"marathon" 같은 비지도 값이다.</summary>
     private static string? ResolveLocation(string? location, LocaleResolver locale)
         => string.IsNullOrWhiteSpace(location) || location == "any" ? null : locale.TryResolve($"{location} Name");
+
+    /// <summary>
+    /// quest.location → 맵 키. 로케이션 표에 있는 ID 면 그 키, 표에 없는 ID(Transition 같은 가상 로케이션)는 null,
+    /// 그 밖의 문자열(모드가 맵 키를 직접 넣은 경우)은 소문자. any·marathon·빈 값은 null.
+    /// </summary>
+    private static string? LocationKeyOf(string? location, IReadOnlyDictionary<string, string>? locationKeys)
+    {
+        if (string.IsNullOrWhiteSpace(location)) return null;
+        if (location.Equals("any", StringComparison.OrdinalIgnoreCase) || location.Equals("marathon", StringComparison.OrdinalIgnoreCase)) return null;
+        if (locationKeys is not null && locationKeys.TryGetValue(location, out var key)) return key;
+        return IsObjectId(location) ? null : location.ToLowerInvariant();
+    }
+
+    private static string? NonBlank(string? s) => string.IsNullOrWhiteSpace(s) ? null : s;
+
+    private static bool IsObjectId(string s) => s.Length == 24 && s.All(Uri.IsHexDigit);
 
     private static List<CatalogReward> ParseRewards(Quest quest, string phase, RewardParser parser, List<CatalogWarning> warnings, string questId)
     {

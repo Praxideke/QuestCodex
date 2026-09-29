@@ -20,7 +20,7 @@ export function App({ initialTheme }: AppProps) {
   return (
     <I18nProvider lang={c.lang}>
       <div className="qc-shell" data-theme={theme.resolved}>
-        <SideMenu page={route.page} onNavigate={navigate} />
+        <SideMenu route={route} onNavigate={navigate} />
         <div className="qc-main">
           <TopBar
             theme={theme.pref} onThemeChange={theme.setPref}
@@ -28,13 +28,9 @@ export function App({ initialTheme }: AppProps) {
             busy={c.loading && c.catalog !== null}
           />
           <div className="qc-page">
-            {route.page === 'progress' && <ProgressPage />}
-            {route.page === 'wiki' && (
-              <>
-                {c.error && <ErrorBanner code={c.error} onRetry={c.retry} />}
-                {(c.catalog || !c.error) && <WikiPage catalog={c.catalog} route={route} />}
-              </>
-            )}
+            {c.error && <ErrorBanner code={c.error} onRetry={c.retry} />}
+            {route.page === 'progress' && <ProgressPage catalog={c.catalog} route={route} />}
+            {route.page === 'wiki' && (c.catalog || !c.error) && <WikiPage catalog={c.catalog} route={route} />}
           </div>
         </div>
       </div>

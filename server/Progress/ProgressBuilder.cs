@@ -52,11 +52,15 @@ public static class ProgressBuilder
 
             var lockReasons = status == Locked ? LockReasons(cq, statusById, pmc, level ?? 0, side) : [];
             var finished = status is nameof(QuestStatusEnum.Success) or nameof(QuestStatusEnum.Fail);
+            // 카운터가 없는 목표(설치·방문 등)는 완료가 퀘스트 항목의 completedConditions 에만 기록된다
+            var completed = entry?.CompletedConditions?.Select(id => id.ToString()).ToHashSet(StringComparer.Ordinal);
             var objectives = new SortedDictionary<string, ObjectiveProgress>(StringComparer.Ordinal);
             foreach (var o in cq.Objectives)
             {
                 var current = counters.GetValueOrDefault(o.ConditionId, 0);
-                var done = finished || (o.TargetCount is { } target && current >= target);
+                var marked = completed?.Contains(o.ConditionId) == true;
+                if (marked && o.TargetCount is { } goal) current = Math.Max(current, goal);
+                var done = finished || marked || (o.TargetCount is { } target && current >= target);
                 objectives[o.ConditionId] = new ObjectiveProgress(current, o.TargetCount, done);
             }
 
@@ -92,8 +96,17 @@ public static class ProgressBuilder
             isActive,
             quests,
             stats,
+            InventoryCounter.Count(pmc.Inventory, QuestItemTpls(catalog)),
             warnings);
     }
+
+    /// <summary>제출·설치 목표에 나오는 아이템(대체 아이템 포함). 퀘스트 상태와 무관하게 전부.</summary>
+    private static HashSet<string> QuestItemTpls(QuestCodex.Catalog.Models.Catalog catalog)
+        => catalog.Quests.Values
+            .SelectMany(q => q.Objectives)
+            .SelectMany(o => o.Prep?.Item?.Items ?? [])
+            .Select(i => i.Tpl)
+            .ToHashSet(StringComparer.Ordinal);
 
     /// <summary>CompareMethod 해석. 모르는 연산자는 >= 로 간주.</summary>
     public static bool Compare(double current, string op, double need) => op switch
