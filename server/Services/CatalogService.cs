@@ -17,6 +17,7 @@ namespace QuestCodex.Services;
 public class CatalogService(
     TemplateTable templateTable,
     TradersTable tradersTable,
+    LocationTable locationTable,
     QuestConfig questConfig,
     LocaleService localeService,
     LocaleTable localeTable,
@@ -39,6 +40,22 @@ public class CatalogService(
         LazyThreadSafetyMode.ExecutionAndPublication);
 
     public IReadOnlySet<string> SupportedLangs => _supportedLangs.Value;
+
+    /// <summary>
+    /// 로케이션 _Id → 맵 키(LocationBase.Id 소문자 = locations 폴더 이름, 예: Sandbox_high → sandbox_high). 언어와 무관해 한 번만.
+    /// 인덱서로 넣는다: hideout·develop 처럼 _Id 가 비어 있거나 겹치는 로케이션이 있어도 예외가 나지 않게.
+    /// </summary>
+    private readonly Lazy<IReadOnlyDictionary<string, string>> _locationKeys = new(() =>
+    {
+        var keys = new Dictionary<string, string>(StringComparer.Ordinal);
+        foreach (var l in locationTable.GetDictionary().Values)
+        {
+            if (l?.Base is null || string.IsNullOrWhiteSpace(l.Base.Id)) continue;
+            keys[l.Base.IdField.ToString()] = l.Base.Id.ToLowerInvariant();
+        }
+
+        return keys;
+    }, LazyThreadSafetyMode.ExecutionAndPublication);
 
     public QuestCodex.Catalog.Models.Catalog Get(string lang)
     {
@@ -76,7 +93,8 @@ public class CatalogService(
             VanillaSnapshotSptVersion: vanilla.SptVersion,
             ModQuestOrigins: modQuestIndex.QuestOrigins,
             ModQuestScanWarnings: modQuestIndex.Warnings,
-            AvatarIsServable: IsAvatarServable);
+            AvatarIsServable: IsAvatarServable,
+            LocationKeys: _locationKeys.Value);
 
         var catalog = CatalogBuilder.Build(input, started);
 

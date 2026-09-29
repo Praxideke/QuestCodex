@@ -42,11 +42,11 @@ public class PrepParserTests
         [Tkpd] = Template(Tkpd, Id(1), "TKPD 9.3x64 carbine"),
     };
 
-    private static CatalogQuest Build(Quest q) => CatalogBuilder.Build(
+    private static CatalogQuest Build(Quest q, IReadOnlyDictionary<string, string>? locationKeys = null) => CatalogBuilder.Build(
         new CatalogInput("kr", "4.1.5", "test", new Dictionary<MongoId, Quest> { [q.Id] = q },
             new Dictionary<MongoId, TraderBase> { [Prapor] = Trader(Prapor, "Prapor") },
             Items, Locale, new Dictionary<string, string>(),
-            new HashSet<MongoId>(), new HashSet<MongoId>(), null, null),
+            new HashSet<MongoId>(), new HashSet<MongoId>(), null, null, LocationKeys: locationKeys),
         Now).Quests[q.Id.ToString()];
 
     private static QuestCondition Counter(MongoId id, bool oneSession = false, params QuestConditionCounterCondition[] subs) => new()
@@ -109,6 +109,15 @@ public class PrepParserTests
         var q = Quest(Id(1), finish: [Counter(Id(201), subs: [Kills(), Location("Sandbox", "Sandbox_high")])]);
 
         Assert.Equal(["그라운드 제로"], Build(q).Objectives[0].Prep!.Maps);
+    }
+
+    [Fact]
+    public void Map_keys_are_lowercased_targets_kept_per_variant()
+    {
+        var q = Quest(Id(1), finish: [Counter(Id(201), subs: [Kills(), Location("Sandbox", "Sandbox_high", "Lighthouse")])]);
+
+        // 표시 이름은 둘이 같아 하나로 합쳐지지만, 키는 언어와 무관한 대조용이라 변종을 그대로 남긴다
+        Assert.Equal(["sandbox", "sandbox_high", "lighthouse"], Build(q).Objectives[0].Prep!.MapKeys);
     }
 
     [Fact]
@@ -216,6 +225,24 @@ public class PrepParserTests
     }
 
     [Fact]
+    public void Quest_location_key_comes_from_the_location_table()
+    {
+        var keys = new Dictionary<string, string> { ["5704e4dad2720bb55b8b4567"] = "lighthouse" };
+        Quest At(int n, string location)
+        {
+            var q = Quest(Id(n));
+            q.Location = location;
+            return q;
+        }
+
+        Assert.Equal("lighthouse", Build(At(1, "5704e4dad2720bb55b8b4567"), keys).LocationKey);
+        Assert.Null(Build(At(2, "any"), keys).LocationKey);
+        Assert.Null(Build(At(3, "marathon"), keys).LocationKey);
+        Assert.Null(Build(At(4, "6746d6a1c2a4c8e3d0b12f00"), keys).LocationKey);  // 표에 없는 ID(Transition 같은 가상 로케이션)
+        Assert.Equal("bigmap", Build(At(5, "BigMap"), keys).LocationKey);         // 모드가 맵 키를 직접 넣은 경우
+    }
+
+    [Fact]
     public void Json_shape_matches_the_front_types()
     {
         var q = Quest(Id(1), finish: [Handover(Id(201), Knife, 5, fir: true), Counter(Id(202), subs: [Kills(Svds)])]);
@@ -224,7 +251,7 @@ public class PrepParserTests
 
         var prep = json[0].GetProperty("prep");
         Assert.Equal(
-            ["maps", "item", "weapons", "calibers", "weaponMods", "equipment", "forbiddenEquipment", "oneRaid", "exitStatuses", "exitName"],
+            ["maps", "mapKeys", "item", "weapons", "calibers", "weaponMods", "equipment", "forbiddenEquipment", "oneRaid", "exitStatuses", "exitName"],
             prep.EnumerateObject().Select(p => p.Name));
         Assert.Equal(
             ["action", "items", "count", "foundInRaid", "minDurability", "maxDurability", "dogtagLevel", "plantSeconds"],

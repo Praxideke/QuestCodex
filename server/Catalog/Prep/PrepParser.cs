@@ -13,6 +13,7 @@ public sealed class PrepParser(LocaleResolver locale, Func<string, string> itemN
     public ObjectivePrep? Parse(QuestCondition c)
     {
         var maps = new List<string>();
+        var mapKeys = new List<string>();
         var weapons = new List<ItemRef>();
         var calibers = new List<string>();
         var weaponMods = new List<IReadOnlyList<ItemRef>>();
@@ -26,7 +27,11 @@ public sealed class PrepParser(LocaleResolver locale, Func<string, string> itemN
             switch (sub.ConditionType)
             {
                 case "Location":
-                    foreach (var map in Targets(sub.Target)) AddDistinct(maps, locale.TryResolve(map) ?? map);
+                    foreach (var map in Targets(sub.Target))
+                    {
+                        AddDistinct(maps, locale.TryResolve(map) ?? map);
+                        AddDistinct(mapKeys, map.ToLowerInvariant());
+                    }
                     break;
                 case "Kills":
                 case "Shots":
@@ -61,7 +66,7 @@ public sealed class PrepParser(LocaleResolver locale, Func<string, string> itemN
             return null;
         }
 
-        return new ObjectivePrep(maps, item, weapons, calibers, weaponMods, equipment, forbidden, oneRaid, exitStatuses, exitName);
+        return new ObjectivePrep(maps, mapKeys, item, weapons, calibers, weaponMods, equipment, forbidden, oneRaid, exitStatuses, exitName);
     }
 
     private PrepItem? ParseItem(QuestCondition c)

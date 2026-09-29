@@ -147,6 +147,7 @@ public static class CatalogBuilder
             ImageUrl = string.IsNullOrWhiteSpace(quest.Image) ? null : quest.Image,
             MinLevel = minLevel,
             Location = ResolveLocation(quest.Location, locale),
+            LocationKey = LocationKeyOf(quest.Location, input.LocationKeys),
             Requirements = requirements,
             Prerequisites = prerequisites,
             FailsWhen = ParseFailTriggers(quest),
@@ -190,6 +191,20 @@ public static class CatalogBuilder
     /// <summary>quest.location 은 맵 MongoId(로케일 "<id> Name") 또는 "any"/"marathon" 같은 비지도 값이다.</summary>
     private static string? ResolveLocation(string? location, LocaleResolver locale)
         => string.IsNullOrWhiteSpace(location) || location == "any" ? null : locale.TryResolve($"{location} Name");
+
+    /// <summary>
+    /// quest.location → 맵 키. 로케이션 표에 있는 ID 면 그 키, 표에 없는 ID(Transition 같은 가상 로케이션)는 null,
+    /// 그 밖의 문자열(모드가 맵 키를 직접 넣은 경우)은 소문자. any·marathon·빈 값은 null.
+    /// </summary>
+    private static string? LocationKeyOf(string? location, IReadOnlyDictionary<string, string>? locationKeys)
+    {
+        if (string.IsNullOrWhiteSpace(location)) return null;
+        if (location.Equals("any", StringComparison.OrdinalIgnoreCase) || location.Equals("marathon", StringComparison.OrdinalIgnoreCase)) return null;
+        if (locationKeys is not null && locationKeys.TryGetValue(location, out var key)) return key;
+        return IsObjectId(location) ? null : location.ToLowerInvariant();
+    }
+
+    private static bool IsObjectId(string s) => s.Length == 24 && s.All(Uri.IsHexDigit);
 
     private static List<CatalogReward> ParseRewards(Quest quest, string phase, RewardParser parser, List<CatalogWarning> warnings, string questId)
     {

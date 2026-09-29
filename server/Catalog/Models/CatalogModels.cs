@@ -46,6 +46,11 @@ public sealed class CatalogQuest
     public int? MinLevel { get; init; }
     /// <summary>퀘스트가 묶인 맵의 표시 이름. "any" 이거나 이름을 못 찾으면 null.</summary>
     public string? Location { get; init; }
+    /// <summary>
+    /// 퀘스트가 묶인 맵의 키(locations 폴더 이름, 소문자, 예: bigmap). 언어와 무관해 목표의 Prep.MapKeys 와 대조할 수 있다.
+    /// Location(표시 이름)은 "&lt;id&gt; Name" 로케일이라 목표 쪽 맵 이름과 다를 수 있다(해안가 ↔ 해안선). any·알 수 없으면 null.
+    /// </summary>
+    public string? LocationKey { get; init; }
     public required IReadOnlyList<Requirement> Requirements { get; init; }
     public required IReadOnlyList<string> Prerequisites { get; init; }
     /// <summary>빌더가 전체 순회 후 채운다. ID 오름차순.</summary>

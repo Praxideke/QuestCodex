@@ -21,6 +21,8 @@ public sealed record PrepItem(
 /// </summary>
 public sealed record ObjectivePrep(
     IReadOnlyList<string> Maps,
+    /// 맵 키(조건 Target 소문자, 예: shoreline, factory4_night). Maps 는 표시 이름 기준 중복 제거라 길이가 다를 수 있다.
+    IReadOnlyList<string> MapKeys,
     PrepItem? Item,
     IReadOnlyList<ItemRef> Weapons,
     IReadOnlyList<string> Calibers,
