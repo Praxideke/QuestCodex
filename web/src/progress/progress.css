@@ -58,11 +58,17 @@
 .qc-overview > .qc-card--flush { grid-column: 1 / -1; }
 .qc-overview > .qc-card:nth-child(2) { margin-left: 0; }
 .qc-bars { display: grid; gap: 6px; }
-.qc-bar { display: grid; grid-template-columns: 110px 1fr 64px; align-items: center; gap: 10px; font-size: 12px; }
+.qc-bar { display: grid; grid-template-columns: 110px 1fr auto; align-items: center; gap: 10px; font-size: 12px; }
 .qc-bar__name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .qc-bar__track { height: 6px; border-radius: 999px; background: var(--bg-hover); overflow: hidden; }
 .qc-bar__fill { display: block; height: 100%; border-radius: 999px; background: var(--accent); }
-.qc-bar__num { text-align: right; color: var(--fg-2); font-variant-numeric: tabular-nums; }
+/* 완료 수는 오른쪽, 전체 수는 왼쪽 정렬이라 모든 행의 슬래시가 한 세로줄에 선다 */
+.qc-bar__num { display: grid; grid-template-columns: 3ch 5ch; column-gap: 4px; font-variant-numeric: tabular-nums; }
+.qc-bar__done { text-align: right; font-weight: 600; }
+.qc-bar__total { color: var(--fg-2); white-space: nowrap; }
+.qc-bar.is-zero, .qc-bar.is-zero .qc-bar__total { color: var(--fg-3); }
+.qc-bar.is-full .qc-bar__fill { background: var(--ok); }
+.qc-bar.is-full .qc-bar__done { color: var(--ok); }
 
 /* ---- 현황: 상인에게 갈 것 ---- */
 .qc-group + .qc-group { margin-top: 12px; }

@@ -40,11 +40,15 @@ export function OverviewView({ catalog, progress, inventory, lookup, highlight }
         <ul className="qc-bars">
           {traderIds.map((id) => {
             const s = progress.traderStats[id]
+            const state = s.success === 0 ? ' is-zero' : s.success === s.total ? ' is-full' : ''
             return (
-              <li key={id} className="qc-bar">
+              <li key={id} className={`qc-bar${state}`}>
                 <span className="qc-bar__name">{lookup.traderName(id)}</span>
                 <span className="qc-bar__track"><span className="qc-bar__fill" style={{ width: `${(s.success / s.total) * 100}%` }} /></span>
-                <span className="qc-bar__num">{s.success}/{s.total}</span>
+                <span className="qc-bar__num">
+                  <span className="qc-bar__done">{s.success}</span>
+                  <span className="qc-bar__total">/ {s.total}</span>
+                </span>
               </li>
             )
           })}
