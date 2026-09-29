@@ -42,26 +42,9 @@ You can also reach it from the mod card on the SPT server web page (`https://127
 
 ## Features
 
-**Wiki page**
+The wiki, the quest guide and the progress pages (overview, raid prep, needed items) are described with screenshots on the docs site.
 
-- **Trader filter** — pick a trader from the avatar row to see only their quests. Mod-added traders are listed too.
-- **Search and filter chips** — search by quest name, plus `Vanilla` / `Mod` and `BEAR only` / `USEC only`.
-- **Sorting** — `By chain` (default, prerequisites always above) / `By level` / `By name`.
-- **Inline expansion** — click a quest row and it expands in place with objectives, requirements, rewards
-  (including on-accept and on-fail rewards) and its prerequisite/unlock links. Several rows can stay open at once.
-- **Chain jumps** — click a prerequisite or unlocked quest name in the expanded row to jump to it.
-- **Description popup** — the full quest description opens in a popup, so long text doesn't stretch the list.
-- **Deep links** — `?quest=<questId>` opens a specific quest directly.
-- **Mod attribution** — quests from mods carry their source mod's name, color-coded per mod.
-- **Language switch** — `en` / `kr`. UI strings and quest/item names change together
-  (game text comes from the server's locale tables).
-- **Themes** — `System` / `Light` / `Dark`, remembered in the browser.
-
-## Coming next
-
-- **Progress page** — the left menu has the entry, but it's a "coming soon" line for now. It will show
-  per-profile quest progress, including a Kappa tracker.
-- Reverse reward lookup
+**[QuestCodex docs](https://viper-9.github.io/QuestCodex/)**
 
 ## Known limitations
 
