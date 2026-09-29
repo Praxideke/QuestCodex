@@ -103,7 +103,9 @@ export function RaidView({ catalog, progress, inventory, lookup, map }: RaidView
         </div>
       </div>
 
+      {/* TODO: 지도 기능(feature/quest-map) 병합 후 위치 지도·주변 잠긴 문 열쇠로 교체
       <p className="qc-raid__soon">🗺 {t('raid.mapSoon')}</p>
+      */}
     </div>
   )
 }
