@@ -21,7 +21,7 @@ tagged with the mod they came from.
 
 It only **reads** server data. It never modifies quests, profiles or traders.
 
-![Quest list](assets/images/quest-list.png)
+![Quest list](assets/images/wiki-full.png)
 
 ## What's inside
 

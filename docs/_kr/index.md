@@ -1,0 +1,33 @@
+---
+title: 홈
+nav_order: 1
+---
+
+# QuestCodex
+
+**내 SPT 서버에 실제로 로드된 퀘스트**를 보여 주는 브라우저 퀘스트 위키입니다.
+{: .fs-6 .fw-300 }
+
+[시작하기]({{ '/kr/getting-started.html' | relative_url }}){: .btn .btn-primary .mr-2 }
+[다운로드](https://github.com/Viper-9/QuestCodex/releases){: .btn }
+
+---
+
+외부 위키 사이트는 라이브 EFT 기준이라 내 서버와 다를 수 있습니다. QuestCodex는 서버가 메모리에 들고 있는
+퀘스트 테이블을 읽어서 목록을 만듭니다. 퀘스트 모드가 조건이나 보상을 바꿨다면 바뀐 값이 보이고, 모드가 추가한
+퀘스트도 바닐라 퀘스트와 같은 목록에 어느 모드에서 왔는지 태그와 함께 나옵니다.
+
+서버 데이터를 **읽기만** 합니다. 퀘스트, 프로필, 상인은 전혀 수정하지 않습니다.
+
+![퀘스트 목록]({{ '/assets/images/wiki-full.png' | relative_url }})
+
+## 구성
+
+| 페이지 | 하는 일 |
+|:-------|:--------|
+| [위키]({{ '/kr/wiki/' | relative_url }}) | 서버의 모든 퀘스트를 필터, 연계, 보상, 모드 출처와 함께 |
+| [퀘스트 가이드]({{ '/kr/wiki/quest-guide.html' | relative_url }}) | 레이드 전에 챙길 것: 맵, 무기, 장비, 제출·설치할 아이템 |
+| [진행현황]({{ '/kr/progress/' | relative_url }}) | 프로필의 퀘스트 진행도, 맵별 레이드 준비, 아직 필요한 아이템 |
+
+{: .note-kr }
+스크린샷은 영문 UI 기준입니다. 본문에는 한국어 UI 이름과 영문 이름을 함께 적었습니다.

@@ -16,11 +16,13 @@ nav_order: 1
 
 Pick a trader from the avatar row to see only their quests. Mod-added traders are listed too.
 
-<!-- screenshot: trader avatar row with one trader selected -->
+![Trader filter](../assets/images/wiki-traders.png)
 
 ## Search and filter chips
 
 Search by quest name, and narrow the list with the `Vanilla` / `Mod` and `BEAR only` / `USEC only` chips.
+
+![Search, filter chips and sorting](../assets/images/wiki-filters.png)
 
 ## Sorting
 

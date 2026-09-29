@@ -1,0 +1,11 @@
+---
+title: 위키
+nav_order: 3
+has_children: true
+---
+
+# 위키
+
+서버에 로드된 모든 퀘스트를 바닐라와 모드 구분 없이 한 목록으로 보여 줍니다.
+
+![퀘스트 목록]({{ '/assets/images/wiki-full.png' | relative_url }})

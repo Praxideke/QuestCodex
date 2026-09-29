@@ -14,7 +14,18 @@ color_scheme: dark
 search_enabled: true
 heading_anchors: true
 
+collections:
+  kr:
+    permalink: "/:collection/:path:output_ext"
+    output: true
+
+just_the_docs:
+  collections:
+    kr:
+      name: 한국어
+
 aux_links:
+  한국어: /QuestCodex/kr/
   GitHub: https://github.com/Viper-9/QuestCodex
   Download: https://github.com/Viper-9/QuestCodex/releases
 aux_links_new_tab: true
@@ -28,6 +39,12 @@ callouts:
     color: green
   warning:
     title: Warning
+    color: yellow
+  note-kr:
+    title: 참고
+    color: blue
+  warning-kr:
+    title: 주의
     color: yellow
 
 footer_content: "Copyright &copy; 2026 Viper-9. All Rights Reserved."
