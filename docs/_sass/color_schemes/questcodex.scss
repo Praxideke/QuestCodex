@@ -1,0 +1,17 @@
+// QuestCodex app dark palette (web/src/styles.css :root tokens)
+@import "./color_schemes/dark";
+
+$body-background-color: #0f1012;          // --bg
+$sidebar-color: #16171a;                  // --bg-2
+$body-heading-color: #e3e4e6;             // --fg
+$body-text-color: #c9cbcf;
+$nav-child-link-color: #8a8f98;           // --fg-2
+$link-color: #8ab8ff;                     // --accent-fg
+$btn-primary-color: #4c8dff;              // --accent
+$base-button-color: #1c1d21;              // --bg-3
+$code-background-color: #1c1d21;
+$table-background-color: #16171a;
+$search-background-color: #1c1d21;
+$search-result-preview-color: #8a8f98;
+$border-color: #26272b;
+$feedback-color: #16171a;

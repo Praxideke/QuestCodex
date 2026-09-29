@@ -1,0 +1,71 @@
+// Match the QuestCodex app shell: flush-left pill highlights in the side menu,
+// soft borders, rounded screenshots and thin scrollbars.
+
+body {
+  letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
+}
+
+.side-bar {
+  border-right: 1px solid rgba(255, 255, 255, .08);
+}
+
+.site-header {
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.site-title {
+  font-weight: 600;
+}
+
+.nav-list .nav-list-item .nav-list-link {
+  border-radius: 0 999px 999px 0;
+  color: #e3e4e6;
+
+  &:hover {
+    background-image: none;
+    background-color: rgba(255, 255, 255, .035);
+  }
+
+  &.active {
+    background-image: none;
+    background-color: rgba(76, 141, 255, .14);
+    color: #8ab8ff;
+    font-weight: 600;
+  }
+}
+
+.nav-list .nav-list-item .nav-list .nav-list-item .nav-list-link {
+  color: #8a8f98;
+
+  &.active {
+    color: #8ab8ff;
+  }
+}
+
+.nav-category {
+  color: #5c6069;
+}
+
+.main-content img {
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 6px;
+}
+
+.main-content table {
+  border-radius: 6px;
+}
+
+.btn-primary {
+  background-image: none;
+  box-shadow: none;
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track, ::-webkit-scrollbar-corner { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, .14);
+  background-clip: padding-box;
+  border: 3px solid transparent;
+  border-radius: 999px;
+}
