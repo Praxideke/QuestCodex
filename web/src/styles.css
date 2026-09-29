@@ -139,6 +139,7 @@
   background: none;
   border: 0;
   padding: 4px 20px 16px;
+  justify-content: flex-start; /* MudBlazor 의 전역 button{justify-content:center} 를 덮는다 */
   text-align: left;
   font-size: 14px;
   font-weight: 600;
@@ -149,6 +150,7 @@
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: flex-start; /* MudBlazor 의 전역 button{justify-content:center} 를 덮는다 */
   gap: 8px;
   padding: 9px 12px 9px 20px;
   margin-bottom: 2px;

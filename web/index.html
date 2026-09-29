@@ -8,8 +8,10 @@
     <!-- SPT 의 App.razor 가 항상 내보내는 <base>. history.pushState/replaceState 의 상대 URL 이
          이 기준으로 풀린다 (router.ts urlWithHash 참조). -->
     <base href="/" />
-    <!-- MudBlazor.min.css 의 전역 리셋. 앱 CSS 보다 먼저 깔린다 (prod 의 로드 순서와 동일). -->
-    <style>*{box-sizing:border-box;margin:0;padding:0;border-width:0;border-style:solid}</style>
+    <!-- MudBlazor.min.css 의 전역 리셋. 앱 CSS 보다 먼저 깔린다 (prod 의 로드 순서와 동일).
+         button 규칙이 빠지면 버튼 내용이 prod 에서만 가운데 정렬되는 문제를 dev 에서 못 본다. -->
+    <style>*{box-sizing:border-box;margin:0;padding:0;border-width:0;border-style:solid}
+      button{display:inline-flex;align-items:center;justify-content:center;position:relative;vertical-align:middle;user-select:none;border-radius:0;background-color:rgba(0,0,0,0);cursor:pointer}</style>
     <title>QuestCodex (dev)</title>
   </head>
   <body>
