@@ -52,11 +52,15 @@ public static class ProgressBuilder
 
             var lockReasons = status == Locked ? LockReasons(cq, statusById, pmc, level ?? 0, side) : [];
             var finished = status is nameof(QuestStatusEnum.Success) or nameof(QuestStatusEnum.Fail);
+            // 카운터가 없는 목표(설치·방문 등)는 완료가 퀘스트 항목의 completedConditions 에만 기록된다
+            var completed = entry?.CompletedConditions?.Select(id => id.ToString()).ToHashSet(StringComparer.Ordinal);
             var objectives = new SortedDictionary<string, ObjectiveProgress>(StringComparer.Ordinal);
             foreach (var o in cq.Objectives)
             {
                 var current = counters.GetValueOrDefault(o.ConditionId, 0);
-                var done = finished || (o.TargetCount is { } target && current >= target);
+                var marked = completed?.Contains(o.ConditionId) == true;
+                if (marked && o.TargetCount is { } goal) current = Math.Max(current, goal);
+                var done = finished || marked || (o.TargetCount is { } target && current >= target);
                 objectives[o.ConditionId] = new ObjectiveProgress(current, o.TargetCount, done);
             }
 

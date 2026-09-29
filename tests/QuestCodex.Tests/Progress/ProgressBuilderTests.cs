@@ -120,6 +120,26 @@ public class ProgressBuilderTests
         Assert.True(ProgressBuilder.Build(Cat, pmc, "p", false).Quests[Id(4)].Objectives[Id(401)].Done);
     }
 
+    /// <summary>
+    /// 설치(PlaceBeacon)처럼 카운터가 없는 목표는 퀘스트 항목의 completedConditions 에만 완료가 기록된다
+    /// (실측 fon: 광신도 2부 표식 3개 중 2개 완료인데 TaskConditionCounters 에는 아무것도 없음).
+    /// </summary>
+    [Fact]
+    public void Completed_conditions_mark_objectives_done_without_counters()
+    {
+        var pmc = Pmc();
+        var entry = ProfileQuest(Id(4), QuestStatusEnum.Started);
+        entry.CompletedConditions = [Id(402), Id(403)];
+        pmc.Quests!.Add(entry);
+        pmc.TaskConditionCounters![Id(900)] = new TaskConditionCounter { Id = Id(403), Value = 1 };
+
+        var objs = ProgressBuilder.Build(Cat, pmc, "p", false).Quests[Id(4)].Objectives;
+
+        Assert.True(objs[Id(402)].Done);
+        Assert.Equal(new ObjectiveProgress(2, 2, true), objs[Id(403)]);   // 카운터가 목표보다 작아도 완료면 current = target
+        Assert.Equal(new ObjectiveProgress(0, 3, false), objs[Id(401)]);
+    }
+
     [Fact]
     public void Finished_quest_marks_all_objectives_done()
     {
