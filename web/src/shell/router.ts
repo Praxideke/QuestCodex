@@ -1,32 +1,47 @@
 import { useEffect, useState } from 'react'
 
 export type Page = 'wiki' | 'progress'
+/** 진행현황의 소메뉴. 사이드 메뉴 트리 순서와 같다. */
+export type ProgressSub = 'overview' | 'raid' | 'items'
 
 export interface Route {
   page: Page
+  /** page 가 progress 일 때만 값이 있다 */
+  sub: ProgressSub | null
   query: URLSearchParams
 }
 
-const PAGES: readonly Page[] = ['wiki', 'progress']
-const DEFAULT_ROUTE: Route = { page: 'wiki', query: new URLSearchParams() }
+export const PROGRESS_SUBS: readonly ProgressSub[] = ['overview', 'raid', 'items']
+const DEFAULT_ROUTE: Route = { page: 'wiki', sub: null, query: new URLSearchParams() }
 
-/** '#/wiki?quest=x' → { page: 'wiki', query }. 모르는 값은 null (호출자가 기본 라우트로 치환). */
+/**
+ * '#/wiki?quest=x' → { page: 'wiki', query }, '#/progress/raid?map=woods' → { page: 'progress', sub: 'raid', query }.
+ * 진행현황은 소메뉴가 없거나 모르는 값이면 overview. 그 밖에 모르는 값은 null (호출자가 기본 라우트로 치환).
+ */
 export function parseHash(hash: string): Route | null {
   const raw = hash.startsWith('#') ? hash.slice(1) : hash
   const q = raw.indexOf('?')
   const path = q === -1 ? raw : raw.slice(0, q)
   const query = new URLSearchParams(q === -1 ? '' : raw.slice(q + 1))
-  const page = path.startsWith('/') ? path.slice(1) : ''
-  return (PAGES as readonly string[]).includes(page) ? { page: page as Page, query } : null
+  if (!path.startsWith('/')) return null
+  const [page, sub, ...rest] = path.slice(1).split('/')
+  if (page === 'wiki' && sub === undefined) return { page, sub: null, query }
+  if (page === 'progress' && rest.length === 0) {
+    const known = (PROGRESS_SUBS as readonly string[]).includes(sub ?? '')
+    return { page, sub: known ? (sub as ProgressSub) : 'overview', query }
+  }
+  return null
 }
 
-export function hashFor(page: Page): string {
-  return `#/${page}`
+export function hashFor(page: Page, sub?: ProgressSub | null, query?: Record<string, string>): string {
+  const path = page === 'progress' && sub ? `#/${page}/${sub}` : `#/${page}`
+  const qs = query ? new URLSearchParams(query).toString() : ''
+  return qs === '' ? path : `${path}?${qs}`
 }
 
 /** 메뉴 클릭. hashchange 가 발화해 useHashRoute 가 갱신된다. <a href> 는 Blazor 가 가로챌 수 있어 쓰지 않는다 (§4.6). */
-export function navigate(page: Page): void {
-  location.hash = hashFor(page)
+export function navigate(page: Page, sub?: ProgressSub | null, query?: Record<string, string>): void {
+  location.hash = hashFor(page, sub, query)
 }
 
 /**
