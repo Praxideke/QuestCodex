@@ -131,37 +131,44 @@
   flex: none;
   display: flex;
   flex-direction: column;
-  padding: 14px 10px;
+  padding: 14px 10px 14px 0; /* 왼쪽 0 — 항목 pill 이 가장자리에 붙는다 */
   background: var(--bg-2);
   border-right: 1px solid var(--border);
 }
 .qc-side__logo {
   background: none;
   border: 0;
-  padding: 4px 10px 14px;
+  padding: 4px 20px 16px;
   text-align: left;
   font-size: 14px;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
+/* 항목은 왼쪽 가장자리에 붙이고 오른쪽만 둥글린다 */
 .qc-side__item {
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 10px;
+  padding: 9px 12px 9px 20px;
   margin-bottom: 2px;
   border: 0;
-  border-radius: var(--radius);
+  border-radius: 0 999px 999px 0;
   background: none;
-  color: var(--fg-2);
+  color: var(--fg);
+  font-size: 14px;
+  font-weight: 600;
   text-align: left;
 }
 .qc-side__item:hover { background: var(--bg-hover); }
-.qc-side__item.is-active { background: var(--accent-bg); color: var(--fg); } /* 메뉴는 눌림 효과 없음 (§1.3.1) */
-.qc-side__item.is-open { color: var(--fg); }
-/* 진행현황 소메뉴 트리: 들여쓰기 + 왼쪽 가이드 선 */
-.qc-side__sub { margin: 0 0 4px 16px; padding-left: 6px; border-left: 1px solid var(--border); }
-.qc-side__item--sub { width: 100%; padding: 5px 10px; font-size: 12px; }
+.qc-side__item.is-active { background: var(--accent-bg); color: var(--accent-fg); } /* 메뉴는 눌림 효과 없음 (§1.3.1) */
+/* 펼쳐진 그룹 머리: 글자만 accent — 배경은 현재 위치(소메뉴)에만 칠한다 */
+.qc-side__item.is-open:not(.is-active) { color: var(--accent-fg); }
+.qc-side__chevron { margin-left: auto; flex: none; opacity: .8; }
+/* 소메뉴: 가이드 선 없이 들여쓰기만 */
+.qc-side__sub { margin: 2px 0 8px; }
+.qc-side__item--sub { padding: 8px 12px 8px 32px; font-size: 13px; font-weight: 500; color: var(--fg-2); }
+.qc-side__item--sub:hover { color: var(--fg); }
 .qc-placeholder { padding: 16px; color: var(--fg-2); }
 
 /* ---- 4. 상단 바 ---- */
