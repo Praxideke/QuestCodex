@@ -269,6 +269,38 @@ public class CatalogBuilderTests
     }
 
     [Fact]
+    public void Handover_items_get_top_handbook_category_in_display_order()
+    {
+        const string weapons = "5b5f78dc86f77409407a7f8e", barter = "5b47574386f77428ca22b33e", modCat = "ffffffffffffffffffffffff";
+        var (bolts, gun, modItem, orphan) = (Id(701), Id(702), Id(703), Id(704));
+        var q = Quest(Id(1), finish:
+        [
+            FinishCond(Id(201), "HandoverItem", value: 1, target: bolts), FinishCond(Id(202), "HandoverItem", value: 1, target: gun),
+            FinishCond(Id(203), "HandoverItem", value: 1, target: modItem), FinishCond(Id(204), "HandoverItem", value: 1, target: orphan),
+        ]);
+        var input = Input([q], avatarIsServable: url => url != "/files/handbook/missing.png") with
+        {
+            HandbookCategories = new Dictionary<string, HandbookCategoryInput>
+            {
+                [barter] = new(null, "/files/handbook/icon_barter.png"),
+                ["b-tools"] = new(barter, "/files/handbook/icon_barter_tools.png"),
+                [weapons] = new(null, "/files/handbook/missing.png"),
+                [modCat] = new(null, null),
+            },
+            HandbookItemParents = new Dictionary<string, string> { [bolts] = "b-tools", [gun] = weapons, [modItem] = modCat },
+        };
+
+        var cat = CatalogBuilder.Build(input, Now);
+
+        Assert.Equal(barter, cat.ItemCategoryOf[bolts]);
+        Assert.Equal(weapons, cat.ItemCategoryOf[gun]);
+        Assert.False(cat.ItemCategoryOf.ContainsKey(orphan));   // 핸드북에 없는 아이템
+        Assert.Equal(
+            [new CatalogItemCategory(weapons, null), new CatalogItemCategory(barter, "/files/handbook/icon_barter.png"), new CatalogItemCategory(modCat, null)],
+            cat.ItemCategories);
+    }
+
+    [Fact]
     public void Rewards_are_split_by_phase_and_indexed_by_success_only()
     {
         var m4 = Id(1);

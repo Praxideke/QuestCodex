@@ -63,6 +63,9 @@ public sealed class CatalogQuest
     public List<string> Tags { get; } = [];
 }
 
+/// <summary>핸드북 최상위 카테고리. 이름은 게임 로케일에 번역이 없어(kr 도 영어) 프론트 i18n 이 Id 로 붙인다.</summary>
+public sealed record CatalogItemCategory(string Id, string? IconUrl);
+
 public sealed record Catalog(
     string SptVersion,
     string ModVersion,
@@ -71,4 +74,8 @@ public sealed record Catalog(
     SortedDictionary<string, CatalogTrader> Traders,
     SortedDictionary<string, CatalogQuest> Quests,
     SortedDictionary<string, List<string>> RewardIndex,
-    IReadOnlyList<CatalogWarning> Warnings);
+    IReadOnlyList<CatalogWarning> Warnings,
+    /// 제출·설치 아이템이 속한 최상위 카테고리만, 인게임 필터 순서대로.
+    IReadOnlyList<CatalogItemCategory> ItemCategories,
+    /// 제출·설치 아이템 tpl → 최상위 카테고리 Id. 핸드북에 없는 아이템은 빠진다.
+    SortedDictionary<string, string> ItemCategoryOf);

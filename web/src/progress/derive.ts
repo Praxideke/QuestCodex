@@ -136,6 +136,18 @@ export function missing(row: Pick<NeedRow, 'need' | 'needFir' | 'have' | 'haveFi
   return firShort + anyShort
 }
 
+/** 같은 퀘스트·같은 행동·같은 FIR 여부의 목표를 한 줄로 합친다(예: 설치 ×1 네 개 → 설치 ×4). 처음 나온 순서 유지. */
+export function mergeSources(sources: NeedSource[]): NeedSource[] {
+  const merged = new Map<string, NeedSource>()
+  for (const s of sources) {
+    const key = `${s.questId}|${s.action}|${s.fir}`
+    const prev = merged.get(key)
+    if (prev) prev.count += s.count
+    else merged.set(key, { ...s })
+  }
+  return [...merged.values()]
+}
+
 /** 부족분 많은 순 → 필요 많은 순 → 이름순 */
 export function sortNeedRows(rows: NeedRow[]): NeedRow[] {
   return [...rows].sort((a, b) =>
@@ -155,9 +167,26 @@ export function searchKey(s: string): string {
   return s.toLowerCase().replace(/\s+/g, '')
 }
 
-export function filterNeedRows(rows: NeedRow[], filter: ItemFilter, query: string): NeedRow[] {
+/** 핸드북에 없는 아이템(모드 등)의 카테고리 */
+export const OTHER_CATEGORY = 'other'
+
+/** 행의 카테고리. 대안 아이템 중 카테고리를 아는 첫 것을 따른다. */
+export function rowCategory(row: Pick<NeedRow, 'items'>, categoryOf: Record<string, string>): string {
+  for (const i of row.items) {
+    const c = categoryOf[i.tpl]
+    if (c) return c
+  }
+  return OTHER_CATEGORY
+}
+
+/** category 가 null 이 아니면 그 카테고리 행만. */
+export function filterNeedRows(
+  rows: NeedRow[], filter: ItemFilter, query: string,
+  category: string | null = null, categoryOf: Record<string, string> = {},
+): NeedRow[] {
   const q = searchKey(query)
   return rows.filter((r) => {
+    if (category !== null && rowCategory(r, categoryOf) !== category) return false
     if (filter === 'missing' && missing(r) === 0) return false
     if (filter === 'owned' && r.have === 0) return false
     if (filter === 'fir' && r.needFir === 0) return false

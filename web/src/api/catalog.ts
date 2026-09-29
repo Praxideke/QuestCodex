@@ -118,6 +118,12 @@ export interface CatalogWarning {
   detail: string
 }
 
+/** 핸드북 최상위 카테고리. 이름은 i18n itemCat.<id> */
+export interface CatalogItemCategory {
+  id: string
+  iconUrl: string | null
+}
+
 export interface Catalog {
   sptVersion: string
   modVersion: string
@@ -127,6 +133,15 @@ export interface Catalog {
   quests: Record<string, CatalogQuest>
   rewardIndex: Record<string, string[]>
   warnings: CatalogWarning[]
+  /** 제출·설치 아이템이 속한 핸드북 최상위 카테고리, 표시 순서대로. 이름은 i18n itemCat.<id> */
+  itemCategories: CatalogItemCategory[]
+  /** 아이템 tpl → 카테고리 id. 핸드북에 없는 아이템은 빠진다 */
+  itemCategoryOf: Record<string, string>
+}
+
+export interface CatalogItemCategory {
+  id: string
+  iconUrl: string | null
 }
 
 /** 서버 에러 본문의 error 코드(unknownLang 등), 본문이 없으면 http<status>, 네트워크 실패면 network. */

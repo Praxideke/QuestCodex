@@ -3,7 +3,7 @@ import type { Catalog, CatalogQuest, Objective, ObjectivePrep, PrepItem } from '
 import type { ProfileProgress, QuestProgress } from '../api/progress'
 import {
   aggregateNeeds, countTabs, dedupeRows, entryPlace, filterNeedRows, filterProgressQuests, groupByQuest, handoverReady, mapsFromText, placeFinds, isUnreachable, itemKey, itemNeeds,
-  mapBrief, mapGroup, mapTabs, missing, objectiveMaps, questTab, raidEntries, raidFinds, remaining, searchKey, sortNeedRows,
+  mapBrief, mapGroup, mapTabs, mergeSources, missing, objectiveMaps, OTHER_CATEGORY, questTab, raidEntries, raidFinds, remaining, rowCategory, searchKey, sortNeedRows,
 } from './derive'
 
 const marker = { tpl: 'ms2000', name: 'MS2000 Marker' }
@@ -39,7 +39,7 @@ function quest(id: string, objectives: Objective[], p: Partial<CatalogQuest> = {
 
 function catalog(quests: CatalogQuest[]): Catalog {
   return {
-    sptVersion: '', modVersion: '', generatedAt: '', lang: 'en', traders: {}, rewardIndex: {}, warnings: [],
+    sptVersion: '', modVersion: '', generatedAt: '', lang: 'en', traders: {}, rewardIndex: {}, warnings: [], itemCategories: [], itemCategoryOf: {},
     quests: Object.fromEntries(quests.map((q) => [q.id, q])),
   }
 }
@@ -121,6 +121,20 @@ describe('missing', () => {
   })
 })
 
+describe('mergeSources', () => {
+  it('같은 퀘스트·행동·FIR 은 합치고 나머지는 따로 둔다', () => {
+    const src = (questId: string, conditionId: string, action: 'plant' | 'handover', count: number, fir = false) =>
+      ({ questId, conditionId, action, count, fir })
+    const merged = mergeSources([
+      src('q1', 'c1', 'plant', 1), src('q2', 'c2', 'plant', 1), src('q1', 'c3', 'plant', 1),
+      src('q1', 'c4', 'handover', 2), src('q1', 'c5', 'handover', 3, true),
+    ])
+    expect(merged.map((s) => [s.questId, s.action, s.count, s.fir])).toEqual([
+      ['q1', 'plant', 2, false], ['q2', 'plant', 1, false], ['q1', 'handover', 2, false], ['q1', 'handover', 3, true],
+    ])
+  })
+})
+
 describe('sortNeedRows / filterNeedRows', () => {
   const row = (key: string, name: string, need: number, have: number, needFir = 0) =>
     ({ key, items: [{ tpl: key, name }], need, needFir, have, haveFir: 0, sources: [] })
@@ -135,6 +149,12 @@ describe('sortNeedRows / filterNeedRows', () => {
     expect(filterNeedRows(rows, 'fir', '').map((r) => r.key)).toEqual(['c'])
     expect(filterNeedRows(rows, 'all', 'thicc').map((r) => r.key)).toEqual(['c'])
     expect(searchKey('T H I C C')).toBe('thicc')
+  })
+  it('카테고리: 대안 중 아는 첫 아이템을 따르고, 모르면 other', () => {
+    const categoryOf = { a: 'barter', c: 'gear' }
+    expect(rowCategory({ items: [{ tpl: 'x', name: 'X' }, { tpl: 'c', name: 'C' }] }, categoryOf)).toBe('gear')
+    expect(filterNeedRows(rows, 'all', '', 'barter', categoryOf).map((r) => r.key)).toEqual(['a'])
+    expect(filterNeedRows(rows, 'missing', '', OTHER_CATEGORY, categoryOf).map((r) => r.key)).toEqual(['b'])
   })
 })
 

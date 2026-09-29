@@ -14,6 +14,19 @@ export function statusLabel(status: QuestStatus, t: T): string {
   return STATUSES.has(status) ? t(`status.${status}` as UiKey) : status
 }
 
+/** 핸드북 최상위 카테고리 id — 게임 로케일에 번역이 없어(kr 도 영어) i18n itemCat.<id> 로 이름을 붙인다 */
+const ITEM_CATEGORIES = new Set([
+  '5b5f78dc86f77409407a7f8e', '5b5f71a686f77447ed5636ab', '5b47574386f77428ca22b346', '5b47574386f77428ca22b33f',
+  '6564b96a189fe36f356d177c', '5b47574386f77428ca22b344', '5b47574386f77428ca22b340', '5b47574386f77428ca22b33e',
+  '5b47574386f77428ca22b341', '5b47574386f77428ca22b342', '5b47574386f77428ca22b343', '5b47574386f77428ca22b345',
+  '5b619f1a86f77450a702a6f3', '5b5f78b786f77447ed5636af',
+])
+
+/** 모르는 카테고리(모드)와 핸드북에 없는 아이템은 "기타" */
+export function itemCategoryLabel(id: string, t: T): string {
+  return ITEM_CATEGORIES.has(id) ? t(`itemCat.${id}` as UiKey) : t('itemCat.other')
+}
+
 /** 평판은 소수 둘째 자리까지(서버가 2.11 같은 값을 준다), 나머지는 정수 */
 function num(n: number): string {
   return Number.isInteger(n) ? formatInt(n) : n.toFixed(2)

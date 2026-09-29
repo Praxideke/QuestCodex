@@ -57,6 +57,28 @@ public class CatalogService(
         return keys;
     }, LazyThreadSafetyMode.ExecutionAndPublication);
 
+    /// <summary>핸드북 카테고리·아이템 부모. 언어와 무관해 한 번만. 모드가 추가한 아이템도 첫 요청 시점이면 들어와 있다.</summary>
+    private readonly Lazy<(IReadOnlyDictionary<string, HandbookCategoryInput> Categories, IReadOnlyDictionary<string, string> ItemParents)> _handbook = new(() =>
+    {
+        var categories = new Dictionary<string, HandbookCategoryInput>(StringComparer.Ordinal);
+        var parents = new Dictionary<string, string>(StringComparer.Ordinal);
+        var handbook = templateTable.Handbook;
+        foreach (var c in handbook?.Categories ?? [])
+        {
+            if (c is null) continue;
+            var parent = c.ParentId?.ToString();
+            categories[c.Id.ToString()] = new HandbookCategoryInput(string.IsNullOrEmpty(parent) ? null : parent, c.Icon);
+        }
+
+        foreach (var i in handbook?.Items ?? [])
+        {
+            if (i is null) continue;
+            parents[i.Id.ToString()] = i.ParentId.ToString();
+        }
+
+        return (categories, parents);
+    }, LazyThreadSafetyMode.ExecutionAndPublication);
+
     public QuestCodex.Catalog.Models.Catalog Get(string lang)
     {
         var lazy = _cache.GetOrAdd(lang, l => new Lazy<QuestCodex.Catalog.Models.Catalog>(() => Build(l), LazyThreadSafetyMode.ExecutionAndPublication));
@@ -94,7 +116,9 @@ public class CatalogService(
             ModQuestOrigins: modQuestIndex.QuestOrigins,
             ModQuestScanWarnings: modQuestIndex.Warnings,
             AvatarIsServable: IsAvatarServable,
-            LocationKeys: _locationKeys.Value);
+            LocationKeys: _locationKeys.Value,
+            HandbookCategories: _handbook.Value.Categories,
+            HandbookItemParents: _handbook.Value.ItemParents);
 
         var catalog = CatalogBuilder.Build(input, started);
 

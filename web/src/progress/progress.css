@@ -164,7 +164,6 @@
 
 /* ---- 필요 아이템 ---- */
 .qc-items { margin-top: 12px; }
-.qc-items__hint { margin: 8px 14px 4px; }
 .qc-table { width: 100%; border-collapse: collapse; font-size: 12px; }
 .qc-table th {
   position: sticky;
@@ -183,8 +182,37 @@
 .qc-table__detail > td { padding: 4px 14px 10px 36px; background: var(--bg-hover); }
 .qc-table__detail .qc-lines { margin: 0; }
 .qc-items__toggle { padding: 0; border: 0; background: none; text-align: left; }
-.qc-items__short, .qc-items__fir { font-size: 11px; white-space: nowrap; }
 .qc-items__quests { color: var(--fg-2); }
+
+/* 카테고리 줄 — 아이콘은 SPT 핸드북 PNG(밝은 회색). 라이트 테마에서는 뒤집어 어둡게 */
+.qc-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.qc-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius);
+  background: var(--bg-3);
+  color: var(--fg-2);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.qc-cat:hover { background: var(--bg-hover); }
+.qc-cat.is-on { background: var(--accent-bg); border-color: transparent; color: var(--accent-fg); box-shadow: var(--pressed-shadow); }
+.qc-cat.is-empty { opacity: .45; }
+.qc-cat__icon { height: 20px; width: auto; opacity: .85; fill: currentColor; }
+svg.qc-cat__icon { width: 14px; height: 14px; }
+.qc-cat.is-on .qc-cat__icon { opacity: 1; }
+.qc-shell[data-theme="light"] .qc-cat img.qc-cat__icon { filter: invert(1) brightness(.6); }
+.qc-cat__text { font-weight: 500; }
 
 /* ---- 좁은 화면: 두 칸 → 한 칸 ---- */
 @media (max-width: 900px) {
