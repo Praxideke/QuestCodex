@@ -100,8 +100,10 @@ public static class CatalogBuilder
         SortedDictionary<string, CatalogTrader> traders,
         List<CatalogWarning> warnings)
     {
-        var name = locale.Resolve($"{questId} name", questId, out var nameFellBack);
-        var description = locale.Resolve($"{questId} description", questId, out var descFellBack);
+        // 템플릿의 name/description 필드가 로케일 키다(게임 클라이언트와 같은 규칙). 바닐라는 "<id> name" 이라 같지만
+        // Painter 모드는 "painter_1 name" 처럼 자기 키를 쓴다. 로케일 어디에도 없으면 모드가 적어 둔 QuestName, 그다음 ID.
+        var name = locale.Resolve([quest.Name, $"{questId} name"], NonBlank(quest.QuestName) ?? questId, out var nameFellBack);
+        var description = locale.Resolve([quest.Description, $"{questId} description"], questId, out var descFellBack);
         if (nameFellBack || descFellBack)
         {
             warnings.Add(new CatalogWarning(questId, WarningCodes.MissingLocale, $"name/description missing in '{input.Lang}'"));
@@ -203,6 +205,8 @@ public static class CatalogBuilder
         if (locationKeys is not null && locationKeys.TryGetValue(location, out var key)) return key;
         return IsObjectId(location) ? null : location.ToLowerInvariant();
     }
+
+    private static string? NonBlank(string? s) => string.IsNullOrWhiteSpace(s) ? null : s;
 
     private static bool IsObjectId(string s) => s.Length == 24 && s.All(Uri.IsHexDigit);
 
