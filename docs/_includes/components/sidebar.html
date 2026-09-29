@@ -1,0 +1,25 @@
+{%- comment -%}
+  Override of Just the Docs v0.10.1 components/sidebar.html:
+  shows only the current language's pages (English pages or the kr collection)
+  and links the site title to that language's home.
+{%- endcomment -%}
+{%- if page.collection == "kr" -%}
+  {%- assign nav_lang = "kr" -%}
+  {%- assign home_url = "/kr/" -%}
+{%- else -%}
+  {%- assign nav_lang = "en" -%}
+  {%- assign home_url = "/" -%}
+{%- endif -%}
+
+<div class="side-bar">
+  <div class="site-header" role="banner">
+    <a href="{{ home_url | relative_url }}" class="site-title lh-tight">{% include title.html %}</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Toggle menu" aria-pressed="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  {% include_cached components/site_nav_lang.html lang=nav_lang %}
+
+  {% include nav_footer_custom.html %}
+</div>

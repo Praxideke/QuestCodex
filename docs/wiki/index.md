@@ -8,4 +8,4 @@ has_children: true
 
 Every quest loaded on your server in one list, vanilla and mod quests alike.
 
-![Quest list](../assets/images/wiki-full.png)
+[![Quest list](../assets/images/wiki-full.png)](../assets/images/wiki-full.png)

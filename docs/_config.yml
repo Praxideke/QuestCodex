@@ -32,7 +32,6 @@ just_the_docs:
       name: 한국어
 
 aux_links:
-  한국어: /QuestCodex/kr/
   GitHub: https://github.com/Viper-9/QuestCodex
   Download: https://github.com/Viper-9/QuestCodex/releases
 aux_links_new_tab: true

@@ -24,11 +24,11 @@ nav_order: 3
 
 모드 아이템도 포함됩니다.
 
-![설치할 아이템]({{ '/assets/images/wiki-guide-plant.png' | relative_url }})
+[![설치할 아이템]({{ '/assets/images/wiki-guide-plant.png' | relative_url }})]({{ '/assets/images/wiki-guide-plant.png' | relative_url }})
 
 긴 목록은 앞의 몇 개만 보이고, **+N more**를 누르면 전부 펼쳐집니다.
 
-![허용 무기]({{ '/assets/images/wiki-guide-weapons.png' | relative_url }})
+[![허용 무기]({{ '/assets/images/wiki-guide-weapons.png' | relative_url }})]({{ '/assets/images/wiki-guide-weapons.png' | relative_url }})
 
 ## 이동과 크기 조절
 

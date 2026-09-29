@@ -10,6 +10,33 @@ body {
   border-right: 1px solid rgba(255, 255, 255, .08);
 }
 
+// Wide screens: keep the sidebar at a fixed width on the left edge instead of
+// centering the whole layout (which leaves a wide empty strip left of the menu).
+@media (min-width: 66.5rem) {
+  .side-bar {
+    width: 15rem;
+    min-width: 15rem;
+  }
+
+  .side-bar + .main {
+    margin-left: 15rem;
+    max-width: 60rem;
+  }
+}
+
+h1, .text-alpha { font-weight: 700; }
+h2, .text-beta { font-weight: 600; }
+h3, .text-gamma { font-weight: 600; }
+
+.main-header .lang-nav {
+  margin-left: auto;
+  padding-right: 0;
+}
+
+.main-content a > img {
+  cursor: zoom-in;
+}
+
 .site-header {
   border-bottom: 1px solid rgba(255, 255, 255, .08);
 }

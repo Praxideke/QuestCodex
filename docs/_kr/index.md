@@ -6,7 +6,7 @@ nav_order: 1
 # QuestCodex
 
 **내 SPT 서버에 실제로 로드된 퀘스트**를 보여 주는 브라우저 퀘스트 위키입니다.
-{: .fs-6 .fw-300 }
+{: .fs-6 }
 
 [시작하기]({{ '/kr/getting-started.html' | relative_url }}){: .btn .btn-primary .mr-2 }
 [다운로드](https://github.com/Viper-9/QuestCodex/releases){: .btn }
@@ -19,7 +19,7 @@ nav_order: 1
 
 서버 데이터를 **읽기만** 합니다. 퀘스트, 프로필, 상인은 전혀 수정하지 않습니다.
 
-![퀘스트 목록]({{ '/assets/images/wiki-full.png' | relative_url }})
+[![퀘스트 목록]({{ '/assets/images/wiki-full.png' | relative_url }})]({{ '/assets/images/wiki-full.png' | relative_url }})
 
 ## 구성
 

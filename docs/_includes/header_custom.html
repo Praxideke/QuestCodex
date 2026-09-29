@@ -1,0 +1,17 @@
+{%- comment -%}
+  Language switch: English page <-> the same page under /kr/.
+{%- endcomment -%}
+{%- if page.collection == "kr" -%}
+  {%- assign lang_url = page.url | remove_first: "/kr" -%}
+  {%- assign lang_label = "English" -%}
+{%- else -%}
+  {%- assign lang_url = page.url | prepend: "/kr" -%}
+  {%- assign lang_label = "한국어" -%}
+{%- endif -%}
+<nav aria-label="Language" class="aux-nav lang-nav">
+  <ul class="aux-nav-list">
+    <li class="aux-nav-list-item">
+      <a href="{{ lang_url | relative_url }}" class="site-button">{{ lang_label }}</a>
+    </li>
+  </ul>
+</nav>

@@ -1,0 +1,11 @@
+{%- comment -%}
+  Include as: {% include_cached components/site_nav_lang.html lang="en"|"kr" %}
+  Main navigation for one language: top-level English pages, or the kr collection.
+{%- endcomment -%}
+<nav aria-label="Main" id="site-nav" class="site-nav">
+  {% if include.lang == "kr" %}
+    {% include components/nav/pages.html pages=site.kr %}
+  {% else %}
+    {% include components/nav/pages.html pages=site.html_pages %}
+  {% endif %}
+</nav>

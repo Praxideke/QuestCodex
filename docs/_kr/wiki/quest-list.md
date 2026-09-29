@@ -16,13 +16,13 @@ nav_order: 1
 
 위쪽 아바타 줄에서 상인을 고르면 그 상인의 퀘스트만 보입니다. 모드가 추가한 상인도 함께 나옵니다.
 
-![상인 필터]({{ '/assets/images/wiki-traders.png' | relative_url }})
+[![상인 필터]({{ '/assets/images/wiki-traders.png' | relative_url }})]({{ '/assets/images/wiki-traders.png' | relative_url }})
 
 ## 검색과 필터 칩
 
 퀘스트 이름으로 검색하고, **바닐라**(Vanilla) / **모드**(Mod), **BEAR 전용** / **USEC 전용** 칩으로 목록을 좁힐 수 있습니다.
 
-![검색, 필터 칩, 정렬]({{ '/assets/images/wiki-filters.png' | relative_url }})
+[![검색, 필터 칩, 정렬]({{ '/assets/images/wiki-filters.png' | relative_url }})]({{ '/assets/images/wiki-filters.png' | relative_url }})
 
 ## 정렬
 

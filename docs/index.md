@@ -7,7 +7,7 @@ nav_order: 1
 # QuestCodex
 
 A browser-based quest wiki for **the quests actually loaded on your own SPT server**.
-{: .fs-6 .fw-300 }
+{: .fs-6 }
 
 [Get started](getting-started.html){: .btn .btn-primary .mr-2 }
 [Download](https://github.com/Viper-9/QuestCodex/releases){: .btn }
@@ -21,7 +21,7 @@ tagged with the mod they came from.
 
 It only **reads** server data. It never modifies quests, profiles or traders.
 
-![Quest list](assets/images/wiki-full.png)
+[![Quest list](assets/images/wiki-full.png)](assets/images/wiki-full.png)
 
 ## What's inside
 

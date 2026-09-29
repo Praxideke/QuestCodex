@@ -24,11 +24,11 @@ Hit the **Guide** button on a quest to see what to bring before a raid.
 
 Mod items are included too.
 
-![Items to plant](../assets/images/wiki-guide-plant.png)
+[![Items to plant](../assets/images/wiki-guide-plant.png)](../assets/images/wiki-guide-plant.png)
 
 Long lists collapse to the first few entries. Click **+N more** to see them all.
 
-![Allowed weapons](../assets/images/wiki-guide-weapons.png)
+[![Allowed weapons](../assets/images/wiki-guide-weapons.png)](../assets/images/wiki-guide-weapons.png)
 
 ## Moving and resizing
 
