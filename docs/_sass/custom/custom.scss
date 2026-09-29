@@ -24,6 +24,36 @@ body {
   }
 }
 
+// The theme sizes the title/nav to its own nav width and right-aligns them, so
+// fit them to the sidebar and indent the text (pills stay flush with the edge).
+@media (min-width: 50rem) {
+  .side-bar .site-header,
+  .side-bar .site-nav,
+  .side-bar .site-footer {
+    width: 100%;
+  }
+
+  .site-header .site-title {
+    padding-left: 1.5rem;
+  }
+
+  .site-nav {
+    padding-top: .5rem;
+  }
+
+  .nav-list .nav-list-item .nav-list-link {
+    padding-left: 1.5rem;
+  }
+
+  .nav-list .nav-list-item .nav-list {
+    padding-left: 0;
+  }
+
+  .nav-list .nav-list-item .nav-list .nav-list-item .nav-list-link {
+    padding-left: 2.5rem;
+  }
+}
+
 h1, .text-alpha { font-weight: 700; }
 h2, .text-beta { font-weight: 600; }
 h3, .text-gamma { font-weight: 600; }
