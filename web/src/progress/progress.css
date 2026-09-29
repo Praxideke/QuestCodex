@@ -1,0 +1,195 @@
+/* ==========================================================================
+   진행현황 전용 규칙. 색은 styles.css 의 .qc-shell 토큰만 쓴다.
+   검색창·칩·태그·목록 줄(.qc-search, .qc-chip, .qc-tag, .qc-lines …)은 wiki/wiki.css 것을 그대로 쓴다.
+   ========================================================================== */
+
+.qc-progress { padding: 0 0 24px; }
+
+/* ---- 프로필 바 ---- */
+.qc-profile {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.qc-profile__meta { color: var(--fg-2); font-size: 12px; }
+.qc-profile__online { color: var(--ok); }
+.qc-profile__spacer { flex: 1; }
+.qc-profile__updated { color: var(--fg-3); font-size: 12px; }
+.qc-progress__notice {
+  margin: 12px 16px 0;
+  padding: 8px 12px;
+  border: 1px solid var(--warn);
+  border-radius: var(--radius);
+  color: var(--warn);
+  font-size: 12px;
+}
+
+/* ---- 카드 ---- */
+.qc-card {
+  margin: 12px 16px 0;
+  padding: 12px 14px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.qc-card--flush { padding: 0; }
+/* .qc-card 를 앞에 붙이는 이유: styles.css 의 `.qc-shell h3 { margin: 0 }`(0,1,1) 이 단일 클래스를 이겨 제목 아래 여백이 0 이었다 */
+.qc-card .qc-card__h { font-size: 13px; font-weight: 600; margin-bottom: 10px; }
+.qc-card__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.qc-card__bar .qc-card__h { margin: 0 4px 0 0; }
+.qc-card__bar .qc-chips { flex-wrap: wrap; }
+.qc-hint { margin: 6px 16px 0; color: var(--fg-3); font-size: 11px; }
+
+/* ---- 현황: 상인별 진행률 ---- */
+.qc-overview { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.qc-overview > .qc-card--flush { grid-column: 1 / -1; }
+.qc-overview > .qc-card:nth-child(2) { margin-left: 0; }
+.qc-bars { display: grid; gap: 6px; }
+.qc-bar { display: grid; grid-template-columns: 110px 1fr 64px; align-items: center; gap: 10px; font-size: 12px; }
+.qc-bar__name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.qc-bar__track { height: 6px; border-radius: 999px; background: var(--bg-hover); overflow: hidden; }
+.qc-bar__fill { display: block; height: 100%; border-radius: 999px; background: var(--accent); }
+.qc-bar__num { text-align: right; color: var(--fg-2); font-variant-numeric: tabular-nums; }
+
+/* ---- 현황: 상인에게 갈 것 ---- */
+.qc-group + .qc-group { margin-top: 12px; }
+.qc-group__h { font-size: 12px; font-weight: 600; color: var(--fg-2); margin-bottom: 4px; }
+.qc-group__n {
+  display: inline-block;
+  min-width: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--accent-bg);
+  color: var(--accent-fg);
+  font-size: 11px;
+  text-align: center;
+}
+.qc-group__hint { margin-bottom: 4px; color: var(--fg-3); font-size: 11px; }
+.qc-group__list li { padding: 2px 0; }
+
+/* ---- 현황: 퀘스트 줄 ---- */
+.qc-pline { border-bottom: 1px solid var(--border); transition: background .6s; }
+.qc-pline.is-flash { background: var(--accent-bg); }   /* 푸시로 바뀐 퀘스트 잠깐 강조 (C2) */
+.qc-pline__row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) 110px minmax(0, 3fr) 90px;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 14px;
+  border: 0;
+  background: none;
+  text-align: left;
+}
+.qc-pline__row:hover, .qc-pline.is-open > .qc-pline__row { background: var(--bg-hover); }
+.qc-pline__name { display: flex; align-items: center; gap: 8px; min-width: 0; font-weight: 500; }
+.qc-pline__tag { color: var(--fg-3); }
+.qc-pline__trader { color: var(--fg-2); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.qc-pline__summary { color: var(--fg-2); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.qc-pline__counter { margin-left: auto; color: var(--fg-2); font-size: 12px; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.qc-pline__detail { padding: 6px 14px 14px 28px; }
+.qc-pline__obj { flex: 1; }
+.qc-lines li.is-done { color: var(--fg-3); text-decoration: line-through; }
+
+/* ---- 레이드 준비 ---- */
+.qc-maps { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 16px 0; }
+.qc-map {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius);
+  background: var(--bg-3);
+  color: var(--fg);
+  font-size: 12px;
+}
+.qc-map.is-empty { color: var(--fg-3); }
+.qc-map.is-on { background: var(--accent-bg); border-color: transparent; color: var(--accent-fg); box-shadow: var(--pressed-shadow); }
+.qc-map__n { font-weight: 600; font-variant-numeric: tabular-nums; }
+.qc-raid__grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: start; }
+.qc-raid__side > .qc-card { margin-left: 0; }
+.qc-raid__any { margin-top: 12px; }
+/* 퀘스트별 묶음 — 현황의 .qc-pline 을 카드 안(이미 안쪽 여백이 있음)에 맞게 좁힌다 */
+/* 카드 제목과 첫 퀘스트 줄 사이 구분선(피드백: 제목과 목록이 붙어 보임) */
+.qc-rgroups { border-top: 1px solid var(--border); }
+.qc-rgroups .qc-pline:last-child { border-bottom: 0; }
+.qc-rgroups .qc-pline__row { grid-template-columns: minmax(0, 1.3fr) 90px minmax(0, 2fr) 56px; padding: 6px 4px; }
+.qc-rgroups .qc-pline__detail { padding: 4px 4px 12px 16px; }
+/* 펼친 목표: 지금 탭의 맵은 도드라지게, 다른 맵은 비활성처럼, 맵 미상은 보통 */
+.qc-rgroups .qc-place--here { color: var(--fg); font-weight: 600; }
+.qc-rgroups .qc-place--here::before { background: var(--accent); }
+.qc-rgroups .qc-place--elsewhere { color: var(--fg-3); }
+.qc-inferred { margin-left: 6px; color: var(--fg-3); font-weight: 400; }
+.qc-bring__row { display: flex; justify-content: space-between; gap: 10px; padding: 3px 0; }
+.qc-bring__row.is-short { color: var(--warn); }
+.qc-bring--any { color: var(--fg-2); }
+.qc-bring__num { white-space: nowrap; font-size: 12px; font-variant-numeric: tabular-nums; }
+.qc-rules > li { padding: 6px 0; border-bottom: 1px solid var(--border); }
+.qc-rules > li:last-child { border-bottom: 0; }
+.qc-rules__dl { margin: 0; }
+.qc-rules__row { display: grid; grid-template-columns: 70px 1fr; gap: 8px; font-size: 12px; }
+.qc-rules__row dt { color: var(--fg-2); }
+.qc-rules__row dd { margin: 0; }
+/* 규칙 위의 퀘스트 이름 — .qc-rules 를 앞에 붙이는 이유: `.qc-shell p { margin: 0 }`(0,1,1) 가 단일 클래스를 이긴다 */
+.qc-rules .qc-rules__src { margin: 0 0 3px; font-size: 12px; font-weight: 600; }
+/* 접힌 "외 N종" 버튼은 .qc-prep__names 밖에 있어 위키 규칙이 안 닿는다 — 같은 모양을 브리핑 칸에도(특이성 이유는 wiki.css 주석) */
+.qc-rules__row .qc-prep__more { padding: 0; border: 0; background: none; color: var(--accent-fg); font-size: 12px; }
+.qc-rules__row .qc-prep__more:hover { text-decoration: underline; }
+/* 구해 올 것: 한 항목 = 한 줄, 전부 12px. 소제목으로 고른 맵 / 모든 맵을 나눈다 */
+.qc-find, .qc-find__none { font-size: 12px; }
+.qc-findgroup + .qc-findgroup { margin-top: 10px; }
+.qc-findgroup.qc-place--here .qc-find { font-weight: 600; }
+.qc-raid__soon {
+  margin: 12px 16px 0;
+  padding: 16px;
+  border: 1px dashed var(--border-2);
+  border-radius: var(--radius);
+  color: var(--fg-3);
+  text-align: center;
+}
+
+/* ---- 필요 아이템 ---- */
+.qc-items { margin-top: 12px; }
+.qc-items__hint { margin: 8px 14px 4px; }
+.qc-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.qc-table th {
+  position: sticky;
+  top: 41px;          /* 프로필 바 높이만큼 아래에 붙는다 */
+  z-index: 1;
+  padding: 6px 14px;
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--border);
+  color: var(--fg-3);
+  font-weight: 500;
+  text-align: left;
+}
+.qc-table td { padding: 5px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.qc-table .qc-num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.qc-table__row.is-open > td { background: var(--bg-hover); }
+.qc-table__detail > td { padding: 4px 14px 10px 36px; background: var(--bg-hover); }
+.qc-table__detail .qc-lines { margin: 0; }
+.qc-items__toggle { padding: 0; border: 0; background: none; text-align: left; }
+.qc-items__short, .qc-items__fir { font-size: 11px; white-space: nowrap; }
+.qc-items__quests { color: var(--fg-2); }
+
+/* ---- 좁은 화면: 두 칸 → 한 칸 ---- */
+@media (max-width: 900px) {
+  .qc-overview, .qc-raid__grid { grid-template-columns: minmax(0, 1fr); }
+  .qc-overview > .qc-card:nth-child(2), .qc-raid__side > .qc-card { margin-left: 16px; }
+  .qc-pline__row { grid-template-columns: minmax(0, 1fr) auto; }
+  .qc-pline__trader, .qc-pline__summary { display: none; }
+}

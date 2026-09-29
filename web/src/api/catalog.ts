@@ -38,6 +38,8 @@ export interface PrepItem {
 /** 목표 하나의 준비물. 준비할 게 없으면 Objective.prep 이 null. */
 export interface ObjectivePrep {
   maps: string[]
+  /** 맵 키(소문자, 예: shoreline, factory4_night). 언어와 무관한 대조용. 구버전 서버엔 없다(undefined) */
+  mapKeys?: string[]
   item: PrepItem | null
   /** 인정 무기 (OR) */
   weapons: ItemRef[]
@@ -99,6 +101,8 @@ export interface CatalogQuest {
   minLevel: number | null
   /** 퀘스트가 묶인 맵의 표시 이름. 아무 맵이면 null */
   location: string | null
+  /** 퀘스트가 묶인 맵 키(locations 폴더 이름, 소문자, 예: bigmap). 아무 맵이면 null. 구버전 서버엔 없다(undefined) */
+  locationKey?: string | null
   requirements: Requirement[]
   prerequisites: string[]
   unlocks: string[]
@@ -138,9 +142,14 @@ function isAbort(e: unknown): boolean {
 }
 
 export async function fetchCatalog(lang: string, signal?: AbortSignal): Promise<Catalog> {
+  return getJson<Catalog>(`/questcodex/api/catalog?lang=${encodeURIComponent(lang)}`, signal)
+}
+
+/** QuestCodex REST 공통 GET. 실패는 CatalogError(code) — 이름은 카탈로그지만 진행 상태 API 도 같은 에러 규약이다. */
+export async function getJson<T>(url: string, signal?: AbortSignal): Promise<T> {
   let res: Response
   try {
-    res = await fetch(`/questcodex/api/catalog?lang=${encodeURIComponent(lang)}`, { signal })
+    res = await fetch(url, { signal })
   } catch (e) {
     if (isAbort(e)) throw e
     throw new CatalogError('network', null)
@@ -155,5 +164,5 @@ export async function fetchCatalog(lang: string, signal?: AbortSignal): Promise<
     }
     throw new CatalogError(code, res.status)
   }
-  return (await res.json()) as Catalog
+  return (await res.json()) as T
 }
