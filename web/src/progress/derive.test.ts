@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import type { Catalog, CatalogQuest, Objective, ObjectivePrep, PrepItem } from '../api/catalog'
 import type { ProfileProgress, QuestProgress } from '../api/progress'
 import {
-  aggregateNeeds, countTabs, dedupeRows, entryPlace, filterNeedRows, filterProgressQuests, groupByQuest, handoverReady, mapsFromText, placeFinds, isUnreachable, itemKey, itemNeeds,
+  aggregateNeeds, countTabByTrader, countTabs,dedupeRows, entryPlace, filterNeedRows, filterProgressQuests, groupByQuest, handoverReady, mapsFromText, placeFinds, isUnreachable, itemKey, itemNeeds,
   mapBrief, mapGroup, mapTabs, mergeSources, missing, objectiveMaps, OTHER_CATEGORY, questTab, raidEntries, raidFinds, remaining, rowCategory, searchKey, sortNeedRows,
 } from './derive'
 
@@ -342,7 +342,14 @@ describe('questTab / countTabs / filterProgressQuests', () => {
     const cat = catalog([quest('a', [], { name: 'Gunsmith - Part 1' }), quest('b', []), quest('c', [], { traderId: 't2' })])
     const prog = progress({ a: qp('Started'), c: qp('Started') })
     expect(countTabs(cat, prog)).toEqual({ active: 2, available: 0, locked: 1, done: 0, failed: 0 })
-    expect(filterProgressQuests(cat, prog, { tab: 'active', traderId: '', query: 'gun smith' }).map((q) => q.id)).toEqual(['a'])
-    expect(filterProgressQuests(cat, prog, { tab: 'active', traderId: 't2', query: '' }).map((q) => q.id)).toEqual(['c'])
+    expect(filterProgressQuests(cat, prog, { tab: 'active', traderIds: new Set(), query: 'gun smith' }).map((q) => q.id)).toEqual(['a'])
+    expect(filterProgressQuests(cat, prog, { tab: 'active', traderIds: new Set(['t2']), query: '' }).map((q) => q.id)).toEqual(['c'])
+    expect(filterProgressQuests(cat, prog, { tab: 'active', traderIds: new Set(['t1', 't2']), query: '' }).map((q) => q.id).sort()).toEqual(['a', 'c'])
+  })
+  it('상인별 개수는 고른 탭 안에서만 센다', () => {
+    const cat = catalog([quest('a', []), quest('b', []), quest('c', [], { traderId: 't2' })])
+    const prog = progress({ a: qp('Started'), c: qp('Started') })
+    expect(countTabByTrader(cat, prog, 'active')).toEqual({ t1: 1, t2: 1 })
+    expect(countTabByTrader(cat, prog, 'locked')).toEqual({ t1: 1 })
   })
 })

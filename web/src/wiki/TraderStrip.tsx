@@ -25,11 +25,12 @@ export function TraderStrip({ traders, counts, total, selected, onToggle, onClea
       </button>
       {traders.map((tr) => {
         const on = selected.has(tr.id)
+        const empty = (counts[tr.id] ?? 0) === 0
         return (
           <button
             key={tr.id}
             type="button"
-            className={cls('qc-trader', on && 'is-on')}
+            className={cls('qc-trader', on && 'is-on', empty && !on && 'is-empty')}
             aria-pressed={on}
             onClick={() => onToggle(tr.id)}
           >

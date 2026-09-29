@@ -2,7 +2,7 @@
 
 /* 상인 줄 높이는 로딩 스켈레톤이 그대로 따라 써야 해서 조각으로 정의한다.
    아바타 크기나 카드 패딩을 바꾸면 스켈레톤도 자동으로 따라온다. */
-.qc-wiki, .qc-skeleton {
+.qc-wiki, .qc-skeleton, .qc-progress {
   --trader-avatar: 40px;
   --trader-label: calc(12px * 1.45);   /* 이름·개수 한 줄 높이 (styles.css 의 line-height) */
   --trader-card: calc(11px + var(--trader-avatar) + 5px + var(--trader-label) + 5px + var(--trader-label) + 8px);
@@ -69,6 +69,9 @@
 .qc-trader__name { font-size: 12px; font-weight: 500; white-space: nowrap; }
 .qc-trader__count { font-size: 12px; color: var(--fg-3); white-space: nowrap; }
 .qc-trader.is-on .qc-trader__count { color: var(--accent-fg); }
+/* 개수 0 은 숨기지 않고 흐리게 — 숨기면 탭을 바꿀 때마다 아바타 위치가 흔들린다 */
+.qc-trader.is-empty { opacity: .4; }
+.qc-trader.is-empty:hover { opacity: .7; }
 
 /* 모션을 줄이는 환경에서는 확대·눌림 효과 생략 */
 @media (prefers-reduced-motion: reduce) {

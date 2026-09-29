@@ -500,10 +500,19 @@ export function countTabs(catalog: Catalog, progress: ProfileProgress): Record<Q
   return out
 }
 
+/** 상인 줄 개수: 고른 탭에 속한 퀘스트만 상인별로 센다 (탭을 바꾸면 숫자도 바뀐다) */
+export function countTabByTrader(catalog: Catalog, progress: ProfileProgress, tab: QuestTab): Record<string, number> {
+  const out: Record<string, number> = {}
+  for (const q of Object.values(catalog.quests)) {
+    if (questTab(questProgress(progress, q.id).status) === tab) out[q.traderId] = (out[q.traderId] ?? 0) + 1
+  }
+  return out
+}
+
 export interface QuestFilter {
   tab: QuestTab
-  /** 빈 문자열 = 전체 */
-  traderId: string
+  /** 비어 있으면 전체 (위키 상인 줄과 같은 다중 선택) */
+  traderIds: ReadonlySet<string>
   query: string
 }
 
@@ -511,7 +520,7 @@ export function filterProgressQuests(catalog: Catalog, progress: ProfileProgress
   const q = searchKey(f.query)
   return Object.values(catalog.quests)
     .filter((x) => questTab(questProgress(progress, x.id).status) === f.tab)
-    .filter((x) => f.traderId === '' || x.traderId === f.traderId)
+    .filter((x) => f.traderIds.size === 0 || f.traderIds.has(x.traderId))
     .filter((x) => q === '' || searchKey(x.name).includes(q))
     .sort((a, b) => (a.minLevel ?? 0) - (b.minLevel ?? 0) || a.name.localeCompare(b.name))
 }

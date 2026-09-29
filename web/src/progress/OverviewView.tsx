@@ -4,10 +4,11 @@ import type { Holding, ProfileProgress } from '../api/progress'
 import { cls } from '../cls'
 import { useT } from '../i18n/I18nContext'
 import { navigate } from '../shell/router'
-import { orderTraders, type NameLookup } from '../wiki/derive'
+import { assignModColors, orderTraders, toggleMember, type NameLookup } from '../wiki/derive'
+import { TraderStrip } from '../wiki/TraderStrip'
 import { formatObjective, lineText } from '../wiki/format'
 import {
-  countTabs, filterProgressQuests, firstOpenObjective, handoverReady, isUnreachable, QUEST_TABS, questProgress,
+  countTabByTrader, countTabs, filterProgressQuests, firstOpenObjective, handoverReady, isUnreachable, QUEST_TABS, questProgress,
   tradersWithQuests, type QuestTab,
 } from './derive'
 import { counterText, lockReasonText } from './format'
@@ -75,7 +76,7 @@ export function OverviewView({ catalog, progress, inventory, lookup, highlight }
         </div>
       </section>
 
-      <QuestTable catalog={catalog} progress={progress} lookup={lookup} traderIds={traderIds} highlight={highlight} />
+      <QuestTable catalog={catalog} progress={progress} lookup={lookup} traderOrder={traderIds} highlight={highlight} />
     </div>
   )
 }
@@ -103,20 +104,28 @@ interface QuestTableProps {
   catalog: Catalog
   progress: ProfileProgress
   lookup: NameLookup
-  traderIds: string[]
+  traderOrder: string[]
   highlight: ReadonlySet<string>
 }
 
-function QuestTable({ catalog, progress, lookup, traderIds, highlight }: QuestTableProps) {
+function QuestTable({ catalog, progress, lookup, traderOrder, highlight }: QuestTableProps) {
   const t = useT()
   const [tab, setTab] = useState<QuestTab>('active')
-  const [traderId, setTraderId] = useState('')
+  const [traderIds, setTraderIds] = useState<ReadonlySet<string>>(() => new Set())
   const [query, setQuery] = useState('')
   const [expanded, setExpanded] = useState<ReadonlySet<string>>(() => new Set())
   const counts = useMemo(() => countTabs(catalog, progress), [catalog, progress])
+  // 위키와 같은 색이 나오도록 필터 결과가 아니라 카탈로그 전체로 정한다
+  const modColors = useMemo(() => assignModColors(Object.values(catalog.quests)), [catalog])
+  const traderCounts = useMemo(() => countTabByTrader(catalog, progress, tab), [catalog, progress, tab])
+  // 퀘스트가 하나도 없는 상인은 상인별 진행률과 같은 기준으로 뺀다
+  const traders = useMemo(() => {
+    const keep = new Set(traderOrder)
+    return orderTraders(catalog.traders).filter((x) => keep.has(x.id))
+  }, [catalog, traderOrder])
   const rows = useMemo(
-    () => filterProgressQuests(catalog, progress, { tab, traderId, query }),
-    [catalog, progress, tab, traderId, query],
+    () => filterProgressQuests(catalog, progress, { tab, traderIds, query }),
+    [catalog, progress, tab, traderIds, query],
   )
   const toggle = (id: string) => setExpanded((prev) => {
     const next = new Set(prev)
@@ -126,6 +135,10 @@ function QuestTable({ catalog, progress, lookup, traderIds, highlight }: QuestTa
 
   return (
     <section className="qc-card qc-card--flush">
+      <TraderStrip
+        traders={traders} counts={traderCounts} total={counts[tab]}
+        selected={traderIds} onToggle={(id) => setTraderIds((prev) => toggleMember(prev, id))} onClear={() => setTraderIds(new Set())}
+      />
       <div className="qc-card__bar">
         <h3 className="qc-card__h">{t('overview.quests')}</h3>
         <div className="qc-chips" role="group" aria-label={t('overview.quests')}>
@@ -143,10 +156,6 @@ function QuestTable({ catalog, progress, lookup, traderIds, highlight }: QuestTa
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <select className="qc-select" aria-label={t('trader.filterLabel')} value={traderId} onChange={(e) => setTraderId(e.target.value)}>
-          <option value="">{t('overview.allTraders')}</option>
-          {traderIds.map((id) => <option key={id} value={id}>{lookup.traderName(id)}</option>)}
-        </select>
       </div>
       {rows.length === 0 ? <p className="qc-empty">{t('overview.empty')}</p> : (
         <ul>
@@ -158,6 +167,7 @@ function QuestTable({ catalog, progress, lookup, traderIds, highlight }: QuestTa
               lookup={lookup}
               open={expanded.has(q.id)}
               flash={highlight.has(q.id)}
+              modColor={q.modName ? modColors[q.modName] : undefined}
               onToggle={() => toggle(q.id)}
             />
           ))}
@@ -173,11 +183,13 @@ interface QuestLineProps {
   lookup: NameLookup
   open: boolean
   flash: boolean
+  /** 모드 태그 색 번호 (위키와 같은 assignModColors) */
+  modColor?: number
   onToggle(): void
 }
 
 /** 한 줄 요약: 진행 중이면 첫 미완료 목표와 카운터, 잠김이면 첫 잠김 사유. 펼치면 전체. */
-function QuestLine({ quest, progress, lookup, open, flash, onToggle }: QuestLineProps) {
+function QuestLine({ quest, progress, lookup, open, flash, modColor, onToggle }: QuestLineProps) {
   const t = useT()
   const qp = questProgress(progress, quest.id)
   const locked = qp.status === 'Locked'
@@ -193,7 +205,12 @@ function QuestLine({ quest, progress, lookup, open, flash, onToggle }: QuestLine
       <button type="button" className="qc-pline__row" aria-expanded={open} onClick={onToggle}>
         <span className="qc-pline__name">
           {quest.name}
-          {unreachable && <span className="qc-tag qc-pline__tag" title={t('overview.unreachableHint')}>{t('overview.unreachable')}</span>}
+          {!quest.isVanilla && (
+            <span className="qc-tag qc-tag--mod" data-mod-color={modColor} title={quest.modName ?? undefined}>
+              {quest.modName ?? t('tag.mod')}
+            </span>
+          )}
+          {unreachable &&<span className="qc-tag qc-pline__tag" title={t('overview.unreachableHint')}>{t('overview.unreachable')}</span>}
         </span>
         <span className="qc-pline__trader">{lookup.traderName(quest.traderId)}</span>
         <span className="qc-pline__summary">{summary}</span>
