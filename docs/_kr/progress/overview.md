@@ -7,6 +7,8 @@ nav_order: 1
 # 현황
 {: .no_toc }
 
+[![현황 페이지]({{ '/assets/images/progress-overview-full.png' | relative_url }})]({{ '/assets/images/progress-overview-full.png' | relative_url }})
+
 1. TOC
 {:toc}
 
@@ -16,7 +18,7 @@ nav_order: 1
 
 상인마다 완료한 퀘스트 수와 전체 수를 진행 막대로 보여 줍니다. 전부 끝낸 상인은 초록색이 됩니다.
 
-<!-- screenshot: trader progress bars -->
+[![상인별 진행률]({{ '/assets/images/progress-overview-traders.png' | relative_url }})]({{ '/assets/images/progress-overview-traders.png' | relative_url }})
 
 ## 상인에게 갈 것
 
@@ -24,7 +26,7 @@ nav_order: 1
 - **수락 가능**(Available to accept): 지금 받을 수 있는 퀘스트
 - **바로 제출 가능**(Can hand over now): 가진 아이템으로 채울 수 있는 제출 목표
 
-<!-- screenshot: ready to turn in / available / can hand over now -->
+[![상인에게 갈 것]({{ '/assets/images/progress-overview-visit.png' | relative_url }})]({{ '/assets/images/progress-overview-visit.png' | relative_url }})
 
 ## 상태별 퀘스트
 
@@ -33,4 +35,4 @@ nav_order: 1
 
 이 프로필로는 끝낼 수 없는 퀘스트(다른 진영 전용이거나 이미 닫힌 분기)는 **도달 불가**(Unreachable)로 표시됩니다.
 
-<!-- screenshot: quests by status with one quest expanded -->
+[![상태별 퀘스트]({{ '/assets/images/progress-overview-quests.png' | relative_url }})]({{ '/assets/images/progress-overview-quests.png' | relative_url }})

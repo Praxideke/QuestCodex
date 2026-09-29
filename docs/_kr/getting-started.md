@@ -43,4 +43,4 @@ SPT 서버 웹 페이지(`https://127.0.0.1:6969`)의 모드 카드에서도 들
   (게임 텍스트는 서버의 로케일 테이블을 씁니다).
 - **테마**: 시스템 / 밝게 / 어둡게. 브라우저에 기억됩니다.
 
-<!-- screenshot: header with the language and theme switches -->
+[![테마와 언어 선택]({{ '/assets/images/topbar-switches.png' | relative_url }})]({{ '/assets/images/topbar-switches.png' | relative_url }})

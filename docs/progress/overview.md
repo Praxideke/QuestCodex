@@ -7,6 +7,8 @@ nav_order: 1
 # Overview
 {: .no_toc }
 
+[![Overview page](../assets/images/progress-overview-full.png)](../assets/images/progress-overview-full.png)
+
 1. TOC
 {:toc}
 
@@ -16,7 +18,7 @@ nav_order: 1
 
 A progress bar per trader with finished and total quest counts. Traders you've fully finished turn green.
 
-<!-- screenshot: trader progress bars -->
+[![Progress by trader](../assets/images/progress-overview-traders.png)](../assets/images/progress-overview-traders.png)
 
 ## What you can do now
 
@@ -26,7 +28,7 @@ Under **Go see a trader**:
 - **Available to accept**: quests you can pick up now
 - **Can hand over now**: hand-over objectives your items already cover
 
-<!-- screenshot: ready to turn in / available / can hand over now -->
+[![Go see a trader](../assets/images/progress-overview-visit.png)](../assets/images/progress-overview-visit.png)
 
 ## Quests by status
 
@@ -36,4 +38,4 @@ its objectives and see which ones are done. Mod quests carry their mod name tag.
 Quests you can never finish on this profile (other faction only, or a branch you already closed) are
 marked **Unreachable**.
 
-<!-- screenshot: quests by status with one quest expanded -->
+[![Quests by status](../assets/images/progress-overview-quests.png)](../assets/images/progress-overview-quests.png)

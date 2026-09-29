@@ -9,6 +9,8 @@ nav_order: 3
 
 남은 퀘스트에서 제출하거나 설치해야 하는 아이템을 모두 모아, 가진 수량과 비교해 보여 줍니다.
 
+[![필요 아이템 페이지]({{ '/assets/images/progress-items-full.png' | relative_url }})]({{ '/assets/images/progress-items-full.png' | relative_url }})
+
 1. TOC
 {:toc}
 
@@ -19,7 +21,7 @@ nav_order: 3
 한 줄에 아이템 하나씩, 남은 퀘스트 전체에서 필요한 수를 합쳐서 창고 보유량과 그중 FIR 수량 옆에 보여 줍니다.
 줄을 펼치면 어떤 퀘스트에 필요한지 보입니다.
 
-<!-- screenshot: needed items table with one row expanded -->
+[![필요 아이템 표]({{ '/assets/images/progress-items-table.png' | relative_url }})]({{ '/assets/images/progress-items-table.png' | relative_url }})
 
 ## 필터
 

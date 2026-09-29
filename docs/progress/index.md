@@ -19,7 +19,7 @@ The Progress menu shows where a profile stands and what it still needs. It has t
 The profile bar at the top is shared by all three pages. It starts on the profile that is currently online
 and remembers your choice in the browser.
 
-<!-- screenshot: profile bar -->
+[![Profile bar](../assets/images/progress-profile.png)](../assets/images/progress-profile.png)
 
 ## Live updates
 

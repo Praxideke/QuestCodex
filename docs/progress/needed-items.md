@@ -9,6 +9,8 @@ nav_order: 3
 
 Everything your remaining quests still ask you to hand over or plant, compared with what you have.
 
+[![Needed items page](../assets/images/progress-items-full.png)](../assets/images/progress-items-full.png)
+
 1. TOC
 {:toc}
 
@@ -19,7 +21,7 @@ Everything your remaining quests still ask you to hand over or plant, compared w
 Each row sums one item across all remaining quests, next to how many you hold in your stash and how many
 of those are found in raid. Expand a row to see which quests need it.
 
-<!-- screenshot: needed items table with one row expanded -->
+[![Needed items table](../assets/images/progress-items-table.png)](../assets/images/progress-items-table.png)
 
 ## Filters
 

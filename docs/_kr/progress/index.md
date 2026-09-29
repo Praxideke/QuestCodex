@@ -18,7 +18,7 @@ has_children: true
 
 맨 위 프로필 바는 세 페이지가 함께 씁니다. 처음에는 지금 접속 중인 프로필로 시작하고, 고른 프로필은 브라우저에 기억됩니다.
 
-<!-- screenshot: profile bar -->
+[![프로필 바]({{ '/assets/images/progress-profile.png' | relative_url }})]({{ '/assets/images/progress-profile.png' | relative_url }})
 
 ## 실시간 갱신
 

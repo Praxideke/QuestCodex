@@ -43,4 +43,4 @@ You can also reach it from the mod card on the SPT server web page (`https://127
   (game text comes from the server's locale tables).
 - **Theme**: `System` / `Light` / `Dark`, remembered in the browser.
 
-<!-- screenshot: header with the language and theme switches -->
+[![Theme and language switches](assets/images/topbar-switches.png)](assets/images/topbar-switches.png)
