@@ -22,6 +22,6 @@ Thumbs.db
 .DS_Store
 
 # Local docs (kept out of the public repo)
-docs/
+dev-docs/
 .superpowers/
-assets/
+/assets/

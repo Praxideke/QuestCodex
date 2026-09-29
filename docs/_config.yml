@@ -1,0 +1,33 @@
+title: QuestCodex
+description: A quest wiki for your SPT server, mod quests and all.
+
+url: https://viper-9.github.io
+baseurl: /QuestCodex
+
+remote_theme: just-the-docs/just-the-docs@v0.10.1
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+  - jekyll-include-cache
+
+color_scheme: dark
+search_enabled: true
+heading_anchors: true
+
+aux_links:
+  GitHub: https://github.com/Viper-9/QuestCodex
+  Download: https://github.com/Viper-9/QuestCodex/releases
+aux_links_new_tab: true
+
+callouts:
+  note:
+    title: Note
+    color: blue
+  tip:
+    title: Tip
+    color: green
+  warning:
+    title: Warning
+    color: yellow
+
+footer_content: "Copyright &copy; 2026 Viper-9. All Rights Reserved."

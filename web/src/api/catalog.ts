@@ -1,4 +1,4 @@
-// 2단계 스펙 §2.1~2.3 (docs/02-catalog-progress/questcodex-catalog-progress.spec.md) 의 TS 판.
+// 2단계 스펙 §2.1~2.3 (dev-docs/02-catalog-progress/questcodex-catalog-progress.spec.md) 의 TS 판.
 // 서버 JSON 은 camelCase, 판별 필드는 kind.
 
 export interface CatalogTrader {

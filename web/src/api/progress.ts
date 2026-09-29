@@ -1,4 +1,4 @@
-// 프로필 진행 상태 API (docs/07-progress/api-reference.md §2·§3) 의 TS 판.
+// 프로필 진행 상태 API (dev-docs/07-progress/api-reference.md §2·§3) 의 TS 판.
 import { getJson } from './catalog'
 
 export interface ProfileSummary {
