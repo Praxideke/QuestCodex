@@ -1,0 +1,2879 @@
+{
+  "Location": "TarkovStreets",
+  "DumpedAtUtc": "2026-09-25T04:54:30.9185412Z",
+  "Zones": [
+    {
+      "Id": "",
+      "Type": "FlareShootDetectorZone",
+      "Active": true,
+      "Position": {
+        "X": -188.47,
+        "Y": 1.7,
+        "Z": 33.53
+      },
+      "Bounds": {
+        "Min": {
+          "X": -203.426468,
+          "Y": -0.416026831,
+          "Z": -5.6660614
+        },
+        "Max": {
+          "X": -173.513535,
+          "Y": 3.816027,
+          "Z": 72.72606
+        }
+      }
+    },
+    {
+      "Id": "Bank_points_1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 97.422,
+        "Y": 1.232,
+        "Z": -22.249
+      },
+      "Bounds": {
+        "Min": {
+          "X": 95.422,
+          "Y": 0.231999934,
+          "Z": -23.499
+        },
+        "Max": {
+          "X": 99.422,
+          "Y": 2.23199987,
+          "Z": -20.999
+        }
+      }
+    },
+    {
+      "Id": "Bank_points_10",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -35.198,
+        "Y": 1.575,
+        "Z": -69.976
+      },
+      "Bounds": {
+        "Min": {
+          "X": -35.7785149,
+          "Y": 0.5749998,
+          "Z": -70.55651
+        },
+        "Max": {
+          "X": -34.61749,
+          "Y": 2.57500029,
+          "Z": -69.3954849
+        }
+      }
+    },
+    {
+      "Id": "Bank_points_11",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -113.874,
+        "Y": 1.609,
+        "Z": -12.51
+      },
+      "Bounds": {
+        "Min": {
+          "X": -114.454514,
+          "Y": 0.6089997,
+          "Z": -13.0905132
+        },
+        "Max": {
+          "X": -113.293488,
+          "Y": 2.60900021,
+          "Z": -11.9294872
+        }
+      }
+    },
+    {
+      "Id": "Bank_points_12",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -166.477,
+        "Y": 1.625,
+        "Z": -3.377
+      },
+      "Bounds": {
+        "Min": {
+          "X": -167.065659,
+          "Y": 0.625,
+          "Z": -3.96566081
+        },
+        "Max": {
+          "X": -165.888351,
+          "Y": 2.625,
+          "Z": -2.78833938
+        }
+      }
+    },
+    {
+      "Id": "Bank_points_13",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -53.575,
+        "Y": 1.579,
+        "Z": -69.353
+      },
+      "Bounds": {
+        "Min": {
+          "X": -54.163662,
+          "Y": 0.579,
+          "Z": -69.94166
+        },
+        "Max": {
+          "X": -52.98634,
+          "Y": 2.579,
+          "Z": -68.7643356
+        }
+      }
+    },
+    {
+      "Id": "Bank_points_14",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 0.446,
+        "Y": -2.73879981,
+        "Z": -18.789
+      },
+      "Bounds": {
+        "Min": {
+          "X": -0.07161784,
+          "Y": -3.7388,
+          "Z": -19.3066177
+        },
+        "Max": {
+          "X": 0.9636178,
+          "Y": -1.73879957,
+          "Z": -18.2713814
+        }
+      }
+    },
+    {
+      "Id": "Bank_points_15",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 8.286,
+        "Y": -2.76,
+        "Z": 5.15
+      },
+      "Bounds": {
+        "Min": {
+          "X": 7.768382,
+          "Y": -3.76000023,
+          "Z": 4.63238239
+        },
+        "Max": {
+          "X": 8.803618,
+          "Y": -1.75999975,
+          "Z": 5.667618
+        }
+      }
+    },
+    {
+      "Id": "Bank_points_16",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 236.969,
+        "Y": -1.127,
+        "Z": -93.822
+      },
+      "Bounds": {
+        "Min": {
+          "X": 236.469,
+          "Y": -2.12700033,
+          "Z": -94.322
+        },
+        "Max": {
+          "X": 237.469,
+          "Y": -0.126999855,
+          "Z": -93.322
+        }
+      }
+    },
+    {
+      "Id": "Bank_points_2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 83.017,
+        "Y": 1.222,
+        "Z": -30.5000038
+      },
+      "Bounds": {
+        "Min": {
+          "X": 82.017,
+          "Y": 0.222000122,
+          "Z": -31.2500038
+        },
+        "Max": {
+          "X": 84.017,
+          "Y": 2.22200012,
+          "Z": -29.7500038
+        }
+      }
+    },
+    {
+      "Id": "Bank_points_3",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -50.893,
+        "Y": 3.654,
+        "Z": 453.87
+      },
+      "Bounds": {
+        "Min": {
+          "X": -51.393,
+          "Y": 2.65400028,
+          "Z": 452.87
+        },
+        "Max": {
+          "X": -50.393,
+          "Y": 4.65400028,
+          "Z": 454.87
+        }
+      }
+    },
+    {
+      "Id": "Bank_points_4",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -58.149,
+        "Y": 3.654,
+        "Z": 453.87
+      },
+      "Bounds": {
+        "Min": {
+          "X": -58.649,
+          "Y": 2.65400028,
+          "Z": 452.87
+        },
+        "Max": {
+          "X": -57.649,
+          "Y": 4.65400028,
+          "Z": 454.87
+        }
+      }
+    },
+    {
+      "Id": "Bank_points_5",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 54.476,
+        "Y": 3.799,
+        "Z": 234.936
+      },
+      "Bounds": {
+        "Min": {
+          "X": 53.476,
+          "Y": 2.79899979,
+          "Z": 234.436
+        },
+        "Max": {
+          "X": 55.476,
+          "Y": 4.799,
+          "Z": 235.436
+        }
+      }
+    },
+    {
+      "Id": "Bank_points_6",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 279.032,
+        "Y": 4.334,
+        "Z": 369.676
+      },
+      "Bounds": {
+        "Min": {
+          "X": 278.532,
+          "Y": 3.334,
+          "Z": 368.926
+        },
+        "Max": {
+          "X": 279.532,
+          "Y": 5.334,
+          "Z": 370.426
+        }
+      }
+    },
+    {
+      "Id": "Bank_points_7",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -80.367,
+        "Y": 1.583,
+        "Z": -64.723
+      },
+      "Bounds": {
+        "Min": {
+          "X": -81.02425,
+          "Y": 0.582999945,
+          "Z": -65.7914658
+        },
+        "Max": {
+          "X": -79.70975,
+          "Y": 2.583,
+          "Z": -63.6545334
+        }
+      }
+    },
+    {
+      "Id": "Bank_points_8",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -160.188,
+        "Y": 1.6,
+        "Z": -47.807
+      },
+      "Bounds": {
+        "Min": {
+          "X": -161.260635,
+          "Y": 0.5999999,
+          "Z": -48.4759
+        },
+        "Max": {
+          "X": -159.115372,
+          "Y": 2.60000014,
+          "Z": -47.1381
+        }
+      }
+    },
+    {
+      "Id": "Bank_points_9",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -148.57,
+        "Y": 6.081,
+        "Z": -62.751
+      },
+      "Bounds": {
+        "Min": {
+          "X": -149.150513,
+          "Y": 5.081,
+          "Z": -63.3315125
+        },
+        "Max": {
+          "X": -147.9895,
+          "Y": 7.081,
+          "Z": -62.1704865
+        }
+      }
+    },
+    {
+      "Id": "event_labyrinth_02_mech_place_04",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 215.640015,
+        "Y": 8.23,
+        "Z": 360.7
+      },
+      "Bounds": {
+        "Min": {
+          "X": 169.74,
+          "Y": 2.27999973,
+          "Z": 341.11
+        },
+        "Max": {
+          "X": 245.340012,
+          "Y": 11.58,
+          "Z": 379.22998
+        }
+      }
+    },
+    {
+      "Id": "fond_quest",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -58.32,
+        "Y": 3.58,
+        "Z": 457.86
+      },
+      "Bounds": {
+        "Min": {
+          "X": -66.82,
+          "Y": 2.58,
+          "Z": 452.86
+        },
+        "Max": {
+          "X": -49.82,
+          "Y": 4.58,
+          "Z": 462.86
+        }
+      }
+    },
+    {
+      "Id": "halloween_unlock_pc",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 54.7299347,
+        "Y": 1.104,
+        "Z": -79.9200058
+      },
+      "Bounds": {
+        "Min": {
+          "X": 51.1716232,
+          "Y": 0.603999853,
+          "Z": -81.4019
+        },
+        "Max": {
+          "X": 57.0387421,
+          "Y": 2.123196,
+          "Z": -76.37735
+        }
+      }
+    },
+    {
+      "Id": "halloween_unlock_pc",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 54.7299347,
+        "Y": 1.104,
+        "Z": -79.9200058
+      },
+      "Bounds": {
+        "Min": {
+          "X": 51.1716232,
+          "Y": 0.603999853,
+          "Z": -81.4019
+        },
+        "Max": {
+          "X": 57.0387421,
+          "Y": 2.123196,
+          "Z": -76.37735
+        }
+      }
+    },
+    {
+      "Id": "Hookah_quest",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -211.759,
+        "Y": 4.199,
+        "Z": 297.287
+      },
+      "Bounds": {
+        "Min": {
+          "X": -214.225677,
+          "Y": 3.199,
+          "Z": 295.0329
+        },
+        "Max": {
+          "X": -209.292328,
+          "Y": 5.199,
+          "Z": 299.541077
+        }
+      }
+    },
+    {
+      "Id": "Mark_BTR_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 195.527344,
+        "Y": 3.20990276,
+        "Z": 256.3192
+      },
+      "Bounds": {
+        "Min": {
+          "X": 192.098755,
+          "Y": 2.969161,
+          "Z": 254.9967
+        },
+        "Max": {
+          "X": 198.235352,
+          "Y": 5.200856,
+          "Z": 258.925476
+        }
+      }
+    },
+    {
+      "Id": "Mark_BTR_2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 120.758,
+        "Y": -2.436,
+        "Z": 26.16
+      },
+      "Bounds": {
+        "Min": {
+          "X": 109.904465,
+          "Y": -2.67674184,
+          "Z": 22.0995026
+        },
+        "Max": {
+          "X": 121.256851,
+          "Y": -0.445046663,
+          "Z": 29.5823135
+        }
+      }
+    },
+    {
+      "Id": "Mark_BTR_3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -131.704086,
+        "Y": 0.630023,
+        "Z": 64.95194
+      },
+      "Bounds": {
+        "Min": {
+          "X": -137.1492,
+          "Y": 0.389287,
+          "Z": 57.8538361
+        },
+        "Max": {
+          "X": -128.94458,
+          "Y": 2.62098312,
+          "Z": 69.89387
+        }
+      }
+    },
+    {
+      "Id": "Mark_BTR_4",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -13.1059952,
+        "Y": 2.36,
+        "Z": 217.207916
+      },
+      "Bounds": {
+        "Min": {
+          "X": -17.3961,
+          "Y": 2.119258,
+          "Z": 216.483536
+        },
+        "Max": {
+          "X": -8.872025,
+          "Y": 4.350953,
+          "Z": 220.1733
+        }
+      }
+    },
+    {
+      "Id": "Mark_BTR_5",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -232.094,
+        "Y": 2.453,
+        "Z": 236.69
+      },
+      "Bounds": {
+        "Min": {
+          "X": -237.2012,
+          "Y": 2.21225834,
+          "Z": 232.837692
+        },
+        "Max": {
+          "X": -230.119171,
+          "Y": 4.44395351,
+          "Z": 239.049179
+        }
+      }
+    },
+    {
+      "Id": "Mark_BTR_6",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -136.84,
+        "Y": 1.92,
+        "Z": 399.3
+      },
+      "Bounds": {
+        "Min": {
+          "X": -141.831451,
+          "Y": 1.67925835,
+          "Z": 397.0251
+        },
+        "Max": {
+          "X": -133.549622,
+          "Y": 3.91095352,
+          "Z": 403.73468
+        }
+      }
+    },
+    {
+      "Id": "Office_enter",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 164.36,
+        "Y": 1.722,
+        "Z": 148.11
+      },
+      "Bounds": {
+        "Min": {
+          "X": 157.966583,
+          "Y": 0.721999645,
+          "Z": 136.443069
+        },
+        "Max": {
+          "X": 170.753418,
+          "Y": 2.72200012,
+          "Z": 159.776932
+        }
+      }
+    },
+    {
+      "Id": "Office_quest",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 164.247,
+        "Y": 1.722,
+        "Z": 167.288
+      },
+      "Bounds": {
+        "Min": {
+          "X": 162.9092,
+          "Y": 0.721999645,
+          "Z": 165.9502
+        },
+        "Max": {
+          "X": 165.5848,
+          "Y": 2.72200012,
+          "Z": 168.6258
+        }
+      }
+    },
+    {
+      "Id": "Pharma_1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 39.054,
+        "Y": 3.655,
+        "Z": 162.4094
+      },
+      "Bounds": {
+        "Min": {
+          "X": 35.554,
+          "Y": 2.65499973,
+          "Z": 153.4094
+        },
+        "Max": {
+          "X": 42.554,
+          "Y": 4.65499973,
+          "Z": 171.4094
+        }
+      }
+    },
+    {
+      "Id": "Pharma_2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -44.62,
+        "Y": 4.189,
+        "Z": 336.07
+      },
+      "Bounds": {
+        "Min": {
+          "X": -48.62,
+          "Y": 3.18900013,
+          "Z": 330.57
+        },
+        "Max": {
+          "X": -40.62,
+          "Y": 5.189,
+          "Z": 341.57
+        }
+      }
+    },
+    {
+      "Id": "Pharma_3",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 89.26,
+        "Y": 5.07,
+        "Z": -275.352
+      },
+      "Bounds": {
+        "Min": {
+          "X": 83.26,
+          "Y": 4.07,
+          "Z": -280.352
+        },
+        "Max": {
+          "X": 95.26,
+          "Y": 6.07,
+          "Z": -270.352
+        }
+      }
+    },
+    {
+      "Id": "quest_city_trotil1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -259.891,
+        "Y": 2.97,
+        "Z": 136.968
+      },
+      "Bounds": {
+        "Min": {
+          "X": -261.994,
+          "Y": 1.91889811,
+          "Z": 134.40506
+        },
+        "Max": {
+          "X": -257.788,
+          "Y": 4.021102,
+          "Z": 139.530945
+        }
+      }
+    },
+    {
+      "Id": "quest_city_trotil2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 68.257,
+        "Y": 3.044,
+        "Z": 309.979
+      },
+      "Bounds": {
+        "Min": {
+          "X": 67.68278,
+          "Y": 2.505636,
+          "Z": 308.083527
+        },
+        "Max": {
+          "X": 68.83123,
+          "Y": 3.58236384,
+          "Z": 311.874481
+        }
+      }
+    },
+    {
+      "Id": "quest_city_trotil2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 68.769,
+        "Y": 2.929,
+        "Z": 303.724
+      },
+      "Bounds": {
+        "Min": {
+          "X": 68.23074,
+          "Y": 2.391363,
+          "Z": 302.9229
+        },
+        "Max": {
+          "X": 69.30725,
+          "Y": 3.466637,
+          "Z": 304.5251
+        }
+      }
+    },
+    {
+      "Id": "quest_city_trotil2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 67.729,
+        "Y": 3.03,
+        "Z": 306.864
+      },
+      "Bounds": {
+        "Min": {
+          "X": 67.18368,
+          "Y": 2.4922204,
+          "Z": 305.848053
+        },
+        "Max": {
+          "X": 68.2743149,
+          "Y": 3.56777954,
+          "Z": 307.879974
+        }
+      }
+    },
+    {
+      "Id": "quest_flyer3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -169.84,
+        "Y": 15.41,
+        "Z": 407.59
+      },
+      "Bounds": {
+        "Min": {
+          "X": -174.378647,
+          "Y": 14.0939407,
+          "Z": 403.563751
+        },
+        "Max": {
+          "X": -165.301346,
+          "Y": 16.726059,
+          "Z": 411.616241
+        }
+      }
+    },
+    {
+      "Id": "quest_flyer3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -169.75,
+        "Y": 15.41,
+        "Z": 392.58
+      },
+      "Bounds": {
+        "Min": {
+          "X": -174.234024,
+          "Y": 14.1040173,
+          "Z": 388.649078
+        },
+        "Max": {
+          "X": -165.265976,
+          "Y": 16.7159824,
+          "Z": 396.5109
+        }
+      }
+    },
+    {
+      "Id": "quest_produkt1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -204.310013,
+        "Y": 4.3,
+        "Z": 181.22
+      },
+      "Bounds": {
+        "Min": {
+          "X": -208.310013,
+          "Y": 3.30000019,
+          "Z": 177.22
+        },
+        "Max": {
+          "X": -200.310013,
+          "Y": 5.3,
+          "Z": 185.22
+        }
+      }
+    },
+    {
+      "Id": "quest_produkt2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 153.686,
+        "Y": 4.68,
+        "Z": 299.044
+      },
+      "Bounds": {
+        "Min": {
+          "X": 146.186,
+          "Y": 3.67999983,
+          "Z": 295.044
+        },
+        "Max": {
+          "X": 161.186,
+          "Y": 5.68,
+          "Z": 303.044
+        }
+      }
+    },
+    {
+      "Id": "quest_produkt3",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -77.17,
+        "Y": 2.33,
+        "Z": 158.91
+      },
+      "Bounds": {
+        "Min": {
+          "X": -85.14986,
+          "Y": 1.32999969,
+          "Z": 150.930145
+        },
+        "Max": {
+          "X": -69.19014,
+          "Y": 3.33000016,
+          "Z": 166.889862
+        }
+      }
+    },
+    {
+      "Id": "quest_produkt4",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 275.646973,
+        "Y": 4.303,
+        "Z": 380.834045
+      },
+      "Bounds": {
+        "Min": {
+          "X": 271.4144,
+          "Y": 3.303,
+          "Z": 372.54187
+        },
+        "Max": {
+          "X": 279.879547,
+          "Y": 5.303,
+          "Z": 389.126221
+        }
+      }
+    },
+    {
+      "Id": "quest_weap_race",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 62.4,
+        "Y": 5.2,
+        "Z": 289.9
+      },
+      "Bounds": {
+        "Min": {
+          "X": -87.6000061,
+          "Y": -4.8,
+          "Z": 139.9
+        },
+        "Max": {
+          "X": 212.4,
+          "Y": 15.2,
+          "Z": 439.9
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_c11_gmed",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 92.96399,
+        "Y": 3.587,
+        "Z": 320.384033
+      },
+      "Bounds": {
+        "Min": {
+          "X": 90.46399,
+          "Y": 2.587,
+          "Z": 317.384033
+        },
+        "Max": {
+          "X": 95.46399,
+          "Y": 4.587,
+          "Z": 323.384033
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_c16_koll_1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 15.6499977,
+        "Y": 3.39000034,
+        "Z": 226.62
+      },
+      "Bounds": {
+        "Min": {
+          "X": -11.9187632,
+          "Y": 1.89000034,
+          "Z": 197.651031
+        },
+        "Max": {
+          "X": 43.2187576,
+          "Y": 4.89000034,
+          "Z": 255.588959
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_c16_koll_2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 62.1799965,
+        "Y": 7.11,
+        "Z": 272.84
+      },
+      "Bounds": {
+        "Min": {
+          "X": 45.149353,
+          "Y": 1.1099987,
+          "Z": 260.587677
+        },
+        "Max": {
+          "X": 79.21064,
+          "Y": 13.1100016,
+          "Z": 285.092316
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_c21_look",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -67.752,
+        "Y": 5.947,
+        "Z": 65.883
+      },
+      "Bounds": {
+        "Min": {
+          "X": -70.01629,
+          "Y": 4.94699955,
+          "Z": 63.6187134
+        },
+        "Max": {
+          "X": -65.48771,
+          "Y": 6.9470005,
+          "Z": 68.14729
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_c25_cinem",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 157.362,
+        "Y": 5.098,
+        "Z": 314.252
+      },
+      "Bounds": {
+        "Min": {
+          "X": 155.362,
+          "Y": 3.598,
+          "Z": 312.752
+        },
+        "Max": {
+          "X": 159.362,
+          "Y": 6.598,
+          "Z": 315.752
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_c25_cinem2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -204.667,
+        "Y": 3.264,
+        "Z": 242.994
+      },
+      "Bounds": {
+        "Min": {
+          "X": -205.667,
+          "Y": 2.264,
+          "Z": 241.994
+        },
+        "Max": {
+          "X": -203.667,
+          "Y": 4.264,
+          "Z": 243.994
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_c27_sect",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -130.801,
+        "Y": 9.489,
+        "Z": 269.741
+      },
+      "Bounds": {
+        "Min": {
+          "X": -132.801,
+          "Y": 7.98900032,
+          "Z": 268.241
+        },
+        "Max": {
+          "X": -128.801,
+          "Y": 10.989,
+          "Z": 271.241
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_c29_debt",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -80.26001,
+        "Y": 5.98,
+        "Z": 50.5
+      },
+      "Bounds": {
+        "Min": {
+          "X": -82.5243,
+          "Y": 4.97999954,
+          "Z": 48.23571
+        },
+        "Max": {
+          "X": -77.99572,
+          "Y": 6.9800005,
+          "Z": 52.76429
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_c5_mar",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 47.6250038,
+        "Y": 12.658,
+        "Z": 153.123
+      },
+      "Bounds": {
+        "Min": {
+          "X": 44.6250038,
+          "Y": 11.658,
+          "Z": 149.623
+        },
+        "Max": {
+          "X": 50.6250038,
+          "Y": 13.658,
+          "Z": 156.623
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_c6_kpss",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 131.432,
+        "Y": 7.587,
+        "Z": 232.371
+      },
+      "Bounds": {
+        "Min": {
+          "X": 129.432,
+          "Y": 6.587,
+          "Z": 229.371
+        },
+        "Max": {
+          "X": 133.432,
+          "Y": 8.587,
+          "Z": 235.371
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_c7_mel",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 42.982,
+        "Y": 11.7533989,
+        "Z": 151.462
+      },
+      "Bounds": {
+        "Min": {
+          "X": 40.982,
+          "Y": 10.7533989,
+          "Z": 149.462
+        },
+        "Max": {
+          "X": 44.982,
+          "Y": 12.7533989,
+          "Z": 153.462
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_c8_dom1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 127.09,
+        "Y": 10.636,
+        "Z": 232.57
+      },
+      "Bounds": {
+        "Min": {
+          "X": 125.09,
+          "Y": 9.636,
+          "Z": 229.57
+        },
+        "Max": {
+          "X": 129.09,
+          "Y": 11.636,
+          "Z": 235.57
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_c8_dom2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 107.935,
+        "Y": 7.569,
+        "Z": 232.193
+      },
+      "Bounds": {
+        "Min": {
+          "X": 105.935,
+          "Y": 6.56900024,
+          "Z": 229.193
+        },
+        "Max": {
+          "X": 109.935,
+          "Y": 8.569,
+          "Z": 235.193
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_c8_dom2_dead",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 106.772,
+        "Y": 4.653,
+        "Z": 222.482
+      },
+      "Bounds": {
+        "Min": {
+          "X": 106.272,
+          "Y": 3.65299988,
+          "Z": 221.482
+        },
+        "Max": {
+          "X": 107.272,
+          "Y": 5.653,
+          "Z": 223.482
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_find_2st_kpss2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 246.254,
+        "Y": -0.328000069,
+        "Z": 52.416
+      },
+      "Bounds": {
+        "Min": {
+          "X": 242.754,
+          "Y": -1.32800007,
+          "Z": 50.416
+        },
+        "Max": {
+          "X": 249.754,
+          "Y": 0.671999931,
+          "Z": 54.416
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_find_2st_mech",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 188.391,
+        "Y": 0.7589998,
+        "Z": 226.506
+      },
+      "Bounds": {
+        "Min": {
+          "X": 186.891,
+          "Y": -0.241000175,
+          "Z": 225.006
+        },
+        "Max": {
+          "X": 189.891,
+          "Y": 1.75899982,
+          "Z": 228.006
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_find_2st_med_invent1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 224.87,
+        "Y": 4.818,
+        "Z": 172.806
+      },
+      "Bounds": {
+        "Min": {
+          "X": 221.37,
+          "Y": 3.81799984,
+          "Z": 169.306
+        },
+        "Max": {
+          "X": 228.37,
+          "Y": 5.818,
+          "Z": 176.306
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_find_2st_med_invent2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 182.993,
+        "Y": 2.749,
+        "Z": 101.998
+      },
+      "Bounds": {
+        "Min": {
+          "X": 181.993,
+          "Y": 1.74900007,
+          "Z": 99.998
+        },
+        "Max": {
+          "X": 183.993,
+          "Y": 3.749,
+          "Z": 103.998
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_find_sillent",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 184.423,
+        "Y": 6.759,
+        "Z": 55.58
+      },
+      "Bounds": {
+        "Min": {
+          "X": 183.423,
+          "Y": 5.759,
+          "Z": 54.58
+        },
+        "Max": {
+          "X": 185.423,
+          "Y": 7.759,
+          "Z": 56.58
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_hide_2st_mech",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 188.591,
+        "Y": 0.3739996,
+        "Z": 226.378983
+      },
+      "Bounds": {
+        "Min": {
+          "X": 187.836655,
+          "Y": -0.1260004,
+          "Z": 225.624634
+        },
+        "Max": {
+          "X": 189.345352,
+          "Y": 0.8739996,
+          "Z": 227.133331
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_hide_barber1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 206.613022,
+        "Y": 4.33,
+        "Z": 411.782
+      },
+      "Bounds": {
+        "Min": {
+          "X": 206.113022,
+          "Y": 3.33,
+          "Z": 411.282
+        },
+        "Max": {
+          "X": 207.113022,
+          "Y": 5.33,
+          "Z": 412.282
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_hide_barber2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 214.295,
+        "Y": 4.254,
+        "Z": 409.255
+      },
+      "Bounds": {
+        "Min": {
+          "X": 213.295,
+          "Y": 3.25400019,
+          "Z": 408.255
+        },
+        "Max": {
+          "X": 215.295,
+          "Y": 5.254,
+          "Z": 410.255
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_hide_sillent",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 183.929,
+        "Y": 6.093,
+        "Z": 53.346
+      },
+      "Bounds": {
+        "Min": {
+          "X": 183.4261,
+          "Y": 5.593,
+          "Z": 52.8430977
+        },
+        "Max": {
+          "X": 184.4319,
+          "Y": 6.593,
+          "Z": 53.8489037
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_hide_sillent2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 176.304,
+        "Y": 6.293,
+        "Z": 82.239
+      },
+      "Bounds": {
+        "Min": {
+          "X": 175.299652,
+          "Y": 5.793,
+          "Z": 81.4831848
+        },
+        "Max": {
+          "X": 177.30835,
+          "Y": 6.793,
+          "Z": 82.99481
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_keeper00",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -34.333004,
+        "Y": 4.26,
+        "Z": 239.87
+      },
+      "Bounds": {
+        "Min": {
+          "X": -34.833004,
+          "Y": 3.26000023,
+          "Z": 239.37
+        },
+        "Max": {
+          "X": -33.833004,
+          "Y": 5.26,
+          "Z": 240.37
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_keeper10_kill",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 16.8,
+        "Y": 5.2,
+        "Z": 236.0
+      },
+      "Bounds": {
+        "Min": {
+          "X": -68.2,
+          "Y": 0.199999809,
+          "Z": 151.0
+        },
+        "Max": {
+          "X": 101.8,
+          "Y": 10.2,
+          "Z": 321.0
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_keeper10_place",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 10.4939995,
+        "Y": 4.752,
+        "Z": 217.564
+      },
+      "Bounds": {
+        "Min": {
+          "X": 9.251473,
+          "Y": 3.695798,
+          "Z": 216.296509
+        },
+        "Max": {
+          "X": 11.7365255,
+          "Y": 5.808202,
+          "Z": 218.831482
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_keeper8_1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 219.391,
+        "Y": 10.32,
+        "Z": 397.479
+      },
+      "Bounds": {
+        "Min": {
+          "X": 217.621628,
+          "Y": 9.32,
+          "Z": 395.2859
+        },
+        "Max": {
+          "X": 221.160385,
+          "Y": 11.32,
+          "Z": 399.672119
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_keeper8_1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 224.982,
+        "Y": 10.339,
+        "Z": 396.674
+      },
+      "Bounds": {
+        "Min": {
+          "X": 223.212616,
+          "Y": 9.339,
+          "Z": 394.4809
+        },
+        "Max": {
+          "X": 226.751373,
+          "Y": 11.339,
+          "Z": 398.867126
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_keeper8_1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 214.79,
+        "Y": 10.32,
+        "Z": 398.14
+      },
+      "Bounds": {
+        "Min": {
+          "X": 213.020615,
+          "Y": 9.32,
+          "Z": 395.9469
+        },
+        "Max": {
+          "X": 216.559372,
+          "Y": 11.32,
+          "Z": 400.33313
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_keeper8_1_hide1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 228.187,
+        "Y": 9.876,
+        "Z": 396.695
+      },
+      "Bounds": {
+        "Min": {
+          "X": 227.32103,
+          "Y": 9.376,
+          "Z": 396.098022
+        },
+        "Max": {
+          "X": 229.052963,
+          "Y": 10.376,
+          "Z": 397.292
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_keeper8_1_hide1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 218.212,
+        "Y": 9.899,
+        "Z": 396.306
+      },
+      "Bounds": {
+        "Min": {
+          "X": 217.653625,
+          "Y": 9.399,
+          "Z": 395.74762
+        },
+        "Max": {
+          "X": 218.770386,
+          "Y": 10.399,
+          "Z": 396.86438
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_keeper8_1_hide1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 215.752,
+        "Y": 9.794,
+        "Z": 395.903
+      },
+      "Bounds": {
+        "Min": {
+          "X": 215.098862,
+          "Y": 9.294,
+          "Z": 395.249878
+        },
+        "Max": {
+          "X": 216.405136,
+          "Y": 10.294,
+          "Z": 396.556152
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_keeper8_1_hide2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 37.979,
+        "Y": 12.154,
+        "Z": 156.245
+      },
+      "Bounds": {
+        "Min": {
+          "X": 36.9499741,
+          "Y": 11.654,
+          "Z": 155.215973
+        },
+        "Max": {
+          "X": 39.0080261,
+          "Y": 12.654,
+          "Z": 157.274017
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_keeper8_1_hide3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 36.688,
+        "Y": 10.583,
+        "Z": 85.519
+      },
+      "Bounds": {
+        "Min": {
+          "X": 34.6741371,
+          "Y": 10.083,
+          "Z": 84.9603
+        },
+        "Max": {
+          "X": 38.7018623,
+          "Y": 11.083,
+          "Z": 86.0777
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_keeper8_2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 36.983,
+        "Y": 11.0750008,
+        "Z": 88.167
+      },
+      "Bounds": {
+        "Min": {
+          "X": 34.9589,
+          "Y": 10.0750008,
+          "Z": 86.1429
+        },
+        "Max": {
+          "X": 39.007103,
+          "Y": 12.0750008,
+          "Z": 90.1911
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_keeper8_2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 37.867,
+        "Y": 12.664,
+        "Z": 155.779
+      },
+      "Bounds": {
+        "Min": {
+          "X": 35.8429,
+          "Y": 11.664,
+          "Z": 153.7549
+        },
+        "Max": {
+          "X": 39.8911,
+          "Y": 13.664,
+          "Z": 157.803116
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_keeper99",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -130.397,
+        "Y": 3.20100021,
+        "Z": 396.473022
+      },
+      "Bounds": {
+        "Min": {
+          "X": -131.897,
+          "Y": 2.20100021,
+          "Z": 394.473022
+        },
+        "Max": {
+          "X": -128.897,
+          "Y": 4.201,
+          "Z": 398.473022
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_kill_c17_adm",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -69.2,
+        "Y": 12.9,
+        "Z": 115.8
+      },
+      "Bounds": {
+        "Min": {
+          "X": -151.236465,
+          "Y": -2.10000038,
+          "Z": 28.88617
+        },
+        "Max": {
+          "X": 12.8364716,
+          "Y": 27.9,
+          "Z": 202.713837
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_kill_cinema",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -180.399963,
+        "Y": 16.5,
+        "Z": 400.7
+      },
+      "Bounds": {
+        "Min": {
+          "X": -231.343765,
+          "Y": 1.5,
+          "Z": 359.9499
+        },
+        "Max": {
+          "X": -129.456161,
+          "Y": 31.5,
+          "Z": 441.450134
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_kill_kardinal",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 134.0,
+        "Y": 23.0,
+        "Z": -101.099991
+      },
+      "Bounds": {
+        "Min": {
+          "X": 16.2352448,
+          "Y": -7.0,
+          "Z": -190.478531
+        },
+        "Max": {
+          "X": 251.764755,
+          "Y": 53.0,
+          "Z": -11.7214508
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_kill_shool",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 208.0,
+        "Y": 10.7,
+        "Z": 135.4
+      },
+      "Bounds": {
+        "Min": {
+          "X": 173.5423,
+          "Y": -4.300003,
+          "Z": 85.07643
+        },
+        "Max": {
+          "X": 242.4577,
+          "Y": 25.7,
+          "Z": 185.723557
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_kill_stilo",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -102.900009,
+        "Y": 8.6,
+        "Z": -25.59999
+      },
+      "Bounds": {
+        "Min": {
+          "X": -222.093872,
+          "Y": -6.40000153,
+          "Z": -95.13607
+        },
+        "Max": {
+          "X": 16.2938538,
+          "Y": 23.6000023,
+          "Z": 43.93609
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_last_flare",
+      "Type": "FlareShootDetectorZone",
+      "Active": true,
+      "Position": {
+        "X": 9.689999,
+        "Y": 8.55,
+        "Z": 217.15
+      },
+      "Bounds": {
+        "Min": {
+          "X": -8.840134,
+          "Y": 1.14390564,
+          "Z": 189.298737
+        },
+        "Max": {
+          "X": 28.22013,
+          "Y": 15.9560947,
+          "Z": 245.001251
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_place_c14_revx_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -139.43,
+        "Y": 3.55700016,
+        "Z": 438.81
+      },
+      "Bounds": {
+        "Min": {
+          "X": -144.145782,
+          "Y": 2.05700016,
+          "Z": 434.6178
+        },
+        "Max": {
+          "X": -134.7142,
+          "Y": 5.057,
+          "Z": 443.0022
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_place_c14_revx_2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 146.31,
+        "Y": 4.7,
+        "Z": 408.405029
+      },
+      "Bounds": {
+        "Min": {
+          "X": 142.244476,
+          "Y": 3.19999981,
+          "Z": 405.7988
+        },
+        "Max": {
+          "X": 150.375519,
+          "Y": 6.2,
+          "Z": 411.011261
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_place_c14_revx_3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 2.18999863,
+        "Y": 0.8999996,
+        "Z": 34.04
+      },
+      "Bounds": {
+        "Min": {
+          "X": -0.323384285,
+          "Y": -0.6000006,
+          "Z": 30.03165
+        },
+        "Max": {
+          "X": 4.70338154,
+          "Y": 2.39999986,
+          "Z": 38.04835
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_place_c22_harley_3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 99.46399,
+        "Y": 3.204,
+        "Z": 356.224
+      },
+      "Bounds": {
+        "Min": {
+          "X": 98.26805,
+          "Y": 2.454,
+          "Z": 354.679016
+        },
+        "Max": {
+          "X": 100.659927,
+          "Y": 3.954,
+          "Z": 357.768982
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_place_c24_tigr1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -69.39,
+        "Y": 3.52,
+        "Z": 358.460022
+      },
+      "Bounds": {
+        "Min": {
+          "X": -73.4528046,
+          "Y": 2.02,
+          "Z": 356.783447
+        },
+        "Max": {
+          "X": -65.3271942,
+          "Y": 5.02,
+          "Z": 360.1366
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_place_c24_tigr2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 172.48,
+        "Y": 4.79,
+        "Z": 416.94
+      },
+      "Bounds": {
+        "Min": {
+          "X": 168.222809,
+          "Y": 3.29,
+          "Z": 413.872955
+        },
+        "Max": {
+          "X": 176.737183,
+          "Y": 6.29,
+          "Z": 420.00705
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_prod_flare",
+      "Type": "FlareShootDetectorZone",
+      "Active": true,
+      "Position": {
+        "X": -64.8,
+        "Y": 10.3,
+        "Z": 106.7
+      },
+      "Bounds": {
+        "Min": {
+          "X": -87.91817,
+          "Y": -0.2801342,
+          "Z": 71.2346039
+        },
+        "Max": {
+          "X": -41.68184,
+          "Y": 20.8801346,
+          "Z": 142.16539
+        }
+      }
+    },
+    {
+      "Id": "Zone_death_strending",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 181.2717,
+        "Y": 0.8670001,
+        "Z": 229.012131
+      },
+      "Bounds": {
+        "Min": {
+          "X": 180.419632,
+          "Y": 0.482848644,
+          "Z": 227.704956
+        },
+        "Max": {
+          "X": 182.056015,
+          "Y": 1.8670001,
+          "Z": 229.663666
+        }
+      }
+    },
+    {
+      "Id": "Zone_mutant",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -262.818,
+        "Y": -2.334,
+        "Z": 206.337
+      },
+      "Bounds": {
+        "Min": {
+          "X": -267.067169,
+          "Y": -2.71815157,
+          "Z": 203.2105
+        },
+        "Max": {
+          "X": -259.478,
+          "Y": -1.33400011,
+          "Z": 209.660751
+        }
+      }
+    },
+    {
+      "Id": "Zone_silient_hill_ward",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 182.722717,
+        "Y": 2.1748,
+        "Z": 111.745132
+      },
+      "Bounds": {
+        "Min": {
+          "X": 181.891708,
+          "Y": 1.79064846,
+          "Z": 111.084587
+        },
+        "Max": {
+          "X": 183.734146,
+          "Y": 3.1748,
+          "Z": 112.39402
+        }
+      }
+    },
+    {
+      "Id": "Zone_silient_toilet",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 209.6607,
+        "Y": 0.815992355,
+        "Z": 230.837128
+      },
+      "Bounds": {
+        "Min": {
+          "X": 208.829681,
+          "Y": 0.431841135,
+          "Z": 230.538559
+        },
+        "Max": {
+          "X": 209.9631,
+          "Y": 1.49101424,
+          "Z": 231.4734
+        }
+      }
+    }
+  ],
+  "Doors": [
+    {
+      "Id": "trunk_City_SE_03_Cinema_Street_00000",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": -149.904526,
+        "Y": 4.07709742,
+        "Z": 415.149628
+      }
+    },
+    {
+      "Id": "trunk_City_SW_02_Construction_outdoor_00000",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 185.140747,
+        "Y": 5.065138,
+        "Z": 306.99884
+      }
+    },
+    {
+      "Id": "trunk_City_SW_02_LexOs_blockpost_00003",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 98.77711,
+        "Y": 3.79615164,
+        "Z": 332.9433
+      }
+    },
+    {
+      "Id": "trunk_City_SW_02_LexOs_blockpost_00004",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 100.588715,
+        "Y": 3.61715245,
+        "Z": 337.2694
+      }
+    },
+    {
+      "Id": "trunk_City_SW_05_courtyard_B_00002",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 193.628815,
+        "Y": 4.59223938,
+        "Z": 458.732025
+      }
+    },
+    {
+      "Id": "trunk_City_SW_05_courtyard_B_00003",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 192.352768,
+        "Y": 4.41324234,
+        "Z": 463.245178
+      }
+    },
+    {
+      "Id": "trunk_City_NW_01_courtyard_00000",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 64.1470642,
+        "Y": 6.15030146,
+        "Z": -205.249969
+      }
+    },
+    {
+      "Id": "trunk_City_Roads_Primorskiy_00036",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 11.3268433,
+        "Y": 7.06935167,
+        "Z": -200.951355
+      }
+    },
+    {
+      "Id": "trunk_City_Roads_Primorskiy_00035",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 13.1579342,
+        "Y": 4.0805397,
+        "Z": 536.0006
+      }
+    },
+    {
+      "Id": "container_City_SE_01_DesignStuff_00077",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -208.95,
+        "Y": 4.057,
+        "Z": 179.655991
+      }
+    },
+    {
+      "Id": "container_City_SE_01_DesignStuff_00075",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -208.95,
+        "Y": 4.059,
+        "Z": 182.011
+      }
+    },
+    {
+      "Id": "container_City_SE_04_DesignStuff_00020",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -30.65358,
+        "Y": 3.66407585,
+        "Z": 468.8241
+      }
+    },
+    {
+      "Id": "trunk_City_SW_01_B_Zmeiskiy_6_indoor_00003",
+      "KeyId": "61aa5ba8018e9821b7368da9",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 174.021866,
+        "Y": 1.1396122,
+        "Z": 163.47966
+      }
+    },
+    {
+      "Id": "trunk_City_SE_01_DesignStuff_00002",
+      "KeyId": "61aa5ba8018e9821b7368da9",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": -67.94217,
+        "Y": 5.31681347,
+        "Z": 53.4976959
+      }
+    },
+    {
+      "Id": "trunk_City_SE_01_DesignStuff_00000",
+      "KeyId": "61aa5ba8018e9821b7368da9",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": -77.5275,
+        "Y": 5.395488,
+        "Z": 53.20376
+      }
+    },
+    {
+      "Id": "trunk_City_SE_01_DesignStuff_00001",
+      "KeyId": "61aa5ba8018e9821b7368da9",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": -49.4515076,
+        "Y": 5.272647,
+        "Z": 64.02682
+      }
+    },
+    {
+      "Id": "door_City_SE_03_Cinema_00000",
+      "KeyId": "6398fd8ad3de3849057f5128",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -130.730026,
+        "Y": 3.37588024,
+        "Z": 391.625732
+      }
+    },
+    {
+      "Id": "door_City_SE_02_Nikitskaya_10_indoor_00008",
+      "KeyId": "63a39667c9b3aa4b61683e98",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -168.110764,
+        "Y": 7.11500072,
+        "Z": 230.025345
+      }
+    },
+    {
+      "Id": "door_City_SW_02_LexOs_AutoService_indoor_00001",
+      "KeyId": "63a397d3af870e651d58e65b",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 63.458,
+        "Y": 7.8760004,
+        "Z": 301.06
+      }
+    },
+    {
+      "Id": "door_City_SW_02_LexOs_AutoService_indoor_00000",
+      "KeyId": "63a399193901f439517cafb6",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 66.86121,
+        "Y": 7.935705,
+        "Z": 310.662476
+      }
+    },
+    {
+      "Id": "door_City_SW_02_Sparja_indoor_00003",
+      "KeyId": "63a39c69af870e651d58e6aa",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 119.953995,
+        "Y": 7.776001,
+        "Z": 290.826782
+      }
+    },
+    {
+      "Id": "door_City_SW_02_Razvedchikov_9_Parking_00000",
+      "KeyId": "63a39c7964283b5e9c56b280",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 211.010635,
+        "Y": -0.205347657,
+        "Z": 406.72
+      }
+    },
+    {
+      "Id": "door_City_SW_02_Construction_outdoor_00002",
+      "KeyId": "63a39cb1c9b3aa4b61683ee2",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 181.878967,
+        "Y": 6.864965,
+        "Z": 312.1157
+      }
+    },
+    {
+      "Id": "door_City_SW_02_Primorskiy_56_indoor_00004",
+      "KeyId": "63a39ce4cd6db0635c1975fa",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 57.6156349,
+        "Y": 6.847,
+        "Z": 334.707062
+      }
+    },
+    {
+      "Id": "container_City_SW_02_DesignStuff_00278",
+      "KeyId": "63a39ddda3a2b32b5f6e007a",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 58.108963,
+        "Y": 6.2684,
+        "Z": 337.674316
+      }
+    },
+    {
+      "Id": "door_City_SW_01_A_Zmeiskiy_5_indoor_00000",
+      "KeyId": "63a39df18a56922e82001f25",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 124.252106,
+        "Y": 14.595788,
+        "Z": 143.39122
+      }
+    },
+    {
+      "Id": "door_City_SW_01_A_Zmeiskiy_3_indoor_00006",
+      "KeyId": "63a39dfe3901f439517cafba",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 104.269142,
+        "Y": 4.996416,
+        "Z": 129.209885
+      }
+    },
+    {
+      "Id": "door_City_Roads_Primorskiy_00000",
+      "KeyId": "63a39e0f64283b5e9c56b282",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 10.4393787,
+        "Y": 4.56229973,
+        "Z": 217.136383
+      }
+    },
+    {
+      "Id": "door_City_SW_01_A_Primorskiy_48_00000",
+      "KeyId": "63a39e1d234195315d4020bd",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 49.5526543,
+        "Y": 12.7623,
+        "Z": 147.7725
+      }
+    },
+    {
+      "Id": "door_City_SW_01_A_Zmeiskiy_3a_indoor_00011",
+      "KeyId": "63a39e49cd6db0635c1975fc",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 80.078,
+        "Y": 4.941001,
+        "Z": 138.528229
+      }
+    },
+    {
+      "Id": "container_City_SW_01_A_DesignStuff_00214",
+      "KeyId": "63a39e5b234195315d4020bf",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 76.5652847,
+        "Y": 4.366,
+        "Z": 132.9
+      }
+    },
+    {
+      "Id": "container_City_SW_01_A_DesignStuff_00213",
+      "KeyId": "63a39e6acd6db0635c1975fe",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 78.58382,
+        "Y": 1.328,
+        "Z": 124.436005
+      }
+    },
+    {
+      "Id": "door_City_SE_01_Pinewood_Hotel_indoor_00055",
+      "KeyId": "63a39f08cd6db0635c197600",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -67.00622,
+        "Y": 6.024556,
+        "Z": 59.3249474
+      }
+    },
+    {
+      "Id": "door_City_SW_01_A_Chekannaya_15_indoor_00022",
+      "KeyId": "63a39f6e64283b5e9c56b289",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 131.168167,
+        "Y": 10.5814857,
+        "Z": 227.64386
+      }
+    },
+    {
+      "Id": "door_City_SW_01_A_Chekannaya_15_indoor_00021",
+      "KeyId": "63a39f6e64283b5e9c56b289",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 132.49292,
+        "Y": 10.5825262,
+        "Z": 225.1011
+      }
+    },
+    {
+      "Id": "door_City_SW_01_A_Chekannaya_15_indoor_00020",
+      "KeyId": "63a39f6e64283b5e9c56b289",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 126.369164,
+        "Y": 10.5938711,
+        "Z": 227.644852
+      }
+    },
+    {
+      "Id": "door_City_SW_01_A_Chekannaya_15_indoor_00017",
+      "KeyId": "63a39fc0af870e651d58e6ae",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 107.048935,
+        "Y": 7.51594162,
+        "Z": 227.6278
+      }
+    },
+    {
+      "Id": "door_City_SW_01_A_Chekannaya_15_indoor_00023",
+      "KeyId": "63a39fd1c9b3aa4b61683efb",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 108.3958,
+        "Y": 7.45609,
+        "Z": 224.57489
+      }
+    },
+    {
+      "Id": "door_City_SW_02_LexOs_blockpost_00001",
+      "KeyId": "63a39fdf1e21260da44a0256",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 83.19616,
+        "Y": 3.714818,
+        "Z": 296.5183
+      }
+    },
+    {
+      "Id": "door_City_SE_02_Nikitskaya_6_indoor_00010",
+      "KeyId": "63a3a93f8a56922e82001f5d",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -133.4689,
+        "Y": 9.712829,
+        "Z": 272.9284
+      }
+    },
+    {
+      "Id": "door_City_SW_02_Razvedchikov_7_indoor_00024",
+      "KeyId": "63a71e781031ac76fe773c7d",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 224.331879,
+        "Y": 10.4224167,
+        "Z": 400.559326
+      }
+    },
+    {
+      "Id": "door_City_SW_02_Razvedchikov_7_indoor_00010",
+      "KeyId": "63a71e86b7f4570d3a293169",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 274.5687,
+        "Y": 7.404751,
+        "Z": 383.686
+      }
+    },
+    {
+      "Id": "door_City_SW_02_Razvedchikov_7_indoor_00013",
+      "KeyId": "63a71e922b25f7513905ca20",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 272.695129,
+        "Y": 7.42808771,
+        "Z": 378.9438
+      }
+    },
+    {
+      "Id": "door_City_SW_01_A_Primorskiy_48_indoor_00012",
+      "KeyId": "63a71eb5b7f4570d3a29316b",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 45.3423271,
+        "Y": 6.742015,
+        "Z": 151.0246
+      }
+    },
+    {
+      "Id": "door_City_SE_02_Nikitskaya_10_indoor_00003",
+      "KeyId": "63a71ed21031ac76fe773c7f",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -186.392975,
+        "Y": 3.72240162,
+        "Z": 229.271439
+      }
+    },
+    {
+      "Id": "door_City_SW_02_Razvedchikov_7_indoor_00031",
+      "KeyId": "64ccc1d4a0f13c24561edf27",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 227.950821,
+        "Y": 10.4074459,
+        "Z": 406.04834
+      }
+    },
+    {
+      "Id": "door_City_SW_02_Razvedchikov_7_indoor_00025",
+      "KeyId": "64ccc1ec1779ad6ba200a137",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 217.970627,
+        "Y": 10.3969755,
+        "Z": 400.558624
+      }
+    },
+    {
+      "Id": "door_City_SW_02_Razvedchikov_7_indoor_00041",
+      "KeyId": "64ccc1f4ff54fb38131acf27",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 268.4923,
+        "Y": 7.4047513,
+        "Z": 387.506958
+      }
+    },
+    {
+      "Id": "door_City_NE_02_TD_Klimova_Beluga_indoor_00007",
+      "KeyId": "64ccc1fe088064307e14a6f7",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -27.8065434,
+        "Y": 10.6449995,
+        "Z": -60.68869
+      }
+    },
+    {
+      "Id": "door_City_NE_02_TD_Klimova_Beluga_indoor_00008",
+      "KeyId": "64ccc1fe088064307e14a6f7",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -19.6299133,
+        "Y": 10.6449995,
+        "Z": -64.1971359
+      }
+    },
+    {
+      "Id": "door_City_NW_01_Cardinal_indoor_00013",
+      "KeyId": "64ccc206793ca11c8f450a38",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 46.6896172,
+        "Y": 1.30449045,
+        "Z": -59.40806
+      }
+    },
+    {
+      "Id": "door_City_SW_01_A_Primorskiy_52_indoor_00042",
+      "KeyId": "64ccc2111779ad6ba200a139",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 66.95923,
+        "Y": 3.841999,
+        "Z": 231.536
+      }
+    },
+    {
+      "Id": "door_City_SW_01_A_Primorskiy_52_indoor_00040",
+      "KeyId": "64ccc2111779ad6ba200a139",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 68.86824,
+        "Y": 3.841999,
+        "Z": 231.536
+      }
+    },
+    {
+      "Id": "door_City_SW_01_B_Zmeiskiy_4a_indoor_00009",
+      "KeyId": "64ccc246ff54fb38131acf29",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 184.997513,
+        "Y": 2.828705,
+        "Z": 100.691765
+      }
+    },
+    {
+      "Id": "door_City_NW_01_Cardinal_indoor_00014",
+      "KeyId": "64ccc24de61ea448b507d34d",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 60.7050056,
+        "Y": 1.29402184,
+        "Z": -79.9520645
+      }
+    },
+    {
+      "Id": "door_City_SW_01_B_Chekannaya_13_indoor_00000",
+      "KeyId": "64ccc25f95763a1ae376e447",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 186.180023,
+        "Y": 0.849899948,
+        "Z": 227.438339
+      }
+    },
+    {
+      "Id": "door_City_SW_01_B_School_30_indoor_00005",
+      "KeyId": "64ccc268c41e91416064ebc7",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 207.952087,
+        "Y": 1.39300013,
+        "Z": 140.712891
+      }
+    },
+    {
+      "Id": "door_City_SW_02_Primorskiy_56_00000",
+      "KeyId": "64ce572331dd890873175115",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 55.03196,
+        "Y": 3.91900015,
+        "Z": 332.649078
+      }
+    },
+    {
+      "Id": "door_City_SW_01_B_Klimova_16a_indoor_00012",
+      "KeyId": "64d4b23dc1b37504b41ac2b6",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 177.724213,
+        "Y": 6.86140871,
+        "Z": 78.84773
+      }
+    },
+    {
+      "Id": "door_City_SW_01_B_Zmeiskiy_6_indoor_00000",
+      "KeyId": "6582dbe43a2e5248357dbe9a",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 165.190643,
+        "Y": 1.80979538,
+        "Z": 165.050171
+      }
+    },
+    {
+      "Id": "door_City_SE_02_Malevicha_5_00001",
+      "KeyId": "6582dbf0b8d7830efc45016f",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -208.164185,
+        "Y": 4.28889942,
+        "Z": 295.5338
+      }
+    },
+    {
+      "Id": "door_City_SE_01_Lenina_74_Indoor_00000",
+      "KeyId": "6582dc4b6ba9e979af6b79f4",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -250.477036,
+        "Y": 3.98400116,
+        "Z": 131.54567
+      }
+    },
+    {
+      "Id": "door_City_SE_04_Nizhnyaya_Sadovaya_2_indoor_00006",
+      "KeyId": "6582dc5740562727a654ebb1",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -62.3790436,
+        "Y": 7.906067,
+        "Z": 460.344482
+      }
+    }
+  ]
+}

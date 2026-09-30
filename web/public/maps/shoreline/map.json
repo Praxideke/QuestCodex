@@ -1,0 +1,172 @@
+{
+  "displayName": "Shoreline (TarkovData)",
+  "internalNames": [
+    "Shoreline"
+  ],
+  "coordinateRotation": 180,
+  "defaultLevel": 0,
+  "bounds": {
+    "min": {
+      "x": -1060,
+      "z": -415
+    },
+    "max": {
+      "x": 508,
+      "z": 622
+    }
+  },
+  "layers": [
+    {
+      "name": "Underground",
+      "level": -1,
+      "svg": "Shoreline-Underground_Level.svg",
+      "viewBox": {
+        "width": 1559.57,
+        "height": 1032.49
+      },
+      "imageBounds": {
+        "min": {
+          "x": -1060,
+          "z": -415
+        },
+        "max": {
+          "x": 508,
+          "z": 622
+        }
+      },
+      "gameBounds": [
+        {
+          "min": {
+            "x": -237,
+            "y": -100,
+            "z": -104
+          },
+          "max": {
+            "x": -137,
+            "y": -5,
+            "z": -68
+          }
+        },
+        {
+          "min": {
+            "x": -268,
+            "y": -100,
+            "z": -163
+          },
+          "max": {
+            "x": -234,
+            "y": -5,
+            "z": -134
+          }
+        }
+      ]
+    },
+    {
+      "name": "Ground Floor",
+      "level": 0,
+      "svg": "Shoreline-Ground_Level.svg",
+      "viewBox": {
+        "width": 1559.57,
+        "height": 1032.49
+      },
+      "imageBounds": {
+        "min": {
+          "x": -1060,
+          "z": -415
+        },
+        "max": {
+          "x": 508,
+          "z": 622
+        }
+      },
+      "gameBounds": [
+        {
+          "min": {
+            "x": -1060,
+            "y": -100,
+            "z": -415
+          },
+          "max": {
+            "x": 508,
+            "y": 100,
+            "z": 622
+          }
+        }
+      ]
+    },
+    {
+      "name": "2nd Floor",
+      "level": 1,
+      "svg": "Shoreline-Second_Floor.svg",
+      "viewBox": {
+        "width": 1559.57,
+        "height": 1032.49
+      },
+      "imageBounds": {
+        "min": {
+          "x": -1060,
+          "z": -415
+        },
+        "max": {
+          "x": 508,
+          "z": 622
+        }
+      },
+      "gameBounds": [
+        {
+          "min": {
+            "x": -375,
+            "y": -1,
+            "z": -178
+          },
+          "max": {
+            "x": -128,
+            "y": 2,
+            "z": -55
+          }
+        }
+      ]
+    },
+    {
+      "name": "3rd Floor",
+      "level": 2,
+      "svg": "Shoreline-Third_Floor.svg",
+      "viewBox": {
+        "width": 1559.57,
+        "height": 1032.49
+      },
+      "imageBounds": {
+        "min": {
+          "x": -1060,
+          "z": -415
+        },
+        "max": {
+          "x": 508,
+          "z": 622
+        }
+      },
+      "gameBounds": [
+        {
+          "min": {
+            "x": -375,
+            "y": 2,
+            "z": -178
+          },
+          "max": {
+            "x": -128,
+            "y": 100,
+            "z": -55
+          }
+        }
+      ]
+    }
+  ],
+  "attribution": {
+    "author": "Shebuka",
+    "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+    "modifiedBy": null,
+    "license": "CC BY-NC-SA 4.0",
+    "licenseFile": "Shebuka-LICENSE.md"
+  },
+  "source": "DynamicMaps (MIT, acidphantasm) Shoreline_TarkovData @ 4944764"
+}

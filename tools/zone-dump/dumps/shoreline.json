@@ -1,0 +1,2714 @@
+{
+  "Location": "Shoreline",
+  "DumpedAtUtc": "2026-09-25T05:04:26.1093968Z",
+  "Zones": [
+    {
+      "Id": " em_quest4_3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -512.087036,
+        "Y": -13.16,
+        "Z": 264.141
+      },
+      "Bounds": {
+        "Min": {
+          "X": -512.66156,
+          "Y": -13.55,
+          "Z": 262.89035
+        },
+        "Max": {
+          "X": -511.512756,
+          "Y": -12.7699995,
+          "Z": 265.385773
+        }
+      }
+    },
+    {
+      "Id": " em_quest4_4",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 407.875977,
+        "Y": -52.836,
+        "Z": -49.1060028
+      },
+      "Bounds": {
+        "Min": {
+          "X": 405.7904,
+          "Y": -53.461,
+          "Z": -49.79101
+        },
+        "Max": {
+          "X": 409.9557,
+          "Y": -52.211,
+          "Z": -48.42139
+        }
+      }
+    },
+    {
+      "Id": " em_quest4_4",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 407.0569,
+        "Y": -52.9101868,
+        "Z": -39.8329926
+      },
+      "Bounds": {
+        "Min": {
+          "X": 404.9713,
+          "Y": -53.5351868,
+          "Z": -40.518
+        },
+        "Max": {
+          "X": 409.1366,
+          "Y": -52.2851868,
+          "Z": -39.14838
+        }
+      }
+    },
+    {
+      "Id": "2A2_unlock_4_discover",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -200.310059,
+        "Y": -6.15,
+        "Z": -76.36099
+      },
+      "Bounds": {
+        "Min": {
+          "X": -201.427124,
+          "Y": -7.72500038,
+          "Z": -79.14099
+        },
+        "Max": {
+          "X": -199.187134,
+          "Y": -4.575,
+          "Z": -73.58099
+        }
+      }
+    },
+    {
+      "Id": "BTR_FUEL_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -609.325439,
+        "Y": -28.66,
+        "Z": -176.86499
+      },
+      "Bounds": {
+        "Min": {
+          "X": -614.868958,
+          "Y": -30.1843472,
+          "Z": -178.720932
+        },
+        "Max": {
+          "X": -606.0756,
+          "Y": -27.1466312,
+          "Z": -173.520523
+        }
+      }
+    },
+    {
+      "Id": "BTR_FUEL_2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -627.011,
+        "Y": -25.449,
+        "Z": -228.452972
+      },
+      "Bounds": {
+        "Min": {
+          "X": -628.7,
+          "Y": -26.9554348,
+          "Z": -230.9465
+        },
+        "Max": {
+          "X": -622.095154,
+          "Y": -23.9288158,
+          "Z": -225.5712
+        }
+      }
+    },
+    {
+      "Id": "event_labyrinth_02_mech_place_05",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -625.819946,
+        "Y": -54.72,
+        "Z": 482.169983
+      },
+      "Bounds": {
+        "Min": {
+          "X": -730.338867,
+          "Y": -61.095,
+          "Z": 471.055725
+        },
+        "Max": {
+          "X": -521.301,
+          "Y": -48.345,
+          "Z": 493.284241
+        }
+      }
+    },
+    {
+      "Id": "event_labyrinth_02_mech_place_06",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -351.329956,
+        "Y": -1.17,
+        "Z": -134.0
+      },
+      "Bounds": {
+        "Min": {
+          "X": -366.5473,
+          "Y": -6.576,
+          "Z": -143.971512
+        },
+        "Max": {
+          "X": -336.1126,
+          "Y": 4.236,
+          "Z": -124.028488
+        }
+      }
+    },
+    {
+      "Id": "event_labyrinth_03_mech_place_01",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -196.5,
+        "Y": -6.0,
+        "Z": -81.0
+      },
+      "Bounds": {
+        "Min": {
+          "X": -197.641327,
+          "Y": -7.275,
+          "Z": -81.76699
+        },
+        "Max": {
+          "X": -195.358673,
+          "Y": -4.725,
+          "Z": -80.23301
+        }
+      }
+    },
+    {
+      "Id": "event_labyrinth_03_mech_place_02",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -196.0,
+        "Y": -6.5,
+        "Z": -77.0
+      },
+      "Bounds": {
+        "Min": {
+          "X": -197.522675,
+          "Y": -7.775,
+          "Z": -78.53265
+        },
+        "Max": {
+          "X": -194.477325,
+          "Y": -5.225,
+          "Z": -75.46735
+        }
+      }
+    },
+    {
+      "Id": "event_labyrinth_04_therap_place_01",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 97.5,
+        "Y": -47.21,
+        "Z": 71.0
+      },
+      "Bounds": {
+        "Min": {
+          "X": 94.74598,
+          "Y": -48.7127037,
+          "Z": 67.78784
+        },
+        "Max": {
+          "X": 100.254509,
+          "Y": -45.7073021,
+          "Z": 74.20636
+        }
+      }
+    },
+    {
+      "Id": "Halloween_zone_for_antivirus(shoreline)",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -173.716553,
+        "Y": -15.86,
+        "Z": -335.151947
+      },
+      "Bounds": {
+        "Min": {
+          "X": -182.180939,
+          "Y": -18.1036472,
+          "Z": -350.8521
+        },
+        "Max": {
+          "X": -167.879852,
+          "Y": -14.8599987,
+          "Z": -322.808533
+        }
+      }
+    },
+    {
+      "Id": "huntsman_024_1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 405.939941,
+        "Y": -51.93,
+        "Z": -44.5
+      },
+      "Bounds": {
+        "Min": {
+          "X": 402.565643,
+          "Y": -53.93,
+          "Z": -48.7742157
+        },
+        "Max": {
+          "X": 409.3201,
+          "Y": -49.93,
+          "Z": -40.2252045
+        }
+      }
+    },
+    {
+      "Id": "huntsman_024_2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 382.939941,
+        "Y": -51.93,
+        "Z": -125.899994
+      },
+      "Bounds": {
+        "Min": {
+          "X": 375.501953,
+          "Y": -53.93,
+          "Z": -133.341492
+        },
+        "Max": {
+          "X": 390.3833,
+          "Y": -49.93,
+          "Z": -118.460144
+        }
+      }
+    },
+    {
+      "Id": "huntsman_024_3",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 287.1399,
+        "Y": -49.2,
+        "Z": -46.3200073
+      },
+      "Bounds": {
+        "Min": {
+          "X": 282.846375,
+          "Y": -50.45,
+          "Z": -50.6162338
+        },
+        "Max": {
+          "X": 291.43927,
+          "Y": -47.95,
+          "Z": -42.0233231
+        }
+      }
+    },
+    {
+      "Id": "huntsman_026",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -229.060059,
+        "Y": 3.285,
+        "Z": -88.8569946
+      },
+      "Bounds": {
+        "Min": {
+          "X": -231.557129,
+          "Y": 2.03499985,
+          "Z": -91.3569946
+        },
+        "Max": {
+          "X": -226.557129,
+          "Y": 4.535,
+          "Z": -86.3569946
+        }
+      }
+    },
+    {
+      "Id": "kill_in_forest_shoreline",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 306.199951,
+        "Y": -21.5,
+        "Z": -285.4
+      },
+      "Bounds": {
+        "Min": {
+          "X": 206.028473,
+          "Y": -61.5000038,
+          "Z": -385.5744
+        },
+        "Max": {
+          "X": 406.3773,
+          "Y": 18.5000038,
+          "Z": -185.225586
+        }
+      }
+    },
+    {
+      "Id": "kill_in_forest_shoreline",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 523.8999,
+        "Y": -21.5,
+        "Z": -143.7
+      },
+      "Bounds": {
+        "Min": {
+          "X": 402.186279,
+          "Y": -61.5000038,
+          "Z": -325.361633
+        },
+        "Max": {
+          "X": 645.6194,
+          "Y": 18.5000038,
+          "Z": 37.96164
+        }
+      }
+    },
+    {
+      "Id": "kill_in_forest_shoreline",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 322.6001,
+        "Y": -21.5,
+        "Z": 28.5
+      },
+      "Bounds": {
+        "Min": {
+          "X": 287.542,
+          "Y": -61.5000038,
+          "Z": -6.561043
+        },
+        "Max": {
+          "X": 357.664063,
+          "Y": 18.5000038,
+          "Z": 63.5610428
+        }
+      }
+    },
+    {
+      "Id": "kill_in_forest_shoreline",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -327.800049,
+        "Y": -21.5,
+        "Z": -283.5
+      },
+      "Bounds": {
+        "Min": {
+          "X": -527.927734,
+          "Y": -61.5000038,
+          "Z": -358.849
+        },
+        "Max": {
+          "X": -127.666504,
+          "Y": 18.5000038,
+          "Z": -208.151
+        }
+      }
+    },
+    {
+      "Id": "kill_in_forest_shoreline",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -430.199951,
+        "Y": -21.5,
+        "Z": 84.20001
+      },
+      "Bounds": {
+        "Min": {
+          "X": -642.0276,
+          "Y": -61.5000038,
+          "Z": 8.830597
+        },
+        "Max": {
+          "X": -218.36644,
+          "Y": 18.5000038,
+          "Z": 159.569427
+        }
+      }
+    },
+    {
+      "Id": "kill_in_forest_shoreline",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -267.400024,
+        "Y": -21.5,
+        "Z": 293.400024
+      },
+      "Bounds": {
+        "Min": {
+          "X": -317.527924,
+          "Y": -61.5000038,
+          "Z": 218.312866
+        },
+        "Max": {
+          "X": -217.266266,
+          "Y": 18.5000038,
+          "Z": 368.487183
+        }
+      }
+    },
+    {
+      "Id": "kill_in_forest_shoreline",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -635.9,
+        "Y": -21.5,
+        "Z": 373.900024
+      },
+      "Bounds": {
+        "Min": {
+          "X": -985.9839,
+          "Y": -61.5000038,
+          "Z": 323.289154
+        },
+        "Max": {
+          "X": -285.8103,
+          "Y": 18.5000038,
+          "Z": 424.5109
+        }
+      }
+    },
+    {
+      "Id": "kill_in_forest_shoreline",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -477.900024,
+        "Y": -21.5,
+        "Z": -159.2
+      },
+      "Bounds": {
+        "Min": {
+          "X": -527.9843,
+          "Y": -61.5000038,
+          "Z": -209.2872
+        },
+        "Max": {
+          "X": -427.809875,
+          "Y": 18.5000038,
+          "Z": -109.112793
+        }
+      }
+    },
+    {
+      "Id": "kill_in_forest_shoreline",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -371.5,
+        "Y": -21.5,
+        "Z": 256.0
+      },
+      "Bounds": {
+        "Min": {
+          "X": -434.149719,
+          "Y": -61.5000038,
+          "Z": 168.391022
+        },
+        "Max": {
+          "X": -308.844421,
+          "Y": 18.5000038,
+          "Z": 343.608978
+        }
+      }
+    },
+    {
+      "Id": "kill_in_forest_shoreline",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 212.099976,
+        "Y": -21.5,
+        "Z": 246.299988
+      },
+      "Bounds": {
+        "Min": {
+          "X": -37.98401,
+          "Y": -61.5000038,
+          "Z": 195.863678
+        },
+        "Max": {
+          "X": 462.189819,
+          "Y": 18.5000038,
+          "Z": 296.7363
+        }
+      }
+    },
+    {
+      "Id": "kill_in_forest_shoreline",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -88.5999756,
+        "Y": -21.5,
+        "Z": 189.799988
+      },
+      "Bounds": {
+        "Min": {
+          "X": -194.454712,
+          "Y": -61.5000038,
+          "Z": 13.2659912
+        },
+        "Max": {
+          "X": 17.26062,
+          "Y": 18.5000038,
+          "Z": 366.333984
+        }
+      }
+    },
+    {
+      "Id": "kill_in_forest_shoreline",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 62.9000244,
+        "Y": -21.5,
+        "Z": -176.1
+      },
+      "Bounds": {
+        "Min": {
+          "X": -129.832779,
+          "Y": -61.5000038,
+          "Z": -368.935547
+        },
+        "Max": {
+          "X": 255.638687,
+          "Y": 18.5000038,
+          "Z": 16.7355347
+        }
+      }
+    },
+    {
+      "Id": "kill_in_forest_shoreline",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -569.699951,
+        "Y": -21.5,
+        "Z": -60.6000061
+      },
+      "Bounds": {
+        "Min": {
+          "X": -781.5276,
+          "Y": -61.5000038,
+          "Z": -135.969421
+        },
+        "Max": {
+          "X": -357.866455,
+          "Y": 18.5000038,
+          "Z": 14.769413
+        }
+      }
+    },
+    {
+      "Id": "kill_in_forest_shoreline",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 265.8999,
+        "Y": -21.5,
+        "Z": -27.6000061
+      },
+      "Bounds": {
+        "Min": {
+          "X": 230.8418,
+          "Y": -61.5000038,
+          "Z": -62.66105
+        },
+        "Max": {
+          "X": 300.963867,
+          "Y": 18.5000038,
+          "Z": 7.46103668
+        }
+      }
+    },
+    {
+      "Id": "kill_in_forest_shoreline",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -807.6,
+        "Y": -21.5,
+        "Z": 225.700012
+      },
+      "Bounds": {
+        "Min": {
+          "X": -1019.64587,
+          "Y": -61.5000038,
+          "Z": 25.33078
+        },
+        "Max": {
+          "X": -595.5482,
+          "Y": 18.5000038,
+          "Z": 426.069244
+        }
+      }
+    },
+    {
+      "Id": "marafon_kill_village_shoreline",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 377.300049,
+        "Y": -54.42,
+        "Z": 136.299988
+      },
+      "Bounds": {
+        "Min": {
+          "X": 224.70166,
+          "Y": -58.2928238,
+          "Z": 34.9264069
+        },
+        "Max": {
+          "X": 529.1377,
+          "Y": -29.4199982,
+          "Z": 209.601974
+        }
+      }
+    },
+    {
+      "Id": "new_year_2024_market_shoreline",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -161.579956,
+        "Y": -2.9,
+        "Z": -64.57001
+      },
+      "Bounds": {
+        "Min": {
+          "X": -184.3684,
+          "Y": -8.0,
+          "Z": -70.72984
+        },
+        "Max": {
+          "X": -138.747086,
+          "Y": 2.20000052,
+          "Z": -58.4102631
+        }
+      }
+    },
+    {
+      "Id": "NosQuests_11_shoreline_place",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -459.720947,
+        "Y": -47.769,
+        "Z": 564.833
+      },
+      "Bounds": {
+        "Min": {
+          "X": -460.417084,
+          "Y": -48.769,
+          "Z": 564.1328
+        },
+        "Max": {
+          "X": -459.0214,
+          "Y": -46.769,
+          "Z": 565.528442
+        }
+      }
+    },
+    {
+      "Id": "NosQuests_8_shoreline_place",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -459.339966,
+        "Y": -47.6,
+        "Z": 566.965
+      },
+      "Bounds": {
+        "Min": {
+          "X": -460.0361,
+          "Y": -48.6,
+          "Z": 566.264832
+        },
+        "Max": {
+          "X": -458.6404,
+          "Y": -46.6,
+          "Z": 567.660461
+        }
+      }
+    },
+    {
+      "Id": "place_meh_sanitar_room",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -322.833,
+        "Y": -2.75299835,
+        "Z": -77.53696
+      },
+      "Bounds": {
+        "Min": {
+          "X": -324.168,
+          "Y": -3.75299859,
+          "Z": -79.107
+        },
+        "Max": {
+          "X": -321.498016,
+          "Y": -1.75299811,
+          "Z": -75.96691
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_001",
+      "Type": "ExperienceTrigger",
+      "Active": false,
+      "Position": {
+        "X": -182.040039,
+        "Y": -63.725,
+        "Z": 459.849976
+      },
+      "Bounds": {
+        "Min": {
+          "X": -182.040039,
+          "Y": -63.725,
+          "Z": 459.849976
+        },
+        "Max": {
+          "X": -182.040039,
+          "Y": -63.725,
+          "Z": 459.849976
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_001",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -182.040039,
+        "Y": -63.725,
+        "Z": 459.849976
+      },
+      "Bounds": {
+        "Min": {
+          "X": -183.125443,
+          "Y": -65.225,
+          "Z": 458.294434
+        },
+        "Max": {
+          "X": -180.954636,
+          "Y": -62.225,
+          "Z": 461.405518
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_001",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -182.040039,
+        "Y": -63.725,
+        "Z": 459.849976
+      },
+      "Bounds": {
+        "Min": {
+          "X": -183.125443,
+          "Y": -65.225,
+          "Z": 458.294434
+        },
+        "Max": {
+          "X": -180.954636,
+          "Y": -62.225,
+          "Z": 461.405518
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_001_N2",
+      "Type": "PlaceItemTrigger",
+      "Active": false,
+      "Position": {
+        "X": -182.040039,
+        "Y": -63.725,
+        "Z": 459.849976
+      },
+      "Bounds": {
+        "Min": {
+          "X": -182.040039,
+          "Y": -63.725,
+          "Z": 459.849976
+        },
+        "Max": {
+          "X": -182.040039,
+          "Y": -63.725,
+          "Z": 459.849976
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_003_N1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -153.079956,
+        "Y": -17.05,
+        "Z": -280.18
+      },
+      "Bounds": {
+        "Min": {
+          "X": -158.425339,
+          "Y": -20.55,
+          "Z": -285.5254
+        },
+        "Max": {
+          "X": -147.734573,
+          "Y": -13.5499992,
+          "Z": -274.8346
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_003_N1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -153.079956,
+        "Y": -17.05,
+        "Z": -280.18
+      },
+      "Bounds": {
+        "Min": {
+          "X": -158.425339,
+          "Y": -20.55,
+          "Z": -285.5254
+        },
+        "Max": {
+          "X": -147.734573,
+          "Y": -13.5499992,
+          "Z": -274.8346
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_003_N2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 378.74,
+        "Y": -54.375,
+        "Z": 166.859985
+      },
+      "Bounds": {
+        "Min": {
+          "X": 374.74,
+          "Y": -57.875,
+          "Z": 162.859985
+        },
+        "Max": {
+          "X": 382.74,
+          "Y": -50.875,
+          "Z": 170.859985
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_003_N2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 378.74,
+        "Y": -54.375,
+        "Z": 166.859985
+      },
+      "Bounds": {
+        "Min": {
+          "X": 374.74,
+          "Y": -57.875,
+          "Z": 162.859985
+        },
+        "Max": {
+          "X": 382.74,
+          "Y": -50.875,
+          "Z": 170.859985
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_003_N3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -349.680054,
+        "Y": -39.864,
+        "Z": 185.87
+      },
+      "Bounds": {
+        "Min": {
+          "X": -354.5256,
+          "Y": -43.364,
+          "Z": 181.563553
+        },
+        "Max": {
+          "X": -344.8345,
+          "Y": -36.364,
+          "Z": 190.176437
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_003_N3",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -349.680054,
+        "Y": -39.864,
+        "Z": 185.87
+      },
+      "Bounds": {
+        "Min": {
+          "X": -354.5256,
+          "Y": -43.364,
+          "Z": 181.563553
+        },
+        "Max": {
+          "X": -344.8345,
+          "Y": -36.364,
+          "Z": 190.176437
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_004_N1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -553.0862,
+        "Y": -29.35,
+        "Z": -127.678192
+      },
+      "Bounds": {
+        "Min": {
+          "X": -565.7862,
+          "Y": -32.85,
+          "Z": -140.5282
+        },
+        "Max": {
+          "X": -540.386169,
+          "Y": -25.8499985,
+          "Z": -114.828186
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_004_N2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 81.4337158,
+        "Y": -31.8154,
+        "Z": -166.845
+      },
+      "Bounds": {
+        "Min": {
+          "X": 71.4337158,
+          "Y": -36.3154,
+          "Z": -176.845
+        },
+        "Max": {
+          "X": 91.4337158,
+          "Y": -27.3154,
+          "Z": -156.845
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_005_N1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -234.48999,
+        "Y": -3.47,
+        "Z": -164.42
+      },
+      "Bounds": {
+        "Min": {
+          "X": -239.632446,
+          "Y": -4.97,
+          "Z": -169.566177
+        },
+        "Max": {
+          "X": -229.345581,
+          "Y": -1.97000027,
+          "Z": -159.279312
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_005_N1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -234.48999,
+        "Y": -3.47,
+        "Z": -164.42
+      },
+      "Bounds": {
+        "Min": {
+          "X": -239.632446,
+          "Y": -4.97,
+          "Z": -169.566177
+        },
+        "Max": {
+          "X": -229.345581,
+          "Y": -1.97000027,
+          "Z": -159.279312
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_005_N2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -596.26,
+        "Y": -58.53,
+        "Z": 475.530029
+      },
+      "Bounds": {
+        "Min": {
+          "X": -601.7305,
+          "Y": -60.03,
+          "Z": 470.0555
+        },
+        "Max": {
+          "X": -590.78656,
+          "Y": -57.03,
+          "Z": 480.999542
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_005_N2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -596.26,
+        "Y": -58.53,
+        "Z": 475.530029
+      },
+      "Bounds": {
+        "Min": {
+          "X": -601.7305,
+          "Y": -60.03,
+          "Z": 470.0555
+        },
+        "Max": {
+          "X": -590.78656,
+          "Y": -57.03,
+          "Z": 480.999542
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_007_1_N1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 287.0691,
+        "Y": -49.353,
+        "Z": -42.3269958
+      },
+      "Bounds": {
+        "Min": {
+          "X": 284.5898,
+          "Y": -50.6490021,
+          "Z": -45.126812
+        },
+        "Max": {
+          "X": 289.557648,
+          "Y": -48.057,
+          "Z": -39.5267525
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_007_2_N3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -336.644043,
+        "Y": 3.545,
+        "Z": -88.728
+      },
+      "Bounds": {
+        "Min": {
+          "X": -338.6411,
+          "Y": 2.545,
+          "Z": -90.728
+        },
+        "Max": {
+          "X": -334.6411,
+          "Y": 4.545,
+          "Z": -86.728
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_007_2_N3",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -336.644043,
+        "Y": 3.545,
+        "Z": -88.728
+      },
+      "Bounds": {
+        "Min": {
+          "X": -338.6411,
+          "Y": 2.545,
+          "Z": -90.728
+        },
+        "Max": {
+          "X": -334.6411,
+          "Y": 4.545,
+          "Z": -86.728
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_008_2_N1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -250.5,
+        "Y": -5.14096546,
+        "Z": -48.28
+      },
+      "Bounds": {
+        "Min": {
+          "X": -257.99707,
+          "Y": -8.640965,
+          "Z": -55.78
+        },
+        "Max": {
+          "X": -242.99707,
+          "Y": -1.64096546,
+          "Z": -40.78
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_008_2_N1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -250.5,
+        "Y": -5.14096546,
+        "Z": -48.28
+      },
+      "Bounds": {
+        "Min": {
+          "X": -257.99707,
+          "Y": -8.640965,
+          "Z": -55.78
+        },
+        "Max": {
+          "X": -242.99707,
+          "Y": -1.64096546,
+          "Z": -40.78
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_008_2_N2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -280.550049,
+        "Y": -4.78,
+        "Z": -41.3099976
+      },
+      "Bounds": {
+        "Min": {
+          "X": -289.547119,
+          "Y": -6.28,
+          "Z": -50.3099976
+        },
+        "Max": {
+          "X": -271.547119,
+          "Y": -3.28000021,
+          "Z": -32.3099976
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_008_2_N2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -280.550049,
+        "Y": -4.78,
+        "Z": -41.3099976
+      },
+      "Bounds": {
+        "Min": {
+          "X": -289.547119,
+          "Y": -6.28,
+          "Z": -50.3099976
+        },
+        "Max": {
+          "X": -271.547119,
+          "Y": -3.28000021,
+          "Z": -32.3099976
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_008_4_N1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -336.545044,
+        "Y": 0.145,
+        "Z": -76.42799
+      },
+      "Bounds": {
+        "Min": {
+          "X": -338.045044,
+          "Y": -0.855,
+          "Z": -77.92799
+        },
+        "Max": {
+          "X": -335.045044,
+          "Y": 1.145,
+          "Z": -74.92799
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_008_4_N2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -171.162964,
+        "Y": 0.14,
+        "Z": -75.51401
+      },
+      "Bounds": {
+        "Min": {
+          "X": -172.662964,
+          "Y": -0.86,
+          "Z": -78.01401
+        },
+        "Max": {
+          "X": -169.662964,
+          "Y": 1.14,
+          "Z": -73.01401
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_009_2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -336.974976,
+        "Y": -2.729,
+        "Z": -88.08501
+      },
+      "Bounds": {
+        "Min": {
+          "X": -341.972046,
+          "Y": -3.729,
+          "Z": -90.08501
+        },
+        "Max": {
+          "X": -331.972046,
+          "Y": -1.72900009,
+          "Z": -86.08501
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_009_3_N1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -149.874023,
+        "Y": -6.08,
+        "Z": -77.004
+      },
+      "Bounds": {
+        "Min": {
+          "X": -154.8711,
+          "Y": -7.08,
+          "Z": -78.004
+        },
+        "Max": {
+          "X": -144.8711,
+          "Y": -5.08,
+          "Z": -76.004
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_010_2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 235.560059,
+        "Y": -64.464,
+        "Z": 442.02002
+      },
+      "Bounds": {
+        "Min": {
+          "X": 222.062988,
+          "Y": -65.464,
+          "Z": 432.02002
+        },
+        "Max": {
+          "X": 249.062988,
+          "Y": -63.4639969,
+          "Z": 452.02002
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_010_2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 235.560059,
+        "Y": -64.464,
+        "Z": 442.02002
+      },
+      "Bounds": {
+        "Min": {
+          "X": 222.062988,
+          "Y": -65.464,
+          "Z": 432.02002
+        },
+        "Max": {
+          "X": 249.062988,
+          "Y": -63.4639969,
+          "Z": 452.02002
+        }
+      }
+    },
+    {
+      "Id": "place_peacemaker_010_3",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 72.9100342,
+        "Y": -59.6730728,
+        "Z": 348.72998
+      },
+      "Bounds": {
+        "Min": {
+          "X": 68.9129639,
+          "Y": -60.6730728,
+          "Z": 345.72998
+        },
+        "Max": {
+          "X": 76.9129639,
+          "Y": -58.6730728,
+          "Z": 351.72998
+        }
+      }
+    },
+    {
+      "Id": "place_SIGNAL_01_1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -230.400024,
+        "Y": 8.35,
+        "Z": -93.6199951
+      },
+      "Bounds": {
+        "Min": {
+          "X": -234.3971,
+          "Y": 6.85000038,
+          "Z": -101.619995
+        },
+        "Max": {
+          "X": -226.3971,
+          "Y": 9.85,
+          "Z": -85.6199951
+        }
+      }
+    },
+    {
+      "Id": "place_SIGNAL_01_2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -483.310059,
+        "Y": -25.762,
+        "Z": 253.659973
+      },
+      "Bounds": {
+        "Min": {
+          "X": -493.307129,
+          "Y": -27.262,
+          "Z": 243.659973
+        },
+        "Max": {
+          "X": -473.307129,
+          "Y": -24.262,
+          "Z": 263.659973
+        }
+      }
+    },
+    {
+      "Id": "place_SIGNAL_03_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -483.810059,
+        "Y": -24.47,
+        "Z": 248.830017
+      },
+      "Bounds": {
+        "Min": {
+          "X": -492.959381,
+          "Y": -25.97,
+          "Z": 242.600891
+        },
+        "Max": {
+          "X": -474.66098,
+          "Y": -22.97,
+          "Z": 255.053284
+        }
+      }
+    },
+    {
+      "Id": "place_SIGNAL_03_2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -230.550049,
+        "Y": 8.32,
+        "Z": -92.39
+      },
+      "Bounds": {
+        "Min": {
+          "X": -234.547119,
+          "Y": 6.81999969,
+          "Z": -99.39
+        },
+        "Max": {
+          "X": -226.547119,
+          "Y": 9.82,
+          "Z": -85.39
+        }
+      }
+    },
+    {
+      "Id": "place_SIGNAL_03_3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -708.72,
+        "Y": -26.21,
+        "Z": 90.59
+      },
+      "Bounds": {
+        "Min": {
+          "X": -712.717041,
+          "Y": -27.71,
+          "Z": 86.59
+        },
+        "Max": {
+          "X": -704.717041,
+          "Y": -24.71,
+          "Z": 94.59
+        }
+      }
+    },
+    {
+      "Id": "prapor_022_area_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -263.983032,
+        "Y": -3.95800018,
+        "Z": -85.25296
+      },
+      "Bounds": {
+        "Min": {
+          "X": -266.787262,
+          "Y": -5.45800066,
+          "Z": -88.06131
+        },
+        "Max": {
+          "X": -261.17514,
+          "Y": -2.45799971,
+          "Z": -82.44922
+        }
+      }
+    },
+    {
+      "Id": "prapor_022_area_2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 96.72998,
+        "Y": -47.19,
+        "Z": 97.10004
+      },
+      "Bounds": {
+        "Min": {
+          "X": 95.10395,
+          "Y": -48.6914063,
+          "Z": 95.46998
+        },
+        "Max": {
+          "X": 98.3565,
+          "Y": -45.6886,
+          "Z": 98.7243
+        }
+      }
+    },
+    {
+      "Id": "prapor_022_area_3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -306.199951,
+        "Y": -60.86,
+        "Z": 494.099976
+      },
+      "Bounds": {
+        "Min": {
+          "X": -308.856537,
+          "Y": -62.36,
+          "Z": 491.45343
+        },
+        "Max": {
+          "X": -303.5392,
+          "Y": -59.36,
+          "Z": 496.742371
+        }
+      }
+    },
+    {
+      "Id": "prapor_27_3",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -253.400024,
+        "Y": -5.7,
+        "Z": -99.6000061
+      },
+      "Bounds": {
+        "Min": {
+          "X": -400.3303,
+          "Y": -30.7000046,
+          "Z": -203.626129
+        },
+        "Max": {
+          "X": -106.469513,
+          "Y": 19.3000069,
+          "Z": 4.43197632
+        }
+      }
+    },
+    {
+      "Id": "prapor_27_4",
+      "Type": "ExperienceTrigger",
+      "Active": false,
+      "Position": {
+        "X": -418.300049,
+        "Y": -56.87,
+        "Z": 546.5
+      },
+      "Bounds": {
+        "Min": {
+          "X": -418.300049,
+          "Y": -56.87,
+          "Z": 546.5
+        },
+        "Max": {
+          "X": -418.300049,
+          "Y": -56.87,
+          "Z": 546.5
+        }
+      }
+    },
+    {
+      "Id": "q_ny_find_christmas_tree_shorl",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -251.910034,
+        "Y": -3.97,
+        "Z": -112.460007
+      },
+      "Bounds": {
+        "Min": {
+          "X": -256.9328,
+          "Y": -6.47000027,
+          "Z": -117.48278
+        },
+        "Max": {
+          "X": -246.887268,
+          "Y": -1.46999979,
+          "Z": -107.437233
+        }
+      }
+    },
+    {
+      "Id": "q_ny_hide_christmas_tree_shorl",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -251.910034,
+        "Y": -3.97,
+        "Z": -112.460007
+      },
+      "Bounds": {
+        "Min": {
+          "X": -253.919144,
+          "Y": -6.47000027,
+          "Z": -114.469116
+        },
+        "Max": {
+          "X": -249.900925,
+          "Y": -1.46999979,
+          "Z": -110.4509
+        }
+      }
+    },
+    {
+      "Id": "q_ny_kill_christmas_guys_shorl",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -251.87,
+        "Y": -3.97,
+        "Z": -112.320007
+      },
+      "Bounds": {
+        "Min": {
+          "X": -267.05127,
+          "Y": -6.47000027,
+          "Z": -127.501282
+        },
+        "Max": {
+          "X": -236.688721,
+          "Y": -1.47000027,
+          "Z": -97.13873
+        }
+      }
+    },
+    {
+      "Id": "q14_10_kill",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -591.800049,
+        "Y": -20.3,
+        "Z": -117.7
+      },
+      "Bounds": {
+        "Min": {
+          "X": -748.568,
+          "Y": -45.3,
+          "Z": -371.702942
+        },
+        "Max": {
+          "X": -435.026245,
+          "Y": 4.700001,
+          "Z": 136.3028
+        }
+      }
+    },
+    {
+      "Id": "q14_10_point_area",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -645.0,
+        "Y": -20.3,
+        "Z": -200.7
+      },
+      "Bounds": {
+        "Min": {
+          "X": -708.6827,
+          "Y": -45.30001,
+          "Z": -264.3864
+        },
+        "Max": {
+          "X": -581.3117,
+          "Y": 4.700012,
+          "Z": -137.0155
+        }
+      }
+    },
+    {
+      "Id": "q14_11_jeep",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 227.163086,
+        "Y": -54.911,
+        "Z": -159.882
+      },
+      "Bounds": {
+        "Min": {
+          "X": 223.637985,
+          "Y": -56.96779,
+          "Z": -162.482285
+        },
+        "Max": {
+          "X": 230.693558,
+          "Y": -52.85489,
+          "Z": -157.283737
+        }
+      }
+    },
+    {
+      "Id": "q14_11_jeep",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 227.163086,
+        "Y": -54.911,
+        "Z": -159.882
+      },
+      "Bounds": {
+        "Min": {
+          "X": 223.637985,
+          "Y": -56.96779,
+          "Z": -162.482285
+        },
+        "Max": {
+          "X": 230.693558,
+          "Y": -52.85489,
+          "Z": -157.283737
+        }
+      }
+    },
+    {
+      "Id": "RSHG_event_04_jaeger_r_point",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -645.0,
+        "Y": -20.3,
+        "Z": -200.7
+      },
+      "Bounds": {
+        "Min": {
+          "X": -763.305847,
+          "Y": -45.30001,
+          "Z": -325.861816
+        },
+        "Max": {
+          "X": -526.688538,
+          "Y": 4.700012,
+          "Z": -75.5401
+        }
+      }
+    },
+    {
+      "Id": "skier_022_area_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -263.594,
+        "Y": -3.95800018,
+        "Z": -85.71597
+      },
+      "Bounds": {
+        "Min": {
+          "X": -264.646271,
+          "Y": -5.45800066,
+          "Z": -86.76824
+        },
+        "Max": {
+          "X": -262.541718,
+          "Y": -2.45799971,
+          "Z": -84.6637039
+        }
+      }
+    },
+    {
+      "Id": "skier_022_area_2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 98.10303,
+        "Y": -47.19,
+        "Z": 96.9790344
+      },
+      "Bounds": {
+        "Min": {
+          "X": 97.41497,
+          "Y": -48.69068,
+          "Z": 96.15655
+        },
+        "Max": {
+          "X": 98.79182,
+          "Y": -45.6893234,
+          "Z": 97.79572
+        }
+      }
+    },
+    {
+      "Id": "skier_022_area_3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -305.384033,
+        "Y": -60.86,
+        "Z": 492.20105
+      },
+      "Bounds": {
+        "Min": {
+          "X": -306.333252,
+          "Y": -62.3628464,
+          "Z": 491.235626
+        },
+        "Max": {
+          "X": -304.43042,
+          "Y": -59.357132,
+          "Z": 493.162567
+        }
+      }
+    },
+    {
+      "Id": "ter_013_area_1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 312.699951,
+        "Y": -59.18,
+        "Z": 314.5
+      },
+      "Bounds": {
+        "Min": {
+          "X": 309.1765,
+          "Y": -61.2383652,
+          "Z": 311.4649
+        },
+        "Max": {
+          "X": 316.228271,
+          "Y": -57.12278,
+          "Z": 317.538269
+        }
+      }
+    },
+    {
+      "Id": "ter_013_area_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 312.699951,
+        "Y": -59.18,
+        "Z": 314.5
+      },
+      "Bounds": {
+        "Min": {
+          "X": 309.1765,
+          "Y": -61.2383652,
+          "Z": 311.4649
+        },
+        "Max": {
+          "X": 316.228271,
+          "Y": -57.12278,
+          "Z": 317.538269
+        }
+      }
+    },
+    {
+      "Id": "ter_013_area_2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 354.919922,
+        "Y": -58.63,
+        "Z": 306.12
+      },
+      "Bounds": {
+        "Min": {
+          "X": 351.637726,
+          "Y": -60.13,
+          "Z": 303.897217
+        },
+        "Max": {
+          "X": 358.207977,
+          "Y": -57.13,
+          "Z": 308.3413
+        }
+      }
+    },
+    {
+      "Id": "ter_013_area_2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 354.919922,
+        "Y": -58.63,
+        "Z": 306.12
+      },
+      "Bounds": {
+        "Min": {
+          "X": 351.637726,
+          "Y": -60.13,
+          "Z": 303.897217
+        },
+        "Max": {
+          "X": 358.207977,
+          "Y": -57.13,
+          "Z": 308.3413
+        }
+      }
+    },
+    {
+      "Id": "ter_013_area_3",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -258.074951,
+        "Y": -3.958,
+        "Z": -85.66
+      },
+      "Bounds": {
+        "Min": {
+          "X": -261.3978,
+          "Y": -5.458,
+          "Z": -88.06001
+        },
+        "Max": {
+          "X": -254.74649,
+          "Y": -2.45800018,
+          "Z": -83.26192
+        }
+      }
+    },
+    {
+      "Id": "ter_013_area_3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -258.074951,
+        "Y": -3.958,
+        "Z": -85.66
+      },
+      "Bounds": {
+        "Min": {
+          "X": -261.3978,
+          "Y": -5.458,
+          "Z": -88.06001
+        },
+        "Max": {
+          "X": -254.74649,
+          "Y": -2.45800018,
+          "Z": -83.26192
+        }
+      }
+    },
+    {
+      "Id": "ter_013_area_4",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 97.6600342,
+        "Y": -47.25,
+        "Z": 70.79999
+      },
+      "Bounds": {
+        "Min": {
+          "X": 95.297,
+          "Y": -48.75,
+          "Z": 67.47837
+        },
+        "Max": {
+          "X": 100.025024,
+          "Y": -45.75,
+          "Z": 74.11605
+        }
+      }
+    },
+    {
+      "Id": "ter_013_area_4",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 97.6600342,
+        "Y": -47.25,
+        "Z": 70.79999
+      },
+      "Bounds": {
+        "Min": {
+          "X": 95.297,
+          "Y": -48.75,
+          "Z": 67.47837
+        },
+        "Max": {
+          "X": 100.025024,
+          "Y": -45.75,
+          "Z": 74.11605
+        }
+      }
+    },
+    {
+      "Id": "ter_023_area_1_1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -253.170044,
+        "Y": -4.06999969,
+        "Z": -56.8599548
+      },
+      "Bounds": {
+        "Min": {
+          "X": -255.667114,
+          "Y": -5.31999969,
+          "Z": -59.3599548
+        },
+        "Max": {
+          "X": -250.667114,
+          "Y": -2.81999969,
+          "Z": -54.3599548
+        }
+      }
+    },
+    {
+      "Id": "ter_023_area_2_1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 94.20996,
+        "Y": -47.5,
+        "Z": 61.97003
+      },
+      "Bounds": {
+        "Min": {
+          "X": 92.21289,
+          "Y": -48.75,
+          "Z": 59.97003
+        },
+        "Max": {
+          "X": 96.21289,
+          "Y": -46.25,
+          "Z": 63.97003
+        }
+      }
+    },
+    {
+      "Id": "ter_023_area_3_1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -311.900024,
+        "Y": -60.9,
+        "Z": 489.700073
+      },
+      "Bounds": {
+        "Min": {
+          "X": -321.768951,
+          "Y": -62.15,
+          "Z": 480.507355
+        },
+        "Max": {
+          "X": -302.0311,
+          "Y": -59.65,
+          "Z": 498.8928
+        }
+      }
+    },
+    {
+      "Id": "Terminal_quest_final",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -312.9746,
+        "Y": 6.920006,
+        "Z": -82.2438049
+      },
+      "Bounds": {
+        "Min": {
+          "X": -353.138184,
+          "Y": 6.35457039,
+          "Z": -105.979645
+        },
+        "Max": {
+          "X": -290.45752,
+          "Y": 14.55986,
+          "Z": -72.03989
+        }
+      }
+    },
+    {
+      "Id": "Terminal_quest_final",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -312.9746,
+        "Y": 6.920006,
+        "Z": -82.2438049
+      },
+      "Bounds": {
+        "Min": {
+          "X": -353.138184,
+          "Y": 6.35457039,
+          "Z": -105.979645
+        },
+        "Max": {
+          "X": -290.45752,
+          "Y": 14.55986,
+          "Z": -72.03989
+        }
+      }
+    },
+    {
+      "Id": "unkown_mark_2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 251.987061,
+        "Y": -52.69,
+        "Z": -105.118652
+      },
+      "Bounds": {
+        "Min": {
+          "X": 251.011978,
+          "Y": -53.986,
+          "Z": -106.703995
+        },
+        "Max": {
+          "X": 252.965561,
+          "Y": -51.3939972,
+          "Z": -103.533157
+        }
+      }
+    },
+    {
+      "Id": "unkown_mark_2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 251.987061,
+        "Y": -52.69,
+        "Z": -105.118652
+      },
+      "Bounds": {
+        "Min": {
+          "X": 251.011978,
+          "Y": -53.986,
+          "Z": -106.703995
+        },
+        "Max": {
+          "X": 252.965561,
+          "Y": -51.3939972,
+          "Z": -103.533157
+        }
+      }
+    },
+    {
+      "Id": "Zone_cursed",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 326.22998,
+        "Y": -54.202,
+        "Z": 131.473389
+      },
+      "Bounds": {
+        "Min": {
+          "X": 325.709137,
+          "Y": -55.705162,
+          "Z": 128.165436
+        },
+        "Max": {
+          "X": 328.0106,
+          "Y": -52.6944427,
+          "Z": 130.601654
+        }
+      }
+    },
+    {
+      "Id": "Zone_two_toilets",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -321.5857,
+        "Y": -61.078,
+        "Z": 488.20343
+      },
+      "Bounds": {
+        "Min": {
+          "X": -323.485321,
+          "Y": -61.77379,
+          "Z": 487.0591
+        },
+        "Max": {
+          "X": -321.406281,
+          "Y": -59.5765457,
+          "Z": 489.194061
+        }
+      }
+    }
+  ],
+  "Doors": [
+    {
+      "Id": "trunk_Shoreline_South_00020",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": -608.8308,
+        "Y": -57.6626854,
+        "Z": 479.043945
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00229",
+      "KeyId": "5a0dc45586f7742f6b0b73e3",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -157.433334,
+        "Y": -2.69580078,
+        "Z": -85.4489746
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00232",
+      "KeyId": "5a0dc95c86f77452440fc675",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -189.173325,
+        "Y": -2.69580078,
+        "Z": -85.4489746
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00140",
+      "KeyId": "5a0ea64786f7741707720468",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -333.766724,
+        "Y": -2.70200348,
+        "Z": -79.95804
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00283",
+      "KeyId": "5a0ea79b86f7741d4a35298e",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -142.569077,
+        "Y": 3.05004883,
+        "Z": -79.92575
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00207",
+      "KeyId": "5a0ea79b86f7741d4a35298e",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -142.569077,
+        "Y": 0.15625,
+        "Z": -79.91675
+      }
+    },
+    {
+      "Id": "shoreline_garden_00002",
+      "KeyId": "5a0eb38b86f774153b320eb0",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 157.352051,
+        "Y": -47.3859329,
+        "Z": 133.891
+      }
+    },
+    {
+      "Id": "door_Shoreline_Middle_00018",
+      "KeyId": "5a0eb6ac86f7743124037a28",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 102.534,
+        "Y": -47.2578621,
+        "Z": 102.731354
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00169",
+      "KeyId": "5a0ec6d286f7742c0b518fb5",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -221.059067,
+        "Y": 0.129249573,
+        "Z": -92.90576
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00175",
+      "KeyId": "5a0ee30786f774023b6ee08f",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -179.3651,
+        "Y": 0.129249573,
+        "Z": -80.91177
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00177",
+      "KeyId": "5a0ee34586f774023b6ee092",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -166.672073,
+        "Y": 0.129249573,
+        "Z": -80.91177
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00189",
+      "KeyId": "5a0ee37f86f774023657a86f",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -165.465927,
+        "Y": 0.129249573,
+        "Z": -84.50223
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00019",
+      "KeyId": "5a0ee4b586f7743698200d22",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -285.843079,
+        "Y": 0.127044678,
+        "Z": -92.88776
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00117",
+      "KeyId": "5a0eec9686f77402ac5c39f2",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -303.3971,
+        "Y": 3.02204132,
+        "Z": -81.4607544
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00102",
+      "KeyId": "5a0eecf686f7740350630097",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -313.849976,
+        "Y": 3.02204132,
+        "Z": -84.47623
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00103",
+      "KeyId": "5a0eed4386f77405112912aa",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -318.006958,
+        "Y": 3.02204132,
+        "Z": -84.47623
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00109",
+      "KeyId": "5a0eee1486f77402aa773226",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -357.289063,
+        "Y": 3.02204132,
+        "Z": -79.91577
+      }
+    },
+    {
+      "Id": "container_shoreline_DesignStuff_00208",
+      "KeyId": "5a0eff2986f7741fd654e684",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -165.673386,
+        "Y": 2.53000641,
+        "Z": -89.0607
+      }
+    },
+    {
+      "Id": "Lootable_00004",
+      "KeyId": "5a0f068686f7745b0d4ea242",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 93.72075,
+        "Y": -45.01455,
+        "Z": 111.96933
+      }
+    },
+    {
+      "Id": "container_shoreline_DesignStuff_00211",
+      "KeyId": "5a0f08bc86f77478f33b84c2",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -266.105225,
+        "Y": -0.321281433,
+        "Z": -147.660675
+      }
+    },
+    {
+      "Id": "container_shoreline_DesignStuff_00212",
+      "KeyId": "5a0f0f5886f7741c4e32a472",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -242.461655,
+        "Y": -0.321281433,
+        "Z": -153.368744
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00186",
+      "KeyId": "5a13eebd86f7746fd639aa93",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -173.997971,
+        "Y": 0.129249573,
+        "Z": -84.50223
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00195",
+      "KeyId": "5a13ef0686f7746e5a411744",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -170.8391,
+        "Y": 0.129249573,
+        "Z": -80.91177
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00246",
+      "KeyId": "5a13ef7e86f7741290491063",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -229.201767,
+        "Y": 3.0230484,
+        "Z": -100.165924
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00046",
+      "KeyId": "5a13f24186f77410e57c5626",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -343.397949,
+        "Y": 0.127044678,
+        "Z": -84.47623
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00053",
+      "KeyId": "5a13f35286f77413ef1436b0",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -351.925964,
+        "Y": 0.127044678,
+        "Z": -84.47623
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00248",
+      "KeyId": "5a13f46386f7741dd7384b04",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -216.8911,
+        "Y": 3.0230484,
+        "Z": -92.92575
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00020",
+      "KeyId": "5a144bdb86f7741d374bbde0",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -281.6781,
+        "Y": 0.137466431,
+        "Z": -92.88776
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00161",
+      "KeyId": "5a144dfd86f77445cb5a0982",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -229.59407,
+        "Y": 0.129249573,
+        "Z": -92.90576
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00192",
+      "KeyId": "5a1452ee86f7746f33111763",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -161.307968,
+        "Y": 0.129249573,
+        "Z": -84.50223
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00098",
+      "KeyId": "5a145d4786f7744cbb6f4a12",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -285.843079,
+        "Y": 3.02204132,
+        "Z": -92.88776
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00097",
+      "KeyId": "5a145d7b86f7744cbb6f4a13",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -294.37207,
+        "Y": 3.02204132,
+        "Z": -92.88776
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00114",
+      "KeyId": "5a145ebb86f77458f1796f05",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -323.375061,
+        "Y": 3.02204132,
+        "Z": -80.89276
+      }
+    },
+    {
+      "Id": "door_Shoreline_Middle_00024",
+      "KeyId": "5d8e15b686f774445103b190",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -220.353775,
+        "Y": -33.8510361,
+        "Z": 185.899292
+      }
+    },
+    {
+      "Id": "door_Shoreline_Middle_00032",
+      "KeyId": "5d8e15b686f774445103b190",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -220.691269,
+        "Y": -33.8470345,
+        "Z": 193.70491
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00151",
+      "KeyId": "5eff09cd30a7dc22fd1ddfed",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -323.5467,
+        "Y": -2.70200348,
+        "Z": -79.96103
+      }
+    },
+    {
+      "Id": "door_Shoreline_Middle_00030",
+      "KeyId": "664d3ddfdda2e85aca370d75",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -239.810715,
+        "Y": -39.7787323,
+        "Z": 197.051773
+      }
+    },
+    {
+      "Id": "door_Shoreline_Sanatorium_indoor_00289",
+      "KeyId": "679b9716597ba2ed120c3d3f",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -197.042252,
+        "Y": -5.96400452,
+        "Z": -79.9689941
+      }
+    }
+  ]
+}

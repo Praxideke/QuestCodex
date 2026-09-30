@@ -1,0 +1,1867 @@
+{
+  "Location": "Interchange",
+  "DumpedAtUtc": "2026-09-25T05:08:14.8672889Z",
+  "Zones": [
+    {
+      "Id": "event_labyrinth_02_mech_place_02",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 159.9,
+        "Y": 23.4,
+        "Z": -246.7
+      },
+      "Bounds": {
+        "Min": {
+          "X": 129.542023,
+          "Y": 17.3499985,
+          "Z": -282.2566
+        },
+        "Max": {
+          "X": 190.257965,
+          "Y": 29.45,
+          "Z": -211.143433
+        }
+      }
+    },
+    {
+      "Id": "event_labyrinth_02_mech_place_03",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 42.5,
+        "Y": 29.9,
+        "Z": -216.4
+      },
+      "Bounds": {
+        "Min": {
+          "X": 35.3496437,
+          "Y": 27.4000015,
+          "Z": -224.531219
+        },
+        "Max": {
+          "X": 49.6503563,
+          "Y": 32.4,
+          "Z": -208.268768
+        }
+      }
+    },
+    {
+      "Id": "Mark_transits_interchange",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 261.52,
+        "Y": 23.2883472,
+        "Z": 402.45
+      },
+      "Bounds": {
+        "Min": {
+          "X": 256.722015,
+          "Y": 22.0917015,
+          "Z": 394.761719
+        },
+        "Max": {
+          "X": 265.953339,
+          "Y": 24.484993,
+          "Z": 407.275818
+        }
+      }
+    },
+    {
+      "Id": "new_year_2024_market_interchange",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 173.420013,
+        "Y": 21.3660011,
+        "Z": -24.76001
+      },
+      "Bounds": {
+        "Min": {
+          "X": 155.5915,
+          "Y": 18.8660011,
+          "Z": -42.58852
+        },
+        "Max": {
+          "X": 191.24852,
+          "Y": 23.8660011,
+          "Z": -6.93149948
+        }
+      }
+    },
+    {
+      "Id": "new_year_2024_market_interchange",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 173.420013,
+        "Y": 21.3660011,
+        "Z": -24.76001
+      },
+      "Bounds": {
+        "Min": {
+          "X": 155.5915,
+          "Y": 18.8660011,
+          "Z": -42.58852
+        },
+        "Max": {
+          "X": 191.24852,
+          "Y": 23.8660011,
+          "Z": -6.93149948
+        }
+      }
+    },
+    {
+      "Id": "place_merch_020_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -50.388,
+        "Y": 27.695,
+        "Z": 25.076004
+      },
+      "Bounds": {
+        "Min": {
+          "X": -51.4192,
+          "Y": 26.695,
+          "Z": 23.5292034
+        },
+        "Max": {
+          "X": -49.3568,
+          "Y": 28.695,
+          "Z": 26.6228046
+        }
+      }
+    },
+    {
+      "Id": "place_merch_020_2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 179.855621,
+        "Y": 22.3142071,
+        "Z": -40.89569
+      },
+      "Bounds": {
+        "Min": {
+          "X": 177.522369,
+          "Y": 21.3142071,
+          "Z": -43.1917458
+        },
+        "Max": {
+          "X": 182.188873,
+          "Y": 23.3142071,
+          "Z": -38.5996361
+        }
+      }
+    },
+    {
+      "Id": "place_merch_022_1",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -19.3599854,
+        "Y": 33.14955,
+        "Z": -239.897888
+      },
+      "Bounds": {
+        "Min": {
+          "X": -131.509979,
+          "Y": 11.5495529,
+          "Z": -304.3479
+        },
+        "Max": {
+          "X": 92.79001,
+          "Y": 54.74955,
+          "Z": -175.447876
+        }
+      }
+    },
+    {
+      "Id": "place_merch_022_2",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -19.3599854,
+        "Y": 33.14955,
+        "Z": 129.34
+      },
+      "Bounds": {
+        "Min": {
+          "X": -131.509979,
+          "Y": 11.5495529,
+          "Z": 59.3399963
+        },
+        "Max": {
+          "X": 92.79001,
+          "Y": 54.74955,
+          "Z": 199.34
+        }
+      }
+    },
+    {
+      "Id": "place_merch_022_3",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -40.70999,
+        "Y": 33.14955,
+        "Z": -54.5599976
+      },
+      "Bounds": {
+        "Min": {
+          "X": -181.459991,
+          "Y": 11.5495529,
+          "Z": -179.459991
+        },
+        "Max": {
+          "X": 100.040009,
+          "Y": 54.74955,
+          "Z": 70.34
+        }
+      }
+    },
+    {
+      "Id": "place_merch_022_4",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 103.490021,
+        "Y": 33.14955,
+        "Z": -54.5599976
+      },
+      "Bounds": {
+        "Min": {
+          "X": 100.156128,
+          "Y": 11.5495529,
+          "Z": -69.3440857
+        },
+        "Max": {
+          "X": 106.823914,
+          "Y": 54.74955,
+          "Z": -39.77591
+        }
+      }
+    },
+    {
+      "Id": "place_merch_022_5",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 109.16,
+        "Y": 33.14955,
+        "Z": -54.5599976
+      },
+      "Bounds": {
+        "Min": {
+          "X": 106.81221,
+          "Y": 11.5495529,
+          "Z": -65.53689
+        },
+        "Max": {
+          "X": 111.5078,
+          "Y": 54.74955,
+          "Z": -43.583107
+        }
+      }
+    },
+    {
+      "Id": "place_merch_022_6",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -189.299988,
+        "Y": 33.14955,
+        "Z": -54.5599976
+      },
+      "Bounds": {
+        "Min": {
+          "X": -197.4264,
+          "Y": 11.5495529,
+          "Z": -78.4687653
+        },
+        "Max": {
+          "X": -181.173569,
+          "Y": 54.74955,
+          "Z": -30.65123
+        }
+      }
+    },
+    {
+      "Id": "place_merch_022_7",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 92.27002,
+        "Y": 33.14955,
+        "Z": -265.76
+      },
+      "Bounds": {
+        "Min": {
+          "X": 88.93613,
+          "Y": 11.5495529,
+          "Z": -276.745117
+        },
+        "Max": {
+          "X": 95.60391,
+          "Y": 54.74955,
+          "Z": -254.7749
+        }
+      }
+    },
+    {
+      "Id": "place_merch_21_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 109.867981,
+        "Y": 22.33,
+        "Z": 288.768
+      },
+      "Bounds": {
+        "Min": {
+          "X": 107.042847,
+          "Y": 20.83,
+          "Z": 286.567719
+        },
+        "Max": {
+          "X": 112.693115,
+          "Y": 23.83,
+          "Z": 290.9683
+        }
+      }
+    },
+    {
+      "Id": "place_merch_21_2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 17.5570374,
+        "Y": 22.834,
+        "Z": -25.4960022
+      },
+      "Bounds": {
+        "Min": {
+          "X": 14.4035854,
+          "Y": 21.334,
+          "Z": -28.5358887
+        },
+        "Max": {
+          "X": 20.71049,
+          "Y": 24.334,
+          "Z": -22.4561157
+        }
+      }
+    },
+    {
+      "Id": "place_merch_21_3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -49.76779,
+        "Y": 22.854,
+        "Z": 59.03575
+      },
+      "Bounds": {
+        "Min": {
+          "X": -53.3477821,
+          "Y": 21.354,
+          "Z": 56.07241
+        },
+        "Max": {
+          "X": -46.1878,
+          "Y": 24.354,
+          "Z": 61.9990921
+        }
+      }
+    },
+    {
+      "Id": "place_SALE_03_AVOKADO",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -33.16,
+        "Y": 28.631,
+        "Z": 25.81
+      },
+      "Bounds": {
+        "Min": {
+          "X": -48.16,
+          "Y": 27.131,
+          "Z": 19.81
+        },
+        "Max": {
+          "X": -18.16,
+          "Y": 30.131,
+          "Z": 31.81
+        }
+      }
+    },
+    {
+      "Id": "place_SALE_03_DINO",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 94.39,
+        "Y": 28.16,
+        "Z": -120.64
+      },
+      "Bounds": {
+        "Min": {
+          "X": 89.9516754,
+          "Y": 27.16,
+          "Z": -138.234955
+        },
+        "Max": {
+          "X": 98.82832,
+          "Y": 29.16,
+          "Z": -103.045044
+        }
+      }
+    },
+    {
+      "Id": "place_SALE_03_KOSTIN",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -24.67,
+        "Y": 28.62,
+        "Z": -103.52
+      },
+      "Bounds": {
+        "Min": {
+          "X": -38.17,
+          "Y": 27.12,
+          "Z": -108.02
+        },
+        "Max": {
+          "X": -11.1699991,
+          "Y": 30.12,
+          "Z": -99.02
+        }
+      }
+    },
+    {
+      "Id": "place_SALE_03_TOPBRAND",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 94.2,
+        "Y": 28.2,
+        "Z": 10.22
+      },
+      "Bounds": {
+        "Min": {
+          "X": 90.18293,
+          "Y": 27.2,
+          "Z": -7.283901
+        },
+        "Max": {
+          "X": 98.2170639,
+          "Y": 29.2,
+          "Z": 27.7239
+        }
+      }
+    },
+    {
+      "Id": "place_SALE_03_TREND",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 64.17,
+        "Y": 28.07,
+        "Z": -155.4
+      },
+      "Bounds": {
+        "Min": {
+          "X": 51.67,
+          "Y": 27.07,
+          "Z": -159.4
+        },
+        "Max": {
+          "X": 76.67,
+          "Y": 29.07,
+          "Z": -151.4
+        }
+      }
+    },
+    {
+      "Id": "place_skier_11_3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 8.095032,
+        "Y": 27.553,
+        "Z": -36.7020264
+      },
+      "Bounds": {
+        "Min": {
+          "X": 7.06383133,
+          "Y": 26.553,
+          "Z": -37.7332268
+        },
+        "Max": {
+          "X": 9.126232,
+          "Y": 28.553,
+          "Z": -35.670826
+        }
+      }
+    },
+    {
+      "Id": "place_skier_12_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -27.234375,
+        "Y": 28.105,
+        "Z": 2.3956604
+      },
+      "Bounds": {
+        "Min": {
+          "X": -28.2655754,
+          "Y": 27.105,
+          "Z": 1.88006
+        },
+        "Max": {
+          "X": -26.2031746,
+          "Y": 29.105,
+          "Z": 2.91126084
+        }
+      }
+    },
+    {
+      "Id": "place_WARBLOOD_04_1",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -208.36,
+        "Y": 22.84,
+        "Z": -74.42
+      },
+      "Bounds": {
+        "Min": {
+          "X": -214.085068,
+          "Y": 21.34,
+          "Z": -79.02779
+        },
+        "Max": {
+          "X": -202.634933,
+          "Y": 24.34,
+          "Z": -69.81221
+        }
+      }
+    },
+    {
+      "Id": "place_WARBLOOD_04_2",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 274.29,
+        "Y": 22.85,
+        "Z": 14.53
+      },
+      "Bounds": {
+        "Min": {
+          "X": 268.3624,
+          "Y": 21.35,
+          "Z": 9.209181
+        },
+        "Max": {
+          "X": 280.217621,
+          "Y": 24.35,
+          "Z": 19.8508186
+        }
+      }
+    },
+    {
+      "Id": "place_WARBLOOD_04_3",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -172.62,
+        "Y": 22.807,
+        "Z": -359.48
+      },
+      "Bounds": {
+        "Min": {
+          "X": -178.7887,
+          "Y": 21.307,
+          "Z": -364.297546
+        },
+        "Max": {
+          "X": -166.4513,
+          "Y": 24.307,
+          "Z": -354.662476
+        }
+      }
+    },
+    {
+      "Id": "q_ny_find_christmas_tree_int",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 255.85,
+        "Y": 21.3660011,
+        "Z": -59.01001
+      },
+      "Bounds": {
+        "Min": {
+          "X": 248.209229,
+          "Y": 18.8660011,
+          "Z": -66.6508
+        },
+        "Max": {
+          "X": 263.490784,
+          "Y": 23.8660011,
+          "Z": -51.3692169
+        }
+      }
+    },
+    {
+      "Id": "q_ny_hide_christmas_tree_int",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 255.85,
+        "Y": 21.3660011,
+        "Z": -59.01001
+      },
+      "Bounds": {
+        "Min": {
+          "X": 253.30307,
+          "Y": 18.8660011,
+          "Z": -61.55694
+        },
+        "Max": {
+          "X": 258.396942,
+          "Y": 23.8660011,
+          "Z": -56.46308
+        }
+      }
+    },
+    {
+      "Id": "q_ny_kill_christmas_guys_int",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 255.230011,
+        "Y": 21.3660011,
+        "Z": -58.97
+      },
+      "Bounds": {
+        "Min": {
+          "X": 236.91449,
+          "Y": 18.8660011,
+          "Z": -77.28553
+        },
+        "Max": {
+          "X": 273.545532,
+          "Y": 23.8660011,
+          "Z": -40.6544724
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_keeper6_cont_hide",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 138.847015,
+        "Y": 25.06355,
+        "Z": 274.358
+      },
+      "Bounds": {
+        "Min": {
+          "X": 137.714935,
+          "Y": 24.06355,
+          "Z": 273.7684
+        },
+        "Max": {
+          "X": 139.9791,
+          "Y": 26.06355,
+          "Z": 274.9476
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_keeper6_kiba_hide",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -19.50299,
+        "Y": 27.57155,
+        "Z": -22.401001
+      },
+      "Bounds": {
+        "Min": {
+          "X": -20.6507759,
+          "Y": 27.07155,
+          "Z": -23.5487862
+        },
+        "Max": {
+          "X": -18.3552055,
+          "Y": 28.07155,
+          "Z": -21.2532158
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_keeper6_kiba_kill",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -9.443756,
+        "Y": 28.241,
+        "Z": -33.70941
+      },
+      "Bounds": {
+        "Min": {
+          "X": -59.4437561,
+          "Y": 18.2409973,
+          "Z": -83.70941
+        },
+        "Max": {
+          "X": 40.5562439,
+          "Y": 38.2409973,
+          "Z": 16.2905884
+        }
+      }
+    },
+    {
+      "Id": "quest_zone_keeper6_safe_hide",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -49.3209839,
+        "Y": 21.80355,
+        "Z": 45.028
+      },
+      "Bounds": {
+        "Min": {
+          "X": -50.453064,
+          "Y": 21.30355,
+          "Z": 44.4384
+        },
+        "Max": {
+          "X": -48.1889038,
+          "Y": 22.30355,
+          "Z": 45.6176
+        }
+      }
+    }
+  ],
+  "Doors": [
+    {
+      "Id": "trunk_Shopping_Mall_2_00063",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 120.522331,
+        "Y": 23.117,
+        "Z": 264.084717
+      }
+    },
+    {
+      "Id": "trunk_Shopping_Mall_2_00070",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 97.201004,
+        "Y": 23.1069965,
+        "Z": 218.93689
+      }
+    },
+    {
+      "Id": "trunk_Shopping_Mall_2_00095",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 281.904755,
+        "Y": 23.10369,
+        "Z": 18.3905163
+      }
+    },
+    {
+      "Id": "trunk_Shopping_Mall_2_00008",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": -315.70105,
+        "Y": 23.2414742,
+        "Z": 273.830017
+      }
+    },
+    {
+      "Id": "trunk_Shopping_Mall_2_00143",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 410.39032,
+        "Y": 20.9703865,
+        "Z": -375.860138
+      }
+    },
+    {
+      "Id": "trunk_Shopping_Mall_2_00058",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 44.14279,
+        "Y": 23.2839966,
+        "Z": 249.9005
+      }
+    },
+    {
+      "Id": "trunk_Shopping_Mall_2_00060",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": -75.42049,
+        "Y": 23.284,
+        "Z": -350.62204
+      }
+    },
+    {
+      "Id": "trunk_Shopping_Mall_2_00037",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": -352.092163,
+        "Y": 23.2839966,
+        "Z": -359.276642
+      }
+    },
+    {
+      "Id": "trunk_Shopping_Mall_2_00027",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": -169.2236,
+        "Y": 23.3294353,
+        "Z": -263.7742
+      }
+    },
+    {
+      "Id": "trunk_Shopping_Mall_2_00079",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": 253.9284,
+        "Y": 23.2839966,
+        "Z": 87.3542252
+      }
+    },
+    {
+      "Id": "trunk_Shopping_Mall_indoor_00001",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": -53.2254944,
+        "Y": 29.0856476,
+        "Z": -70.3720856
+      }
+    },
+    {
+      "Id": "trunk_Shopping_Mall_parking_work_00051",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": -158.200043,
+        "Y": 23.2835026,
+        "Z": 57.2228241
+      }
+    },
+    {
+      "Id": "trunk_Shopping_Mall_parking_work_00045",
+      "KeyId": "5448ba0b4bdc2d02308b456c",
+      "Type": "Trunk",
+      "Operatable": true,
+      "Position": {
+        "X": -90.1167145,
+        "Y": 23.29,
+        "Z": 114.827461
+      }
+    },
+    {
+      "Id": "door_Shopping_Mall_OLI_00039",
+      "KeyId": "5ad5ccd186f774446d5706e9",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 85.18425,
+        "Y": 28.1199989,
+        "Z": 104.638214
+      }
+    },
+    {
+      "Id": "door_Shopping_Mall_OLI_00043",
+      "KeyId": "5ad5cfbd86f7742c825d6104",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 83.1990051,
+        "Y": 28.1199989,
+        "Z": 115.672775
+      }
+    },
+    {
+      "Id": "door_Shopping_Mall_OLI_00037",
+      "KeyId": "5ad5d20586f77449be26d877",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -102.823753,
+        "Y": 28.12,
+        "Z": 80.48102
+      }
+    },
+    {
+      "Id": "door_Shopping_Mall_2_00005",
+      "KeyId": "5ad5d49886f77455f9731921",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -223.114746,
+        "Y": 22.554409,
+        "Z": -271.34787
+      }
+    },
+    {
+      "Id": "door_Shopping_Mall_IDEA_00020",
+      "KeyId": "5ad5d64486f774079b080af8",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 68.53717,
+        "Y": 22.4921417,
+        "Z": -255.450058
+      }
+    },
+    {
+      "Id": "Shopping_Mall_DesignStuff_00050",
+      "KeyId": "5ad5d7d286f77450166e0a89",
+      "Type": "DoorSwitch",
+      "Operatable": true,
+      "Position": {
+        "X": -9.444001,
+        "Y": 28.241,
+        "Z": -33.709
+      }
+    },
+    {
+      "Id": "door_Shopping_Mall_Shops_00013",
+      "KeyId": "5ad5db3786f7743568421cce",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 34.14116,
+        "Y": 28.4790325,
+        "Z": -108.287651
+      }
+    },
+    {
+      "Id": "door_Shopping_Mall_Shops_00014",
+      "KeyId": "5ad5db3786f7743568421cce",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 24.136982,
+        "Y": 28.4790325,
+        "Z": -112.8551
+      }
+    },
+    {
+      "Id": "door_Shopping_Mall_Shops_00015",
+      "KeyId": "5ad5db3786f7743568421cce",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 6.732233,
+        "Y": 28.4790344,
+        "Z": -107.304314
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00335",
+      "KeyId": "5ad7217186f7746744498875",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 6.04089642,
+        "Y": 27.77,
+        "Z": 97.60002
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00339",
+      "KeyId": "5ad7217186f7746744498875",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -22.5889874,
+        "Y": 27.77,
+        "Z": 97.60002
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00345",
+      "KeyId": "5ad7217186f7746744498875",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -13.00903,
+        "Y": 27.77,
+        "Z": 97.60002
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00343",
+      "KeyId": "5ad7217186f7746744498875",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -31.96905,
+        "Y": 27.77,
+        "Z": 97.60002
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00347",
+      "KeyId": "5ad7217186f7746744498875",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -50.4790573,
+        "Y": 27.77,
+        "Z": 97.60002
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00349",
+      "KeyId": "5ad7217186f7746744498875",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -3.62896442,
+        "Y": 27.77,
+        "Z": 97.60002
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00333",
+      "KeyId": "5ad7217186f7746744498875",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 25.0009174,
+        "Y": 27.77,
+        "Z": 97.60002
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00341",
+      "KeyId": "5ad7217186f7746744498875",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -41.09899,
+        "Y": 27.77,
+        "Z": 97.60002
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00337",
+      "KeyId": "5ad7217186f7746744498875",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 15.4209623,
+        "Y": 27.77,
+        "Z": 97.60002
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00334",
+      "KeyId": "5ad7217186f7746744498875",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 6.55998325,
+        "Y": 27.77,
+        "Z": 99.57
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00338",
+      "KeyId": "5ad7217186f7746744498875",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -22.0699,
+        "Y": 27.77,
+        "Z": 99.57
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00344",
+      "KeyId": "5ad7217186f7746744498875",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -12.4899435,
+        "Y": 27.77,
+        "Z": 99.57
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00342",
+      "KeyId": "5ad7217186f7746744498875",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -31.4499626,
+        "Y": 27.77,
+        "Z": 99.57
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00346",
+      "KeyId": "5ad7217186f7746744498875",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -49.9599724,
+        "Y": 27.77,
+        "Z": 99.57
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00348",
+      "KeyId": "5ad7217186f7746744498875",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -3.10987759,
+        "Y": 27.77,
+        "Z": 99.57
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00332",
+      "KeyId": "5ad7217186f7746744498875",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 25.5200043,
+        "Y": 27.77,
+        "Z": 99.57
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00340",
+      "KeyId": "5ad7217186f7746744498875",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -40.5799065,
+        "Y": 27.77,
+        "Z": 99.57
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00336",
+      "KeyId": "5ad7217186f7746744498875",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 15.9400492,
+        "Y": 27.77,
+        "Z": 99.57
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00285",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 26.5921783,
+        "Y": 27.76,
+        "Z": -256.549042
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00291",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 26.592186,
+        "Y": 27.76,
+        "Z": -236.455048
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00289",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 26.592186,
+        "Y": 27.76,
+        "Z": -243.03
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00297",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 26.592186,
+        "Y": 27.76,
+        "Z": -216.305969
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00287",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 26.5921783,
+        "Y": 27.76,
+        "Z": -249.899017
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00303",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 26.5921783,
+        "Y": 27.76,
+        "Z": -276.819061
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00293",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 26.592186,
+        "Y": 27.76,
+        "Z": -229.633026
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00295",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 26.592186,
+        "Y": 27.76,
+        "Z": -223.018
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00299",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 26.5921783,
+        "Y": 27.76,
+        "Z": -263.389
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00301",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 26.5921783,
+        "Y": 27.76,
+        "Z": -270.088959
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00284",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 24.6221828,
+        "Y": 27.76,
+        "Z": -256.030029
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00290",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 24.62219,
+        "Y": 27.76,
+        "Z": -235.93602
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00288",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 24.62219,
+        "Y": 27.76,
+        "Z": -242.510971
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00296",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 24.62219,
+        "Y": 27.76,
+        "Z": -215.786942
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00302",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 24.6221828,
+        "Y": 27.76,
+        "Z": -276.300049
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00286",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 24.6221828,
+        "Y": 27.76,
+        "Z": -249.37999
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00292",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 24.62219,
+        "Y": 27.76,
+        "Z": -229.114
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00294",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 24.62219,
+        "Y": 27.76,
+        "Z": -222.498978
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00298",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 24.6221828,
+        "Y": 27.76,
+        "Z": -262.87
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00300",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 24.6221828,
+        "Y": 27.76,
+        "Z": -269.569946
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00259",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 68.07676,
+        "Y": 22.5304565,
+        "Z": -257.210419
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00263",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 78.97584,
+        "Y": 28.1008835,
+        "Z": -294.297638
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00252",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 68.10306,
+        "Y": 22.5304565,
+        "Z": -258.82196
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00257",
+      "KeyId": "5ad7242b86f7740a6a3abd43",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": 80.77603,
+        "Y": 28.1008835,
+        "Z": -294.292
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00325",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -83.51459,
+        "Y": 27.7764988,
+        "Z": -15.6399975
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00319",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -83.62959,
+        "Y": 27.7765026,
+        "Z": 7.08700657
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00311",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -83.40048,
+        "Y": 27.7764912,
+        "Z": -95.97089
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00321",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -83.62959,
+        "Y": 27.7765026,
+        "Z": 4.674012
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00312",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -82.9019852,
+        "Y": 27.7764912,
+        "Z": -108.0699
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00310",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -82.89711,
+        "Y": 27.7764912,
+        "Z": -72.61372
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00328",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -83.51459,
+        "Y": 27.7764988,
+        "Z": -32.6340027
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00314",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -83.40048,
+        "Y": 27.7764912,
+        "Z": -98.66789
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00323",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -83.62959,
+        "Y": 27.7765026,
+        "Z": 2.1070106
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00317",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -83.40048,
+        "Y": 27.7764912,
+        "Z": -104.292892
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00318",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -83.51459,
+        "Y": 27.7764988,
+        "Z": -18.1169949
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00313",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -83.26354,
+        "Y": 27.7764835,
+        "Z": -122.391174
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00324",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -83.62959,
+        "Y": 27.7765,
+        "Z": -0.466994464
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00306",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -83.62959,
+        "Y": 27.7765026,
+        "Z": 9.555013
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00322",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -84.46201,
+        "Y": 27.7764912,
+        "Z": -124.023407
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00316",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -84.3846,
+        "Y": 27.7764835,
+        "Z": -126.089035
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00320",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -83.86401,
+        "Y": 27.7764912,
+        "Z": -118.549377
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00315",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -83.40048,
+        "Y": 27.7764912,
+        "Z": -101.475891
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00307",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -87.5038452,
+        "Y": 27.776495,
+        "Z": -49.0153542
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00330",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -83.51459,
+        "Y": 27.7764988,
+        "Z": -25.3969936
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00309",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -84.3212,
+        "Y": 27.776495,
+        "Z": -66.45119
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00329",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -83.51459,
+        "Y": 27.7764988,
+        "Z": -30.1569958
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00326",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -83.51459,
+        "Y": 27.7764988,
+        "Z": -20.4
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00308",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -83.70695,
+        "Y": 27.7764931,
+        "Z": -50.30275
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00331",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -83.51459,
+        "Y": 27.7764988,
+        "Z": -27.873991
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00327",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -83.51459,
+        "Y": 27.7764988,
+        "Z": -22.876997
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00305",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -92.362114,
+        "Y": 27.7764912,
+        "Z": -104.179
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00304",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -80.73459,
+        "Y": 27.776495,
+        "Z": -68.17702
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00266",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -89.228,
+        "Y": 28.1010017,
+        "Z": 32.8160324
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00247",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -57.0515823,
+        "Y": 27.8368759,
+        "Z": -100.4599
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00269",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -95.88899,
+        "Y": 28.1000023,
+        "Z": 31.5300369
+      }
+    },
+    {
+      "Id": "container_Shopping_Mall_DesignStuff_00249",
+      "KeyId": "5ad7247386f7747487619dc3",
+      "Type": "LootableContainer",
+      "Operatable": true,
+      "Position": {
+        "X": -89.228,
+        "Y": 28.101,
+        "Z": 37.6970444
+      }
+    },
+    {
+      "Id": "Shopping_Mall_DesignStuff_00049",
+      "KeyId": "5addaffe86f77470b455f900",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -9.887001,
+        "Y": 28.241,
+        "Z": -33.76517
+      }
+    },
+    {
+      "Id": "Shopping_Mall_DesignStuff_00052",
+      "KeyId": "5e42c71586f7747f245e1343",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 67.55801,
+        "Y": 37.60174,
+        "Z": 40.891
+      }
+    },
+    {
+      "Id": "Shopping_Mall_DesignStuff_00051",
+      "KeyId": "5e42c81886f7742a01529f57",
+      "Type": "KeycardDoor",
+      "Operatable": true,
+      "Position": {
+        "X": -51.91228,
+        "Y": 22.29392,
+        "Z": 45.8358765
+      }
+    },
+    {
+      "Id": "Shopping_Mall_DesignStuff_00063",
+      "KeyId": "5e42c83786f7742a021fdf3c",
+      "Type": "KeycardDoor",
+      "Operatable": true,
+      "Position": {
+        "X": 140.195663,
+        "Y": 25.2079964,
+        "Z": 263.315277
+      }
+    },
+    {
+      "Id": "door_Shopping_Mall_2_00008",
+      "KeyId": "664d3dd590294949fe2d81b7",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -199.786255,
+        "Y": 22.3370018,
+        "Z": -348.208038
+      }
+    }
+  ]
+}

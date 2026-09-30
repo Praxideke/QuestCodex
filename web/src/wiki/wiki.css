@@ -363,3 +363,84 @@
 .qc-prep__names li::before { content: none; } /* .qc-lines 안에 들어갈 때 불릿 제거 */
 .qc-lines .qc-prep__names { margin-top: 2px; }
 .qc-lines .qc-prep__names li { padding: 0; }
+
+/* ---- 위치정보 팝업 (QuestMapDialog) — [머리][맵 탭][지도 | 목표 목록][출처] ---- */
+.qc-dialog--map { width: min(1120px, calc(100vw - 32px)); height: min(720px, calc(100vh - 32px)); max-height: none; }
+.qc-map__msg { margin: 0; padding: 16px 18px; font-size: 13px; color: var(--fg-2); }
+.qc-map__tabs { flex: none; display: flex; flex-wrap: wrap; gap: 4px; padding: 8px 18px 0; border-bottom: 1px solid var(--border); }
+/* .qc-map__tabs 를 앞에 붙이는 이유: styles.css 의 `.qc-shell button`(0,1,1) 이 단일 클래스를 이긴다 */
+.qc-map__tabs .qc-map__tab {
+  padding: 5px 12px; border: 1px solid transparent; border-bottom: 0; border-radius: var(--radius) var(--radius) 0 0;
+  background: none; color: var(--fg-2); font-size: 12.5px; cursor: pointer;
+}
+.qc-map__tabs .qc-map__tab:hover { color: var(--fg); background: var(--bg-hover); }
+.qc-map__tabs .qc-map__tab.is-on { background: var(--accent); color: var(--accent-contrast); font-weight: 600; }
+.qc-map__body { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 260px; }
+.qc-map__stage { position: relative; min-width: 0; min-height: 0; display: flex; background: var(--bg); }
+/* container-type: size — 캔버스가 cqw/cqh 로 뷰포트 안에 "contain" 맞춤(가로세로 비율 --ar 유지) */
+.qc-map__viewport {
+  position: relative; flex: 1; min-width: 0; min-height: 0; overflow: hidden; container-type: size;
+  display: flex; align-items: center; justify-content: center; cursor: grab; touch-action: none; user-select: none;
+}
+.qc-map__viewport:active { cursor: grabbing; }
+.qc-map__canvas {
+  position: relative; flex: none; transform-origin: 0 0;
+  width: min(100cqw, calc(100cqh * var(--ar))); aspect-ratio: var(--ar);
+}
+.qc-map__layer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.qc-map__marker {
+  position: absolute; z-index: 1; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%;
+  border: 2px solid var(--marker-fg); background: var(--marker); color: var(--marker-fg); font-size: 11px; font-weight: 700; line-height: 1;
+  box-shadow: var(--marker-shadow); cursor: default;
+}
+.qc-map__marker.is-hot { z-index: 2; background: var(--marker-hot); outline: 3px solid var(--marker-hot-ring); }
+.qc-map__floors { position: absolute; top: 10px; left: 10px; z-index: 3; display: flex; flex-direction: column; gap: 4px; }
+.qc-map__floors .qc-map__floor {
+  display: flex; align-items: center; gap: 6px; padding: 3px 8px; border: 1px solid var(--border-2); border-radius: var(--radius);
+  background: var(--bg-3); color: var(--fg-2); font-size: 12px; cursor: pointer;
+}
+.qc-map__floors .qc-map__floor:hover { color: var(--fg); }
+.qc-map__floors .qc-map__floor.is-on { background: var(--accent); border-color: transparent; color: var(--accent-contrast); font-weight: 600; }
+/* 층 버튼 알림 점: 현재 층이 아닌 층에 목표가 있을 때. iOS 알림 배지처럼 버튼 오른쪽 위 모서리에 걸친다. */
+.qc-map__floors .qc-map__floor { position: relative; }
+.qc-map__dot {
+  position: absolute; top: -3px; right: -3px; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--notify-dot); box-shadow: 0 0 0 1.5px var(--bg-3);
+}
+/* 잠긴 문 토글 — 탭 줄의 오른쪽 끝(팝업 우측 상단) */
+.qc-map__tabs .qc-map__toggle {
+  margin: 0 0 5px auto; align-self: center; padding: 3px 10px; border: 1px solid var(--border-2); border-radius: 999px;
+  background: none; color: var(--fg-2); font-size: 12px; cursor: pointer;
+}
+.qc-map__tabs .qc-map__toggle:hover:not(:disabled) { color: var(--fg); background: var(--bg-hover); }
+.qc-map__tabs .qc-map__toggle.is-on { background: var(--accent-bg); border-color: var(--accent); color: var(--accent-fg); font-weight: 600; }
+.qc-map__tabs .qc-map__toggle:disabled { opacity: .5; cursor: not-allowed; }
+/* 잠긴 문 마커 — 퀘스트 마커(z-index 1·2) 아래. 말풍선은 :hover 로만. 크기는 DynamicMaps(30px)에 맞춤 */
+.qc-map__door { position: absolute; z-index: 0; width: 28px; height: 28px; cursor: default; }
+.qc-map__door > img { display: block; width: 100%; height: 100%; }
+/* 색 곱하기(Unity Image.color 와 같은 효과): 아이콘 모양으로 자른 색 판을 multiply 로 얹는다 → 흰색은 그 색, 검은
+   외곽선은 검은 채. z-index 가 있는 .qc-map__door 가 쌓임 맥락이라 지도 그림에는 섞이지 않는다. */
+.qc-map__tint {
+  position: absolute; inset: 0; pointer-events: none; mix-blend-mode: multiply; background: var(--door-locked);
+  -webkit-mask: var(--icon) center / contain no-repeat; mask: var(--icon) center / contain no-repeat;
+}
+.qc-map__door.is-owned .qc-map__tint { background: var(--door-owned); }
+.qc-map__door:hover { z-index: 3; }
+.qc-map__tip {
+  display: none; position: absolute; bottom: calc(100% + 4px); left: 50%; transform: translateX(-50%);
+  padding: 3px 7px; border: 1px solid var(--border-2); border-radius: var(--radius);
+  background: var(--bg-3); color: var(--fg); font-size: 11.5px; white-space: nowrap; box-shadow: var(--dialog-shadow);
+}
+.qc-map__door:hover .qc-map__tip { display: block; }
+.qc-map__side { min-height: 0; overflow: auto; padding: 12px 14px; border-left: 1px solid var(--border); }
+.qc-map__list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.qc-map__list > li { display: flex; gap: 8px; align-items: flex-start; padding: 4px 6px; border-radius: var(--radius); font-size: 12.5px; line-height: 1.5; }
+.qc-map__list > li.is-hot { background: var(--bg-hover); }
+.qc-map__list > li.is-off { opacity: .5; }
+.qc-map__num {
+  flex: none; display: grid; place-items: center; width: 18px; height: 18px; margin-top: 1px; border-radius: 50%;
+  background: var(--marker); color: var(--marker-fg); font-size: 10.5px; font-weight: 700;
+}
+.qc-map__hint { margin: 14px 0 0; font-size: 11px; color: var(--fg-3); }
+.qc-map__credit { flex: none; padding: 8px 18px; border-top: 1px solid var(--border); font-size: 11px; color: var(--fg-3); }
+.qc-map__credit a { color: inherit; text-decoration: underline; }

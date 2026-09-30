@@ -35,6 +35,17 @@
   --dialog-backdrop: rgba(0, 0, 0, .4);
   --scroll-thumb: rgba(255, 255, 255, .14);
   --scroll-thumb-hover: rgba(255, 255, 255, .26);
+  /* 위치정보 지도 마커. 지도 그림(SVG)은 테마와 무관하게 같으므로 라이트에서도 재정의하지 않는다. */
+  --marker: #e8702a;
+  --marker-fg: #ffffff;
+  --marker-hot: #ffb020;
+  --marker-hot-ring: rgba(255, 176, 32, .45);
+  --marker-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+  /* 층 버튼 알림 점(iOS 알림 빨강). 두 테마 공통. */
+  --notify-dot: #ff3b30;
+  /* 잠긴 문 아이콘 색(DynamicMaps: 열쇠 없음 Color.red, 보유 Color.green). 지도 위라 두 테마 공통. */
+  --door-locked: #ff2a2a;
+  --door-owned: #2ecc40;
   --radius: 6px;
 }
 

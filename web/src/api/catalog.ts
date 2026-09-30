@@ -54,6 +54,27 @@ export interface ObjectivePrep {
   exitName: string | null
 }
 
+/** Unity 월드 좌표 그대로. y = 높이. SVG 투영은 wiki/mapProjection.ts 가 한다. */
+export interface MapPoint {
+  x: number
+  y: number
+  z: number
+}
+
+/** map = SPT locations 폴더 키(소문자, 예: bigmap, sandbox_high) */
+export interface ObjectiveLocation {
+  map: string
+  points: MapPoint[]
+}
+
+/** 열쇠가 필요한 문. keyTpl 은 지금 쓰지 않고, 보유 열쇠 표시(06 스펙 §4.3)를 붙일 때의 대조 키다. */
+export interface LockedDoor {
+  keyTpl: string
+  keyName: string
+  kind: 'door' | 'keycard'
+  position: MapPoint
+}
+
 export interface Objective {
   conditionId: string
   conditionType: string
@@ -63,6 +84,8 @@ export interface Objective {
   targetName: string | null
   targetCount: number | null
   prep: ObjectivePrep | null
+  /** 목표 위치. 좌표를 모르는 조건이면 빈 배열. 필드가 생기기 전 서버(구버전 DLL)는 undefined 를 보낸다. */
+  locations?: ObjectiveLocation[]
 }
 
 export type Reward =
@@ -137,6 +160,8 @@ export interface Catalog {
   itemCategories: CatalogItemCategory[]
   /** 아이템 tpl → 카테고리 id. 핸드북에 없는 아이템은 빠진다 */
   itemCategoryOf: Record<string, string>
+  /** 서버 맵 키 → 잠긴 문. 필드가 생기기 전 서버(구버전 DLL)는 보내지 않는다. */
+  lockedDoors?: Record<string, LockedDoor[]>
 }
 
 export interface CatalogItemCategory {

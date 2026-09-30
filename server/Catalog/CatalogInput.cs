@@ -1,5 +1,6 @@
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
+using PointTable = System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IReadOnlyList<QuestCodex.Catalog.Models.MapPoint>>>;
 
 namespace QuestCodex.Catalog;
 
@@ -24,8 +25,15 @@ public sealed record CatalogInput(
     /// 서빙 불가한 URL 을 그대로 내보내면 프론트가 매번 404 를 때려 서버 로그에 에러가 쌓인다.
     /// </summary>
     Func<string, bool>? AvatarIsServable = null,
+    /// <summary>map → zoneId → 점. 동봉 스냅샷과 모드 CustomQuestZones 를 합친 것. null 이면 존 좌표 없음.</summary>
+    PointTable? QuestZones = null,
+    /// <summary>map → 아이템 tpl → looseLoot spawnpointsForced 위치.</summary>
+    PointTable? QuestItemSpawns = null,
     /// <summary>로케이션 _Id(MongoId) → map 키(locations 폴더 이름, 소문자). quest.location 이 ID 일 때 쓴다.</summary>
     IReadOnlyDictionary<string, string>? LocationKeys = null,
+    bool QuestZoneSnapshotMissing = false,
+    /// <summary>map → 스냅샷의 잠긴 문. 빌더가 열쇠 이름을 붙여 Catalog.LockedDoors 로 낸다.</summary>
+    IReadOnlyDictionary<string, IReadOnlyList<Models.SnapshotDoor>>? LockedDoors = null,
     /// <summary>핸드북 카테고리 Id → (부모 Id, 아이콘 URL). null 이면 아이템 카테고리를 내보내지 않는다.</summary>
     IReadOnlyDictionary<string, HandbookCategoryInput>? HandbookCategories = null,
     /// <summary>아이템 tpl → 핸드북 카테고리 Id(가장 안쪽).</summary>
