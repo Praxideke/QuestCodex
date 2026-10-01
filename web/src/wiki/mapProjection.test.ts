@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import type { LockedDoor, MapArea, Objective, ObjectiveLocation } from '../api/catalog'
 import customsJson from '../../public/maps/bigmap/map.json'
 import indexJson from '../../public/maps/index.json'
-import { areaCorners, areaLevels, areaPolygon, buildTabs, firstLevel, markerLevels, doorsForTab, fitView, floorsWithOtherMarkers, layerFor, layerStyle, markerCountsByLevel, project, zoomAt, type MapDef, type MapIndex } from './mapProjection'
+import { areaCorners, areaDrawOrder, areaLevels, areaPolygon, objectiveColor, buildTabs, firstLevel, markerLevels, doorsForTab, fitView, floorsWithOtherMarkers, layerFor, layerStyle, markerCountsByLevel, project, zoomAt, type MapDef, type MapIndex } from './mapProjection'
 
 const customs = customsJson as MapDef
 const index = indexJson as MapIndex
@@ -162,6 +162,24 @@ describe('areaLevels / markerLevels (08 스펙 §3.2)', () => {
     const counts = markerCountsByLevel(customs, [marker], [{ n: 1, conditionId: 'a', area: basement(-3, 5) }])
     expect(counts.get(-1)).toBe(1)
     expect(counts.get(0)).toBe(1)
+  })
+})
+
+describe('objectiveColor / areaDrawOrder (겹침 개선)', () => {
+  it('목표 번호마다 10색 팔레트를 순환한다', () => {
+    expect(objectiveColor(1)).toBe('var(--obj-1)')
+    expect(objectiveColor(10)).toBe('var(--obj-10)')
+    expect(objectiveColor(11)).toBe('var(--obj-1)')
+    expect(objectiveColor(23)).toBe('var(--obj-3)')
+  })
+
+  it('넓은 영역부터 그려서 작은 영역이 위에 온다', () => {
+    const am = (n: number, sizeX: number, sizeZ: number) =>
+      ({ n, conditionId: String(n), area: { center: { x: 0, y: 0, z: 0 }, sizeX, sizeZ, yaw: 0 } })
+    const hotel = am(1, 160, 170)
+    const courtyard = am(2, 66, 38)
+    const street = am(3, 224, 104)
+    expect(areaDrawOrder([courtyard, hotel, street]).map((a) => a.n)).toEqual([1, 3, 2])
   })
 })
 

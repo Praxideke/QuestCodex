@@ -5,7 +5,7 @@ import type { T, UiKey } from '../i18n/index'
 import { formatObjective, lineText } from './format'
 import { MapCanvas } from './MapCanvas'
 import { loadMapDef, loadMapIndex } from './mapAssets'
-import { areaLevels, buildTabs, doorsForTab, firstLevel, fitView, layerFor, markerLevels, numberedObjectives, type MapDef, type MapIndex, type View } from './mapProjection'
+import { areaLevels, buildTabs, objectiveColor, doorsForTab, firstLevel, fitView, layerFor, markerLevels, numberedObjectives, type MapDef, type MapIndex, type View } from './mapProjection'
 import { useDialogFrame } from './useDialogFrame'
 import { useLoaded, usePersistedFlag } from './useMapState'
 
@@ -137,7 +137,7 @@ function MapBody({ quest, index, lockedDoors }: MapBodyProps) {
                   onMouseEnter={() => setHot(n)}
                   onMouseLeave={() => setHot(null)}
                 >
-                  <span className="qc-map__num">{n}</span>
+                  <span className="qc-map__num" style={{ ['--c' as string]: objectiveColor(n) }}>{n}</span>
                   <span>{lineText(formatObjective(objective, t))}</span>
                 </li>
               )

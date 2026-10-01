@@ -4,7 +4,7 @@ import { useT } from '../i18n/I18nContext'
 import type { T } from '../i18n/index'
 import { mapAssetUrl } from './mapAssets'
 import {
-  areaPolygon, fitView, floorsWithOtherMarkers, layerFor, layerStyle, markerCountsByLevel, project, zoomAt,
+  areaDrawOrder, areaPolygon, fitView, floorsWithOtherMarkers, layerFor, layerStyle, markerCountsByLevel, objectiveColor, project, zoomAt,
   type AreaMarker, type MapDef, type MapTab, type Marker, type View,
 } from './mapProjection'
 
@@ -112,10 +112,12 @@ export function MapCanvas({ mapKey, def, tab, level, markers, doors, areas, view
         {areas.length > 0 && (
           // 영역은 기본 층 SVG 와 같은 viewBox 의 SVG 한 장에 그린다. 층마다 imageBounds 가 같아서 한 좌표계로 충분하다.
           <svg className="qc-map__areas" viewBox={`0 0 ${base.viewBox.width} ${base.viewBox.height}`} preserveAspectRatio="none" aria-hidden>
-            {areas.map((a, i) => (
+            {/* 넓은 영역부터 — 작은 영역이 위에 온다. 색은 목표별(같은 목표의 영역은 같은 색) */}
+            {areaDrawOrder(areas).map((a, i) => (
               <polygon
                 key={i}
-                className={hot === a.n ? 'qc-map__area is-hot' : 'qc-map__area'}
+                className={`qc-map__area${emphasis(hot, a.n)}`}
+                style={{ ['--c' as string]: objectiveColor(a.n) }}
                 points={areaPolygon(def, base, a.area).map((p) => `${p.x},${p.y}`).join(' ')}
               />
             ))}
@@ -125,8 +127,8 @@ export function MapCanvas({ mapKey, def, tab, level, markers, doors, areas, view
         {markers.map((m, i) => (
           <span
             key={i}
-            className={hot === m.n ? 'qc-map__marker is-hot' : 'qc-map__marker'}
-            style={place(m.point)}
+            className={`qc-map__marker${emphasis(hot, m.n)}`}
+            style={{ ...place(m.point), ['--c' as string]: objectiveColor(m.n) }}
             onMouseEnter={() => onHot(m.n)}
             onMouseLeave={() => onHot(null)}
           >
@@ -185,6 +187,12 @@ function DoorMarker({ door, style, owned }: DoorMarkerProps) {
       <span className="qc-map__tip" role="tooltip">{label}</span>
     </span>
   )
+}
+
+/** 강조 클래스: 마우스를 올린 목표는 is-hot, 그동안 다른 목표는 is-dim(흐리게), 아무것도 안 올렸으면 없음. */
+function emphasis(hot: number | null, n: number): string {
+  if (hot === null) return ''
+  return hot === n ? ' is-hot' : ' is-dim'
 }
 
 function floorName(level: number, t: T): string {

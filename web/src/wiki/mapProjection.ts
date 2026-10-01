@@ -232,6 +232,22 @@ export function areaLevels(def: MapDef, area: MapArea): Set<number> {
   return levels
 }
 
+/** 목표 색 팔레트 크기 — styles.css 의 --obj-1 … --obj-10 과 반드시 일치. */
+export const OBJECTIVE_COLOR_COUNT = 10
+
+/**
+ * 목표 번호 → 색(CSS 변수). 한 목표의 영역·마커·목록 번호는 같은 색, 다른 목표는 다른 색이라 겹친 영역을 구분한다.
+ * 10개를 넘으면 순환한다.
+ */
+export function objectiveColor(n: number): string {
+  return `var(--obj-${((n - 1) % OBJECTIVE_COLOR_COUNT) + 1})`
+}
+
+/** 그리는 순서: 넓은 영역부터 — 나중에 그린 작은 영역(호텔 킬존 안의 안뜰 신호탄 등)이 위에 보인다. */
+export function areaDrawOrder(areas: AreaMarker[]): AreaMarker[] {
+  return [...areas].sort((a, b) => b.area.sizeX * b.area.sizeZ - a.area.sizeX * a.area.sizeZ)
+}
+
 /** 팝업을 열거나 탭을 바꿨을 때 보여 줄 층: 첫 마커가 보이는 층 중 기본 층(지상)이 있으면 그것, 없으면 가장 낮은 층. */
 export function firstLevel(def: MapDef, tab: MapTab): number {
   if (tab.markers.length === 0) return def.defaultLevel
