@@ -132,12 +132,17 @@ export function mapKeyFor(index: MapIndex, map: string): string | null {
  * 대부분이라 같은 목표의 같은 점은 한 번만 넣는다 — 안 그러면 마커가 겹쳐 찍히고 층 버튼 개수가 두 배가 된다.
  */
 export function buildTabs(objectives: Objective[], index: MapIndex): MapTab[] {
+  return buildNumberedTabs(numberedObjectives(objectives), index)
+}
+
+/**
+ * 번호를 미리 정한 목표들로 탭을 만든다. 여러 목표가 같은 번호를 가질 수 있다 — 진행현황 레이드 지도는 퀘스트마다
+ * 번호 하나라 그 퀘스트의 목표들이 같은 번호·색으로 찍힌다. 위치가 없는 목표는 건너뛴다.
+ */
+export function buildNumberedTabs(items: { n: number; objective: Objective }[], index: MapIndex): MapTab[] {
   const tabs = new Map<string, MapTab>()
-  let n = 0
-  for (const o of objectives) {
+  for (const { n, objective: o } of items) {
     const locations = o.locations ?? []
-    if (locations.length === 0) continue
-    n++
     for (const loc of locations) {
       const key = mapKeyFor(index, loc.map)
       if (key === null) continue

@@ -158,7 +158,7 @@ function MapBody({ quest, index, lockedDoors }: MapBodyProps) {
  */
 const CC_BY_NC_SA = 'https://creativecommons.org/licenses/by-nc-sa/4.0/'
 
-function Credit({ def }: { def: MapDef }) {
+export function Credit({ def }: { def: MapDef }) {
   const t = useT()
   const a = def.attribution
   const author = a.modifiedBy ? `${a.author}, ${t('map.modifiedBy', { name: a.modifiedBy })}` : a.author

@@ -159,13 +159,13 @@
   background: var(--bg-2);
   border-right: 1px solid var(--border);
 }
-.qc-side__logo {
+.qc-side .qc-side__logo { /* .qc-side 를 앞에 붙이는 이유: `.qc-shell button`(0,1,1) 의 font: inherit 가 크기를 13px 로 덮었다 */
   background: none;
   border: 0;
   padding: 4px 20px 16px;
   justify-content: flex-start; /* MudBlazor 의 전역 button{justify-content:center} 를 덮는다 */
   text-align: left;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
@@ -207,6 +207,17 @@
   padding: 0 16px;
   background: var(--bg-2);
   border-bottom: 1px solid var(--border);
+}
+/* 사이드 메뉴 접기·펼치기(맨 왼쪽). 접혀 있으면 오른쪽에 로고가 붙는다.
+   .qc-topbar 를 앞에 붙이는 이유: `.qc-shell button`(0,1,1) 의 font·color: inherit 가 단일 클래스를 이긴다 */
+.qc-topbar .qc-topbar__menu {
+  display: grid; place-items: center; width: 30px; height: 30px; margin-left: -6px; padding: 0;
+  border: 0; border-radius: var(--radius); background: none; color: var(--fg-2);
+}
+.qc-topbar .qc-topbar__menu:hover { background: var(--bg-hover); color: var(--fg); }
+.qc-topbar .qc-topbar__logo {
+  display: flex; align-items: center; height: 30px; padding: 0 4px; border: 0; background: none;
+  font-size: 16px; font-weight: 600; line-height: 1; letter-spacing: -0.01em;
 }
 .qc-topbar__spacer { flex: 1; }
 .qc-topbar__busy { font-size: 12px; color: var(--fg-3); }

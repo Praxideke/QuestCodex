@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import type { LockedDoor, MapArea, Objective, ObjectiveLocation } from '../api/catalog'
 import customsJson from '../../public/maps/bigmap/map.json'
 import indexJson from '../../public/maps/index.json'
-import { areaCorners, areaDrawOrder, areaLevels, areaPolygon, objectiveColor, buildTabs, firstLevel, markerLevels, doorsForTab, fitView, floorsWithOtherMarkers, layerFor, layerStyle, markerCountsByLevel, project, zoomAt, type MapDef, type MapIndex } from './mapProjection'
+import { areaCorners, areaDrawOrder, areaLevels, areaPolygon, objectiveColor, buildTabs, buildNumberedTabs, firstLevel, markerLevels, doorsForTab, fitView, floorsWithOtherMarkers, layerFor, layerStyle, markerCountsByLevel, project, zoomAt, type MapDef, type MapIndex } from './mapProjection'
 
 const customs = customsJson as MapDef
 const index = indexJson as MapIndex
@@ -180,6 +180,19 @@ describe('objectiveColor / areaDrawOrder (겹침 개선)', () => {
     const courtyard = am(2, 66, 38)
     const street = am(3, 224, 104)
     expect(areaDrawOrder([courtyard, hotel, street]).map((a) => a.n)).toEqual([1, 3, 2])
+  })
+})
+
+describe('buildNumberedTabs', () => {
+  it('주어진 번호를 그대로 쓰고, 여러 목표가 같은 번호를 나눠 가질 수 있다', () => {
+    const tabs = buildNumberedTabs([
+      { n: 2, objective: obj('a', [at('bigmap', [1, 0, 1])]) },
+      { n: 2, objective: obj('b', [at('bigmap', [2, 0, 2])]) },
+      { n: 5, objective: obj('c', [at('bigmap', [3, 0, 3])]) },
+      { n: 6, objective: obj('d') },
+    ], index)
+    expect(tabs.map((t) => t.key)).toEqual(['bigmap'])
+    expect(tabs[0].markers.map((m) => [m.n, m.conditionId])).toEqual([[2, 'a'], [2, 'b'], [5, 'c']])
   })
 })
 

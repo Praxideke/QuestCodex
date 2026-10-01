@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import type { Catalog, ObjectivePrep } from '../api/catalog'
-import type { Holding, ProfileProgress } from '../api/progress'
+import type { Holding, ObjectiveProgress, ProfileProgress } from '../api/progress'
 import { cls } from '../cls'
 import type { T, UiKey } from '../i18n/index'
 import { useT } from '../i18n/I18nContext'
@@ -8,9 +8,10 @@ import { navigate } from '../shell/router'
 import type { NameLookup } from '../wiki/derive'
 import { formatInt, formatObjective, lineText } from '../wiki/format'
 import { distinctNames, exitText, optionText } from '../wiki/prep'
-import { dedupeRows, entryPlace, groupByQuest, MAP_ORDER, mapBrief, mapTabs, missing, placeFinds, raidEntries, raidFinds, type NeedRow, type PlacedRow, type RuleRow, type RaidEntry } from './derive'
-import { counterText } from './format'
+import { objectiveColor } from '../wiki/mapProjection'
+import { dedupeRows, entryPlace, groupByQuest, MAP_ORDER, orderRaidQuests, mapBrief, mapTabs, missing, placeFinds, raidEntries, raidFinds, raidMapPlan, type NeedRow, type PlacedRow, type RuleRow, type RaidEntry } from './derive'
 import { ItemName, QuestLink } from './parts'
+import { RaidMap } from './RaidMap'
 
 interface RaidViewProps {
   catalog: Catalog
@@ -26,7 +27,7 @@ function mapName(key: string, t: T): string {
   return MAP_ORDER.includes(key) ? t(`map.name.${key}` as UiKey) : key
 }
 
-/** 레이드 준비 — 맵 브리핑(B1~B6). 위치 지도·주변 열쇠(B7~B9)는 자리만. */
+/** 레이드 준비 — 맵 브리핑(B1~B6) + 위치 지도. 지도 번호는 퀘스트 단위라 "이 맵" 목록 줄에도 같은 번호를 붙인다. */
 export function RaidView({ catalog, progress, inventory, lookup, map }: RaidViewProps) {
   const t = useT()
   const entries = useMemo(() => raidEntries(catalog, progress), [catalog, progress])
@@ -35,6 +36,8 @@ export function RaidView({ catalog, progress, inventory, lookup, map }: RaidView
   const brief = useMemo(() => mapBrief(entries, selected, inventory), [entries, selected, inventory])
   const needs = useMemo(() => raidFinds(catalog, progress, inventory), [catalog, progress, inventory])
   const finds = useMemo(() => placeFinds(needs, catalog, selected), [needs, catalog, selected])
+  const plan = useMemo(() => raidMapPlan(brief.here, selected), [brief, selected])
+  const [hot, setHot] = useState<number | null>(null)
 
   return (
     <div className="qc-raid">
@@ -45,7 +48,7 @@ export function RaidView({ catalog, progress, inventory, lookup, map }: RaidView
             type="button"
             className={cls('qc-map', x.key === selected && 'is-on', x.count === 0 && 'is-empty')}
             aria-pressed={x.key === selected}
-            onClick={() => navigate('progress', 'raid', { map: x.key })}
+            onClick={() => { setHot(null); navigate('progress', 'raid', { map: x.key }) }}
           >
             {mapName(x.key, t)} <span className="qc-map__n">{x.count}</span>
           </button>
@@ -58,7 +61,7 @@ export function RaidView({ catalog, progress, inventory, lookup, map }: RaidView
           <section className="qc-card">
             <h3 className="qc-card__h">{t('raid.todo', { map: mapName(selected, t) })}</h3>
             {brief.here.length === 0 && <p className="qc-muted">{t('raid.nothing')}</p>}
-            <QuestGroups entries={brief.here} all={entries} map={selected} lookup={lookup} />
+            <QuestGroups entries={brief.here} all={entries} map={selected} lookup={lookup} numbers={plan.numbers} hot={hot} onHot={setHot} />
           </section>
           {brief.anywhere.length > 0 && (
             <section className="qc-card">
@@ -66,6 +69,11 @@ export function RaidView({ catalog, progress, inventory, lookup, map }: RaidView
               <QuestGroups entries={brief.anywhere} all={entries} map={selected} lookup={lookup} />
             </section>
           )}
+          {/* 오른쪽 칸이 길어 왼쪽 아래가 비므로 거기에 두고, 스크롤해도 따라오게 sticky(progress.css) */}
+          <RaidMap
+            map={selected} mapLabel={mapName(selected, t)} plan={plan} lockedDoors={catalog.lockedDoors}
+            hot={hot} onHot={setHot}
+          />
         </div>
 
         <div className="qc-raid__side">
@@ -102,10 +110,6 @@ export function RaidView({ catalog, progress, inventory, lookup, map }: RaidView
           </section>
         </div>
       </div>
-
-      {/* TODO: 지도 기능(feature/quest-map) 병합 후 위치 지도·주변 잠긴 문 열쇠로 교체
-      <p className="qc-raid__soon">🗺 {t('raid.mapSoon')}</p>
-      */}
     </div>
   )
 }
@@ -121,9 +125,13 @@ interface QuestGroupsProps {
   all: RaidEntry[]
   map: string
   lookup: NameLookup
+  /** 지도 번호(퀘스트 → 번호). 주면 퀘스트 이름 뒤에 지도 마커와 같은 색 번호를 붙이고, 마우스를 올리면 지도에서 강조한다. */
+  numbers?: Map<string, number>
+  hot?: number | null
+  onHot?(n: number | null): void
 }
 
-function QuestGroups({ entries, all, map, lookup }: QuestGroupsProps) {
+function QuestGroups({ entries, all, map, lookup, numbers, hot, onHot }: QuestGroupsProps) {
   const t = useT()
   const [open, setOpen] = useState<ReadonlySet<string>>(() => new Set())
   const toggle = (id: string) => setOpen((prev) => {
@@ -133,18 +141,27 @@ function QuestGroups({ entries, all, map, lookup }: QuestGroupsProps) {
   })
   return (
     <ul className="qc-rgroups">
-      {groupByQuest(entries).map(({ quest, entries: list }) => {
+      {orderRaidQuests(entries, map).map(({ quest, entries: list }) => {
         const isOpen = open.has(quest.id)
         const single = list.length === 1 ? list[0] : null
+        const n = numbers?.get(quest.id)
         return (
-          <li key={quest.id} className={cls('qc-pline', isOpen && 'is-open')}>
+          <li
+            key={quest.id}
+            className={cls('qc-pline', isOpen && 'is-open', n !== undefined && n === hot && 'is-hot')}
+            onMouseEnter={n !== undefined ? () => onHot?.(n) : undefined}
+            onMouseLeave={n !== undefined ? () => onHot?.(null) : undefined}
+          >
             <button type="button" className="qc-pline__row qc-rgroup__row" aria-expanded={isOpen} onClick={() => toggle(quest.id)}>
-              <span className="qc-pline__name">{quest.name}</span>
+              <span className="qc-pline__name">
+                {quest.name}
+                {n !== undefined && <span className="qc-rgroup__num" style={{ ['--c' as string]: objectiveColor(n) }}>{n}</span>}
+              </span>
               <span className="qc-pline__trader">{lookup.traderName(quest.traderId)}</span>
               <span className="qc-pline__summary">
                 {single ? lineText(formatObjective(single.objective, t)) : t('raid.objCount', { n: list.length })}
               </span>
-              <span className="qc-pline__counter">{single && counterText(single.progress)}</span>
+              <span className="qc-pline__counter">{single && <Counter op={single.progress} />}</span>
             </button>
             {isOpen && (
               <div className="qc-pline__detail">
@@ -155,7 +172,7 @@ function QuestGroups({ entries, all, map, lookup }: QuestGroupsProps) {
                         {lineText(formatObjective(e.objective, t))}
                         {e.inferred && <span className="qc-tag qc-inferred" title={t('raid.inferredHint')}>{t('raid.inferred')}</span>}
                       </span>
-                      <span className="qc-pline__counter">{counterText(e.progress)}</span>
+                      <span className="qc-pline__counter"><Counter op={e.progress} /></span>
                     </li>
                   ))}
                 </ul>
@@ -169,15 +186,38 @@ function QuestGroups({ entries, all, map, lookup }: QuestGroupsProps) {
   )
 }
 
+/**
+ * 목표 카운터 "현재 / 목표". 현황의 상인별 진행률(.qc-bar__num)과 같은 모양 — 현재는 굵게, 목표는 흐리게, 0 이면 둘 다 흐리게.
+ * 열 폭을 고정해 줄마다 "/" 위치가 맞는다. 카운터 없는 목표(target null)는 비운다.
+ */
+function Counter({ op }: { op: ObjectiveProgress | undefined }) {
+  if (!op || op.target === null) return null
+  return (
+    <span className={cls('qc-count', op.current === 0 && 'is-zero')}>
+      <span className="qc-count__cur">{formatInt(op.current)}</span>
+      <span className="qc-count__total">/ {formatInt(op.target)}</span>
+    </span>
+  )
+}
+
+/**
+ * 아이템 줄의 FIR 칸 — FIR 이 아닌 줄도 칸을 비워 둔다. 목록(.qc-bring)이 [이름 | FIR | 수량] 3열 그리드라
+ * FIR 표시가 세로로 한 줄에 서고 수량은 늘 오른쪽 끝에 붙는다(배지가 일부 줄에만 붙어 수량이 들쭉날쭉하다는 피드백).
+ */
+function FirSlot({ fir }: { fir: boolean }) {
+  const t = useT()
+  return <span className="qc-bring__fir">{fir && <span className="qc-fir" title={t('prep.firHint')}>{t('prep.fir')}</span>}</span>
+}
+
 function BringRow({ row }: { row: NeedRow }) {
   const t = useT()
   const short = missing(row)
   return (
     <li className={cls('qc-bring__row', short > 0 && 'is-short')}>
       <ItemName items={row.items} />
+      <FirSlot fir={row.needFir > 0} />
       <span className="qc-bring__num">
         {t('raid.needHave', { need: formatInt(row.need), have: formatInt(row.needFir > 0 ? row.haveFir : row.have) })}
-        {row.needFir > 0 && <span className="qc-prep__fir" title={t('prep.firHint')}>{t('prep.fir')}</span>}
         {short > 0 ? <span className="qc-warn"> ⚠</span> : <span className="qc-ok"> ✓</span>}
       </span>
     </li>
@@ -219,10 +259,8 @@ function FindRow({ placed, catalog }: { placed: PlacedRow; catalog: Catalog }) {
   return (
     <li className="qc-bring__row qc-find" title={quests.join('\n')}>
       <ItemName items={row.items} />
-      <span className="qc-bring__num qc-warn">
-        {t('items.short', { n: formatInt(missing(row)) })}
-        {row.needFir > 0 && <span className="qc-prep__fir" title={t('prep.firHint')}>{t('prep.fir')}</span>}
-      </span>
+      <FirSlot fir={row.needFir > 0} />
+      <span className="qc-bring__num qc-warn">{t('items.short', { n: formatInt(missing(row)) })}</span>
     </li>
   )
 }
