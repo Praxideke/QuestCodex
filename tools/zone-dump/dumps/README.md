@@ -47,6 +47,8 @@
 
 ## SPT 업데이트 시 갱신 방법
 
+> 자세한 절차(맵 목록, 덤프 직후 `node tools/zone-dump/check-dump.js <맵>` 확인 기준, 겪은 함정)는 `dev-docs/ops/zone-dump.runbook.md`에 있다. 아래는 요약이다.
+
 존 좌표는 서버 데이터에 없고 클라이언트의 맵 씬 안에만 있어서, 스냅샷(`server/Data/quest-zones.json`)은 게임에 들어가서 뽑아야 한다. 매번 모든 맵을 돌 필요는 없고, **바뀐 맵만** 다시 덤프하면 된다.
 
 모드 퀘스트 존(WTT `CustomQuestZones`)과 퀘스트 아이템 위치(looseLoot)는 서버가 실행 중에 직접 읽으므로 갱신할 필요가 없다.
