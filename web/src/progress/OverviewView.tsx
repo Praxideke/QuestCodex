@@ -1,18 +1,22 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import type { Catalog, CatalogQuest } from '../api/catalog'
-import type { Holding, ProfileProgress } from '../api/progress'
+import type { Holding, ProfileProgress, QuestProgress } from '../api/progress'
 import { cls } from '../cls'
 import { useT } from '../i18n/I18nContext'
 import { navigate } from '../shell/router'
-import { assignModColors, orderTraders, toggleMember, type NameLookup } from '../wiki/derive'
+import { assignModColors, branchIndex, orderTraders, toggleMember, type NameLookup } from '../wiki/derive'
+import { QuestDescriptionDialog } from '../wiki/QuestDescriptionDialog'
+import { QuestDetail } from '../wiki/QuestDetail'
+import { QuestMapDialog } from '../wiki/QuestMapDialog'
+import { QuestPrepDialog } from '../wiki/QuestPrepDialog'
 import { TraderStrip } from '../wiki/TraderStrip'
 import { formatObjective, lineText } from '../wiki/format'
 import {
   countTabByTrader, countTabs, filterProgressQuests, firstOpenObjective, handoverReady, isUnreachable, QUEST_TABS, questProgress,
-  tradersWithQuests, type QuestTab,
+  questTab, tradersWithQuests, type QuestTab,
 } from './derive'
-import { counterText, lockReasonText } from './format'
-import { QuestLink } from './parts'
+import { lockReasonText, requirementLines } from './format'
+import { Counter, objectiveLines, QuestLink } from './parts'
 
 interface OverviewViewProps {
   catalog: Catalog
@@ -108,15 +112,31 @@ interface QuestTableProps {
   highlight: ReadonlySet<string>
 }
 
+/** 연계 점프로 펼친 줄을 강조해 두는 시간 */
+const JUMP_FLASH_MS = 1500
+
+function lineId(questId: string): string {
+  return `qc-pline-${questId}`
+}
+
 function QuestTable({ catalog, progress, lookup, traderOrder, highlight }: QuestTableProps) {
   const t = useT()
   const [tab, setTab] = useState<QuestTab>('active')
   const [traderIds, setTraderIds] = useState<ReadonlySet<string>>(() => new Set())
   const [query, setQuery] = useState('')
   const [expanded, setExpanded] = useState<ReadonlySet<string>>(() => new Set())
+  const [dialogId, setDialogId] = useState<string | null>(null)
+  const [prepId, setPrepId] = useState<string | null>(null)
+  const [mapId, setMapId] = useState<string | null>(null)
+  /** 다음 커밋 후 scrollIntoView 할 줄. 필터 리셋과 같은 렌더에 반영되므로 효과 시점엔 줄이 DOM 에 있다 (위키 jumpTo 와 같다). */
+  const [scrollTarget, setScrollTarget] = useState<string | null>(null)
+  const [jumped, setJumped] = useState<string | null>(null)
+  const jumpTimer = useRef<number | undefined>(undefined)
   const counts = useMemo(() => countTabs(catalog, progress), [catalog, progress])
   // 위키와 같은 색이 나오도록 필터 결과가 아니라 카탈로그 전체로 정한다
   const modColors = useMemo(() => assignModColors(Object.values(catalog.quests)), [catalog])
+  /** 택일 분기. 위키와 같이 카탈로그 전체로 한 번만 */
+  const branches = useMemo(() => branchIndex(Object.values(catalog.quests)), [catalog])
   const traderCounts = useMemo(() => countTabByTrader(catalog, progress, tab), [catalog, progress, tab])
   // 퀘스트가 하나도 없는 상인은 상인별 진행률과 같은 기준으로 뺀다
   const traders = useMemo(() => {
@@ -127,11 +147,30 @@ function QuestTable({ catalog, progress, lookup, traderOrder, highlight }: Quest
     () => filterProgressQuests(catalog, progress, { tab, traderIds, query }),
     [catalog, progress, tab, traderIds, query],
   )
-  const toggle = (id: string) => setExpanded((prev) => {
-    const next = new Set(prev)
-    if (!next.delete(id)) next.add(id)
-    return next
-  })
+  const toggle = (id: string) => setExpanded((prev) => toggleMember(prev, id))
+
+  /** 연계 링크: 지금 목록에 없으면 그 퀘스트의 탭으로 옮기고 상인·검색 필터를 푼 뒤 펼침 → 스크롤 → 잠깐 강조 */
+  const jumpTo = (id: string) => {
+    if (!catalog.quests[id]) return
+    if (!rows.some((q) => q.id === id)) {
+      setTab(questTab(questProgress(progress, id).status))
+      setTraderIds(new Set())
+      setQuery('')
+    }
+    setExpanded((prev) => new Set(prev).add(id))
+    setScrollTarget(id)
+    setJumped(id)
+    window.clearTimeout(jumpTimer.current)
+    jumpTimer.current = window.setTimeout(() => setJumped(null), JUMP_FLASH_MS)
+  }
+
+  useEffect(() => {
+    if (!scrollTarget) return
+    document.getElementById(lineId(scrollTarget))?.scrollIntoView({ block: 'start', behavior: 'smooth' })
+    setScrollTarget(null)
+  }, [scrollTarget])
+
+  useEffect(() => () => window.clearTimeout(jumpTimer.current), [])
 
   return (
     <section className="qc-card qc-card--flush">
@@ -159,49 +198,80 @@ function QuestTable({ catalog, progress, lookup, traderOrder, highlight }: Quest
       </div>
       {rows.length === 0 ? <p className="qc-empty">{t('overview.empty')}</p> : (
         <ul>
-          {rows.map((q) => (
-            <QuestLine
-              key={q.id}
-              quest={q}
-              progress={progress}
-              lookup={lookup}
-              open={expanded.has(q.id)}
-              flash={highlight.has(q.id)}
-              modColor={q.modName ? modColors[q.modName] : undefined}
-              onToggle={() => toggle(q.id)}
-            />
-          ))}
+          {rows.map((q) => {
+            const qp = questProgress(progress, q.id)
+            const open = expanded.has(q.id)
+            return (
+              <QuestLine
+                key={q.id}
+                quest={q}
+                qp={qp}
+                lookup={lookup}
+                open={open}
+                flash={highlight.has(q.id) || jumped === q.id}
+                modColor={q.modName ? modColors[q.modName] : undefined}
+                onToggle={() => toggle(q.id)}
+                detail={open && (
+                  <QuestDetail
+                    quest={q} catalog={catalog} lookup={lookup} branch={branches.get(q.id)}
+                    onOpenDescription={setDialogId} onOpenPrep={setPrepId} onOpenMap={setMapId} onJump={jumpTo}
+                    objectiveLines={objectiveLines(q, qp, t)}
+                    requirementLines={requirementLines(q, qp, lookup, t)}
+                    actions={
+                      <button type="button" className="qc-btn" onClick={() => navigate('wiki', null, { quest: q.id })}>{t('overview.openWiki')}</button>
+                    }
+                  />
+                )}
+              />
+            )
+          })}
         </ul>
       )}
+      <QuestDescriptionDialog
+        quest={dialogId ? catalog.quests[dialogId] ?? null : null}
+        traderName={dialogId ? lookup.traderName(catalog.quests[dialogId]?.traderId ?? '') : ''}
+        onClose={() => setDialogId(null)}
+      />
+      <QuestPrepDialog
+        quest={prepId ? catalog.quests[prepId] ?? null : null}
+        traderName={prepId ? lookup.traderName(catalog.quests[prepId]?.traderId ?? '') : ''}
+        onClose={() => setPrepId(null)}
+      />
+      <QuestMapDialog
+        quest={mapId ? catalog.quests[mapId] ?? null : null}
+        traderName={mapId ? lookup.traderName(catalog.quests[mapId]?.traderId ?? '') : ''}
+        lockedDoors={catalog.lockedDoors}
+        onClose={() => setMapId(null)}
+      />
     </section>
   )
 }
 
 interface QuestLineProps {
   quest: CatalogQuest
-  progress: ProfileProgress
+  qp: QuestProgress
   lookup: NameLookup
   open: boolean
   flash: boolean
   /** 모드 태그 색 번호 (위키와 같은 assignModColors) */
   modColor?: number
   onToggle(): void
+  /** 펼쳤을 때 줄 아래에 붙는 위키와 같은 상세 */
+  detail: ReactNode
 }
 
-/** 한 줄 요약: 진행 중이면 첫 미완료 목표와 카운터, 잠김이면 첫 잠김 사유. 펼치면 전체. */
-function QuestLine({ quest, progress, lookup, open, flash, modColor, onToggle }: QuestLineProps) {
+/** 한 줄 요약: 진행 중이면 첫 미완료 목표와 카운터, 잠김이면 첫 잠김 사유. 펼치면 위키와 같은 전체 상세. */
+function QuestLine({ quest, qp, lookup, open, flash, modColor, onToggle, detail }: QuestLineProps) {
   const t = useT()
-  const qp = questProgress(progress, quest.id)
   const locked = qp.status === 'Locked'
   const unreachable = locked && isUnreachable(qp)
   const first = firstOpenObjective(quest, qp)
   let summary: string | null = null
   if (locked) summary = qp.lockReasons[0] ? lockReasonText(qp.lockReasons[0], lookup, t) : null
   else if (qp.status === 'Started') summary = first ? lineText(formatObjective(first, t)) : t('overview.allDone')
-  const counter = !locked && first ? counterText(qp.objectives[first.conditionId]) : null
 
   return (
-    <li className={cls('qc-pline', open && 'is-open', flash && 'is-flash')}>
+    <li id={lineId(quest.id)} className={cls('qc-pline', open && 'is-open', flash && 'is-flash')}>
       <button type="button" className="qc-pline__row" aria-expanded={open} onClick={onToggle}>
         <span className="qc-pline__name">
           {quest.name}
@@ -214,38 +284,9 @@ function QuestLine({ quest, progress, lookup, open, flash, modColor, onToggle }:
         </span>
         <span className="qc-pline__trader">{lookup.traderName(quest.traderId)}</span>
         <span className="qc-pline__summary">{summary}</span>
-        <span className="qc-pline__counter">{counter}</span>
+        <span className="qc-pline__counter">{!locked && first && <Counter op={qp.objectives[first.conditionId]} />}</span>
       </button>
-      {open && (
-        <div className="qc-pline__detail">
-          {locked && qp.lockReasons.length > 0 && (
-            <>
-              <h4 className="qc-detail__h">{t('overview.lockReasons')}</h4>
-              <ul className="qc-lines">
-                {qp.lockReasons.map((r, i) => <li key={i}>{lockReasonText(r, lookup, t)}</li>)}
-              </ul>
-            </>
-          )}
-          {quest.objectives.length > 0 && (
-            <>
-              <h4 className="qc-detail__h">{t('detail.objectives')}</h4>
-              <ul className="qc-lines">
-                {quest.objectives.map((o) => {
-                  const op = qp.objectives[o.conditionId]
-                  const c = counterText(op)
-                  return (
-                    <li key={o.conditionId} className={cls(op?.done && 'is-done')}>
-                      <span className="qc-pline__obj">{lineText(formatObjective(o, t))}</span>
-                      {c && <span className="qc-pline__counter">{c}</span>}
-                    </li>
-                  )
-                })}
-              </ul>
-            </>
-          )}
-          <button type="button" className="qc-btn" onClick={() => navigate('wiki', null, { quest: quest.id })}>{t('overview.openWiki')}</button>
-        </div>
-      )}
+      {detail}
     </li>
   )
 }
