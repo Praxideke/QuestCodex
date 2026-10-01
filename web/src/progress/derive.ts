@@ -315,6 +315,67 @@ export function groupByQuest(entries: RaidEntry[]): QuestGroup[] {
   return [...groups.values()]
 }
 
+/** 이 목표가 고른 맵의 좌표를 가졌나 — 레이드 지도에 찍히는 목표 */
+const onMap = (e: RaidEntry, map: string) => (e.objective.locations ?? []).some((l) => mapGroup(l.map) === map)
+
+/**
+ * 카운터 진행률(0~1): target 이 2 이상인 목표들의 합계 기준. 없으면 null.
+ * target 1(방문·설치·1회 처치)은 "했다/안 했다" 라 진행률로 치지 않는다.
+ */
+function counterRatio(entries: RaidEntry[]): number | null {
+  let current = 0
+  let target = 0
+  for (const { progress: p } of entries) {
+    if (!p || p.target === null || p.target < 2) continue
+    current += Math.min(p.current, p.target)
+    target += p.target
+  }
+  return target > 0 ? current / target : null
+}
+
+/**
+ * 레이드 브리핑의 퀘스트 순서(사용자 결정): ① 이 맵 지도에 찍히는 퀘스트 ② 카운터가 있는 퀘스트 ③ 나머지.
+ * ①②는 안에서 카운터 진행률 높은 순, 같으면(③은 전부) 퀘스트 이름순.
+ */
+export function orderRaidQuests(entries: RaidEntry[], map: string): QuestGroup[] {
+  return groupByQuest(entries)
+    .map((g) => {
+      const ratio = counterRatio(g.entries)
+      const rank = g.entries.some((e) => onMap(e, map)) ? 0 : ratio !== null ? 1 : 2
+      return { g, rank, ratio: ratio ?? -1 }
+    })
+    .sort((a, b) => a.rank - b.rank || b.ratio - a.ratio || a.g.quest.name.localeCompare(b.g.quest.name))
+    .map((x) => x.g)
+}
+
+/** 레이드 지도에 찍을 것: 퀘스트 → 번호, 번호를 붙인 목표(지도 탭 만들기용, wiki/mapProjection buildNumberedTabs) */
+export interface RaidMapPlan {
+  numbers: Map<string, number>
+  /** 번호 순 퀘스트 — 크게 보기 팝업의 범례 */
+  quests: { n: number; quest: CatalogQuest }[]
+  items: { n: number; objective: Objective }[]
+}
+
+/**
+ * 고른 맵의 목표(mapBrief().here) 중 그 맵 좌표가 있는 것만 지도에 찍는다. 번호는 퀘스트 단위 — 목록 순서
+ * (orderRaidQuests, 지도에 찍히는 퀘스트가 맨 위)대로 1부터, 좌표 없는 퀘스트는 건너뛴다.
+ * 한 퀘스트의 목표들은 같은 번호·색이라 목록 한 줄 ↔ 지도 마커 묶음이 바로 이어진다.
+ */
+export function raidMapPlan(here: RaidEntry[], map: string): RaidMapPlan {
+  const numbers = new Map<string, number>()
+  const quests: RaidMapPlan['quests'] = []
+  const items: RaidMapPlan['items'] = []
+  for (const { quest, entries } of orderRaidQuests(here, map)) {
+    const placed = entries.filter((e) => onMap(e, map))
+    if (placed.length === 0) continue
+    const n = numbers.size + 1
+    numbers.set(quest.id, n)
+    quests.push({ n, quest })
+    for (const e of placed) items.push({ n, objective: e.objective })
+  }
+  return { numbers, quests, items }
+}
+
 /** 장비·특수 조건 한 줄: 라벨(무기·착용·탈출 …) + 값(대안 목록, 문장이면 한 개) */
 export interface RuleRow {
   label: string
@@ -518,11 +579,70 @@ export interface QuestFilter {
 
 export function filterProgressQuests(catalog: Catalog, progress: ProfileProgress, f: QuestFilter): CatalogQuest[] {
   const q = searchKey(f.query)
-  return Object.values(catalog.quests)
+  const rows = Object.values(catalog.quests)
     .filter((x) => questTab(questProgress(progress, x.id).status) === f.tab)
     .filter((x) => f.traderIds.size === 0 || f.traderIds.has(x.traderId))
     .filter((x) => q === '' || searchKey(x.name).includes(q))
-    .sort((a, b) => (a.minLevel ?? 0) - (b.minLevel ?? 0) || a.name.localeCompare(b.name))
+  return sortForTab(rows, progress, f.tab)
+}
+
+/** 목표 진행률 0~1. 카운터 있는 목표는 current/target, 없는 목표는 끝났으면 1. 목표가 없으면 0 */
+export function questCompletion(q: CatalogQuest, qp: QuestProgress): number {
+  if (q.objectives.length === 0) return 0
+  let sum = 0
+  for (const o of q.objectives) {
+    const op = qp.objectives[o.conditionId]
+    if (op?.done) sum += 1
+    else if (op && op.target) sum += Math.min(op.current / op.target, 1)
+  }
+  return sum / q.objectives.length
+}
+
+const ACTIVE = new Set<QuestStatus>(['Started', 'AvailableForFinish'])
+
+/**
+ * 잠김 탭의 단계: 0 = 지금 진행 중인 선행 하나만 남음(끝내면 바로 열림), 1 = 그 밖의 사유,
+ * 2 = 사유를 모름(프로필에 없는 퀘스트), 3 = 도달 불가(다른 진영·닫힌 택일 분기)
+ */
+function lockTier(qp: QuestProgress): number {
+  if (isUnreachable(qp)) return 3
+  const rs = qp.lockReasons
+  if (rs.length === 0) return 2
+  if (rs.length === 1 && rs[0].kind === 'quest' && ACTIVE.has(rs[0].currentStatus)) return 0
+  return 1
+}
+
+/** 완료·실패 시각(ms). 없으면 -Infinity 라 최신순에서 맨 뒤 */
+function finishedAt(qp: QuestProgress): number {
+  const ms = qp.finishTime ? Date.parse(qp.finishTime) : NaN
+  return Number.isNaN(ms) ? -Infinity : ms
+}
+
+/**
+ * 탭별 기본 정렬 — 현황은 "다음에 할 것" 화면이라 탭마다 보고 싶은 게 다르다. 마지막은 늘 최소 레벨 → 이름.
+ * 진행 중: 완료 보고 대기 → 진행률 높은 순 / 잠김: lockTier → 남은 사유 수 적은 순 /
+ * 완료·실패: 끝난 시각 최신순 / 수락 가능: 최소 레벨
+ */
+export function sortForTab(quests: CatalogQuest[], progress: ProfileProgress, tab: QuestTab): CatalogQuest[] {
+  const byLevel = (a: CatalogQuest, b: CatalogQuest) => (a.minLevel ?? 0) - (b.minLevel ?? 0) || a.name.localeCompare(b.name)
+  const key = new Map(quests.map((q): [string, number[]] => {
+    const qp = questProgress(progress, q.id)
+    switch (tab) {
+      case 'active': return [q.id, [qp.status === 'AvailableForFinish' ? 0 : 1, -questCompletion(q, qp)]]
+      case 'locked': return [q.id, [lockTier(qp), qp.lockReasons.length]]
+      case 'done':
+      case 'failed': return [q.id, [-finishedAt(qp)]]
+      case 'available': return [q.id, []]
+    }
+  }))
+  return [...quests].sort((a, b) => {
+    const ka = key.get(a.id)!
+    const kb = key.get(b.id)!
+    for (let i = 0; i < ka.length; i++) {
+      if (ka[i] !== kb[i]) return ka[i] < kb[i] ? -1 : 1
+    }
+    return byLevel(a, b)
+  })
 }
 
 /** 줄 요약용: 첫 번째로 끝나지 않은 목표(카운터 있는 것 우선이 아니라 목표 순서 그대로) */

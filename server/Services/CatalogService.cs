@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using QuestCodex.Catalog;
+using QuestCodex.Catalog.Locations;
 using SPTarkov.Common.Models.Logging;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Models.Spt.Config;
@@ -23,6 +24,8 @@ public class CatalogService(
     LocaleTable localeTable,
     VanillaSnapshot vanilla,
     ModQuestIndex modQuestIndex,
+    QuestZoneSnapshot questZoneSnapshot,
+    ModQuestZoneIndex modQuestZoneIndex,
     ImageRouterService imageRouterService,
     FileUtil fileUtil,
     ISptLogger<CatalogService> logger) : ICatalogSource
@@ -41,21 +44,18 @@ public class CatalogService(
 
     public IReadOnlySet<string> SupportedLangs => _supportedLangs.Value;
 
-    /// <summary>
-    /// 로케이션 _Id → 맵 키(LocationBase.Id 소문자 = locations 폴더 이름, 예: Sandbox_high → sandbox_high). 언어와 무관해 한 번만.
-    /// 인덱서로 넣는다: hideout·develop 처럼 _Id 가 비어 있거나 겹치는 로케이션이 있어도 예외가 나지 않게.
-    /// </summary>
-    private readonly Lazy<IReadOnlyDictionary<string, string>> _locationKeys = new(() =>
-    {
-        var keys = new Dictionary<string, string>(StringComparer.Ordinal);
-        foreach (var l in locationTable.GetDictionary().Values)
-        {
-            if (l?.Base is null || string.IsNullOrWhiteSpace(l.Base.Id)) continue;
-            keys[l.Base.IdField.ToString()] = l.Base.Id.ToLowerInvariant();
-        }
+    // 위치 데이터는 언어와 무관하므로 서버 수명당 한 번만 만든다. looseLoot 는 SPT 가 LazyLoad 로 들고 있어서
+    // .Value 를 읽을 때마다 파일을 다시 역직렬화한다(맵당 수 MB) — 그래서 여기서 한 번 뽑아 캐시한다.
+    private readonly Lazy<LocationData> _locationData = new(
+        () => LoadLocationData(questZoneSnapshot, modQuestZoneIndex, locationTable, logger),
+        LazyThreadSafetyMode.ExecutionAndPublication);
 
-        return keys;
-    }, LazyThreadSafetyMode.ExecutionAndPublication);
+    private sealed record LocationData(
+        IReadOnlyDictionary<string, IReadOnlyDictionary<string, IReadOnlyList<QuestCodex.Catalog.Models.MapPoint>>> Zones,
+        IReadOnlyDictionary<string, IReadOnlyDictionary<string, IReadOnlyList<QuestCodex.Catalog.Models.MapPoint>>> QuestItemSpawns,
+        IReadOnlyDictionary<string, string> LocationKeys,
+        bool SnapshotMissing,
+        IReadOnlyDictionary<string, IReadOnlyDictionary<string, IReadOnlyList<QuestCodex.Catalog.Models.MapArea>>> Areas);
 
     /// <summary>핸드북 카테고리·아이템 부모. 언어와 무관해 한 번만. 모드가 추가한 아이템도 첫 요청 시점이면 들어와 있다.</summary>
     private readonly Lazy<(IReadOnlyDictionary<string, HandbookCategoryInput> Categories, IReadOnlyDictionary<string, string> ItemParents)> _handbook = new(() =>
@@ -99,6 +99,7 @@ public class CatalogService(
         var started = DateTimeOffset.UtcNow;
         var locale = localeService.GetLocaleDb(lang);
         var fallback = lang == FallbackLang ? locale : localeService.GetLocaleDb(FallbackLang);
+        var locations = _locationData.Value;
 
         var input = new CatalogInput(
             Lang: lang,
@@ -116,9 +117,14 @@ public class CatalogService(
             ModQuestOrigins: modQuestIndex.QuestOrigins,
             ModQuestScanWarnings: modQuestIndex.Warnings,
             AvatarIsServable: IsAvatarServable,
-            LocationKeys: _locationKeys.Value,
+            QuestZones: locations.Zones,
+            QuestItemSpawns: locations.QuestItemSpawns,
+            LocationKeys: locations.LocationKeys,
+            QuestZoneSnapshotMissing: locations.SnapshotMissing,
+            LockedDoors: questZoneSnapshot.Doors,
             HandbookCategories: _handbook.Value.Categories,
-            HandbookItemParents: _handbook.Value.ItemParents);
+            HandbookItemParents: _handbook.Value.ItemParents,
+            QuestZoneAreas: locations.Areas);
 
         var catalog = CatalogBuilder.Build(input, started);
 
@@ -131,6 +137,42 @@ public class CatalogService(
         }
 
         return catalog;
+    }
+
+    /// <summary>
+    /// 존 = 동봉 스냅샷 + 모드 CustomQuestZones(같은 맵·ID 면 둘 다 점으로 남김). 퀘스트 아이템 = 각 맵 looseLoot 의
+    /// 강제 스폰. 맵 키는 LocationBase.Id 소문자(= locations 폴더 이름, 예: Sandbox_high → sandbox_high).
+    /// </summary>
+    private static LocationData LoadLocationData(
+        QuestZoneSnapshot questZoneSnapshot, ModQuestZoneIndex modQuestZoneIndex, LocationTable locationTable, ISptLogger<CatalogService> logger)
+    {
+        var zones = new PointTableBuilder().AddAll(questZoneSnapshot.Zones).AddAll(modQuestZoneIndex.Zones).Build();
+        var areas = new AreaTableBuilder().AddAll(questZoneSnapshot.Areas).AddAll(modQuestZoneIndex.Areas).Build();
+
+        var maps = locationTable.GetDictionary().Values
+            .Where(l => l?.Base is not null && !string.IsNullOrWhiteSpace(l.Base.Id))
+            .Select(l => (Map: l.Base.Id.ToLowerInvariant(), Location: l))
+            .ToList();
+        // 인덱서로 넣는다: hideout·develop 처럼 _Id 가 비어 있거나 겹치는 로케이션이 있어도 예외가 나지 않게.
+        var keys = new Dictionary<string, string>(StringComparer.Ordinal);
+        foreach (var (map, location) in maps) keys[location.Base.IdField.ToString()] = map;
+
+        // 지연 열거: 맵 하나의 looseLoot 만 메모리에 두고 다음 맵으로 넘어간다.
+        var spawns = LooseLootSpawns.Forced(maps.Select(m => (m.Map, ReadLooseLoot(m.Map, m.Location))));
+        return new LocationData(zones, spawns, keys, questZoneSnapshot.Zones is null, areas);
+
+        SPTarkov.Server.Core.Models.Eft.Common.LooseLoot? ReadLooseLoot(string map, SPTarkov.Server.Core.Models.Eft.Common.Location location)
+        {
+            try
+            {
+                return location.LooseLoot?.Value;
+            }
+            catch (Exception ex)
+            {
+                logger.Warning($"[QuestCodex] looseLoot of '{map}' unreadable, quest item locations skipped: {ex.Message}");
+                return null;
+            }
+        }
     }
 
     /// <summary>

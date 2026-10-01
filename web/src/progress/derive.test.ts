@@ -3,7 +3,8 @@ import type { Catalog, CatalogQuest, Objective, ObjectivePrep, PrepItem } from '
 import type { ProfileProgress, QuestProgress } from '../api/progress'
 import {
   aggregateNeeds, countTabByTrader, countTabs,dedupeRows, entryPlace, filterNeedRows, filterProgressQuests, groupByQuest, handoverReady, mapsFromText, placeFinds, isUnreachable, itemKey, itemNeeds,
-  mapBrief, mapGroup, mapTabs, mergeSources, missing, objectiveMaps, OTHER_CATEGORY, questTab, raidEntries, raidFinds, remaining, rowCategory, searchKey, sortNeedRows,
+  mapBrief, mapGroup, mapTabs, mergeSources, missing, objectiveMaps, OTHER_CATEGORY, questCompletion, questTab, sortForTab, raidEntries, raidFinds, raidMapPlan, orderRaidQuests, remaining, rowCategory, searchKey, sortNeedRows,
+  type RaidEntry,
 } from './derive'
 
 const marker = { tpl: 'ms2000', name: 'MS2000 Marker' }
@@ -260,6 +261,35 @@ describe('raidEntries / mapTabs / mapBrief', () => {
     expect(b.special.map((e) => e.objective.conditionId)).toEqual(['k'])
     expect(mapBrief(entries, 'bigmap', {}).here).toEqual([])
   })
+  it('지도 번호: 이 맵 좌표가 있는 퀘스트만 목록 순서로 1부터, 한 퀘스트의 목표는 같은 번호', () => {
+    const at = (map: string) => [{ map, points: [{ x: 0, y: 0, z: 0 }] }]
+    const a = quest('a', [{ ...obj('a1', 'VisitPlace'), locations: at('factory4_night') }, { ...obj('a2', 'VisitPlace'), locations: at('factory4_day') }])
+    const b = quest('b', [{ ...obj('b1', 'VisitPlace'), locations: at('woods') }])
+    const c = quest('c', [obj('c1', 'VisitPlace'), { ...obj('c2', 'VisitPlace'), locations: at('factory4_day') }])
+    const here: RaidEntry[] = [a, b, c].flatMap((q) => q.objectives.map((o) => ({ quest: q, objective: o, progress: undefined, maps: ['factory4_day'], inferred: false })))
+    const plan = raidMapPlan(here, 'factory4_day')
+    expect([...plan.numbers]).toEqual([['a', 1], ['c', 2]])
+    expect(plan.items.map((i) => [i.n, i.objective.conditionId])).toEqual([[1, 'a1'], [1, 'a2'], [2, 'c2']])
+  })
+  it('퀘스트 순서: 지도에 찍히는 것 → 카운터 있는 것(진행률 높은 순) → 나머지(이름순)', () => {
+    const at = [{ map: 'woods', points: [{ x: 0, y: 0, z: 0 }] }]
+    const entry = (q: CatalogQuest, o: Objective, current: number, target: number | null): RaidEntry =>
+      ({ quest: q, objective: o, progress: { current, target, done: false }, maps: ['woods'], inferred: false })
+    const zebra = quest('zebra', [obj('z', 'VisitPlace')])
+    const apple = quest('apple', [obj('a', 'VisitPlace')])
+    const low = quest('low', [obj('l', 'CounterCreator')])
+    const high = quest('high', [obj('h1', 'CounterCreator'), obj('h2', 'CounterCreator')])
+    const mapped = quest('mapped', [{ ...obj('m', 'VisitPlace'), locations: at }])
+    const here = [
+      entry(zebra, zebra.objectives[0], 0, 1),          // target 1 은 카운터로 치지 않는다
+      entry(low, low.objectives[0], 2, 20),
+      entry(apple, apple.objectives[0], 0, null),
+      entry(high, high.objectives[0], 5, 10), entry(high, high.objectives[1], 10, 10),
+      entry(mapped, mapped.objectives[0], 0, 1),
+    ]
+    expect(orderRaidQuests(here, 'woods').map((g) => g.quest.id)).toEqual(['mapped', 'high', 'low', 'apple', 'zebra'])
+    expect([...raidMapPlan(here, 'woods').numbers]).toEqual([['mapped', 1]])
+  })
   it('맵 없는 설치 목표의 아이템은 따로 — 맵별 목록에 섞지 않는다', () => {
     const noMap = quest('nomap', [obj('n', 'PlaceBeacon', prep({ item: item({ action: 'plant', items: [jammer] }) }))])
     const e = raidEntries(catalog([noMap]), progress({ nomap: qp('Started') }))
@@ -345,6 +375,48 @@ describe('questTab / countTabs / filterProgressQuests', () => {
     expect(filterProgressQuests(cat, prog, { tab: 'active', traderIds: new Set(), query: 'gun smith' }).map((q) => q.id)).toEqual(['a'])
     expect(filterProgressQuests(cat, prog, { tab: 'active', traderIds: new Set(['t2']), query: '' }).map((q) => q.id)).toEqual(['c'])
     expect(filterProgressQuests(cat, prog, { tab: 'active', traderIds: new Set(['t1', 't2']), query: '' }).map((q) => q.id).sort()).toEqual(['a', 'c'])
+  })
+  it('진행 중: 완료 보고 대기 → 진행률 높은 순 → 최소 레벨', () => {
+    const cat = catalog([
+      quest('low', [obj('a', 'CounterCreator')], { minLevel: 1 }),
+      quest('high', [obj('a', 'CounterCreator')], { minLevel: 30 }),
+      quest('ready', [obj('a', 'CounterCreator')], { minLevel: 40 }),
+      quest('tie', [obj('a', 'CounterCreator')], { minLevel: 5 }),
+    ])
+    const prog = progress({
+      low: qp('Started', { a: { current: 1, target: 10, done: false } }),
+      high: qp('Started', { a: { current: 8, target: 10, done: false } }),
+      ready: qp('AvailableForFinish', { a: { current: 10, target: 10, done: true } }),
+      tie: qp('Started', { a: { current: 1, target: 10, done: false } }),
+    })
+    expect(sortForTab(Object.values(cat.quests), prog, 'active').map((q) => q.id)).toEqual(['ready', 'high', 'low', 'tie'])
+  })
+  it('진행률: 카운터는 비율, 카운터 없는 목표는 끝났으면 1', () => {
+    const q = quest('q', [obj('a', 'CounterCreator'), obj('b', 'FindItem')])
+    expect(questCompletion(q, qp('Started', { a: { current: 5, target: 10, done: false }, b: { current: 0, target: null, done: true } }))).toBe(0.75)
+    expect(questCompletion(quest('e', []), qp('Started'))).toBe(0)
+  })
+  it('잠김: 진행 중인 선행 하나만 남음 → 사유 적은 순 → 사유 모름 → 도달 불가', () => {
+    const cat = catalog([
+      quest('far', [], { minLevel: 1 }),
+      quest('near', [], { minLevel: 50 }),
+      quest('one', [], { minLevel: 20 }),
+      quest('unknown', [], { minLevel: 1 }),
+      quest('never', [], { minLevel: 1 }),
+    ])
+    const prog = progress({
+      far: qp('Locked', {}, [{ kind: 'level', need: 30, compare: '>=', current: 10 }, { kind: 'quest', questId: 'x', needStatuses: ['Success'], currentStatus: 'Locked' }]),
+      near: qp('Locked', {}, [{ kind: 'quest', questId: 'x', needStatuses: ['Success'], currentStatus: 'Started' }]),
+      one: qp('Locked', {}, [{ kind: 'level', need: 30, compare: '>=', current: 10 }]),
+      never: qp('Locked', {}, [{ kind: 'faction', need: 'bear' }]),
+    })
+    expect(sortForTab(Object.values(cat.quests), prog, 'locked').map((q) => q.id)).toEqual(['near', 'one', 'far', 'unknown', 'never'])
+  })
+  it('완료: 끝난 시각 최신순, 시각 없으면 맨 뒤', () => {
+    const cat = catalog([quest('old', []), quest('none', []), quest('new', [])])
+    const at = (finishTime: string | null): QuestProgress => ({ ...qp('Success'), finishTime })
+    const prog = progress({ old: at('2026-09-01T00:00:00+00:00'), none: at(null), new: at('2026-09-30T00:00:00+00:00') })
+    expect(sortForTab(Object.values(cat.quests), prog, 'done').map((q) => q.id)).toEqual(['new', 'old', 'none'])
   })
   it('상인별 개수는 고른 탭 안에서만 센다', () => {
     const cat = catalog([quest('a', []), quest('b', []), quest('c', [], { traderId: 't2' })])

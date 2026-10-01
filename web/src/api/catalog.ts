@@ -54,6 +54,46 @@ export interface ObjectivePrep {
   exitName: string | null
 }
 
+/** Unity 월드 좌표 그대로. y = 높이. SVG 투영은 wiki/mapProjection.ts 가 한다. */
+export interface MapPoint {
+  x: number
+  y: number
+  z: number
+}
+
+/** map = SPT locations 폴더 키(소문자, 예: bigmap, sandbox_high) */
+export interface ObjectiveLocation {
+  map: string
+  points: MapPoint[]
+  /** 구역 처치·신호탄 목표의 영역(08 스펙). 그 밖의 목표는 빈 배열, 필드가 생기기 전 서버는 undefined. */
+  areas?: MapArea[]
+}
+
+/**
+ * 지도 위 사각형 영역. center.x·z 는 영역 중심, center.y 는 존 위치 높이(층 판정용). sizeX·sizeZ 는 월드 x·z 방향 전체 폭(m),
+ * yaw 는 수직축 회전(도, Unity 규약 — 위에서 볼 때 양수가 시계 방향). 바닐라는 축 정렬이라 0.
+ */
+export interface MapArea {
+  center: MapPoint
+  sizeX: number
+  sizeZ: number
+  yaw: number
+  /**
+   * 층 판정용 높이 범위. 구역 처치는 상자 바닥~꼭대기(걸친 층 모두), 신호탄은 서버가 바닥 + 1m 한 점으로 줄여 보낸다.
+   * 필드가 생기기 전 서버는 undefined — 그때는 center.y 한 점으로 본다.
+   */
+  minY?: number
+  maxY?: number
+}
+
+/** 열쇠가 필요한 문. keyTpl 은 지금 쓰지 않고, 보유 열쇠 표시(06 스펙 §4.3)를 붙일 때의 대조 키다. */
+export interface LockedDoor {
+  keyTpl: string
+  keyName: string
+  kind: 'door' | 'keycard'
+  position: MapPoint
+}
+
 export interface Objective {
   conditionId: string
   conditionType: string
@@ -63,6 +103,8 @@ export interface Objective {
   targetName: string | null
   targetCount: number | null
   prep: ObjectivePrep | null
+  /** 목표 위치. 좌표를 모르는 조건이면 빈 배열. 필드가 생기기 전 서버(구버전 DLL)는 undefined 를 보낸다. */
+  locations?: ObjectiveLocation[]
 }
 
 export type Reward =
@@ -137,6 +179,8 @@ export interface Catalog {
   itemCategories: CatalogItemCategory[]
   /** 아이템 tpl → 카테고리 id. 핸드북에 없는 아이템은 빠진다 */
   itemCategoryOf: Record<string, string>
+  /** 서버 맵 키 → 잠긴 문. 필드가 생기기 전 서버(구버전 DLL)는 보내지 않는다. */
+  lockedDoors?: Record<string, LockedDoor[]>
 }
 
 export interface CatalogItemCategory {

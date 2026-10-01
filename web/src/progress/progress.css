@@ -92,7 +92,7 @@
 .qc-pline__row {
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(0, 2fr) 110px minmax(0, 3fr) 90px;
+  grid-template-columns: minmax(0, 2fr) 110px minmax(0, 3fr) 110px;  /* 110px: 카운터 "7,609 / 50,000"(.qc-count) */
   align-items: center;
   gap: 12px;
   padding: 7px 14px;
@@ -109,6 +109,22 @@
 .qc-pline__detail { padding: 6px 14px 14px 28px; }
 .qc-pline__obj { flex: 1; }
 .qc-lines li.is-done { color: var(--fg-3); text-decoration: line-through; }
+/* 현황 펼친 행(위키 QuestDetail 재사용): 목표 카운터·미충족 시작 조건 */
+.qc-pline > .qc-detail { margin: 8px 14px 12px; }
+.qc-detail__actions { margin-left: auto; }
+.qc-lines__text { flex: 1; min-width: 0; }
+.qc-lines__aside { color: var(--fg-2); font-size: 12px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.qc-lines li.is-unmet { color: var(--warn); }
+.qc-lines li.is-unmet::before {
+  content: "✗";
+  width: auto;
+  height: auto;
+  margin-top: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--warn);
+  font-size: 12px;
+}
 
 /* ---- 레이드 준비 ---- */
 .qc-maps { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 16px 0; }
@@ -133,17 +149,25 @@
 /* 카드 제목과 첫 퀘스트 줄 사이 구분선(피드백: 제목과 목록이 붙어 보임) */
 .qc-rgroups { border-top: 1px solid var(--border); }
 .qc-rgroups .qc-pline:last-child { border-bottom: 0; }
-.qc-rgroups .qc-pline__row { grid-template-columns: minmax(0, 1.3fr) 90px minmax(0, 2fr) 56px; padding: 6px 4px; }
+.qc-rgroups .qc-pline__row { grid-template-columns: minmax(0, 1.3fr) 90px minmax(0, 2fr) 72px; padding: 6px 4px; } /* 72px: 카운터 "100 / 100"(.qc-count) */
 .qc-rgroups .qc-pline__detail { padding: 4px 4px 12px 16px; }
 /* 펼친 목표: 지금 탭의 맵은 도드라지게, 다른 맵은 비활성처럼, 맵 미상은 보통 */
 .qc-rgroups .qc-place--here { color: var(--fg); font-weight: 600; }
 .qc-rgroups .qc-place--here::before { background: var(--accent); }
 .qc-rgroups .qc-place--elsewhere { color: var(--fg-3); }
 .qc-inferred { margin-left: 6px; color: var(--fg-3); font-weight: 400; }
-.qc-bring__row { display: flex; justify-content: space-between; gap: 10px; padding: 3px 0; }
+/* 아이템 목록 = [이름 | FIR | 수량] 3열. 줄은 subgrid 라 FIR·수량 열 폭이 목록 전체에서 같다 */
+.qc-bring { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; column-gap: 8px; }
+.qc-bring__row { display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; align-items: center; padding: 3px 0; }
+.qc-bring__fir { display: flex; justify-content: center; }
+/* FIR — 테두리 없이 옅은 배경 알약. 칸이 고정이라 강조를 낮춰도 눈에 들어온다 */
+.qc-fir {
+  padding: 0 5px; border-radius: 999px; background: var(--bg-hover); color: var(--fg-2);
+  font-size: 10px; font-weight: 600; line-height: 16px; letter-spacing: .02em;
+}
 .qc-bring__row.is-short { color: var(--warn); }
 .qc-bring--any { color: var(--fg-2); }
-.qc-bring__num { white-space: nowrap; font-size: 12px; font-variant-numeric: tabular-nums; }
+.qc-bring__num { white-space: nowrap; text-align: right; font-size: 12px; font-variant-numeric: tabular-nums; }
 .qc-rules > li { padding: 6px 0; border-bottom: 1px solid var(--border); }
 .qc-rules > li:last-child { border-bottom: 0; }
 .qc-rules__dl { margin: 0; }
@@ -159,14 +183,52 @@
 .qc-find, .qc-find__none { font-size: 12px; }
 .qc-findgroup + .qc-findgroup { margin-top: 10px; }
 .qc-findgroup.qc-place--here .qc-find { font-weight: 600; }
-.qc-raid__soon {
-  margin: 12px 16px 0;
-  padding: 16px;
-  border: 1px dashed var(--border-2);
-  border-radius: var(--radius);
-  color: var(--fg-3);
-  text-align: center;
+/* 위치 지도 — 왼쪽 칸 맨 아래. 왼쪽 칸을 그리드 높이까지 늘려 두어야 sticky 가 오른쪽 칸 끝까지 따라온다.
+   top: 프로필 바(41px) 아래 + 여백 */
+.qc-raid__main { align-self: stretch; }
+.qc-raidmap { position: sticky; top: 53px; }
+/* 머리 = [제목 … 잠긴 문 · 크게 보기], 세로 가운데 정렬. 제목 아래 여백은 머리가 갖는다 */
+.qc-raidmap__head { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
+.qc-raidmap__head .qc-card__h { margin: 0; }
+/* 두 버튼 모두 잠긴 문 토글 모양(wiki.css .qc-map__toggle). 토글의 아래 여백·auto 는 첫 버튼만 오른쪽으로 밀게 */
+.qc-raidmap__head .qc-map__toggle { margin: 0; }
+.qc-raidmap__head .qc-map__toggle:first-of-type { margin-left: auto; }
+.qc-raidmap__stage { position: relative; display: flex; height: min(480px, calc(100vh - 200px)); border-radius: var(--radius); overflow: hidden; background: var(--bg); }
+.qc-raidmap > .qc-map__msg { padding: 8px 0; }
+.qc-raidmap > .qc-map__hint { margin: 6px 0 0; }
+.qc-raidmap > .qc-map__credit { padding: 4px 0 0; border-top: 0; }
+/* 크게 보기 팝업 — 모달이 아니라(show()) UA 기본이 흐름 속 absolute 다. 화면 기준으로 띄우고 프로필 바(z 2) 위로.
+   저장된 틀이 있으면 useDialogFrame 이 inset·left·top 을 인라인으로 덮는다 */
+.qc-dialog--float { position: fixed; inset: 0; z-index: 10; }
+/* 범례 접기 — 지도 오른쪽 위(층 버튼은 왼쪽 위). 접히면 지도가 팝업 폭을 다 쓴다 */
+.qc-map__body.is-collapsed { grid-template-columns: minmax(0, 1fr); }
+.qc-map__stage .qc-raidmap__side-btn {
+  position: absolute; top: 10px; right: 10px; z-index: 3; padding: 4px 10px; border: 1px solid var(--border-2); border-radius: 999px;
+  background: var(--bg-3); color: var(--fg-2); font-size: 12px; cursor: pointer;
 }
+.qc-map__stage .qc-raidmap__side-btn:hover { color: var(--fg); background: var(--bg-hover); }
+/* 접힌 상태: 지도가 전반적으로 어두워서 강조색 채움 + 그림자로 띄운다 */
+.qc-map__stage .qc-raidmap__side-btn.is-closed {
+  border-color: transparent; background: var(--accent); color: var(--accent-contrast); font-weight: 600; box-shadow: var(--marker-shadow);
+}
+.qc-map__stage .qc-raidmap__side-btn.is-closed:hover { background: var(--accent); filter: brightness(1.1); }
+/* 크게 보기 팝업 맨 아래 줄 — 출처 · 조작 안내 */
+.qc-raidmap__foot { flex: none; display: flex; align-items: center; gap: 12px; padding-right: 18px; border-top: 1px solid var(--border); }
+.qc-raidmap__foot .qc-map__credit { flex: 1; border-top: 0; }
+.qc-raidmap__foot .qc-map__hint { margin: 0; white-space: nowrap; }
+/* 목표 카운터 — 현황 상인별 진행률(.qc-bar__num)과 같은 모양: 현재 굵게 · 목표 흐리게, 열 폭 최소값으로 "/" 정렬 (7,609 / 50,000 처럼 큰 수는 늘어난다) */
+.qc-count { display: inline-grid; grid-template-columns: minmax(3ch, max-content) minmax(6ch, max-content); column-gap: 4px; justify-items: end; color: var(--fg); font-variant-numeric: tabular-nums; }
+.qc-count__cur { font-weight: 600; }
+.qc-count__total { justify-self: start; color: var(--fg-2); }
+.qc-count.is-zero .qc-count__cur { color: var(--fg-3); font-weight: 400; }
+/* 퀘스트 이름 뒤 지도 번호 — 글자 높이(1em)에 맞춰 줄 높이·정렬을 건드리지 않는다. 색은 지도 마커와 같다 */
+.qc-rgroup__num {
+  flex: none; display: inline-grid; place-items: center; min-width: 1.15em; height: 1.15em; padding: 0 .2em; border-radius: 999px;
+  margin-left: -3px;  /* .qc-pline__name 의 gap(8px) 을 이름 ↔ 번호 사이만 5px 로 */
+  background: var(--c, var(--marker)); color: var(--obj-fg); font-size: 11px; font-weight: 700; line-height: 1;
+}
+/* 지도 번호 배지가 붙은 퀘스트 줄 — 지도 마커에 마우스를 올려도 같은 줄이 강조된다 */
+.qc-rgroups .qc-pline.is-hot > .qc-pline__row { background: var(--bg-hover); }
 
 /* ---- 필요 아이템 ---- */
 .qc-items { margin-top: 12px; }
@@ -226,4 +288,5 @@ svg.qc-cat__icon { width: 14px; height: 14px; }
   .qc-overview > .qc-card:nth-child(2), .qc-raid__side > .qc-card { margin-left: 16px; }
   .qc-pline__row { grid-template-columns: minmax(0, 1fr) auto; }
   .qc-pline__trader, .qc-pline__summary { display: none; }
+  .qc-raidmap { position: static; }
 }

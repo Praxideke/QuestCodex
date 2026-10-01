@@ -32,8 +32,20 @@ Under **Go see a trader**:
 
 ## Quests by status
 
-All quests grouped by status, with search and the same trader row as the wiki. Click a quest to expand
-its objectives and see which ones are done. Mod quests carry their mod name tag.
+All quests grouped by status, with search and the same trader row as the wiki. Mod quests carry their mod name tag.
+
+Click a quest to expand the same details as the wiki (description, guide, locations map, branch warning,
+rewards, related quests), plus your progress:
+
+- Objectives show their counters, and finished ones are struck through
+- Locked quests mark the start conditions you haven't met yet, with your current value
+- **Open in wiki** jumps to the quest in the wiki; related quest links jump within this list
+
+Each tab sorts for what you'd look for first:
+
+- **Active**: ready to turn in first, then by objective completion
+- **Locked**: closest to unlocking first
+- **Completed / Failed**: most recent first
 
 Quests you can never finish on this profile (other faction only, or a branch you already closed) are
 marked **Unreachable**.

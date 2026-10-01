@@ -1,7 +1,10 @@
 using System.Text.Json;
 using QuestCodex.Catalog;
+using QuestCodex.Catalog.Locations;
 using QuestCodex.Catalog.Models;
+using QuestCodex.Services;
 using SPTarkov.Server.Core.Models.Common;
+using SPTarkov.Server.Core.Models.Eft.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using SPTarkov.Server.Core.Utils;
 using SPTarkov.Server.Core.Utils.Json;
@@ -64,6 +67,91 @@ public class VanillaSmokeTests
         Assert.Equal("Lighthouse", punisher4.Location);
         Assert.True(punisher4.Objectives[0].Prep?.Weapons.Count >= 10);
         Assert.Contains(punisher4.Objectives, o => o.Prep?.Item is { Action: "handover", FoundInRaid: true });
+    }
+
+    /// <summary>
+    /// 위치정보(스펙 §6·§7): 동봉 존 스냅샷 + 실제 looseLoot + 로케이션 base.json 으로 빌드해서 대표 퀘스트의 좌표를 확인한다.
+    /// 존이 덤프에 없는 11개(스냅샷 README 의 남은 존)는 questZoneNotFound 로 남으므로 경고 수는 검사하지 않는다.
+    /// </summary>
+    [Fact]
+    public void Vanilla_catalog_has_quest_locations()
+    {
+        var questsPath = Path.Combine(DataDir, "templates", "quests.json");
+        if (!File.Exists(questsPath))
+        {
+            return; // skip: no local SPT install
+        }
+
+        var quests = Deserialize<Dictionary<MongoId, Quest>>(questsPath);
+        var items = Deserialize<Dictionary<MongoId, TemplateItem>>(Path.Combine(DataDir, "templates", "items.json"));
+        var en = Deserialize<Dictionary<string, string>>(Path.Combine(DataDir, "locales", "global", "en.json"));
+
+        var keys = new Dictionary<string, string>(StringComparer.Ordinal);
+        var loots = new List<(string, LooseLoot?)>();
+        foreach (var dir in Directory.GetDirectories(Path.Combine(DataDir, "locations")))
+        {
+            var basePath = Path.Combine(dir, "base.json");
+            if (!File.Exists(basePath)) continue;
+            using var doc = JsonDocument.Parse(File.ReadAllText(basePath));
+            if (!doc.RootElement.TryGetProperty("Id", out var id) || !doc.RootElement.TryGetProperty("_Id", out var mongoId)) continue;
+            var map = id.GetString()!.ToLowerInvariant();
+            keys[mongoId.GetString()!] = map;
+            var lootPath = Path.Combine(dir, "looseLoot.json");
+            if (File.Exists(lootPath)) loots.Add((map, Deserialize<LooseLoot>(lootPath)));
+        }
+
+        var snapshot = QuestZoneSnapshot.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Data", "quest-zones.json")));
+        var input = new CatalogInput("en", "4.1.5", "test", quests, new Dictionary<MongoId, TraderBase>(), items, en, en,
+            new HashSet<MongoId>(), new HashSet<MongoId>(), null, null,
+            QuestZones: snapshot.Zones, QuestItemSpawns: LooseLootSpawns.Forced(loots), LocationKeys: keys, LockedDoors: snapshot.Doors,
+            QuestZoneAreas: snapshot.Areas);
+
+        var catalog = CatalogBuilder.Build(input, DateTimeOffset.UtcNow);
+
+        // BP 연료 확보(Customs): 목표 4개 모두 bigmap 좌표, Reserve 의 fuel4 복사본은 규칙 1 로 빠진다
+        var bpDepot = catalog.Quests["59c124d686f774189b3c843f"].Objectives;
+        Assert.Equal(4, bpDepot.Count);
+        Assert.All(bpDepot, o => Assert.Equal("bigmap", Assert.Single(o.Locations).Map));
+
+        // 광신도 - 파트 2(any): 규칙 2 로 세 맵
+        var cult2Maps = catalog.Quests["5a27ba1c86f77461ea5a3c56"].Objectives.SelectMany(o => o.Locations).Select(l => l.Map).ToHashSet();
+        Assert.Equal(new HashSet<string> { "bigmap", "woods", "shoreline" }, cult2Maps);
+
+        // Beneath The Streets(marathon): Labs
+        var beneath = catalog.Quests["66aba85403e0ee3101042877"].Objectives.SelectMany(o => o.Locations).ToList();
+        Assert.Contains(beneath, l => l.Map == "laboratory");
+
+        // 보급 계획: FindItem 퀘스트 아이템 → looseLoot 강제 스폰
+        var supplyPlans = catalog.Quests["596a0e1686f7741ddf17dbee"].Objectives.First(o => o.ConditionType == "FindItem");
+        Assert.NotEmpty(supplyPlans.Locations);
+
+        // 못 찾은 존은 tools/zone-dump/dumps/README.md 의 "남은 존" 목록과 같아야 한다. 새로 빠지는 존이 생기면(스냅샷 누락,
+        // SPT 업데이트로 ID 변경) 여기서 드러난다. 목록을 줄였다면 README 와 이 기대값을 함께 고친다.
+        var notFound = catalog.Warnings.Where(w => w.Code == WarningCodes.QuestZoneNotFound)
+            .Select(w => w.Detail.Split('\'')[1]).ToHashSet();
+        string[] remaining =
+        [
+            "bunker2", "Check_cinema", "Labs_transits", "1", // 미궁 7개는 2026-10-01 재덤프로 확보
+        ];
+        Assert.Equal(remaining.ToHashSet(), notFound);
+
+        // 잠긴 문(06 스펙): 모든 문의 열쇠가 실제 아이템 이름으로 풀린다(tpl 그대로 남은 것 0개)
+        var doors = catalog.LockedDoors.Values.SelectMany(d => d).ToList();
+        Assert.Equal(34, catalog.LockedDoors["bigmap"].Count);
+        Assert.All(doors, d => Assert.NotEqual(d.KeyTpl, d.KeyName));
+        Assert.Contains(catalog.LockedDoors["laboratory"], d => d.Kind == "keycard");
+
+        // 구역 영역(08 스펙): 구역 처치와 신호탄 목표는 영역을, 설치 목표(BP 연료 확보)는 영역 없이 점만
+        var logging = catalog.Quests["67503219527c9a38e80496ae"].Objectives.SelectMany(o => o.Locations).ToList();
+        Assert.Contains(logging, l => l.Map == "woods" && l.Areas.Any(a => a.SizeX == 500 && a.SizeZ == 1600));
+        var payback = catalog.Quests["63966fd9ea19ac7ed845db30"].Objectives.SelectMany(o => o.Locations).ToList();
+        Assert.Contains(payback, l => l.Areas.Count > 0);
+        Assert.All(bpDepot.SelectMany(o => o.Locations), l => Assert.Empty(l.Areas));
+
+        // 호텔 안뜰 신호탄(Huntsman Administrator): 감지 상자 중심 10.3m 가 아니라 바닥 + 1m 로 층을 정한다
+        var huntsmanFlare = catalog.Quests["639136df4b15ca31f76bc31f"].Objectives
+            .Single(o => o.ConditionId == "63aaccae87413d64ae079631").Locations.SelectMany(l => l.Areas).Single();
+        Assert.True(huntsmanFlare.MaxY < 2, $"flare anchored at {huntsmanFlare.MinY}..{huntsmanFlare.MaxY}");
     }
 
     private static T Deserialize<T>(string path)

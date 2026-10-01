@@ -7,6 +7,7 @@ import { FilterBar } from './FilterBar'
 import { QuestDetail } from './QuestDetail'
 import { QuestDescriptionDialog } from './QuestDescriptionDialog'
 import { QuestPrepDialog } from './QuestPrepDialog'
+import { QuestMapDialog } from './QuestMapDialog'
 import { QuestList } from './QuestList'
 import { rowId } from './QuestRow'
 import { WikiSkeleton } from './WikiSkeleton'
@@ -26,6 +27,7 @@ export function WikiPage({ catalog, route }: WikiPageProps) {
   const [expanded, setExpanded] = useState<ReadonlySet<string>>(() => new Set())
   const [dialogId, setDialogId] = useState<string | null>(null)
   const [prepId, setPrepId] = useState<string | null>(null)
+  const [mapId, setMapId] = useState<string | null>(null)
   /** 다음 커밋 후 scrollIntoView 할 행. 필터 리셋과 같은 렌더에 반영되므로 효과 시점엔 행이 DOM 에 있다. */
   const [scrollTarget, setScrollTarget] = useState<string | null>(null)
   const consumedDeepLink = useRef(false)
@@ -99,7 +101,7 @@ export function WikiPage({ catalog, route }: WikiPageProps) {
         modColors={modColors}
         branchIds={branchIds}
         renderDetail={(q) => (
-          <QuestDetail quest={q} catalog={catalog} lookup={lookup} branch={branches.get(q.id)} onOpenDescription={setDialogId} onOpenPrep={setPrepId} onJump={jumpTo} />
+          <QuestDetail quest={q} catalog={catalog} lookup={lookup} branch={branches.get(q.id)} onOpenDescription={setDialogId} onOpenPrep={setPrepId} onOpenMap={setMapId} onJump={jumpTo} />
         )}
       />
       <QuestDescriptionDialog
@@ -111,6 +113,12 @@ export function WikiPage({ catalog, route }: WikiPageProps) {
         quest={prepId ? catalog.quests[prepId] ?? null : null}
         traderName={prepId ? lookup.traderName(catalog.quests[prepId]?.traderId ?? '') : ''}
         onClose={() => setPrepId(null)}
+      />
+      <QuestMapDialog
+        quest={mapId ? catalog.quests[mapId] ?? null : null}
+        traderName={mapId ? lookup.traderName(catalog.quests[mapId]?.traderId ?? '') : ''}
+        lockedDoors={catalog.lockedDoors}
+        onClose={() => setMapId(null)}
       />
     </div>
   )

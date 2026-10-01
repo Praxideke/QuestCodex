@@ -22,6 +22,12 @@ If the page and the game disagree, suspect this first.
 Quests a mod injects from C# code (`CustomQuestService.CreateQuest()`) rather than from JSON files leave
 no file trace, so their source mod can't be identified. Those get a generic `mod` label.
 
+## Quest map coverage
+
+- A few quests have no location data, so their objectives don't appear on the map.
+- Mod quests show on the map only when the mod defines its zones in data the server can read.
+- QuestCodex doesn't track which keys you own. Lock icons tell you which key a door needs, nothing more.
+
 ## Local only
 
 The SPT server binds to `127.0.0.1`, so QuestCodex opens only in a browser on the machine running the server.

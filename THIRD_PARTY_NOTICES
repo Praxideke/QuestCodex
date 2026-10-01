@@ -55,6 +55,75 @@ Redistributed in wwwroot/fonts/PretendardVariable.woff2
 
 
 -------------------------------------------------------------------------------
+Redistributed in wwwroot/maps/<map>/*.svg
+-------------------------------------------------------------------------------
+
+  Tarkov map SVGs   CC BY-NC-SA 4.0   https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+  Original maps by Shebuka (https://github.com/the-hideout/tarkov-dev-svg-maps,
+  https://github.com/TarkovTracker/tarkovdata). The per-floor layer files were
+  prepared for SPT-DynamicMaps; some were modified by acidphantasm (Customs,
+  Interchange, Woods) or dirtbikercj (Factory). The Labyrinth map is the work of
+  acidphantasm. Those modifications are not made or endorsed by Shebuka.
+
+  QuestCodex ships these files unmodified, as separate files, each map folder
+  alongside its original license file (Shebuka-LICENSE*.md or
+  acidphantasm-LICENSE.md). The quest map popup credits the author, modifier
+  and license of the map it shows. These files are not covered by LICENSE and
+  may not be used commercially.
+
+
+-------------------------------------------------------------------------------
+Redistributed in wwwroot/maps/icons/door_with_lock.png, door_with_key.png
+-------------------------------------------------------------------------------
+
+  Door marker icons   CC BY 3.0   https://creativecommons.org/licenses/by/3.0/
+
+  "Locked door", "Door" and "Key lock" by Delapouite, game-icons.net
+  (https://game-icons.net/1x1/delapouite/locked-door.html,
+   https://game-icons.net/1x1/delapouite/door.html,
+   https://game-icons.net/1x1/delapouite/key-lock.html)
+  SPT-DynamicMaps scaled them down to 60x60, added a black outline and combined
+  some of them; QuestCodex ships those PNGs unmodified (colored at display time),
+  together with DynamicMaps' marker_credits.txt in the same folder.
+
+
+-------------------------------------------------------------------------------
+Redistributed in wwwroot/maps/<map>/map.json and wwwroot/assets/main-*.js
+-------------------------------------------------------------------------------
+
+  SPT-DynamicMaps   MIT   https://github.com/acidphantasm/SPT-DynamicMaps
+
+  Map calibration data (coordinate rotation, image bounds, floor bounds) is
+  converted from SPT-DynamicMaps' map definitions (commit 4944764) by
+  tools/maps/build-maps.js. The map projection, floor selection and floor
+  display rules in the web bundle are ported from SPT-DynamicMaps (MapView,
+  MapLayer).
+
+  MIT License
+
+  Copyright (c) 2025 Michael P. Starkweather
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+
+
+-------------------------------------------------------------------------------
 Build-time only — NOT redistributed
 -------------------------------------------------------------------------------
 

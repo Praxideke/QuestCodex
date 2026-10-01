@@ -29,6 +29,25 @@ Expanding a quest dims the objectives that belong to other maps.
 
 [![Quests on the selected map](../assets/images/progress-raid-quests.png)](../assets/images/progress-raid-quests.png)
 
+Quests drawn on the map come first, then quests with counters by progress, then the rest by name.
+
+## Map
+
+Under the quest lists sits a map card that follows the selected map tab and stays in view while you scroll.
+It's the same map as the wiki's [quest locations map](../wiki/quest-details.html#quest-locations-map),
+with all the quests on this map at once.
+
+- Quest rows carry the same colored number as their markers. Hover either side to highlight the other
+- Floor buttons, objective areas and the **Locked doors** toggle work like in the wiki. Lock icons near a
+  marker tell you which key you may want to bring
+
+[![Map card](../assets/images/progress-raid-map-card.png)](../assets/images/progress-raid-map-card.png)
+
+**Expand** opens the map in a movable, resizable window with a numbered quest list. The page behind it
+stays scrollable and clickable. Close it with the close button or `Esc`.
+
+[![Expanded map window](../assets/images/progress-raid-map-window.png)](../assets/images/progress-raid-map-window.png)
+
 ## Bring with you / Items to loot
 
 - **Bring with you**: items to plant on this map, with how many you need and how many you have
