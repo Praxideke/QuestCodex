@@ -1,6 +1,7 @@
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using PointTable = System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IReadOnlyList<QuestCodex.Catalog.Models.MapPoint>>>;
+using AreaTable = System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IReadOnlyList<QuestCodex.Catalog.Models.MapArea>>>;
 
 namespace QuestCodex.Catalog;
 
@@ -37,6 +38,8 @@ public sealed record CatalogInput(
     /// <summary>핸드북 카테고리 Id → (부모 Id, 아이콘 URL). null 이면 아이템 카테고리를 내보내지 않는다.</summary>
     IReadOnlyDictionary<string, HandbookCategoryInput>? HandbookCategories = null,
     /// <summary>아이템 tpl → 핸드북 카테고리 Id(가장 안쪽).</summary>
-    IReadOnlyDictionary<string, string>? HandbookItemParents = null);
+    IReadOnlyDictionary<string, string>? HandbookItemParents = null,
+    /// <summary>map → zoneId → 영역(스냅샷 Bounds + 모드 WTT Scale·Rotation). InZone·LaunchFlare 목표에만 붙는다.</summary>
+    AreaTable? QuestZoneAreas = null);
 
 public sealed record HandbookCategoryInput(string? ParentId, string? Icon);

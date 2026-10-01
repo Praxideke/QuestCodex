@@ -54,7 +54,8 @@ public class CatalogService(
         IReadOnlyDictionary<string, IReadOnlyDictionary<string, IReadOnlyList<QuestCodex.Catalog.Models.MapPoint>>> Zones,
         IReadOnlyDictionary<string, IReadOnlyDictionary<string, IReadOnlyList<QuestCodex.Catalog.Models.MapPoint>>> QuestItemSpawns,
         IReadOnlyDictionary<string, string> LocationKeys,
-        bool SnapshotMissing);
+        bool SnapshotMissing,
+        IReadOnlyDictionary<string, IReadOnlyDictionary<string, IReadOnlyList<QuestCodex.Catalog.Models.MapArea>>> Areas);
 
     /// <summary>핸드북 카테고리·아이템 부모. 언어와 무관해 한 번만. 모드가 추가한 아이템도 첫 요청 시점이면 들어와 있다.</summary>
     private readonly Lazy<(IReadOnlyDictionary<string, HandbookCategoryInput> Categories, IReadOnlyDictionary<string, string> ItemParents)> _handbook = new(() =>
@@ -122,7 +123,8 @@ public class CatalogService(
             QuestZoneSnapshotMissing: locations.SnapshotMissing,
             LockedDoors: questZoneSnapshot.Doors,
             HandbookCategories: _handbook.Value.Categories,
-            HandbookItemParents: _handbook.Value.ItemParents);
+            HandbookItemParents: _handbook.Value.ItemParents,
+            QuestZoneAreas: locations.Areas);
 
         var catalog = CatalogBuilder.Build(input, started);
 
@@ -145,6 +147,7 @@ public class CatalogService(
         QuestZoneSnapshot questZoneSnapshot, ModQuestZoneIndex modQuestZoneIndex, LocationTable locationTable, ISptLogger<CatalogService> logger)
     {
         var zones = new PointTableBuilder().AddAll(questZoneSnapshot.Zones).AddAll(modQuestZoneIndex.Zones).Build();
+        var areas = new AreaTableBuilder().AddAll(questZoneSnapshot.Areas).AddAll(modQuestZoneIndex.Areas).Build();
 
         var maps = locationTable.GetDictionary().Values
             .Where(l => l?.Base is not null && !string.IsNullOrWhiteSpace(l.Base.Id))
@@ -156,7 +159,7 @@ public class CatalogService(
 
         // 지연 열거: 맵 하나의 looseLoot 만 메모리에 두고 다음 맵으로 넘어간다.
         var spawns = LooseLootSpawns.Forced(maps.Select(m => (m.Map, ReadLooseLoot(m.Map, m.Location))));
-        return new LocationData(zones, spawns, keys, questZoneSnapshot.Zones is null);
+        return new LocationData(zones, spawns, keys, questZoneSnapshot.Zones is null, areas);
 
         SPTarkov.Server.Core.Models.Eft.Common.LooseLoot? ReadLooseLoot(string map, SPTarkov.Server.Core.Models.Eft.Common.Location location)
         {

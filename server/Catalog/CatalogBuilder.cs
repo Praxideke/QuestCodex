@@ -36,7 +36,8 @@ public static class CatalogBuilder
         var prepParser = new PrepParser(locale, rewardParser.NameOf);
         var empty = new PointTableBuilder().Build();
         var locationResolver = new LocationResolver(
-            input.QuestZones ?? empty, input.QuestItemSpawns ?? empty, input.LocationKeys ?? new Dictionary<string, string>(), input.Items);
+            input.QuestZones ?? empty, input.QuestItemSpawns ?? empty, input.LocationKeys ?? new Dictionary<string, string>(), input.Items,
+            input.QuestZoneAreas);
 
         if (input.VanillaQuestIds is null)
         {

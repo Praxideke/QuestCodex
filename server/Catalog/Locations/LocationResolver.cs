@@ -3,6 +3,7 @@ using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using SPTarkov.Server.Core.Utils.Json;
 using PointTable = System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IReadOnlyList<QuestCodex.Catalog.Models.MapPoint>>>;
+using AreaTable = System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IReadOnlyList<QuestCodex.Catalog.Models.MapArea>>>;
 
 namespace QuestCodex.Catalog.Locations;
 
@@ -25,20 +26,24 @@ public sealed class LocationResolver
 
     private readonly Dictionary<string, List<(string Map, IReadOnlyList<MapPoint> Points)>> _zones;
     private readonly Dictionary<string, List<(string Map, IReadOnlyList<MapPoint> Points)>> _itemSpawns;
+    private readonly AreaTable _areas;
     private readonly IReadOnlyDictionary<string, string> _locationKeys;
     private readonly IReadOnlyDictionary<MongoId, TemplateItem> _items;
 
     /// <param name="zones">map → zoneId → 점. map 은 소문자 키, zoneId 는 trim 된 값이어야 한다.</param>
     /// <param name="questItemSpawns">map → 아이템 tpl → looseLoot 강제 스폰 점.</param>
     /// <param name="locationKeys">로케이션 _Id(MongoId) → map 키. quest.location 해석용.</param>
+    /// <param name="areas">map → zoneId → 영역. InZone·LaunchFlare 조건에만 붙인다(08 스펙). null 이면 영역 없음.</param>
     public LocationResolver(
         PointTable zones,
         PointTable questItemSpawns,
         IReadOnlyDictionary<string, string> locationKeys,
-        IReadOnlyDictionary<MongoId, TemplateItem> items)
+        IReadOnlyDictionary<MongoId, TemplateItem> items,
+        AreaTable? areas = null)
     {
         _zones = Invert(zones);
         _itemSpawns = Invert(questItemSpawns);
+        _areas = areas ?? new Dictionary<string, IReadOnlyDictionary<string, IReadOnlyList<MapArea>>>();
         _locationKeys = locationKeys;
         _items = items;
     }
@@ -55,10 +60,17 @@ public sealed class LocationResolver
     {
         // 맵 순서: 퀘스트 맵, 그 짝, 나머지는 이름순. 점 순서: 조건에 나온 ID 순서.
         var byMap = new Dictionary<string, List<MapPoint>>(StringComparer.Ordinal);
+        var areasByMap = new Dictionary<string, List<MapArea>>(StringComparer.Ordinal);
 
-        foreach (var zoneId in ZoneIdsOf(c))
+        foreach (var (zoneId, kind) in ZoneIdsOf(c))
         {
-            if (_zones.TryGetValue(zoneId, out var hits)) Add(byMap, Pick(hits, questMap));
+            if (_zones.TryGetValue(zoneId, out var hits))
+            {
+                var picked = Pick(hits, questMap).ToList();
+                Add(byMap, picked);
+                // 영역은 점과 같은 맵(규칙 1·2 결과)에서만 가져온다 — Reserve 가비지 복사본 같은 것이 영역으로 새지 않게
+                if (kind != AreaKind.None) AddAreas(areasByMap, zoneId, picked.Select(h => h.Map), kind);
+            }
             else warnings.Add(new CatalogWarning(questId, WarningCodes.QuestZoneNotFound, $"zone '{zoneId}' ({c.ConditionType}, condition {c.Id})"));
         }
 
@@ -73,7 +85,10 @@ public sealed class LocationResolver
         return byMap
             .OrderBy(kv => kv.Key == questMap ? 0 : kv.Key == pair ? 1 : 2)
             .ThenBy(kv => kv.Key, StringComparer.Ordinal)
-            .Select(kv => new ObjectiveLocation(kv.Key, kv.Value))
+            .Select(kv => new ObjectiveLocation(kv.Key, kv.Value)
+            {
+                Areas = areasByMap.TryGetValue(kv.Key, out var areas) ? areas : Array.Empty<MapArea>(),
+            })
             .ToList();
     }
 
@@ -98,15 +113,36 @@ public sealed class LocationResolver
         }
     }
 
-    /// <summary>존 ID 는 앞뒤 공백을 제거한다(Keeper's Word 의 "…_place_03 " 사례).</summary>
-    private static IEnumerable<string> ZoneIdsOf(QuestCondition c)
+    /// <summary>영역으로 그리는 방식. Volume = 구역 처치(높이 범위 그대로), Ground = 신호탄(바닥 높이 한 점).</summary>
+    private enum AreaKind { None, Ground, Volume }
+
+    private void AddAreas(Dictionary<string, List<MapArea>> areasByMap, string zoneId, IEnumerable<string> maps, AreaKind kind)
     {
-        var ids = new List<string>();
+        foreach (var map in maps)
+        {
+            if (!_areas.TryGetValue(map, out var ids) || !ids.TryGetValue(zoneId, out var areas)) continue;
+            if (!areasByMap.TryGetValue(map, out var list)) areasByMap[map] = list = [];
+            foreach (var raw in areas)
+            {
+                // 신호탄 감지 상자는 땅에서 위로 솟아 있다 — 바닥 + 1m 한 점으로 줄여 지상 발사 지점의 층에 보이게 한다
+                var a = kind == AreaKind.Ground ? raw with { MinY = Math.Min(raw.MinY + 1, raw.MaxY), MaxY = Math.Min(raw.MinY + 1, raw.MaxY) } : raw;
+                if (!list.Contains(a)) list.Add(a);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 존 ID 와 영역 방식(InZone = Volume, LaunchFlare = Ground, 나머지 None). 존 ID 는 앞뒤 공백을 제거한다(Keeper's Word 의
+    /// "…_place_03 " 사례). 같은 ID 가 여러 조건에 나오면 Volume > Ground > None 순으로 남긴다.
+    /// </summary>
+    private static IEnumerable<(string Id, AreaKind Kind)> ZoneIdsOf(QuestCondition c)
+    {
+        var ids = new List<(string Id, AreaKind Kind)>();
         switch (c.ConditionType)
         {
             case "PlaceBeacon":
             case "LeaveItemAtLocation":
-                ids.Add(c.ZoneId ?? "");
+                ids.Add((c.ZoneId ?? "", AreaKind.None));
                 break;
             case "CounterCreator":
                 foreach (var sub in c.Counter?.Conditions ?? [])
@@ -114,11 +150,13 @@ public sealed class LocationResolver
                     switch (sub.ConditionType)
                     {
                         case "VisitPlace":
+                            ids.AddRange(Targets(sub.Target).Select(t => (t, AreaKind.None)));
+                            break;
                         case "LaunchFlare":
-                            ids.AddRange(Targets(sub.Target));
+                            ids.AddRange(Targets(sub.Target).Select(t => (t, AreaKind.Ground)));
                             break;
                         case "InZone":
-                            ids.AddRange(sub.Zones ?? []);
+                            ids.AddRange((sub.Zones ?? []).Select(z => (z, AreaKind.Volume)));
                             break;
                     }
                 }
@@ -126,7 +164,11 @@ public sealed class LocationResolver
                 break;
         }
 
-        return ids.Select(id => id.Trim()).Where(id => id.Length > 0).Distinct();
+        return ids
+            .Select(x => (Id: x.Id.Trim(), x.Kind))
+            .Where(x => x.Id.Length > 0)
+            .GroupBy(x => x.Id, StringComparer.Ordinal)
+            .Select(g => (g.Key, g.Max(x => x.Kind)));
     }
 
     private IEnumerable<string> QuestItemsOf(QuestCondition c)
