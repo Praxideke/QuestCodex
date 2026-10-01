@@ -5,6 +5,7 @@ using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using SPTarkov.Server.Core.Utils.Json;
 using static QuestCodex.Tests.Fixtures;
 using PointTable = System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IReadOnlyList<QuestCodex.Catalog.Models.MapPoint>>>;
+using AreaTable = System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IReadOnlyList<QuestCodex.Catalog.Models.MapArea>>>;
 
 namespace QuestCodex.Tests.Catalog;
 
@@ -23,7 +24,7 @@ public class LocationResolverTests
             g => (IReadOnlyDictionary<string, IReadOnlyList<MapPoint>>)g.GroupBy(r => r.Id)
                 .ToDictionary(x => x.Key, x => (IReadOnlyList<MapPoint>)x.Select(r => r.Point).ToList()));
 
-    private static LocationResolver Resolver(PointTable? zones = null, PointTable? spawns = null)
+    private static LocationResolver Resolver(PointTable? zones = null, PointTable? spawns = null, AreaTable? areas = null)
         => new(
             zones ?? Table(),
             spawns ?? Table(),
@@ -32,7 +33,15 @@ public class LocationResolverTests
             {
                 [QuestItemTpl] = new() { Id = QuestItemTpl, Properties = new() { QuestItem = true } },
                 [LootTpl] = new() { Id = LootTpl, Properties = new() { QuestItem = false } },
-            });
+            },
+            areas);
+
+    private static AreaTable Areas(params (string Map, string Id, MapArea Area)[] rows)
+    {
+        var builder = new AreaTableBuilder();
+        foreach (var (map, id, area) in rows) builder.Add(map, id, area);
+        return builder.Build();
+    }
 
     private static QuestCondition Beacon(string zoneId) => new()
     {
@@ -221,4 +230,75 @@ public class LocationResolverTests
         Assert.Empty(Resolver().Resolve(Counter(Sub("Kills"), Sub("ExitName")), "bigmap", warnings, "q"));
         Assert.Empty(warnings);
     }
+
+    // ---- 영역 (08 스펙): InZone·LaunchFlare 만 영역을 싣는다 ----
+
+    private static readonly MapPoint ZoneCenter = new(410, 13.6, -329);
+    private static readonly MapArea Forest = new(ZoneCenter, 500, 1600, 0, -36.4, 63.6);
+
+    [Fact]
+    public void In_zone_kill_carries_the_zone_area()
+    {
+        var resolver = Resolver(Table(("woods", "kill_zone", ZoneCenter)), areas: Areas(("woods", "kill_zone", Forest)));
+
+        var location = Assert.Single(resolver.Resolve(Counter(Sub("InZone", zoneIds: ["kill_zone"]), Sub("Kills")), "woods", [], "q"));
+
+        Assert.Equal([ZoneCenter], location.Points);
+        Assert.Equal([Forest], location.Areas);
+    }
+
+    /// <summary>신호탄 감지 상자는 땅에서 솟은 기둥이라 높이 범위를 바닥 + 1m 한 점으로 줄인다(Huntsman Administrator 가 3층으로 뜬 실측).</summary>
+    [Fact]
+    public void Flare_area_is_collapsed_to_its_bottom_height()
+    {
+        var detector = new MapArea(new MapPoint(-64.8, 10.3, 106.7), 46.24, 70.93, 0, -0.28, 20.88);
+        var resolver = Resolver(Table(("tarkovstreets", "flare", new MapPoint(-64.8, 10.3, 106.7))), areas: Areas(("tarkovstreets", "flare", detector)));
+
+        var location = Assert.Single(resolver.Resolve(Counter(Sub("LaunchFlare", "flare")), "tarkovstreets", [], "q"));
+
+        var area = Assert.Single(location.Areas);
+        Assert.Equal(0.72, area.MinY, 2);
+        Assert.Equal(0.72, area.MaxY, 2);
+        Assert.Equal(46.24, area.SizeX);
+    }
+
+    [Fact]
+    public void In_zone_keeps_the_full_height_range()
+    {
+        var resolver = Resolver(Table(("woods", "k", ZoneCenter)), areas: Areas(("woods", "k", Forest)));
+
+        var area = Assert.Single(Assert.Single(resolver.Resolve(Counter(Sub("InZone", zoneIds: ["k"])), "woods", [], "q")).Areas);
+
+        Assert.Equal(-36.4, area.MinY);
+        Assert.Equal(63.6, area.MaxY);
+    }
+
+    [Fact]
+    public void Visit_and_plant_stay_points_even_when_the_zone_has_an_area()
+    {
+        var resolver = Resolver(Table(("woods", "z", ZoneCenter)), areas: Areas(("woods", "z", Forest)));
+
+        Assert.Empty(Assert.Single(resolver.Resolve(Counter(Sub("VisitPlace", "z")), "woods", [], "q")).Areas);
+        Assert.Empty(Assert.Single(resolver.Resolve(Beacon("z"), "woods", [], "q")).Areas);
+    }
+
+    [Fact]
+    public void Area_follows_rule1_and_is_absent_without_size_data()
+    {
+        var reserveCopy = new MapPoint(1, -100, 1);
+        var resolver = Resolver(
+            Table(("woods", "z", ZoneCenter), ("rezervbase", "z", reserveCopy), ("woods", "bare", new MapPoint(7, 8, 9))),
+            areas: Areas(("woods", "z", Forest), ("rezervbase", "z", new MapArea(reserveCopy, 5, 5, 0, -101, -99))));
+
+        var locations = resolver.Resolve(Counter(Sub("InZone", zoneIds: ["z", "bare"])), "woods", [], "q");
+
+        var woods = Assert.Single(locations);
+        Assert.Equal([Forest], woods.Areas); // Reserve 복사본은 규칙 1 로 빠지고, 크기 없는 "bare" 는 점만
+        Assert.Equal(2, woods.Points.Count);
+    }
+
+    [Fact]
+    public void No_area_table_means_no_areas()
+        => Assert.Empty(Assert.Single(
+            Resolver(Table(("woods", "z", ZoneCenter))).Resolve(Counter(Sub("InZone", zoneIds: ["z"])), "woods", [], "q")).Areas);
 }

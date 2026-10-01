@@ -65,6 +65,25 @@ export interface MapPoint {
 export interface ObjectiveLocation {
   map: string
   points: MapPoint[]
+  /** 구역 처치·신호탄 목표의 영역(08 스펙). 그 밖의 목표는 빈 배열, 필드가 생기기 전 서버는 undefined. */
+  areas?: MapArea[]
+}
+
+/**
+ * 지도 위 사각형 영역. center.x·z 는 영역 중심, center.y 는 존 위치 높이(층 판정용). sizeX·sizeZ 는 월드 x·z 방향 전체 폭(m),
+ * yaw 는 수직축 회전(도, Unity 규약 — 위에서 볼 때 양수가 시계 방향). 바닐라는 축 정렬이라 0.
+ */
+export interface MapArea {
+  center: MapPoint
+  sizeX: number
+  sizeZ: number
+  yaw: number
+  /**
+   * 층 판정용 높이 범위. 구역 처치는 상자 바닥~꼭대기(걸친 층 모두), 신호탄은 서버가 바닥 + 1m 한 점으로 줄여 보낸다.
+   * 필드가 생기기 전 서버는 undefined — 그때는 center.y 한 점으로 본다.
+   */
+  minY?: number
+  maxY?: number
 }
 
 /** 열쇠가 필요한 문. keyTpl 은 지금 쓰지 않고, 보유 열쇠 표시(06 스펙 §4.3)를 붙일 때의 대조 키다. */

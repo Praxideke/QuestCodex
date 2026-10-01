@@ -103,7 +103,8 @@ public class VanillaSmokeTests
         var snapshot = QuestZoneSnapshot.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Data", "quest-zones.json")));
         var input = new CatalogInput("en", "4.1.5", "test", quests, new Dictionary<MongoId, TraderBase>(), items, en, en,
             new HashSet<MongoId>(), new HashSet<MongoId>(), null, null,
-            QuestZones: snapshot.Zones, QuestItemSpawns: LooseLootSpawns.Forced(loots), LocationKeys: keys, LockedDoors: snapshot.Doors);
+            QuestZones: snapshot.Zones, QuestItemSpawns: LooseLootSpawns.Forced(loots), LocationKeys: keys, LockedDoors: snapshot.Doors,
+            QuestZoneAreas: snapshot.Areas);
 
         var catalog = CatalogBuilder.Build(input, DateTimeOffset.UtcNow);
 
@@ -130,18 +131,27 @@ public class VanillaSmokeTests
             .Select(w => w.Detail.Split('\'')[1]).ToHashSet();
         string[] remaining =
         [
-            "bunker2", "Check_cinema", "Labs_transits", "1",
-            "event_labyrinth_05_mech_place_01", "event_labyrinth_06_mech_place_01", "event_labyrinth_07_peacekeep_place_01",
-            "event_labyrinth_08_therap_place_01", "event_labyrinth_11_lightkeep_place_01", "event_labyrinth_11_lightkeep_place_02",
-            "event_labyrinth_11_lightkeep_place_03",
+            "bunker2", "Check_cinema", "Labs_transits", "1", // 미궁 7개는 2026-10-01 재덤프로 확보
         ];
         Assert.Equal(remaining.ToHashSet(), notFound);
 
         // 잠긴 문(06 스펙): 모든 문의 열쇠가 실제 아이템 이름으로 풀린다(tpl 그대로 남은 것 0개)
         var doors = catalog.LockedDoors.Values.SelectMany(d => d).ToList();
-        Assert.Equal(33, catalog.LockedDoors["bigmap"].Count);
+        Assert.Equal(34, catalog.LockedDoors["bigmap"].Count);
         Assert.All(doors, d => Assert.NotEqual(d.KeyTpl, d.KeyName));
         Assert.Contains(catalog.LockedDoors["laboratory"], d => d.Kind == "keycard");
+
+        // 구역 영역(08 스펙): 구역 처치와 신호탄 목표는 영역을, 설치 목표(BP 연료 확보)는 영역 없이 점만
+        var logging = catalog.Quests["67503219527c9a38e80496ae"].Objectives.SelectMany(o => o.Locations).ToList();
+        Assert.Contains(logging, l => l.Map == "woods" && l.Areas.Any(a => a.SizeX == 500 && a.SizeZ == 1600));
+        var payback = catalog.Quests["63966fd9ea19ac7ed845db30"].Objectives.SelectMany(o => o.Locations).ToList();
+        Assert.Contains(payback, l => l.Areas.Count > 0);
+        Assert.All(bpDepot.SelectMany(o => o.Locations), l => Assert.Empty(l.Areas));
+
+        // 호텔 안뜰 신호탄(Huntsman Administrator): 감지 상자 중심 10.3m 가 아니라 바닥 + 1m 로 층을 정한다
+        var huntsmanFlare = catalog.Quests["639136df4b15ca31f76bc31f"].Objectives
+            .Single(o => o.ConditionId == "63aaccae87413d64ae079631").Locations.SelectMany(l => l.Areas).Single();
+        Assert.True(huntsmanFlare.MaxY < 2, $"flare anchored at {huntsmanFlare.MinY}..{huntsmanFlare.MaxY}");
     }
 
     private static T Deserialize<T>(string path)

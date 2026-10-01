@@ -37,7 +37,21 @@ public sealed record Objective(
 public sealed record MapPoint(double X, double Y, double Z);
 
 /// <summary>Map = SPT locations 폴더 키(소문자, 예: bigmap, sandbox_high).</summary>
-public sealed record ObjectiveLocation(string Map, IReadOnlyList<MapPoint> Points);
+public sealed record ObjectiveLocation(string Map, IReadOnlyList<MapPoint> Points)
+{
+    /// <summary>
+    /// 구역 영역. InZone·LaunchFlare 조건에서만 채운다(08 스펙). 빈 값은 Objective.Locations 와 같은 이유로 Array.Empty.
+    /// </summary>
+    public IReadOnlyList<MapArea> Areas { get; init; } = Array.Empty<MapArea>();
+}
+
+/// <summary>
+/// 지도 위 사각형 영역. Center.X·Z 는 영역 중심, Center.Y 는 존 위치의 높이(층 판정용). SizeX·SizeZ 는 월드 x·z 방향 전체 폭(m),
+/// Yaw 는 수직축 회전(도, Unity 규약 — 위에서 볼 때 양수가 시계 방향). 바닐라는 축 정렬 Bounds 라 Yaw = 0.
+/// MinY~MaxY 는 층 판정용 높이 범위다. 구역 처치는 상자 바닥~꼭대기(걸친 층 모두에서 보임), 신호탄은 리졸버가 바닥 + 1m
+/// 한 점으로 줄인다(감지 상자가 땅에서 위로 솟아 있어서 중심 높이로 보면 위층이 된다 — 08 스펙 §0).
+/// </summary>
+public sealed record MapArea(MapPoint Center, double SizeX, double SizeZ, double Yaw, double MinY, double MaxY);
 
 /// <summary>스냅샷의 잠긴 문 한 개. Type = 덤프의 컴포넌트 이름("Door" | "KeycardDoor").</summary>
 public sealed record SnapshotDoor(string KeyTpl, string Type, MapPoint Position);

@@ -12,54 +12,44 @@ using UnityEngine;
 
 namespace QuestCodex.ZoneDump;
 
-// Dev tool (not shipped): captures quest zone coordinates once per map
-// without accepting any quest. Positions are raw Unity world coordinates (x, y = height, z),
-// the same space as the server's looseLoot.json, so no conversion happens here.
-[BepInPlugin("com.viper.questcodex.zonedump", "QuestCodex Zone Dump (spike)", "0.0.1")]
+// Dev tool (not shipped): captures quest zone coordinates once per map without accepting any quest.
+// Press the dump key (F10 by default) inside a raid; nothing is dumped automatically.
+// Positions are raw Unity world coordinates (x, y = height, z), the same space as the server's looseLoot.json,
+// so no conversion happens here.
+[BepInPlugin("com.viper.questcodex.zonedump", "QuestCodex Zone Dump", "0.0.3")]
 public class ZoneDumpPlugin : BaseUnityPlugin
 {
-    private const float AutoDumpDelaySeconds = 15f;
-
     private ConfigEntry<KeyboardShortcut> _dumpKey = null!;
-    private string? _dumpedLocation;
-    private float _raidSeenAt = -1f;
 
     private string DumpDir => Path.Combine(Path.GetDirectoryName(Info.Location)!, "dumps");
 
     private void Awake()
     {
-        _dumpKey = Config.Bind("Dump", "Manual dump key", new KeyboardShortcut(KeyCode.F9),
-            "Dump the current raid scene again");
-        Logger.LogInfo($"Zone dump spike loaded, output: {DumpDir}");
+        // F10: unused by every other plugin config on the dev machine (F9 is FieldKit's "Toggle Chams").
+        _dumpKey = Config.Bind("Dump", "Manual dump key", new KeyboardShortcut(KeyCode.F10),
+            "Dump the current raid scene (modifier keys are ignored)");
+        Logger.LogInfo($"Zone dump loaded (press {_dumpKey.Value} in a raid), output: {DumpDir}");
     }
 
     private void Update()
     {
+        // Read the main key directly: KeyboardShortcut.IsDown() fails while any other modifier (Shift to sprint, Ctrl…)
+        // is held, which is easy to do mid-raid and gives no feedback at all.
+        if (!Input.GetKeyDown(_dumpKey.Value.MainKey)) return;
+        Logger.LogInfo($"Dump key {_dumpKey.Value.MainKey} pressed");
+
         var location = Singleton<GameWorld>.Instance?.MainPlayer?.Location;
         if (string.IsNullOrEmpty(location))
         {
-            _raidSeenAt = -1f;
-            _dumpedLocation = null;
+            Logger.LogWarning("Not in a raid, nothing to dump");
             return;
         }
-
-        if (_dumpKey.Value.IsDown())
-        {
-            Dump(location!);
-            return;
-        }
-
-        // Auto dump once per raid, after the scene has had time to settle.
-        if (_dumpedLocation == location) return;
-        if (_raidSeenAt < 0f) _raidSeenAt = Time.time;
-        if (Time.time - _raidSeenAt < AutoDumpDelaySeconds) return;
 
         Dump(location!);
     }
 
     private void Dump(string location)
     {
-        _dumpedLocation = location;
         try
         {
             // includeInactive: zones that only switch on under some quest state still exist in the scene.
@@ -71,6 +61,7 @@ public class ZoneDumpPlugin : BaseUnityPlugin
                     Active = t.gameObject.activeInHierarchy,
                     Position = V(t.transform.position),
                     Bounds = BoundsOf(t.gameObject),
+                    Colliders = CollidersOf(t.gameObject),
                 })
                 // LaunchFlare conditions are judged by a separate component, not a TriggerWithId.
                 .Concat(FindObjectsOfType<FlareShootDetectorZone>(true)
@@ -81,6 +72,7 @@ public class ZoneDumpPlugin : BaseUnityPlugin
                         Active = f.gameObject.activeInHierarchy,
                         Position = V(f.transform.position),
                         Bounds = BoundsOf(f.gameObject),
+                        Colliders = CollidersOf(f.gameObject),
                     }))
                 .OrderBy(z => z.Id)
                 .ToList();
@@ -128,6 +120,29 @@ public class ZoneDumpPlugin : BaseUnityPlugin
         return new BoundsRow { Min = V(b.min), Max = V(b.max) };
     }
 
+    private static Quat Q(Quaternion q) => new() { X = q.x, Y = q.y, Z = q.z, W = q.w };
+
+    /// <summary>
+    /// Every collider on the zone object, in world space. Bounds above is only their axis-aligned envelope, which over-states
+    /// rotated boxes (e.g. a Streets kill zone drawn over the road). For a BoxCollider this records the real box:
+    /// centre (local centre transformed to world), size (local size times lossyScale) and the object's rotation.
+    /// Other collider types keep only their type and world bounds.
+    /// </summary>
+    private static List<ColliderRow> CollidersOf(GameObject go)
+        => go.GetComponents<Collider>().Select(c =>
+        {
+            var row = new ColliderRow { Type = c.GetType().Name, Min = V(c.bounds.min), Max = V(c.bounds.max) };
+            if (c is BoxCollider box)
+            {
+                var t = box.transform;
+                row.Center = V(t.TransformPoint(box.center));
+                row.Size = V(Vector3.Scale(box.size, t.lossyScale));
+                row.Rotation = Q(t.rotation);
+                row.Yaw = t.rotation.eulerAngles.y;
+            }
+            return row;
+        }).ToList();
+
     private class DumpFile
     {
         public string Location = "";
@@ -143,6 +158,19 @@ public class ZoneDumpPlugin : BaseUnityPlugin
         public bool Active;
         public Vec Position = new();
         public BoundsRow? Bounds;
+        public List<ColliderRow> Colliders = new();
+    }
+
+    private class ColliderRow
+    {
+        public string Type = "";
+        public Vec Min = new();
+        public Vec Max = new();
+        // BoxCollider only (null otherwise)
+        public Vec? Center;
+        public Vec? Size;
+        public Quat? Rotation;
+        public float? Yaw;
     }
 
     private class DoorRow
@@ -163,5 +191,10 @@ public class ZoneDumpPlugin : BaseUnityPlugin
     private class Vec
     {
         public float X, Y, Z;
+    }
+
+    private class Quat
+    {
+        public float X, Y, Z, W;
     }
 }

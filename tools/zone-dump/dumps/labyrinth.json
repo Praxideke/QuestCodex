@@ -1,0 +1,638 @@
+{
+  "Location": "Labyrinth",
+  "DumpedAtUtc": "2026-10-01T08:58:51.3182839Z",
+  "Zones": [
+    {
+      "Id": "event_labyrinth_05_mech_place_01",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      },
+      "Bounds": {
+        "Min": {
+          "X": -100.0,
+          "Y": -15.0,
+          "Z": -100.0
+        },
+        "Max": {
+          "X": 100.0,
+          "Y": 15.0,
+          "Z": 100.0
+        }
+      },
+      "Colliders": [
+        {
+          "Type": "BoxCollider",
+          "Min": {
+            "X": -100.0,
+            "Y": -15.0,
+            "Z": -100.0
+          },
+          "Max": {
+            "X": 100.0,
+            "Y": 15.0,
+            "Z": 100.0
+          },
+          "Center": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          },
+          "Size": {
+            "X": 200.0,
+            "Y": 30.0,
+            "Z": 200.0
+          },
+          "Rotation": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0,
+            "W": 1.0
+          },
+          "Yaw": 0.0
+        }
+      ]
+    },
+    {
+      "Id": "event_labyrinth_06_mech_place_01",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": -8.43,
+        "Y": 0.0,
+        "Z": 30.0
+      },
+      "Bounds": {
+        "Min": {
+          "X": -13.43,
+          "Y": -2.5,
+          "Z": 23.5
+        },
+        "Max": {
+          "X": -3.43000031,
+          "Y": 2.5,
+          "Z": 36.5
+        }
+      },
+      "Colliders": [
+        {
+          "Type": "BoxCollider",
+          "Min": {
+            "X": -13.43,
+            "Y": -2.5,
+            "Z": 23.5
+          },
+          "Max": {
+            "X": -3.43000031,
+            "Y": 2.5,
+            "Z": 36.5
+          },
+          "Center": {
+            "X": -8.43,
+            "Y": 0.0,
+            "Z": 30.0
+          },
+          "Size": {
+            "X": 10.0,
+            "Y": 5.0,
+            "Z": 13.0
+          },
+          "Rotation": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0,
+            "W": 1.0
+          },
+          "Yaw": 0.0
+        }
+      ]
+    },
+    {
+      "Id": "event_labyrinth_07_peacekeep_place_01",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -9.1,
+        "Y": 1.0,
+        "Z": 27.61
+      },
+      "Bounds": {
+        "Min": {
+          "X": -10.1,
+          "Y": -0.5,
+          "Z": 26.61
+        },
+        "Max": {
+          "X": -8.1,
+          "Y": 2.5,
+          "Z": 28.61
+        }
+      },
+      "Colliders": [
+        {
+          "Type": "BoxCollider",
+          "Min": {
+            "X": -10.1,
+            "Y": -0.5,
+            "Z": 26.61
+          },
+          "Max": {
+            "X": -8.1,
+            "Y": 2.5,
+            "Z": 28.61
+          },
+          "Center": {
+            "X": -9.1,
+            "Y": 1.0,
+            "Z": 27.61
+          },
+          "Size": {
+            "X": 2.0,
+            "Y": 3.0,
+            "Z": 2.0
+          },
+          "Rotation": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0,
+            "W": 1.0
+          },
+          "Yaw": 0.0
+        }
+      ]
+    },
+    {
+      "Id": "event_labyrinth_08_therap_place_01",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 17.0,
+        "Y": 0.0,
+        "Z": 6.5
+      },
+      "Bounds": {
+        "Min": {
+          "X": 16.5,
+          "Y": -2.5,
+          "Z": 5.5
+        },
+        "Max": {
+          "X": 17.5,
+          "Y": 2.5,
+          "Z": 7.5
+        }
+      },
+      "Colliders": [
+        {
+          "Type": "BoxCollider",
+          "Min": {
+            "X": 16.5,
+            "Y": -2.5,
+            "Z": 5.5
+          },
+          "Max": {
+            "X": 17.5,
+            "Y": 2.5,
+            "Z": 7.5
+          },
+          "Center": {
+            "X": 17.0,
+            "Y": 0.0,
+            "Z": 6.5
+          },
+          "Size": {
+            "X": 1.0,
+            "Y": 5.0,
+            "Z": 2.0
+          },
+          "Rotation": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0,
+            "W": 1.0
+          },
+          "Yaw": 0.0
+        }
+      ]
+    },
+    {
+      "Id": "event_labyrinth_11_lightkeep_place_01",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": -23.2,
+        "Y": 1.0,
+        "Z": 19.0
+      },
+      "Bounds": {
+        "Min": {
+          "X": -24.7,
+          "Y": -0.5,
+          "Z": 17.5
+        },
+        "Max": {
+          "X": -21.7,
+          "Y": 2.5,
+          "Z": 20.5
+        }
+      },
+      "Colliders": [
+        {
+          "Type": "BoxCollider",
+          "Min": {
+            "X": -24.7,
+            "Y": -0.5,
+            "Z": 17.5
+          },
+          "Max": {
+            "X": -21.7,
+            "Y": 2.5,
+            "Z": 20.5
+          },
+          "Center": {
+            "X": -23.2,
+            "Y": 1.0,
+            "Z": 19.0
+          },
+          "Size": {
+            "X": 3.0,
+            "Y": 3.0,
+            "Z": 3.0
+          },
+          "Rotation": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0,
+            "W": 1.0
+          },
+          "Yaw": 0.0
+        }
+      ]
+    },
+    {
+      "Id": "event_labyrinth_11_lightkeep_place_02",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 15.6,
+        "Y": 1.0,
+        "Z": 19.0
+      },
+      "Bounds": {
+        "Min": {
+          "X": 14.1,
+          "Y": -0.5,
+          "Z": 17.5
+        },
+        "Max": {
+          "X": 17.1,
+          "Y": 2.5,
+          "Z": 20.5
+        }
+      },
+      "Colliders": [
+        {
+          "Type": "BoxCollider",
+          "Min": {
+            "X": 14.1,
+            "Y": -0.5,
+            "Z": 17.5
+          },
+          "Max": {
+            "X": 17.1,
+            "Y": 2.5,
+            "Z": 20.5
+          },
+          "Center": {
+            "X": 15.6,
+            "Y": 1.0,
+            "Z": 19.0
+          },
+          "Size": {
+            "X": 3.0,
+            "Y": 3.0,
+            "Z": 3.0
+          },
+          "Rotation": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0,
+            "W": 1.0
+          },
+          "Yaw": 0.0
+        }
+      ]
+    },
+    {
+      "Id": "event_labyrinth_11_lightkeep_place_03 ",
+      "Type": "PlaceItemTrigger",
+      "Active": true,
+      "Position": {
+        "X": 9.2,
+        "Y": 1.0,
+        "Z": -14.8
+      },
+      "Bounds": {
+        "Min": {
+          "X": 7.7,
+          "Y": -0.5,
+          "Z": -16.3
+        },
+        "Max": {
+          "X": 10.7,
+          "Y": 2.5,
+          "Z": -13.2999992
+        }
+      },
+      "Colliders": [
+        {
+          "Type": "BoxCollider",
+          "Min": {
+            "X": 7.7,
+            "Y": -0.5,
+            "Z": -16.3
+          },
+          "Max": {
+            "X": 10.7,
+            "Y": 2.5,
+            "Z": -13.2999992
+          },
+          "Center": {
+            "X": 9.2,
+            "Y": 1.0,
+            "Z": -14.8
+          },
+          "Size": {
+            "X": 3.0,
+            "Y": 3.0,
+            "Z": 3.0
+          },
+          "Rotation": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0,
+            "W": 1.0
+          },
+          "Yaw": 0.0
+        }
+      ]
+    },
+    {
+      "Id": "exit777",
+      "Type": "ExperienceTrigger",
+      "Active": true,
+      "Position": {
+        "X": 19.443,
+        "Y": 1.07,
+        "Z": 0.495
+      },
+      "Bounds": {
+        "Min": {
+          "X": 17.8885517,
+          "Y": -0.4300003,
+          "Z": -1.0594492
+        },
+        "Max": {
+          "X": 20.99745,
+          "Y": 2.57000017,
+          "Z": 2.04944921
+        }
+      },
+      "Colliders": [
+        {
+          "Type": "BoxCollider",
+          "Min": {
+            "X": 17.8885517,
+            "Y": -0.4300003,
+            "Z": -1.0594492
+          },
+          "Max": {
+            "X": 20.99745,
+            "Y": 2.57000017,
+            "Z": 2.04944921
+          },
+          "Center": {
+            "X": 19.443,
+            "Y": 1.07,
+            "Z": 0.495
+          },
+          "Size": {
+            "X": 3.0,
+            "Y": 3.0,
+            "Z": 3.0
+          },
+          "Rotation": {
+            "X": 0.0,
+            "Y": -0.0184949227,
+            "Z": 0.0,
+            "W": 0.999829
+          },
+          "Yaw": 357.880524
+        }
+      ]
+    }
+  ],
+  "Doors": [
+    {
+      "Id": "set_valve_01",
+      "KeyId": "678fa929819ddc4c350c0317",
+      "Type": "Switch",
+      "Operatable": true,
+      "Position": {
+        "X": 2.659,
+        "Y": 2.109861,
+        "Z": -31.705
+      }
+    },
+    {
+      "Id": "door_Labyrinth_Area_Spawn_01_00003",
+      "KeyId": "679baa2c61f588ae2b062a24",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -31.014473,
+        "Y": 1.75901747,
+        "Z": 58.9146423
+      }
+    },
+    {
+      "Id": "door_Labyrinth_Area_02_00001",
+      "KeyId": "679baa4f59b8961f370dd683",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -2.48107839,
+        "Y": 2.29478168,
+        "Z": -34.2012634
+      }
+    },
+    {
+      "Id": "door_Labyrinth_Area_03_00000",
+      "KeyId": "679baa5a59b8961f370dd685",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -30.080019,
+        "Y": 2.01908755,
+        "Z": -15.5193338
+      }
+    },
+    {
+      "Id": "door_Labyrinth_Temp_Albert_00002",
+      "KeyId": "679baa9091966fe40408f149",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 17.1429634,
+        "Y": 1.1481005,
+        "Z": 62.8580856
+      }
+    },
+    {
+      "Id": "door_Labyrinth_Area_06_00003",
+      "KeyId": "679baace4e9ca6b3d80586b2",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 9.36803,
+        "Y": 1.26510465,
+        "Z": 7.66224
+      }
+    },
+    {
+      "Id": "door_Labyrinth_Area_06_00005",
+      "KeyId": "679baae891966fe40408f14c",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 17.53276,
+        "Y": 1.25286007,
+        "Z": 6.93186951
+      }
+    },
+    {
+      "Id": "door_Labyrinth_Area_06_00000",
+      "KeyId": "679bab714e9ca6b3d80586b4",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": 9.654029,
+        "Y": 1.2547729,
+        "Z": -11.1337557
+      }
+    },
+    {
+      "Id": "door_Labyrinth_Area_06_00004",
+      "KeyId": "679bac1d61f588ae2b062a26",
+      "Type": "Door",
+      "Operatable": true,
+      "Position": {
+        "X": -10.399806,
+        "Y": 1.24885988,
+        "Z": 39.65776
+      }
+    },
+    {
+      "Id": "switch_Labyrinth_DesignStaff_00006",
+      "KeyId": "67ab3d4b83869afd170fdd3f",
+      "Type": "Switch",
+      "Operatable": true,
+      "Position": {
+        "X": 40.1832,
+        "Y": 0.298618853,
+        "Z": 19.1903
+      }
+    },
+    {
+      "Id": "switch_Labyrinth_DesignStuff_000033",
+      "KeyId": "67ab3d4b83869afd170fdd3f",
+      "Type": "Switch",
+      "Operatable": true,
+      "Position": {
+        "X": -49.34948,
+        "Y": 1.70373631,
+        "Z": -11.756073
+      }
+    },
+    {
+      "Id": "switch_Labyrinth_DesignStaff_00001",
+      "KeyId": "Use",
+      "Type": "Switch",
+      "Operatable": true,
+      "Position": {
+        "X": -4.279,
+        "Y": 1.51507258,
+        "Z": 55.87111
+      }
+    },
+    {
+      "Id": "disable_traps_07",
+      "KeyId": "Use",
+      "Type": "Switch",
+      "Operatable": true,
+      "Position": {
+        "X": 1.05600023,
+        "Y": 1.50388885,
+        "Z": 7.16910934
+      }
+    },
+    {
+      "Id": "switch_Labyrinth_DesignStaff_00000",
+      "KeyId": "Use",
+      "Type": "Switch",
+      "Operatable": true,
+      "Position": {
+        "X": -13.3701,
+        "Y": 1.63888884,
+        "Z": 36.08191
+      }
+    },
+    {
+      "Id": "switch_Labyrinth_DesignStaff_00002",
+      "KeyId": "Use",
+      "Type": "Switch",
+      "Operatable": true,
+      "Position": {
+        "X": 8.937,
+        "Y": 1.54792,
+        "Z": 28.68511
+      }
+    },
+    {
+      "Id": "switch_Labyrinth_DesignStaff_00003",
+      "KeyId": "Use",
+      "Type": "Switch",
+      "Operatable": true,
+      "Position": {
+        "X": -43.587,
+        "Y": 1.56588888,
+        "Z": -10.9208889
+      }
+    },
+    {
+      "Id": "switch_Labyrinth_DesignStaff_00004",
+      "KeyId": "Use",
+      "Type": "Switch",
+      "Operatable": true,
+      "Position": {
+        "X": -9.011,
+        "Y": 1.66788888,
+        "Z": 1.57610893
+      }
+    },
+    {
+      "Id": "switch_Labyrinth_DesignStaff_00005",
+      "KeyId": "Use",
+      "Type": "Switch",
+      "Operatable": true,
+      "Position": {
+        "X": -31.7254715,
+        "Y": 2.08068,
+        "Z": 58.2143
+      }
+    }
+  ]
+}

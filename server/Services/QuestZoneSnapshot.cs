@@ -3,6 +3,7 @@ using QuestCodex.Catalog.Locations;
 using QuestCodex.Catalog.Models;
 using SPTarkov.DI.Annotations;
 using PointTable = System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IReadOnlyList<QuestCodex.Catalog.Models.MapPoint>>>;
+using AreaTable = System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IReadOnlyList<QuestCodex.Catalog.Models.MapArea>>>;
 
 namespace QuestCodex.Services;
 
@@ -20,22 +21,41 @@ public class QuestZoneSnapshot
     public PointTable? Zones => _data.Value?.Zones;
     /// <summary>map → 잠긴 문(Door·KeycardDoor). 스냅샷이 없으면 null, doors 절이 없는 구버전 스냅샷이면 빈 사전.</summary>
     public IReadOnlyDictionary<string, IReadOnlyList<SnapshotDoor>>? Doors => _data.Value?.Doors;
+    /// <summary>map → zoneId → 영역(덤프 Bounds 의 x·z 크기). 크기가 없는 존은 빠진다.</summary>
+    public AreaTable? Areas => _data.Value?.Areas;
 
-    public sealed record Snapshot(string CollectedWith, PointTable Zones, IReadOnlyDictionary<string, IReadOnlyList<SnapshotDoor>> Doors);
+    public sealed record Snapshot(string CollectedWith, PointTable Zones, IReadOnlyDictionary<string, IReadOnlyList<SnapshotDoor>> Doors)
+    {
+        /// <summary>위치 인수가 아니라 init 속성 — 기존 3-분해(var (_, zones, doors) = …) 호출을 깨지 않으려고.</summary>
+        public AreaTable Areas { get; init; } = new Dictionary<string, IReadOnlyDictionary<string, IReadOnlyList<MapArea>>>();
+    }
 
     public static Snapshot Parse(string json)
     {
         using var doc = JsonDocument.Parse(json);
         var collectedWith = doc.RootElement.TryGetProperty("collectedWith", out var c) ? c.GetString() ?? "" : "";
         var builder = new PointTableBuilder();
+        var areas = new AreaTableBuilder();
         foreach (var map in doc.RootElement.GetProperty("zones").EnumerateObject())
         {
             foreach (var zone in map.Value.EnumerateObject())
             {
                 foreach (var p in zone.Value.EnumerateArray())
                 {
-                    builder.Add(map.Name, zone.Name, new MapPoint(
-                        p.GetProperty("x").GetDouble(), p.GetProperty("y").GetDouble(), p.GetProperty("z").GetDouble()));
+                    var point = new MapPoint(p.GetProperty("x").GetDouble(), p.GetProperty("y").GetDouble(), p.GetProperty("z").GetDouble());
+                    builder.Add(map.Name, zone.Name, point);
+                    // 영역: 콜라이더 상자 목록(boxes, 덤프 0.0.2+ — 실제 중심·크기·회전) 또는 예전 형식(점에 바로 붙은 sx/sz 외곽 사각형)
+                    if (p.TryGetProperty("boxes", out var boxes))
+                    {
+                        foreach (var box in boxes.EnumerateArray())
+                        {
+                            if (AreaOf(box, point) is { } a) areas.Add(map.Name, zone.Name, a);
+                        }
+                    }
+                    else if (AreaOf(p, point) is { } a)
+                    {
+                        areas.Add(map.Name, zone.Name, a);
+                    }
                 }
             }
         }
@@ -54,7 +74,20 @@ public class QuestZoneSnapshot
             }
         }
 
-        return new Snapshot(collectedWith, builder.Build(), doors);
+        return new Snapshot(collectedWith, builder.Build(), doors) { Areas = areas.Build() };
+    }
+
+    /// <summary>
+    /// sx·sz 가 있으면 영역 하나. 중심은 cx·cz(없으면 존 위치), 높이 Center.Y 는 존 위치의 y, 회전 r(없으면 0),
+    /// 높이 범위 y0·y1(없으면 위치 높이 한 점).
+    /// </summary>
+    private static MapArea? AreaOf(JsonElement e, MapPoint point)
+    {
+        if (!e.TryGetProperty("sx", out var sx) || !e.TryGetProperty("sz", out var sz)) return null;
+        double Or(string name, double fallback) => e.TryGetProperty(name, out var v) ? v.GetDouble() : fallback;
+        return new MapArea(
+            new MapPoint(Or("cx", point.X), point.Y, Or("cz", point.Z)),
+            sx.GetDouble(), sz.GetDouble(), Or("r", 0), Or("y0", point.Y), Or("y1", point.Y));
     }
 
     public static Snapshot? LoadFromModFolder()

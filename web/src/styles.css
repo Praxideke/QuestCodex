@@ -37,15 +37,28 @@
   --scroll-thumb-hover: rgba(255, 255, 255, .26);
   /* 위치정보 지도 마커. 지도 그림(SVG)은 테마와 무관하게 같으므로 라이트에서도 재정의하지 않는다. */
   --marker: #e8702a;
-  --marker-fg: #ffffff;
-  --marker-hot: #ffb020;
-  --marker-hot-ring: rgba(255, 176, 32, .45);
+  --marker-ring: #ffffff;
+  --marker-hot-ring: rgba(255, 255, 255, .55);
   --marker-shadow: 0 1px 3px rgba(0, 0, 0, .5);
   /* 층 버튼 알림 점(iOS 알림 빨강). 두 테마 공통. */
   --notify-dot: #ff3b30;
   /* 잠긴 문 아이콘 색(DynamicMaps: 열쇠 없음 Color.red, 보유 Color.green). 지도 위라 두 테마 공통. */
   --door-locked: #ff2a2a;
   --door-owned: #2ecc40;
+  /* 구역 영역(08 스펙): 마커 색 계열의 반투명. 지도 위라 두 테마 공통. */
+  /* 목표별 색 팔레트(08 스펙 §3.1). 개수는 mapProjection.ts 의 OBJECTIVE_COLOR_COUNT 와 반드시 일치.
+     다크 지도 위에서 구분되는 밝은 색만 — 빨강은 지도 SVG 의 빨간 점선 표시·잠긴 문 아이콘과 헷갈려서 뺐다. */
+  --obj-1: #ff8c42;
+  --obj-2: #2ec4b6;
+  --obj-3: #a78bfa;
+  --obj-4: #facc15;
+  --obj-5: #60a5fa;
+  --obj-6: #f472b6;
+  --obj-7: #4ade80;
+  --obj-8: #d4a373;
+  --obj-9: #e879f9;
+  --obj-10: #94a3b8;
+  --obj-fg: #16171a;
   --radius: 6px;
 }
 
