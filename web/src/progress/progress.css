@@ -163,11 +163,35 @@
    top: 프로필 바(41px) 아래 + 여백 */
 .qc-raid__main { align-self: stretch; }
 .qc-raidmap { position: sticky; top: 53px; }
-.qc-raidmap__head { display: flex; align-items: flex-start; gap: 10px; }
+/* 머리 = [제목 … 잠긴 문 · 크게 보기], 세로 가운데 정렬. 제목 아래 여백은 머리가 갖는다 */
+.qc-raidmap__head { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
+.qc-raidmap__head .qc-card__h { margin: 0; }
+/* 두 버튼 모두 잠긴 문 토글 모양(wiki.css .qc-map__toggle). 토글의 아래 여백·auto 는 첫 버튼만 오른쪽으로 밀게 */
+.qc-raidmap__head .qc-map__toggle { margin: 0; }
+.qc-raidmap__head .qc-map__toggle:first-of-type { margin-left: auto; }
 .qc-raidmap__stage { position: relative; display: flex; height: min(480px, calc(100vh - 200px)); border-radius: var(--radius); overflow: hidden; background: var(--bg); }
-.qc-raidmap .qc-map__msg { padding: 8px 0; }
-.qc-raidmap .qc-map__hint { margin: 6px 0 0; }
-.qc-raidmap .qc-map__credit { padding: 4px 0 0; border-top: 0; }
+.qc-raidmap > .qc-map__msg { padding: 8px 0; }
+.qc-raidmap > .qc-map__hint { margin: 6px 0 0; }
+.qc-raidmap > .qc-map__credit { padding: 4px 0 0; border-top: 0; }
+/* 크게 보기 팝업 — 모달이 아니라(show()) UA 기본이 흐름 속 absolute 다. 화면 기준으로 띄우고 프로필 바(z 2) 위로.
+   저장된 틀이 있으면 useDialogFrame 이 inset·left·top 을 인라인으로 덮는다 */
+.qc-dialog--float { position: fixed; inset: 0; z-index: 10; }
+/* 범례 접기 — 지도 오른쪽 위(층 버튼은 왼쪽 위). 접히면 지도가 팝업 폭을 다 쓴다 */
+.qc-map__body.is-collapsed { grid-template-columns: minmax(0, 1fr); }
+.qc-map__stage .qc-raidmap__side-btn {
+  position: absolute; top: 10px; right: 10px; z-index: 3; padding: 4px 10px; border: 1px solid var(--border-2); border-radius: 999px;
+  background: var(--bg-3); color: var(--fg-2); font-size: 12px; cursor: pointer;
+}
+.qc-map__stage .qc-raidmap__side-btn:hover { color: var(--fg); background: var(--bg-hover); }
+/* 접힌 상태: 지도가 전반적으로 어두워서 강조색 채움 + 그림자로 띄운다 */
+.qc-map__stage .qc-raidmap__side-btn.is-closed {
+  border-color: transparent; background: var(--accent); color: var(--accent-contrast); font-weight: 600; box-shadow: var(--marker-shadow);
+}
+.qc-map__stage .qc-raidmap__side-btn.is-closed:hover { background: var(--accent); filter: brightness(1.1); }
+/* 크게 보기 팝업 맨 아래 줄 — 출처 · 조작 안내 */
+.qc-raidmap__foot { flex: none; display: flex; align-items: center; gap: 12px; padding-right: 18px; border-top: 1px solid var(--border); }
+.qc-raidmap__foot .qc-map__credit { flex: 1; border-top: 0; }
+.qc-raidmap__foot .qc-map__hint { margin: 0; white-space: nowrap; }
 /* 퀘스트 이름 뒤 지도 번호 — 글자 높이(1em)에 맞춰 줄 높이·정렬을 건드리지 않는다. 색은 지도 마커와 같다 */
 .qc-rgroup__num {
   flex: none; display: inline-grid; place-items: center; min-width: 1.15em; height: 1.15em; padding: 0 .2em; border-radius: 999px;

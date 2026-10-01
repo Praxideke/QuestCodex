@@ -9,7 +9,7 @@ import type { NameLookup } from '../wiki/derive'
 import { formatInt, formatObjective, lineText } from '../wiki/format'
 import { distinctNames, exitText, optionText } from '../wiki/prep'
 import { objectiveColor } from '../wiki/mapProjection'
-import { dedupeRows, entryPlace, groupByQuest, MAP_ORDER, mapBrief, mapTabs, missing, placeFinds, raidEntries, raidFinds, raidMapPlan, type NeedRow, type PlacedRow, type RuleRow, type RaidEntry } from './derive'
+import { dedupeRows, entryPlace, groupByQuest, MAP_ORDER, orderRaidQuests, mapBrief, mapTabs, missing, placeFinds, raidEntries, raidFinds, raidMapPlan, type NeedRow, type PlacedRow, type RuleRow, type RaidEntry } from './derive'
 import { counterText } from './format'
 import { ItemName, QuestLink } from './parts'
 import { RaidMap } from './RaidMap'
@@ -126,7 +126,7 @@ interface QuestGroupsProps {
   all: RaidEntry[]
   map: string
   lookup: NameLookup
-  /** 지도 번호(퀘스트 → 번호). 주면 줄 앞에 지도 마커와 같은 색 번호를 붙이고, 마우스를 올리면 지도에서 강조한다. */
+  /** 지도 번호(퀘스트 → 번호). 주면 퀘스트 이름 뒤에 지도 마커와 같은 색 번호를 붙이고, 마우스를 올리면 지도에서 강조한다. */
   numbers?: Map<string, number>
   hot?: number | null
   onHot?(n: number | null): void
@@ -142,7 +142,7 @@ function QuestGroups({ entries, all, map, lookup, numbers, hot, onHot }: QuestGr
   })
   return (
     <ul className="qc-rgroups">
-      {groupByQuest(entries).map(({ quest, entries: list }) => {
+      {orderRaidQuests(entries, map).map(({ quest, entries: list }) => {
         const isOpen = open.has(quest.id)
         const single = list.length === 1 ? list[0] : null
         const n = numbers?.get(quest.id)

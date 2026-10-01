@@ -315,27 +315,65 @@ export function groupByQuest(entries: RaidEntry[]): QuestGroup[] {
   return [...groups.values()]
 }
 
+/** 이 목표가 고른 맵의 좌표를 가졌나 — 레이드 지도에 찍히는 목표 */
+const onMap = (e: RaidEntry, map: string) => (e.objective.locations ?? []).some((l) => mapGroup(l.map) === map)
+
+/**
+ * 카운터 진행률(0~1): target 이 2 이상인 목표들의 합계 기준. 없으면 null.
+ * target 1(방문·설치·1회 처치)은 "했다/안 했다" 라 진행률로 치지 않는다.
+ */
+function counterRatio(entries: RaidEntry[]): number | null {
+  let current = 0
+  let target = 0
+  for (const { progress: p } of entries) {
+    if (!p || p.target === null || p.target < 2) continue
+    current += Math.min(p.current, p.target)
+    target += p.target
+  }
+  return target > 0 ? current / target : null
+}
+
+/**
+ * 레이드 브리핑의 퀘스트 순서(사용자 결정): ① 이 맵 지도에 찍히는 퀘스트 ② 카운터가 있는 퀘스트 ③ 나머지.
+ * ①②는 안에서 카운터 진행률 높은 순, 같으면(③은 전부) 퀘스트 이름순.
+ */
+export function orderRaidQuests(entries: RaidEntry[], map: string): QuestGroup[] {
+  return groupByQuest(entries)
+    .map((g) => {
+      const ratio = counterRatio(g.entries)
+      const rank = g.entries.some((e) => onMap(e, map)) ? 0 : ratio !== null ? 1 : 2
+      return { g, rank, ratio: ratio ?? -1 }
+    })
+    .sort((a, b) => a.rank - b.rank || b.ratio - a.ratio || a.g.quest.name.localeCompare(b.g.quest.name))
+    .map((x) => x.g)
+}
+
 /** 레이드 지도에 찍을 것: 퀘스트 → 번호, 번호를 붙인 목표(지도 탭 만들기용, wiki/mapProjection buildNumberedTabs) */
 export interface RaidMapPlan {
   numbers: Map<string, number>
+  /** 번호 순 퀘스트 — 크게 보기 팝업의 범례 */
+  quests: { n: number; quest: CatalogQuest }[]
   items: { n: number; objective: Objective }[]
 }
 
 /**
- * 고른 맵의 목표(mapBrief().here) 중 그 맵 좌표가 있는 것만 지도에 찍는다. 번호는 퀘스트 단위 — 목록 순서대로 1부터,
- * 좌표 없는 퀘스트는 건너뛴다. 한 퀘스트의 목표들은 같은 번호·색이라 목록 한 줄 ↔ 지도 마커 묶음이 바로 이어진다.
+ * 고른 맵의 목표(mapBrief().here) 중 그 맵 좌표가 있는 것만 지도에 찍는다. 번호는 퀘스트 단위 — 목록 순서
+ * (orderRaidQuests, 지도에 찍히는 퀘스트가 맨 위)대로 1부터, 좌표 없는 퀘스트는 건너뛴다.
+ * 한 퀘스트의 목표들은 같은 번호·색이라 목록 한 줄 ↔ 지도 마커 묶음이 바로 이어진다.
  */
 export function raidMapPlan(here: RaidEntry[], map: string): RaidMapPlan {
   const numbers = new Map<string, number>()
+  const quests: RaidMapPlan['quests'] = []
   const items: RaidMapPlan['items'] = []
-  for (const { quest, entries } of groupByQuest(here)) {
-    const placed = entries.filter((e) => (e.objective.locations ?? []).some((l) => mapGroup(l.map) === map))
+  for (const { quest, entries } of orderRaidQuests(here, map)) {
+    const placed = entries.filter((e) => onMap(e, map))
     if (placed.length === 0) continue
     const n = numbers.size + 1
     numbers.set(quest.id, n)
+    quests.push({ n, quest })
     for (const e of placed) items.push({ n, objective: e.objective })
   }
-  return { numbers, items }
+  return { numbers, quests, items }
 }
 
 /** 장비·특수 조건 한 줄: 라벨(무기·착용·탈출 …) + 값(대안 목록, 문장이면 한 개) */
