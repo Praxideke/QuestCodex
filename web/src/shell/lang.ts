@@ -3,9 +3,9 @@ import { safeStorage } from './storage'
 // 서버에 지원 언어 목록 엔드포인트가 없어 하드코딩 (스펙 §0).
 // 언어 코드는 EFT 게임 텍스트 로케일(database/locales/global) 의 키를 따른다 — 한국어는 ISO 'ko' 가 아니라 'kr'.
 // 'ko' 는 SPT 서버 UI 로케일 키라서 카탈로그 요청에 쓰면 400 이다 (2단계 스펙 §2 실측 정정, 2026-09-19).
-export const LANGS = ['en', 'kr'] as const
+export const LANGS = ['en', 'kr', 'ru'] as const
 export type Lang = (typeof LANGS)[number]
-export const LANG_LABELS: Record<Lang, string> = { en: 'English', kr: '한국어' }
+export const LANG_LABELS: Record<Lang, string> = { en: 'English', kr: '한국어', ru: 'Русский' }
 
 const KEY = 'questcodex.lang'
 
