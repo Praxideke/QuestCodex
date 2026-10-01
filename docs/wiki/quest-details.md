@@ -29,6 +29,22 @@ The full quest description opens in a popup, so long text doesn't stretch the li
 
 [![Description popup](../assets/images/wiki-description.png)](../assets/images/wiki-description.png)
 
+## Quest locations map
+
+The **Locations** button next to the guide button opens a map of where the quest's objectives are. It's greyed
+out when no objective has location data.
+
+- Each objective gets a numbered marker; kill-zone and flare objectives are drawn as areas, one color per objective
+- Map tabs switch maps, and floor buttons switch floors. A red dot on a floor button means that floor has objectives too
+- Wheel to zoom, drag to pan, double-click to fit
+- **Locked doors** shows lock icons for locked doors and keycard doors. Hover one to see the key it needs
+
+QuestCodex doesn't know which quests need a key, but the map gets you most of the way: if a marker sits
+next to a lock icon, hover it to see which key opens that door, and you can judge for yourself whether to
+bring it.
+
+[![Quest locations map](../assets/images/wiki-quest-map.png)](../assets/images/wiki-quest-map.png)
+
 ## Branch warnings
 
 Some quests sit on mutually exclusive branches: finishing one fails or locks the other.

@@ -29,6 +29,24 @@ nav_order: 2
 
 [![선택한 맵의 퀘스트]({{ '/assets/images/progress-raid-quests.png' | relative_url }})]({{ '/assets/images/progress-raid-quests.png' | relative_url }})
 
+지도에 표시되는 퀘스트가 먼저, 그다음 진행도가 있는 퀘스트를 진행률 순으로, 나머지는 이름순으로 정렬됩니다.
+
+## 지도
+
+퀘스트 목록 아래에 지도 카드가 있습니다. 고른 맵 탭을 따라 바뀌고, 스크롤해도 화면에 계속 보입니다.
+위키의 [퀘스트 위치 지도]({{ '/kr/wiki/quest-details.html' | relative_url }})와 같은 지도에
+이 맵의 퀘스트를 한꺼번에 표시합니다.
+
+- 퀘스트 행에 마커와 같은 색의 번호가 붙습니다. 한쪽에 마우스를 올리면 다른 쪽도 강조됩니다
+- 층 버튼, 목표 영역, **잠긴 문**(Locked doors) 토글은 위키와 같습니다. 마커 근처의 자물쇠 아이콘으로 챙겨 갈 열쇠를 짐작할 수 있습니다
+
+[![지도 카드]({{ '/assets/images/progress-raid-map-card.png' | relative_url }})]({{ '/assets/images/progress-raid-map-card.png' | relative_url }})
+
+**크게 보기**(Expand)를 누르면 지도가 옮기고 크기를 바꿀 수 있는 창으로 열리고, 번호가 붙은 퀘스트 목록도 함께
+보입니다. 창 뒤의 페이지도 그대로 스크롤하고 누를 수 있습니다. 닫기 버튼이나 `Esc`로 닫습니다.
+
+[![크게 보기 창]({{ '/assets/images/progress-raid-map-window.png' | relative_url }})]({{ '/assets/images/progress-raid-map-window.png' | relative_url }})
+
 ## 챙겨 갈 아이템 / 파밍할 아이템
 
 - **챙겨 갈 아이템**(Bring with you): 이 맵에 설치할 아이템과 필요 수량·보유 수량

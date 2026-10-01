@@ -39,8 +39,12 @@ You can also reach it from the mod card on the SPT server web page (`https://127
 
 ## Language and theme
 
-- **Language**: `en` / `kr`. UI strings and quest/item names change together
+- **Language**: `English` / `한국어` / `Русский`. UI strings and quest/item names change together
   (game text comes from the server's locale tables).
 - **Theme**: `System` / `Light` / `Dark`, remembered in the browser.
 
 [![Theme and language switches](assets/images/topbar-switches.png)](assets/images/topbar-switches.png)
+
+## Side menu
+
+The menu button at the left of the top bar hides or shows the side menu, and the choice is remembered.
