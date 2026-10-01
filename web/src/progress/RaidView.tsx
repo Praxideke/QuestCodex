@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import type { Catalog, ObjectivePrep } from '../api/catalog'
-import type { Holding, ProfileProgress } from '../api/progress'
+import type { Holding, ObjectiveProgress, ProfileProgress } from '../api/progress'
 import { cls } from '../cls'
 import type { T, UiKey } from '../i18n/index'
 import { useT } from '../i18n/I18nContext'
@@ -10,7 +10,6 @@ import { formatInt, formatObjective, lineText } from '../wiki/format'
 import { distinctNames, exitText, optionText } from '../wiki/prep'
 import { objectiveColor } from '../wiki/mapProjection'
 import { dedupeRows, entryPlace, groupByQuest, MAP_ORDER, orderRaidQuests, mapBrief, mapTabs, missing, placeFinds, raidEntries, raidFinds, raidMapPlan, type NeedRow, type PlacedRow, type RuleRow, type RaidEntry } from './derive'
-import { counterText } from './format'
 import { ItemName, QuestLink } from './parts'
 import { RaidMap } from './RaidMap'
 
@@ -162,7 +161,7 @@ function QuestGroups({ entries, all, map, lookup, numbers, hot, onHot }: QuestGr
               <span className="qc-pline__summary">
                 {single ? lineText(formatObjective(single.objective, t)) : t('raid.objCount', { n: list.length })}
               </span>
-              <span className="qc-pline__counter">{single && counterText(single.progress)}</span>
+              <span className="qc-pline__counter">{single && <Counter op={single.progress} />}</span>
             </button>
             {isOpen && (
               <div className="qc-pline__detail">
@@ -173,7 +172,7 @@ function QuestGroups({ entries, all, map, lookup, numbers, hot, onHot }: QuestGr
                         {lineText(formatObjective(e.objective, t))}
                         {e.inferred && <span className="qc-tag qc-inferred" title={t('raid.inferredHint')}>{t('raid.inferred')}</span>}
                       </span>
-                      <span className="qc-pline__counter">{counterText(e.progress)}</span>
+                      <span className="qc-pline__counter"><Counter op={e.progress} /></span>
                     </li>
                   ))}
                 </ul>
@@ -187,15 +186,38 @@ function QuestGroups({ entries, all, map, lookup, numbers, hot, onHot }: QuestGr
   )
 }
 
+/**
+ * 목표 카운터 "현재 / 목표". 현황의 상인별 진행률(.qc-bar__num)과 같은 모양 — 현재는 굵게, 목표는 흐리게, 0 이면 둘 다 흐리게.
+ * 열 폭을 고정해 줄마다 "/" 위치가 맞는다. 카운터 없는 목표(target null)는 비운다.
+ */
+function Counter({ op }: { op: ObjectiveProgress | undefined }) {
+  if (!op || op.target === null) return null
+  return (
+    <span className={cls('qc-count', op.current === 0 && 'is-zero')}>
+      <span className="qc-count__cur">{formatInt(op.current)}</span>
+      <span className="qc-count__total">/ {formatInt(op.target)}</span>
+    </span>
+  )
+}
+
+/**
+ * 아이템 줄의 FIR 칸 — FIR 이 아닌 줄도 칸을 비워 둔다. 목록(.qc-bring)이 [이름 | FIR | 수량] 3열 그리드라
+ * FIR 표시가 세로로 한 줄에 서고 수량은 늘 오른쪽 끝에 붙는다(배지가 일부 줄에만 붙어 수량이 들쭉날쭉하다는 피드백).
+ */
+function FirSlot({ fir }: { fir: boolean }) {
+  const t = useT()
+  return <span className="qc-bring__fir">{fir && <span className="qc-fir" title={t('prep.firHint')}>{t('prep.fir')}</span>}</span>
+}
+
 function BringRow({ row }: { row: NeedRow }) {
   const t = useT()
   const short = missing(row)
   return (
     <li className={cls('qc-bring__row', short > 0 && 'is-short')}>
       <ItemName items={row.items} />
+      <FirSlot fir={row.needFir > 0} />
       <span className="qc-bring__num">
         {t('raid.needHave', { need: formatInt(row.need), have: formatInt(row.needFir > 0 ? row.haveFir : row.have) })}
-        {row.needFir > 0 && <span className="qc-prep__fir" title={t('prep.firHint')}>{t('prep.fir')}</span>}
         {short > 0 ? <span className="qc-warn"> ⚠</span> : <span className="qc-ok"> ✓</span>}
       </span>
     </li>
@@ -237,10 +259,8 @@ function FindRow({ placed, catalog }: { placed: PlacedRow; catalog: Catalog }) {
   return (
     <li className="qc-bring__row qc-find" title={quests.join('\n')}>
       <ItemName items={row.items} />
-      <span className="qc-bring__num qc-warn">
-        {t('items.short', { n: formatInt(missing(row)) })}
-        {row.needFir > 0 && <span className="qc-prep__fir" title={t('prep.firHint')}>{t('prep.fir')}</span>}
-      </span>
+      <FirSlot fir={row.needFir > 0} />
+      <span className="qc-bring__num qc-warn">{t('items.short', { n: formatInt(missing(row)) })}</span>
     </li>
   )
 }
