@@ -8,9 +8,11 @@ import { navigate } from '../shell/router'
 import type { NameLookup } from '../wiki/derive'
 import { formatInt, formatObjective, lineText } from '../wiki/format'
 import { distinctNames, exitText, optionText } from '../wiki/prep'
-import { dedupeRows, entryPlace, groupByQuest, MAP_ORDER, mapBrief, mapTabs, missing, placeFinds, raidEntries, raidFinds, type NeedRow, type PlacedRow, type RuleRow, type RaidEntry } from './derive'
+import { objectiveColor } from '../wiki/mapProjection'
+import { dedupeRows, entryPlace, groupByQuest, MAP_ORDER, mapBrief, mapTabs, missing, placeFinds, raidEntries, raidFinds, raidMapPlan, type NeedRow, type PlacedRow, type RuleRow, type RaidEntry } from './derive'
 import { counterText } from './format'
 import { ItemName, QuestLink } from './parts'
+import { RaidMap } from './RaidMap'
 
 interface RaidViewProps {
   catalog: Catalog
@@ -26,7 +28,7 @@ function mapName(key: string, t: T): string {
   return MAP_ORDER.includes(key) ? t(`map.name.${key}` as UiKey) : key
 }
 
-/** 레이드 준비 — 맵 브리핑(B1~B6). 위치 지도·주변 열쇠(B7~B9)는 자리만. */
+/** 레이드 준비 — 맵 브리핑(B1~B6) + 위치 지도. 지도 번호는 퀘스트 단위라 "이 맵" 목록 줄에도 같은 번호를 붙인다. */
 export function RaidView({ catalog, progress, inventory, lookup, map }: RaidViewProps) {
   const t = useT()
   const entries = useMemo(() => raidEntries(catalog, progress), [catalog, progress])
@@ -35,6 +37,8 @@ export function RaidView({ catalog, progress, inventory, lookup, map }: RaidView
   const brief = useMemo(() => mapBrief(entries, selected, inventory), [entries, selected, inventory])
   const needs = useMemo(() => raidFinds(catalog, progress, inventory), [catalog, progress, inventory])
   const finds = useMemo(() => placeFinds(needs, catalog, selected), [needs, catalog, selected])
+  const plan = useMemo(() => raidMapPlan(brief.here, selected), [brief, selected])
+  const [hot, setHot] = useState<number | null>(null)
 
   return (
     <div className="qc-raid">
@@ -45,7 +49,7 @@ export function RaidView({ catalog, progress, inventory, lookup, map }: RaidView
             type="button"
             className={cls('qc-map', x.key === selected && 'is-on', x.count === 0 && 'is-empty')}
             aria-pressed={x.key === selected}
-            onClick={() => navigate('progress', 'raid', { map: x.key })}
+            onClick={() => { setHot(null); navigate('progress', 'raid', { map: x.key }) }}
           >
             {mapName(x.key, t)} <span className="qc-map__n">{x.count}</span>
           </button>
@@ -58,7 +62,7 @@ export function RaidView({ catalog, progress, inventory, lookup, map }: RaidView
           <section className="qc-card">
             <h3 className="qc-card__h">{t('raid.todo', { map: mapName(selected, t) })}</h3>
             {brief.here.length === 0 && <p className="qc-muted">{t('raid.nothing')}</p>}
-            <QuestGroups entries={brief.here} all={entries} map={selected} lookup={lookup} />
+            <QuestGroups entries={brief.here} all={entries} map={selected} lookup={lookup} numbers={plan.numbers} hot={hot} onHot={setHot} />
           </section>
           {brief.anywhere.length > 0 && (
             <section className="qc-card">
@@ -66,6 +70,11 @@ export function RaidView({ catalog, progress, inventory, lookup, map }: RaidView
               <QuestGroups entries={brief.anywhere} all={entries} map={selected} lookup={lookup} />
             </section>
           )}
+          {/* 오른쪽 칸이 길어 왼쪽 아래가 비므로 거기에 두고, 스크롤해도 따라오게 sticky(progress.css) */}
+          <RaidMap
+            map={selected} mapLabel={mapName(selected, t)} plan={plan} lockedDoors={catalog.lockedDoors}
+            hot={hot} onHot={setHot}
+          />
         </div>
 
         <div className="qc-raid__side">
@@ -102,10 +111,6 @@ export function RaidView({ catalog, progress, inventory, lookup, map }: RaidView
           </section>
         </div>
       </div>
-
-      {/* TODO: 지도 기능(feature/quest-map) 병합 후 위치 지도·주변 잠긴 문 열쇠로 교체
-      <p className="qc-raid__soon">🗺 {t('raid.mapSoon')}</p>
-      */}
     </div>
   )
 }
@@ -121,9 +126,13 @@ interface QuestGroupsProps {
   all: RaidEntry[]
   map: string
   lookup: NameLookup
+  /** 지도 번호(퀘스트 → 번호). 주면 줄 앞에 지도 마커와 같은 색 번호를 붙이고, 마우스를 올리면 지도에서 강조한다. */
+  numbers?: Map<string, number>
+  hot?: number | null
+  onHot?(n: number | null): void
 }
 
-function QuestGroups({ entries, all, map, lookup }: QuestGroupsProps) {
+function QuestGroups({ entries, all, map, lookup, numbers, hot, onHot }: QuestGroupsProps) {
   const t = useT()
   const [open, setOpen] = useState<ReadonlySet<string>>(() => new Set())
   const toggle = (id: string) => setOpen((prev) => {
@@ -136,10 +145,19 @@ function QuestGroups({ entries, all, map, lookup }: QuestGroupsProps) {
       {groupByQuest(entries).map(({ quest, entries: list }) => {
         const isOpen = open.has(quest.id)
         const single = list.length === 1 ? list[0] : null
+        const n = numbers?.get(quest.id)
         return (
-          <li key={quest.id} className={cls('qc-pline', isOpen && 'is-open')}>
+          <li
+            key={quest.id}
+            className={cls('qc-pline', isOpen && 'is-open', n !== undefined && n === hot && 'is-hot')}
+            onMouseEnter={n !== undefined ? () => onHot?.(n) : undefined}
+            onMouseLeave={n !== undefined ? () => onHot?.(null) : undefined}
+          >
             <button type="button" className="qc-pline__row qc-rgroup__row" aria-expanded={isOpen} onClick={() => toggle(quest.id)}>
-              <span className="qc-pline__name">{quest.name}</span>
+              <span className="qc-pline__name">
+                {quest.name}
+                {n !== undefined && <span className="qc-rgroup__num" style={{ ['--c' as string]: objectiveColor(n) }}>{n}</span>}
+              </span>
               <span className="qc-pline__trader">{lookup.traderName(quest.traderId)}</span>
               <span className="qc-pline__summary">
                 {single ? lineText(formatObjective(single.objective, t)) : t('raid.objCount', { n: list.length })}

@@ -315,6 +315,29 @@ export function groupByQuest(entries: RaidEntry[]): QuestGroup[] {
   return [...groups.values()]
 }
 
+/** 레이드 지도에 찍을 것: 퀘스트 → 번호, 번호를 붙인 목표(지도 탭 만들기용, wiki/mapProjection buildNumberedTabs) */
+export interface RaidMapPlan {
+  numbers: Map<string, number>
+  items: { n: number; objective: Objective }[]
+}
+
+/**
+ * 고른 맵의 목표(mapBrief().here) 중 그 맵 좌표가 있는 것만 지도에 찍는다. 번호는 퀘스트 단위 — 목록 순서대로 1부터,
+ * 좌표 없는 퀘스트는 건너뛴다. 한 퀘스트의 목표들은 같은 번호·색이라 목록 한 줄 ↔ 지도 마커 묶음이 바로 이어진다.
+ */
+export function raidMapPlan(here: RaidEntry[], map: string): RaidMapPlan {
+  const numbers = new Map<string, number>()
+  const items: RaidMapPlan['items'] = []
+  for (const { quest, entries } of groupByQuest(here)) {
+    const placed = entries.filter((e) => (e.objective.locations ?? []).some((l) => mapGroup(l.map) === map))
+    if (placed.length === 0) continue
+    const n = numbers.size + 1
+    numbers.set(quest.id, n)
+    for (const e of placed) items.push({ n, objective: e.objective })
+  }
+  return { numbers, items }
+}
+
 /** 장비·특수 조건 한 줄: 라벨(무기·착용·탈출 …) + 값(대안 목록, 문장이면 한 개) */
 export interface RuleRow {
   label: string

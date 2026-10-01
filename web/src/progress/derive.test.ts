@@ -3,7 +3,8 @@ import type { Catalog, CatalogQuest, Objective, ObjectivePrep, PrepItem } from '
 import type { ProfileProgress, QuestProgress } from '../api/progress'
 import {
   aggregateNeeds, countTabByTrader, countTabs,dedupeRows, entryPlace, filterNeedRows, filterProgressQuests, groupByQuest, handoverReady, mapsFromText, placeFinds, isUnreachable, itemKey, itemNeeds,
-  mapBrief, mapGroup, mapTabs, mergeSources, missing, objectiveMaps, OTHER_CATEGORY, questTab, raidEntries, raidFinds, remaining, rowCategory, searchKey, sortNeedRows,
+  mapBrief, mapGroup, mapTabs, mergeSources, missing, objectiveMaps, OTHER_CATEGORY, questTab, raidEntries, raidFinds, raidMapPlan, remaining, rowCategory, searchKey, sortNeedRows,
+  type RaidEntry,
 } from './derive'
 
 const marker = { tpl: 'ms2000', name: 'MS2000 Marker' }
@@ -259,6 +260,16 @@ describe('raidEntries / mapTabs / mapBrief', () => {
     expect(b.gear.map((e) => e.objective.conditionId)).toEqual(['k'])
     expect(b.special.map((e) => e.objective.conditionId)).toEqual(['k'])
     expect(mapBrief(entries, 'bigmap', {}).here).toEqual([])
+  })
+  it('지도 번호: 이 맵 좌표가 있는 퀘스트만 목록 순서로 1부터, 한 퀘스트의 목표는 같은 번호', () => {
+    const at = (map: string) => [{ map, points: [{ x: 0, y: 0, z: 0 }] }]
+    const a = quest('a', [{ ...obj('a1', 'VisitPlace'), locations: at('factory4_night') }, { ...obj('a2', 'VisitPlace'), locations: at('factory4_day') }])
+    const b = quest('b', [{ ...obj('b1', 'VisitPlace'), locations: at('woods') }])
+    const c = quest('c', [obj('c1', 'VisitPlace'), { ...obj('c2', 'VisitPlace'), locations: at('factory4_day') }])
+    const here: RaidEntry[] = [a, b, c].flatMap((q) => q.objectives.map((o) => ({ quest: q, objective: o, progress: undefined, maps: ['factory4_day'], inferred: false })))
+    const plan = raidMapPlan(here, 'factory4_day')
+    expect([...plan.numbers]).toEqual([['a', 1], ['c', 2]])
+    expect(plan.items.map((i) => [i.n, i.objective.conditionId])).toEqual([[1, 'a1'], [1, 'a2'], [2, 'c2']])
   })
   it('맵 없는 설치 목표의 아이템은 따로 — 맵별 목록에 섞지 않는다', () => {
     const noMap = quest('nomap', [obj('n', 'PlaceBeacon', prep({ item: item({ action: 'plant', items: [jammer] }) }))])

@@ -159,14 +159,23 @@
 .qc-find, .qc-find__none { font-size: 12px; }
 .qc-findgroup + .qc-findgroup { margin-top: 10px; }
 .qc-findgroup.qc-place--here .qc-find { font-weight: 600; }
-.qc-raid__soon {
-  margin: 12px 16px 0;
-  padding: 16px;
-  border: 1px dashed var(--border-2);
-  border-radius: var(--radius);
-  color: var(--fg-3);
-  text-align: center;
+/* 위치 지도 — 왼쪽 칸 맨 아래. 왼쪽 칸을 그리드 높이까지 늘려 두어야 sticky 가 오른쪽 칸 끝까지 따라온다.
+   top: 프로필 바(41px) 아래 + 여백 */
+.qc-raid__main { align-self: stretch; }
+.qc-raidmap { position: sticky; top: 53px; }
+.qc-raidmap__head { display: flex; align-items: flex-start; gap: 10px; }
+.qc-raidmap__stage { position: relative; display: flex; height: min(480px, calc(100vh - 200px)); border-radius: var(--radius); overflow: hidden; background: var(--bg); }
+.qc-raidmap .qc-map__msg { padding: 8px 0; }
+.qc-raidmap .qc-map__hint { margin: 6px 0 0; }
+.qc-raidmap .qc-map__credit { padding: 4px 0 0; border-top: 0; }
+/* 퀘스트 이름 뒤 지도 번호 — 글자 높이(1em)에 맞춰 줄 높이·정렬을 건드리지 않는다. 색은 지도 마커와 같다 */
+.qc-rgroup__num {
+  flex: none; display: inline-grid; place-items: center; min-width: 1.15em; height: 1.15em; padding: 0 .2em; border-radius: 999px;
+  margin-left: -3px;  /* .qc-pline__name 의 gap(8px) 을 이름 ↔ 번호 사이만 5px 로 */
+  background: var(--c, var(--marker)); color: var(--obj-fg); font-size: 11px; font-weight: 700; line-height: 1;
 }
+/* 지도 번호 배지가 붙은 퀘스트 줄 — 지도 마커에 마우스를 올려도 같은 줄이 강조된다 */
+.qc-rgroups .qc-pline.is-hot > .qc-pline__row { background: var(--bg-hover); }
 
 /* ---- 필요 아이템 ---- */
 .qc-items { margin-top: 12px; }
@@ -226,4 +235,5 @@ svg.qc-cat__icon { width: 14px; height: 14px; }
   .qc-overview > .qc-card:nth-child(2), .qc-raid__side > .qc-card { margin-left: 16px; }
   .qc-pline__row { grid-template-columns: minmax(0, 1fr) auto; }
   .qc-pline__trader, .qc-pline__summary { display: none; }
+  .qc-raidmap { position: static; }
 }
