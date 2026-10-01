@@ -92,7 +92,7 @@
 .qc-pline__row {
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(0, 2fr) 110px minmax(0, 3fr) 90px;
+  grid-template-columns: minmax(0, 2fr) 110px minmax(0, 3fr) 110px;  /* 110px: 카운터 "7,609 / 50,000"(.qc-count) */
   align-items: center;
   gap: 12px;
   padding: 7px 14px;
@@ -109,6 +109,22 @@
 .qc-pline__detail { padding: 6px 14px 14px 28px; }
 .qc-pline__obj { flex: 1; }
 .qc-lines li.is-done { color: var(--fg-3); text-decoration: line-through; }
+/* 현황 펼친 행(위키 QuestDetail 재사용): 목표 카운터·미충족 시작 조건 */
+.qc-pline > .qc-detail { margin: 8px 14px 12px; }
+.qc-detail__actions { margin-left: auto; }
+.qc-lines__text { flex: 1; min-width: 0; }
+.qc-lines__aside { color: var(--fg-2); font-size: 12px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.qc-lines li.is-unmet { color: var(--warn); }
+.qc-lines li.is-unmet::before {
+  content: "✗";
+  width: auto;
+  height: auto;
+  margin-top: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--warn);
+  font-size: 12px;
+}
 
 /* ---- 레이드 준비 ---- */
 .qc-maps { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 16px 0; }
@@ -200,8 +216,8 @@
 .qc-raidmap__foot { flex: none; display: flex; align-items: center; gap: 12px; padding-right: 18px; border-top: 1px solid var(--border); }
 .qc-raidmap__foot .qc-map__credit { flex: 1; border-top: 0; }
 .qc-raidmap__foot .qc-map__hint { margin: 0; white-space: nowrap; }
-/* 목표 카운터 — 현황 상인별 진행률(.qc-bar__num)과 같은 모양: 현재 굵게 · 목표 흐리게, 열 고정으로 "/" 정렬 */
-.qc-count { display: inline-grid; grid-template-columns: 3ch 6ch; column-gap: 4px; justify-items: end; color: var(--fg); font-variant-numeric: tabular-nums; }
+/* 목표 카운터 — 현황 상인별 진행률(.qc-bar__num)과 같은 모양: 현재 굵게 · 목표 흐리게, 열 폭 최소값으로 "/" 정렬 (7,609 / 50,000 처럼 큰 수는 늘어난다) */
+.qc-count { display: inline-grid; grid-template-columns: minmax(3ch, max-content) minmax(6ch, max-content); column-gap: 4px; justify-items: end; color: var(--fg); font-variant-numeric: tabular-nums; }
 .qc-count__cur { font-weight: 600; }
 .qc-count__total { justify-self: start; color: var(--fg-2); }
 .qc-count.is-zero .qc-count__cur { color: var(--fg-3); font-weight: 400; }

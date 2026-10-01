@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import type { Catalog, ObjectivePrep } from '../api/catalog'
-import type { Holding, ObjectiveProgress, ProfileProgress } from '../api/progress'
+import type { Holding, ProfileProgress } from '../api/progress'
 import { cls } from '../cls'
 import type { T, UiKey } from '../i18n/index'
 import { useT } from '../i18n/I18nContext'
@@ -10,7 +10,7 @@ import { formatInt, formatObjective, lineText } from '../wiki/format'
 import { distinctNames, exitText, optionText } from '../wiki/prep'
 import { objectiveColor } from '../wiki/mapProjection'
 import { dedupeRows, entryPlace, groupByQuest, MAP_ORDER, orderRaidQuests, mapBrief, mapTabs, missing, placeFinds, raidEntries, raidFinds, raidMapPlan, type NeedRow, type PlacedRow, type RuleRow, type RaidEntry } from './derive'
-import { ItemName, QuestLink } from './parts'
+import { Counter, ItemName, QuestLink } from './parts'
 import { RaidMap } from './RaidMap'
 
 interface RaidViewProps {
@@ -183,20 +183,6 @@ function QuestGroups({ entries, all, map, lookup, numbers, hot, onHot }: QuestGr
         )
       })}
     </ul>
-  )
-}
-
-/**
- * 목표 카운터 "현재 / 목표". 현황의 상인별 진행률(.qc-bar__num)과 같은 모양 — 현재는 굵게, 목표는 흐리게, 0 이면 둘 다 흐리게.
- * 열 폭을 고정해 줄마다 "/" 위치가 맞는다. 카운터 없는 목표(target null)는 비운다.
- */
-function Counter({ op }: { op: ObjectiveProgress | undefined }) {
-  if (!op || op.target === null) return null
-  return (
-    <span className={cls('qc-count', op.current === 0 && 'is-zero')}>
-      <span className="qc-count__cur">{formatInt(op.current)}</span>
-      <span className="qc-count__total">/ {formatInt(op.target)}</span>
-    </span>
   )
 }
 

@@ -579,11 +579,70 @@ export interface QuestFilter {
 
 export function filterProgressQuests(catalog: Catalog, progress: ProfileProgress, f: QuestFilter): CatalogQuest[] {
   const q = searchKey(f.query)
-  return Object.values(catalog.quests)
+  const rows = Object.values(catalog.quests)
     .filter((x) => questTab(questProgress(progress, x.id).status) === f.tab)
     .filter((x) => f.traderIds.size === 0 || f.traderIds.has(x.traderId))
     .filter((x) => q === '' || searchKey(x.name).includes(q))
-    .sort((a, b) => (a.minLevel ?? 0) - (b.minLevel ?? 0) || a.name.localeCompare(b.name))
+  return sortForTab(rows, progress, f.tab)
+}
+
+/** 목표 진행률 0~1. 카운터 있는 목표는 current/target, 없는 목표는 끝났으면 1. 목표가 없으면 0 */
+export function questCompletion(q: CatalogQuest, qp: QuestProgress): number {
+  if (q.objectives.length === 0) return 0
+  let sum = 0
+  for (const o of q.objectives) {
+    const op = qp.objectives[o.conditionId]
+    if (op?.done) sum += 1
+    else if (op && op.target) sum += Math.min(op.current / op.target, 1)
+  }
+  return sum / q.objectives.length
+}
+
+const ACTIVE = new Set<QuestStatus>(['Started', 'AvailableForFinish'])
+
+/**
+ * 잠김 탭의 단계: 0 = 지금 진행 중인 선행 하나만 남음(끝내면 바로 열림), 1 = 그 밖의 사유,
+ * 2 = 사유를 모름(프로필에 없는 퀘스트), 3 = 도달 불가(다른 진영·닫힌 택일 분기)
+ */
+function lockTier(qp: QuestProgress): number {
+  if (isUnreachable(qp)) return 3
+  const rs = qp.lockReasons
+  if (rs.length === 0) return 2
+  if (rs.length === 1 && rs[0].kind === 'quest' && ACTIVE.has(rs[0].currentStatus)) return 0
+  return 1
+}
+
+/** 완료·실패 시각(ms). 없으면 -Infinity 라 최신순에서 맨 뒤 */
+function finishedAt(qp: QuestProgress): number {
+  const ms = qp.finishTime ? Date.parse(qp.finishTime) : NaN
+  return Number.isNaN(ms) ? -Infinity : ms
+}
+
+/**
+ * 탭별 기본 정렬 — 현황은 "다음에 할 것" 화면이라 탭마다 보고 싶은 게 다르다. 마지막은 늘 최소 레벨 → 이름.
+ * 진행 중: 완료 보고 대기 → 진행률 높은 순 / 잠김: lockTier → 남은 사유 수 적은 순 /
+ * 완료·실패: 끝난 시각 최신순 / 수락 가능: 최소 레벨
+ */
+export function sortForTab(quests: CatalogQuest[], progress: ProfileProgress, tab: QuestTab): CatalogQuest[] {
+  const byLevel = (a: CatalogQuest, b: CatalogQuest) => (a.minLevel ?? 0) - (b.minLevel ?? 0) || a.name.localeCompare(b.name)
+  const key = new Map(quests.map((q): [string, number[]] => {
+    const qp = questProgress(progress, q.id)
+    switch (tab) {
+      case 'active': return [q.id, [qp.status === 'AvailableForFinish' ? 0 : 1, -questCompletion(q, qp)]]
+      case 'locked': return [q.id, [lockTier(qp), qp.lockReasons.length]]
+      case 'done':
+      case 'failed': return [q.id, [-finishedAt(qp)]]
+      case 'available': return [q.id, []]
+    }
+  }))
+  return [...quests].sort((a, b) => {
+    const ka = key.get(a.id)!
+    const kb = key.get(b.id)!
+    for (let i = 0; i < ka.length; i++) {
+      if (ka[i] !== kb[i]) return ka[i] < kb[i] ? -1 : 1
+    }
+    return byLevel(a, b)
+  })
 }
 
 /** 줄 요약용: 첫 번째로 끝나지 않은 목표(카운터 있는 것 우선이 아니라 목표 순서 그대로) */

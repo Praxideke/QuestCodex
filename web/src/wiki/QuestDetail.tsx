@@ -1,10 +1,11 @@
+import type { ReactNode } from 'react'
 import type { Catalog, CatalogQuest, Reward } from '../api/catalog'
 import { useT } from '../i18n/I18nContext'
 import type { UiKey } from '../i18n/index'
 import { BranchWarning } from './BranchWarning'
 import type { BranchInfo, NameLookup } from './derive'
 import { formatObjective, formatRequirement, formatReward, shortId } from './format'
-import { LineList } from './LineList'
+import { LineList, type ListLine } from './LineList'
 import { prepCount } from './prep'
 
 interface QuestDetailProps {
@@ -17,10 +18,18 @@ interface QuestDetailProps {
   onOpenPrep(questId: string): void
   onOpenMap(questId: string): void
   onJump(questId: string): void
+  /** 진행현황용: 카운터·완료 표시를 얹은 목표 줄. 없으면 카탈로그 그대로 */
+  objectiveLines?: ListLine[]
+  /** 진행현황용: 미충족 표시를 얹은 시작 조건 줄. 없으면 카탈로그 그대로 */
+  requirementLines?: ListLine[]
+  /** 버튼 줄 오른쪽 끝에 덧붙일 것 (진행현황의 "위키에서 열기") */
+  actions?: ReactNode
 }
 
 /** (d) 펼친 행. 2열 [목표·시작 조건] [보상] + 전폭 푸터 [연계]. 설명 본문은 여기 없음 — 팝업 (§1.2 d, e). */
-export function QuestDetail({ quest, catalog, lookup, branch, onOpenDescription, onOpenPrep, onOpenMap, onJump }: QuestDetailProps) {
+export function QuestDetail({
+  quest, catalog, lookup, branch, onOpenDescription, onOpenPrep, onOpenMap, onJump, objectiveLines, requirementLines, actions,
+}: QuestDetailProps) {
   const t = useT()
   const meta = [
     lookup.traderName(quest.traderId),
@@ -64,14 +73,15 @@ export function QuestDetail({ quest, catalog, lookup, branch, onOpenDescription,
           {t('map.button')}
         </button>
         <span className="qc-detail__meta">{meta}</span>
+        {actions && <span className="qc-detail__actions">{actions}</span>}
       </div>
       {branch && <BranchWarning branch={branch} catalog={catalog} lookup={lookup} onJump={onJump} />}
       <div className="qc-detail__grid">
         <section>
           <h4 className="qc-detail__h">{t('detail.objectives')}</h4>
-          <LineList lines={quest.objectives.map((o) => formatObjective(o, t))} empty={t('detail.noObjectives')} onJump={onJump} />
+          <LineList lines={objectiveLines ?? quest.objectives.map((o) => formatObjective(o, t))} empty={t('detail.noObjectives')} onJump={onJump} />
           <h4 className="qc-detail__h">{t('detail.requirements')}</h4>
-          <LineList lines={quest.requirements.map((r) => formatRequirement(r, lookup, t))} empty={t('detail.noRequirements')} onJump={onJump} />
+          <LineList lines={requirementLines ?? quest.requirements.map((r) => formatRequirement(r, lookup, t))} empty={t('detail.noRequirements')} onJump={onJump} />
         </section>
         <section>
           <h4 className="qc-detail__h">{t('detail.rewards')}</h4>
@@ -106,7 +116,7 @@ function ExtraRewards({ titleKey, rewards, lookup, onJump }: ExtraRewardsProps) 
   )
 }
 
-type RelatedProps = Omit<QuestDetailProps, 'onOpenDescription' | 'onOpenPrep' | 'onOpenMap' | 'branch'>
+type RelatedProps = Pick<QuestDetailProps, 'quest' | 'catalog' | 'lookup' | 'onJump'>
 
 /** 연계는 제목 없이 구분선 아래 [선행] [후속] 두 열로만 (§1.2 d) */
 function RelatedQuests({ quest, catalog, lookup, onJump }: RelatedProps) {
