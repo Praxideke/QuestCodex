@@ -3,7 +3,7 @@ import type { Catalog, CatalogQuest, Objective, ObjectivePrep, PrepItem } from '
 import type { ProfileProgress, QuestProgress } from '../api/progress'
 import {
   aggregateNeeds, countTabByTrader, countTabs,dedupeRows, entryPlace, filterNeedRows, filterProgressQuests, groupByQuest, handoverReady, mapsFromText, placeFinds, isUnreachable, itemKey, itemNeeds,
-  mapBrief, mapGroup, mapTabs, mergeSources, missing, objectiveMaps, OTHER_CATEGORY, questTab, raidEntries, raidFinds, raidMapPlan, orderRaidQuests, remaining, rowCategory, searchKey, sortNeedRows,
+  mapBrief, mapGroup, mapTabs, mergeSources, missing, objectiveMaps, OTHER_CATEGORY, questCompletion, questTab, sortForTab, raidEntries, raidFinds, raidMapPlan, orderRaidQuests, remaining, rowCategory, searchKey, sortNeedRows,
   type RaidEntry,
 } from './derive'
 
@@ -375,6 +375,48 @@ describe('questTab / countTabs / filterProgressQuests', () => {
     expect(filterProgressQuests(cat, prog, { tab: 'active', traderIds: new Set(), query: 'gun smith' }).map((q) => q.id)).toEqual(['a'])
     expect(filterProgressQuests(cat, prog, { tab: 'active', traderIds: new Set(['t2']), query: '' }).map((q) => q.id)).toEqual(['c'])
     expect(filterProgressQuests(cat, prog, { tab: 'active', traderIds: new Set(['t1', 't2']), query: '' }).map((q) => q.id).sort()).toEqual(['a', 'c'])
+  })
+  it('진행 중: 완료 보고 대기 → 진행률 높은 순 → 최소 레벨', () => {
+    const cat = catalog([
+      quest('low', [obj('a', 'CounterCreator')], { minLevel: 1 }),
+      quest('high', [obj('a', 'CounterCreator')], { minLevel: 30 }),
+      quest('ready', [obj('a', 'CounterCreator')], { minLevel: 40 }),
+      quest('tie', [obj('a', 'CounterCreator')], { minLevel: 5 }),
+    ])
+    const prog = progress({
+      low: qp('Started', { a: { current: 1, target: 10, done: false } }),
+      high: qp('Started', { a: { current: 8, target: 10, done: false } }),
+      ready: qp('AvailableForFinish', { a: { current: 10, target: 10, done: true } }),
+      tie: qp('Started', { a: { current: 1, target: 10, done: false } }),
+    })
+    expect(sortForTab(Object.values(cat.quests), prog, 'active').map((q) => q.id)).toEqual(['ready', 'high', 'low', 'tie'])
+  })
+  it('진행률: 카운터는 비율, 카운터 없는 목표는 끝났으면 1', () => {
+    const q = quest('q', [obj('a', 'CounterCreator'), obj('b', 'FindItem')])
+    expect(questCompletion(q, qp('Started', { a: { current: 5, target: 10, done: false }, b: { current: 0, target: null, done: true } }))).toBe(0.75)
+    expect(questCompletion(quest('e', []), qp('Started'))).toBe(0)
+  })
+  it('잠김: 진행 중인 선행 하나만 남음 → 사유 적은 순 → 사유 모름 → 도달 불가', () => {
+    const cat = catalog([
+      quest('far', [], { minLevel: 1 }),
+      quest('near', [], { minLevel: 50 }),
+      quest('one', [], { minLevel: 20 }),
+      quest('unknown', [], { minLevel: 1 }),
+      quest('never', [], { minLevel: 1 }),
+    ])
+    const prog = progress({
+      far: qp('Locked', {}, [{ kind: 'level', need: 30, compare: '>=', current: 10 }, { kind: 'quest', questId: 'x', needStatuses: ['Success'], currentStatus: 'Locked' }]),
+      near: qp('Locked', {}, [{ kind: 'quest', questId: 'x', needStatuses: ['Success'], currentStatus: 'Started' }]),
+      one: qp('Locked', {}, [{ kind: 'level', need: 30, compare: '>=', current: 10 }]),
+      never: qp('Locked', {}, [{ kind: 'faction', need: 'bear' }]),
+    })
+    expect(sortForTab(Object.values(cat.quests), prog, 'locked').map((q) => q.id)).toEqual(['near', 'one', 'far', 'unknown', 'never'])
+  })
+  it('완료: 끝난 시각 최신순, 시각 없으면 맨 뒤', () => {
+    const cat = catalog([quest('old', []), quest('none', []), quest('new', [])])
+    const at = (finishTime: string | null): QuestProgress => ({ ...qp('Success'), finishTime })
+    const prog = progress({ old: at('2026-09-01T00:00:00+00:00'), none: at(null), new: at('2026-09-30T00:00:00+00:00') })
+    expect(sortForTab(Object.values(cat.quests), prog, 'done').map((q) => q.id)).toEqual(['new', 'old', 'none'])
   })
   it('상인별 개수는 고른 탭 안에서만 센다', () => {
     const cat = catalog([quest('a', []), quest('b', []), quest('c', [], { traderId: 't2' })])
