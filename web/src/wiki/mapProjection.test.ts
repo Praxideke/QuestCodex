@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import type { LockedDoor, Objective, ObjectiveLocation } from '../api/catalog'
+import type { LockedDoor, MapArea, Objective, ObjectiveLocation } from '../api/catalog'
 import customsJson from '../../public/maps/bigmap/map.json'
 import indexJson from '../../public/maps/index.json'
-import { buildTabs, doorsForTab, fitView, floorsWithOtherMarkers, layerFor, layerStyle, markerCountsByLevel, project, zoomAt, type MapDef, type MapIndex } from './mapProjection'
+import { areaCorners, areaLevels, areaPolygon, buildTabs, firstLevel, markerLevels, doorsForTab, fitView, floorsWithOtherMarkers, layerFor, layerStyle, markerCountsByLevel, project, zoomAt, type MapDef, type MapIndex } from './mapProjection'
 
 const customs = customsJson as MapDef
 const index = indexJson as MapIndex
@@ -96,6 +96,90 @@ describe('buildTabs', () => {
 
   it('맵 정의가 없는 맵 키는 탭을 만들지 않는다', () => {
     expect(buildTabs([obj('a', [at('terminal', [1, 0, 1])])], index)).toEqual([])
+  })
+})
+
+describe('areaCorners / areaPolygon', () => {
+  const area = (yaw: number): MapArea => ({ center: { x: 10, y: 0, z: 20 }, sizeX: 4, sizeZ: 2, yaw })
+  const round = (ps: { x: number; z: number }[]) => ps.map((p) => ({ x: Math.round(p.x * 100) / 100, z: Math.round(p.z * 100) / 100 }))
+
+  it('회전 0°: 중심 ± 폭/2 의 축 정렬 사각형', () => {
+    expect(round(areaCorners(area(0)))).toEqual([
+      { x: 8, z: 19 }, { x: 12, z: 19 }, { x: 12, z: 21 }, { x: 8, z: 21 },
+    ])
+  })
+
+  it('회전 90°(Unity: 위에서 볼 때 시계 방향): 로컬 +x 가 월드 −z 로 간다', () => {
+    const [a, b] = round(areaCorners(area(90)))
+    // 로컬 (−2, −1) → 월드 오프셋 (−1, 2), 로컬 (+2, −1) → (−1, −2)
+    expect(a).toEqual({ x: 9, z: 22 })
+    expect(b).toEqual({ x: 9, z: 18 })
+  })
+
+  it('Customs(회전 180°) 투영: 네 꼭짓점이 viewBox 좌표로', () => {
+    const fuel3: MapArea = { center: { x: 334.96, y: 3.04, z: -189.97 }, sizeX: 0, sizeZ: 0, yaw: 0 }
+    const corners = areaPolygon(customs, ground, fuel3)
+    expect(corners).toHaveLength(4)
+    expect(corners[0].x).toBeCloseTo(360.5, 1)
+    expect(corners[0].y).toBeCloseTo(114.8, 1)
+  })
+})
+
+describe('areaLevels / markerLevels (08 스펙 §3.2)', () => {
+  // Customs "switch basement": x 323~349, z -88~-32, 지하층 높이 -100~0.5. 지상층은 맵 전체(-100~100).
+  const basement = (minY: number, maxY: number): MapArea =>
+    ({ center: { x: 330, y: 0, z: -60 }, sizeX: 10, sizeZ: 10, yaw: 0, minY, maxY })
+
+  it('높이 범위가 걸친 층을 모두 모은다', () => {
+    expect([...areaLevels(customs, basement(-3, 5))].sort()).toEqual([-1, 0])
+  })
+
+  it('한 점(신호탄: minY == maxY)이면 그 높이의 층 하나', () => {
+    expect([...areaLevels(customs, basement(3, 3))]).toEqual([0])
+  })
+
+  it('minY·maxY 가 없으면(구버전 서버) center.y 한 점', () => {
+    const old: MapArea = { center: { x: 330, y: -2, z: -60 }, sizeX: 10, sizeZ: 10, yaw: 0 }
+    expect([...areaLevels(customs, old)]).toEqual([-1])
+  })
+
+  it('영역이 있는 목표의 마커는 점 높이가 아니라 영역의 층을 따른다', () => {
+    const marker = { n: 1, conditionId: 'a', point: { x: 330, y: 1, z: -60 } } // 점만 보면 지상
+    const areas = [{ n: 1, conditionId: 'a', area: basement(-3, -1) }]
+    expect([...markerLevels(customs, marker, areas)]).toEqual([-1])
+    expect([...markerLevels(customs, marker, [])]).toEqual([0])
+  })
+
+  it('첫 층: 첫 마커가 보이는 층 중 지상이 있으면 지상, 없으면 가장 낮은 층', () => {
+    const marker = { n: 1, conditionId: 'a', point: { x: 330, y: 1, z: -60 } }
+    const tab = (minY: number, maxY: number) => ({ key: 'bigmap', markers: [marker], areas: [{ n: 1, conditionId: 'a', area: basement(minY, maxY) }] })
+    expect(firstLevel(customs, tab(-3, 5))).toBe(0)
+    expect(firstLevel(customs, tab(-3, -1))).toBe(-1)
+  })
+
+  it('층 알림 점 개수도 영역 층을 따른다', () => {
+    const marker = { n: 1, conditionId: 'a', point: { x: 330, y: 1, z: -60 } }
+    const counts = markerCountsByLevel(customs, [marker], [{ n: 1, conditionId: 'a', area: basement(-3, 5) }])
+    expect(counts.get(-1)).toBe(1)
+    expect(counts.get(0)).toBe(1)
+  })
+})
+
+describe('buildTabs areas', () => {
+  const zone: MapArea = { center: { x: 1, y: 0, z: 1 }, sizeX: 50, sizeZ: 50, yaw: 0 }
+
+  it('영역에도 목표 번호가 붙고, 짝 맵의 같은 영역은 한 번만', () => {
+    const tabs = buildTabs([
+      obj('kill', [
+        { map: 'factory4_day', points: [{ x: 1, y: 0, z: 1 }], areas: [zone] },
+        { map: 'factory4_night', points: [{ x: 1, y: 0, z: 1 }], areas: [zone] },
+      ]),
+    ], index)
+    expect(tabs[0].areas).toEqual([{ n: 1, conditionId: 'kill', area: zone }])
+  })
+
+  it('areas 가 없는(구버전 서버) 위치도 그대로 동작', () => {
+    expect(buildTabs([obj('a', [at('bigmap', [1, 0, 1])])], index)[0].areas).toEqual([])
   })
 })
 

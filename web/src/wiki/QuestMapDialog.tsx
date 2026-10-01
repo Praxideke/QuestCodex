@@ -5,7 +5,7 @@ import type { T, UiKey } from '../i18n/index'
 import { formatObjective, lineText } from './format'
 import { MapCanvas } from './MapCanvas'
 import { loadMapDef, loadMapIndex } from './mapAssets'
-import { buildTabs, doorsForTab, fitView, layerFor, numberedObjectives, type MapDef, type MapIndex, type View } from './mapProjection'
+import { areaLevels, buildTabs, doorsForTab, firstLevel, fitView, layerFor, markerLevels, numberedObjectives, type MapDef, type MapIndex, type View } from './mapProjection'
 import { useDialogFrame } from './useDialogFrame'
 import { useLoaded, usePersistedFlag } from './useMapState'
 
@@ -72,10 +72,13 @@ function MapBody({ quest, index, lockedDoors }: MapBodyProps) {
   const tabDoors = useMemo(() => (tabKey ? doorsForTab(lockedDoors, index, tabKey) : []), [lockedDoors, index, tabKey])
 
   // 처음 열 때·탭을 바꿀 때는 첫 마커가 있는 층을 보여 준다
-  const level = chosenLevel ?? (def.data && tab && tab.markers.length > 0 ? layerFor(def.data, tab.markers[0].point).level : 0)
+  const level = chosenLevel ?? (def.data && tab ? firstLevel(def.data, tab) : 0)
   const map = def.data
-  const markersHere = map && tab ? tab.markers.filter((m) => layerFor(map, m.point).level === level) : []
+  // 영역이 있는 목표의 마커는 영역의 층을 따른다(08 스펙 §3.2)
+  const markersHere = map && tab ? tab.markers.filter((m) => markerLevels(map, m, tab.areas).has(level)) : []
   const doorsHere = map && showDoors ? tabDoors.filter((d) => layerFor(map, d.position).level === level) : []
+  // 영역은 높이 범위가 걸친 층들에서 보인다(구역 처치는 상자 높이 전체, 신호탄은 바닥 한 점)
+  const areasHere = map && tab ? tab.areas.filter((a) => areaLevels(map, a.area).has(level)) : []
 
   function selectTab(key: string) {
     setTabKey(key)
@@ -116,7 +119,7 @@ function MapBody({ quest, index, lockedDoors }: MapBodyProps) {
           {tab && !def.failed && !def.data && <p className="qc-map__msg">{t('map.loading')}</p>}
           {tab && def.data && (
             <MapCanvas
-              mapKey={tab.key} def={def.data} tab={tab} level={level} markers={markersHere} doors={doorsHere}
+              mapKey={tab.key} def={def.data} tab={tab} level={level} markers={markersHere} doors={doorsHere} areas={areasHere}
               view={view} onView={setView} onLevel={(l) => { setChosenLevel(l); setHot(null) }}
               hot={hot} onHot={setHot}
             />

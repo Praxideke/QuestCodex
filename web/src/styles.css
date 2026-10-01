@@ -46,6 +46,10 @@
   /* 잠긴 문 아이콘 색(DynamicMaps: 열쇠 없음 Color.red, 보유 Color.green). 지도 위라 두 테마 공통. */
   --door-locked: #ff2a2a;
   --door-owned: #2ecc40;
+  /* 구역 영역(08 스펙): 마커 색 계열의 반투명. 지도 위라 두 테마 공통. */
+  --area-fill: rgba(232, 112, 42, .16);
+  --area-stroke: rgba(232, 112, 42, .85);
+  --area-hot-fill: rgba(255, 176, 32, .32);
   --radius: 6px;
 }
 

@@ -1,4 +1,4 @@
-import type { LockedDoor, MapPoint, Objective } from '../api/catalog'
+import type { LockedDoor, MapArea, MapPoint, Objective } from '../api/catalog'
 
 // 위치정보 팝업의 계산부. React 없이 테스트된다(mapProjection.test.ts).
 // 맵 정의(public/maps/<key>/map.json)는 tools/maps/build-maps.js 가 DynamicMaps 의 jsonc 에서 만든 것이고,
@@ -45,10 +45,18 @@ export interface Marker {
   point: MapPoint
 }
 
+/** 구역 영역 하나(08 스펙). n 은 같은 목표의 번호 마커와 같다. */
+export interface AreaMarker {
+  n: number
+  conditionId: string
+  area: MapArea
+}
+
 export interface MapTab {
   /** 맵 폴더 키(public/maps/<key>) */
   key: string
   markers: Marker[]
+  areas: AreaMarker[]
 }
 
 /** Unity (x, z) 를 반시계로 deg 만큼 돌린다. */
@@ -124,7 +132,7 @@ export function mapKeyFor(index: MapIndex, map: string): string | null {
  * 대부분이라 같은 목표의 같은 점은 한 번만 넣는다 — 안 그러면 마커가 겹쳐 찍히고 층 버튼 개수가 두 배가 된다.
  */
 export function buildTabs(objectives: Objective[], index: MapIndex): MapTab[] {
-  const tabs = new Map<string, Marker[]>()
+  const tabs = new Map<string, MapTab>()
   let n = 0
   for (const o of objectives) {
     const locations = o.locations ?? []
@@ -133,15 +141,45 @@ export function buildTabs(objectives: Objective[], index: MapIndex): MapTab[] {
     for (const loc of locations) {
       const key = mapKeyFor(index, loc.map)
       if (key === null) continue
-      if (!tabs.has(key)) tabs.set(key, [])
-      const markers = tabs.get(key)!
+      if (!tabs.has(key)) tabs.set(key, { key, markers: [], areas: [] })
+      const tab = tabs.get(key)!
       for (const point of loc.points) {
-        const dup = markers.some((m) => m.n === n && m.point.x === point.x && m.point.y === point.y && m.point.z === point.z)
-        if (!dup) markers.push({ n, conditionId: o.conditionId, point })
+        const dup = tab.markers.some((m) => m.n === n && samePoint(m.point, point))
+        if (!dup) tab.markers.push({ n, conditionId: o.conditionId, point })
+      }
+      // 영역도 짝 맵에서 같은 것이 두 번 오므로 한 번만(05 §4.3 과 같은 이유)
+      for (const area of loc.areas ?? []) {
+        const dup = tab.areas.some((a) => a.n === n && sameArea(a.area, area))
+        if (!dup) tab.areas.push({ n, conditionId: o.conditionId, area })
       }
     }
   }
-  return [...tabs].map(([key, markers]) => ({ key, markers }))
+  return [...tabs.values()]
+}
+
+const samePoint = (a: MapPoint, b: MapPoint) => a.x === b.x && a.y === b.y && a.z === b.z
+const sameArea = (a: MapArea, b: MapArea) =>
+  samePoint(a.center, b.center) && a.sizeX === b.sizeX && a.sizeZ === b.sizeZ && a.yaw === b.yaw
+
+/**
+ * 영역 사각형의 네 꼭짓점(Unity x·z). 로컬 (±폭/2) 를 yaw 만큼 돌린다 — Unity 규약(왼손 좌표계, y 위)이라 위에서 볼 때
+ * 양수 yaw 가 시계 방향: 로컬 (lx, lz) → 월드 (lx·cosθ + lz·sinθ, −lx·sinθ + lz·cosθ). 순서는 사각형 둘레 순.
+ */
+export function areaCorners(area: MapArea): FlatPoint[] {
+  const r = (area.yaw * Math.PI) / 180
+  const cos = Math.cos(r)
+  const sin = Math.sin(r)
+  const hx = area.sizeX / 2
+  const hz = area.sizeZ / 2
+  return [[-hx, -hz], [hx, -hz], [hx, hz], [-hx, hz]].map(([lx, lz]) => ({
+    x: area.center.x + lx * cos + lz * sin,
+    z: area.center.z - lx * sin + lz * cos,
+  }))
+}
+
+/** 영역 네 꼭짓점을 층 SVG 의 viewBox 좌표로. 맵 회전은 project 가 처리한다. */
+export function areaPolygon(def: MapDef, layer: MapLayerDef, area: MapArea): { x: number; y: number }[] {
+  return areaCorners(area).map((c) => project(def, layer, { x: c.x, y: area.center.y, z: c.z }))
 }
 
 /** 위치가 있는 목표만, 마커 번호와 함께 */
@@ -172,13 +210,42 @@ export function floorsWithOtherMarkers(counts: Map<number, number>, level: numbe
 }
 
 /** 층 버튼의 알림 점 판정용: level → 그 층에 찍힐 퀘스트 마커 수 */
-export function markerCountsByLevel(def: MapDef, markers: Marker[]): Map<number, number> {
+export function markerCountsByLevel(def: MapDef, markers: Marker[], areas: AreaMarker[] = []): Map<number, number> {
   const counts = new Map<number, number>()
   for (const m of markers) {
-    const level = layerFor(def, m.point).level
-    counts.set(level, (counts.get(level) ?? 0) + 1)
+    for (const level of markerLevels(def, m, areas)) counts.set(level, (counts.get(level) ?? 0) + 1)
   }
   return counts
+}
+
+/**
+ * 영역이 걸친 층들(08 스펙 §3.2). 영역 중심 x·z 기둥에서 minY~maxY 를 1m 간격으로 짚어 layerFor 의 층을 모은다.
+ * 구역 처치는 상자 높이 전체, 신호탄은 서버가 바닥 한 점으로 줄여 보낸다. 범위가 없으면(구버전 서버) center.y 한 점.
+ */
+export function areaLevels(def: MapDef, area: MapArea): Set<number> {
+  const lo = area.minY ?? area.center.y
+  const hi = area.maxY ?? area.center.y
+  const levels = new Set<number>()
+  const at = (y: number) => levels.add(layerFor(def, { x: area.center.x, y, z: area.center.z }).level)
+  for (let y = lo; y < hi; y += 1) at(y)
+  at(hi)
+  return levels
+}
+
+/** 팝업을 열거나 탭을 바꿨을 때 보여 줄 층: 첫 마커가 보이는 층 중 기본 층(지상)이 있으면 그것, 없으면 가장 낮은 층. */
+export function firstLevel(def: MapDef, tab: MapTab): number {
+  if (tab.markers.length === 0) return def.defaultLevel
+  const levels = markerLevels(def, tab.markers[0], tab.areas)
+  return levels.has(def.defaultLevel) ? def.defaultLevel : Math.min(...levels)
+}
+
+/** 마커가 보이는 층: 같은 목표(n)에 영역이 있으면 그 영역들의 층 합집합(점 높이는 무시), 없으면 점의 층 하나. */
+export function markerLevels(def: MapDef, marker: Marker, areas: AreaMarker[]): Set<number> {
+  const own = areas.filter((a) => a.n === marker.n)
+  if (own.length === 0) return new Set([layerFor(def, marker.point).level])
+  const levels = new Set<number>()
+  for (const a of own) for (const l of areaLevels(def, a.area)) levels.add(l)
+  return levels
 }
 
 /** 확대·이동 상태. 내용(지도) 좌표 c 는 화면에서 c * scale + (x, y) 에 그려진다. */

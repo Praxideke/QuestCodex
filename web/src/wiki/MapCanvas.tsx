@@ -4,8 +4,8 @@ import { useT } from '../i18n/I18nContext'
 import type { T } from '../i18n/index'
 import { mapAssetUrl } from './mapAssets'
 import {
-  fitView, floorsWithOtherMarkers, layerFor, layerStyle, markerCountsByLevel, project, zoomAt,
-  type MapDef, type MapTab, type Marker, type View,
+  areaPolygon, fitView, floorsWithOtherMarkers, layerFor, layerStyle, markerCountsByLevel, project, zoomAt,
+  type AreaMarker, type MapDef, type MapTab, type Marker, type View,
 } from './mapProjection'
 
 interface MapCanvasProps {
@@ -17,6 +17,8 @@ interface MapCanvasProps {
   markers: Marker[]
   /** 현재 층의 잠긴 문. 토글이 꺼져 있으면 빈 배열. */
   doors: LockedDoor[]
+  /** 현재 층의 구역 영역(구역 처치·신호탄, 08 스펙) */
+  areas: AreaMarker[]
   view: View
   onView(update: (v: View) => View): void
   onLevel(level: number): void
@@ -27,15 +29,15 @@ interface MapCanvasProps {
 /**
  * 층 SVG 를 겹친 캔버스를 뷰포트 안에 "contain" 으로 맞추고, CSS transform 으로 확대·이동한다.
  * 마커는 캔버스 안에 % 로 두고 1/배율로 되돌려 크기가 화면 기준으로 일정하다.
- * 쌓임 순서: 지도 < 잠긴 문 < 퀘스트 마커 < 층 버튼.
+ * 쌓임 순서: 지도 < 구역 영역 < 잠긴 문 < 퀘스트 마커 < 층 버튼.
  */
-export function MapCanvas({ mapKey, def, tab, level, markers, doors, view, onView, onLevel, hot, onHot }: MapCanvasProps) {
+export function MapCanvas({ mapKey, def, tab, level, markers, doors, areas, view, onView, onLevel, hot, onHot }: MapCanvasProps) {
   const t = useT()
   const viewportRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLDivElement>(null)
   const drag = useRef<{ id: number; x0: number; y0: number; v: View } | null>(null)
   const base = def.layers.find((l) => l.level === def.defaultLevel) ?? def.layers[0]
-  const dotted = useMemo(() => floorsWithOtherMarkers(markerCountsByLevel(def, tab.markers), level), [def, tab, level])
+  const dotted = useMemo(() => floorsWithOtherMarkers(markerCountsByLevel(def, tab.markers, tab.areas), level), [def, tab, level])
   const floors = [...def.layers].sort((a, b) => b.level - a.level)
 
   // React 의 onWheel 은 passive 라 preventDefault 로 페이지 스크롤을 막을 수 없다 — 네이티브로 붙인다.
@@ -107,6 +109,18 @@ export function MapCanvas({ mapKey, def, tab, level, markers, doors, view, onVie
             />
           )
         })}
+        {areas.length > 0 && (
+          // 영역은 기본 층 SVG 와 같은 viewBox 의 SVG 한 장에 그린다. 층마다 imageBounds 가 같아서 한 좌표계로 충분하다.
+          <svg className="qc-map__areas" viewBox={`0 0 ${base.viewBox.width} ${base.viewBox.height}`} preserveAspectRatio="none" aria-hidden>
+            {areas.map((a, i) => (
+              <polygon
+                key={i}
+                className={hot === a.n ? 'qc-map__area is-hot' : 'qc-map__area'}
+                points={areaPolygon(def, base, a.area).map((p) => `${p.x},${p.y}`).join(' ')}
+              />
+            ))}
+          </svg>
+        )}
         {doors.map((d, i) => <DoorMarker key={`d${i}`} door={d} style={place(d.position)} />)}
         {markers.map((m, i) => (
           <span
